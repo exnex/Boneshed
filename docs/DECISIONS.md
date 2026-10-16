@@ -21,8 +21,17 @@ Keep approved direction separate from brainstorms. Amend this document only when
 - Three keyword star ratings (0–5) affecting potential or risk rather than guaranteed quality.
 - First milestone design and test criteria.
 
+## Confirmed Milestone 1 implementation scope
+- Use Godot **4.7.2 stable**, exact build `4.7.2.stable.official.ed1daf0bf`, with
+  GL Compatibility for the Linux cloud prototype. The engine archive must pass
+  official checksum verification.
+- Implement one primitive third-person courtyard duel and automated/headless plus
+  rendered validation. The prototype's specific health, posture, deflection, dodge,
+  and attack timing rules remain provisional and require human evaluation.
+- Salvageable augmentations are deferred until after assessment of this duel.
+
 ## Pending decisions
-- Godot version to pin, specific engine project layout and rendering target.
+- Final platform targets and later desktop GPU rendering configuration.
 - Exactly how skill/posture/deflection mechanics differ from inspiration.
 - Tower AI modes, snapshot lifecycle, competition and rewards.
 - Persistence, multiplayer/backend scope, trading authority and cheats.

@@ -12,7 +12,25 @@ The priority is one truly enjoyable duel, not an expansive feature list.
 
 ## Project status
 
-**Preproduction / design foundation.** No playable Godot project yet. Exact Godot version must be chosen and pinned when development begins.
+**Milestone 1 combat prototype.** A primitive third-person courtyard duel implements
+movement, orbit camera, lock-on, light attacks, guard, timed deflection, dodge,
+health/posture, a corrupted swordsman, and encounter reset. These combat details
+are provisional tuning for evaluation; salvage is a later milestone.
+
+The project requires **Godot 4.7.2 stable** (`4.7.2.stable.official.ed1daf0bf`) and
+defaults to GL Compatibility. On the Linux x86_64 cloud image:
+
+```sh
+cd /workspace/Boneshed
+bash scripts/tooling/setup.sh
+bash scripts/tooling/test.sh
+bash scripts/tooling/play.sh
+```
+
+Use WASD to move, mouse to orbit, Tab to lock, left mouse to attack, right mouse to
+guard/tap-deflect, Space to dodge, and R to reset. See
+[the prototype guide](docs/COMBAT_PROTOTYPE.md) for setup details, architecture,
+timing values, reproducible tests, evidence, and human playtesting limitations.
 
 ## Start here
 
@@ -21,6 +39,7 @@ The priority is one truly enjoyable duel, not an expansive feature list.
 | [Game vision](docs/GAME_VISION.md) | Core identity, pillars, and non-goals |
 | [Decision log](docs/DECISIONS.md) | Confirmed vs proposed features |
 | [Roadmap](docs/ROADMAP.md) | Prototype sequence and quality gates |
+| [Combat prototype](docs/COMBAT_PROTOTYPE.md) | Running the duel, controls, tests and evidence |
 | [AGENTS.md](AGENTS.md) | Shared instructions for AI development agents |
 | [CLAUDE.md](CLAUDE.md) | Claude-specific handoff |
 

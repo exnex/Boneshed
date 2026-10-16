@@ -1,0 +1,233 @@
+extends Node
+
+const Rules = preload("res://scripts/combat/combat_state.gd")
+var arena: Node3D
+var p: Fighter
+var e: Fighter
+var passed := 0
+var failed := 0
+var records: Array = []
+var output := "res://artifacts/latest"
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--evidence-dir="):
+			output = arg.trim_prefix("--evidence-dir=")
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
+	call_deferred("run")
+
+func frames(count: int) -> void:
+	for i in range(count):
+		await get_tree().physics_frame
+		await get_tree().process_frame
+
+func check(condition: bool, label: String) -> void:
+	if condition:
+		passed += 1
+	else:
+		failed += 1
+	var record := {"suite": "graphical", "check": label, "passed": condition}
+	records.append(record)
+	print(JSON.stringify(record))
+
+func snapshot(label: String) -> void:
+	get_tree().paused = true
+	# Draw the now-frozen authoritative state before capture.
+	arena.hud.queue_redraw()
+	await RenderingServer.frame_post_draw
+	var image := get_viewport().get_texture().get_image()
+	var path := output.path_join(label + ".png")
+	check(image.save_png(path) == OK, "screenshot_" + label)
+	var record := {"screenshot": label, "player": state(p), "enemy": state(e), "message": arena.event_text}
+	records.append(record)
+	print(JSON.stringify(record))
+	get_tree().paused = false
+
+func state(actor: Fighter) -> Dictionary:
+	return {"health": actor.combat.health, "posture": actor.combat.posture, "phase": Rules.Phase.keys()[actor.combat.phase], "position": [actor.position.x, actor.position.y, actor.position.z], "event": actor.combat.last_event}
+
+func action(name: String, pressed: bool) -> void:
+	var event := InputEventAction.new()
+	event.action = name
+	event.pressed = pressed
+	Input.parse_input_event(event)
+
+func wait_phase(actor: Fighter, phase: int, limit := 180) -> bool:
+	for i in range(limit):
+		if actor.combat.phase == phase:
+			return true
+		await frames(1)
+	return false
+
+func close_fixture() -> void:
+	arena.reset_encounter()
+	e.enabled = false
+	p.position = Vector3(0.0, 0.02, 2.0)
+	e.position = Vector3(0.0, 0.02, 0.0)
+	p.facing = Vector3.FORWARD
+	e.facing = Vector3.BACK
+	p.yaw = 0.0
+	p.locked = true
+
+func run() -> void:
+	arena = get_parent()
+	p = arena.player
+	e = arena.enemy
+	e.enabled = false
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	await frames(12)
+	check(p.is_on_floor() and e.is_on_floor(), "actors_grounded")
+	await snapshot("01_initial_courtyard")
+	var start := p.position
+	action("move_forward", true)
+	await frames(35)
+	action("move_forward", false)
+	await frames(6)
+	check(p.position.z < start.z - 1.0, "input_moves_player")
+	check(Vector2(p.velocity.x, p.velocity.z).length() < 0.1, "movement_stops_responsively")
+	var yaw_before: float = p.yaw
+	var mouse := InputEventMouseMotion.new()
+	mouse.relative = Vector2(75.0, 15.0)
+	Input.parse_input_event(mouse)
+	await frames(2)
+	check(absf(p.yaw - yaw_before) > 0.1 and p.camera_pivot.rotation.x < -0.28, "mouse_rotates_camera")
+	action("lock_on", true)
+	await frames(2)
+	action("lock_on", false)
+	check(p.locked, "target_lock_input")
+	# Collision-aware spring arm: back the camera into the solid perimeter.
+	p.position = Vector3(0.0, 0.02, 10.5)
+	p.locked = false
+	p.yaw = 0.0
+	p.pitch = -0.05
+	await frames(8)
+	check(p.spring.get_hit_length() < p.camera_distance - 1.0, "camera_avoids_wall")
+	arena.reset_encounter()
+	e.enabled = true
+	var distance_before := p.position.distance_to(e.position)
+	await frames(80)
+	check(p.position.distance_to(e.position) < distance_before - 2.0, "enemy_detects_and_approaches")
+	check(await wait_phase(e, Rules.Phase.WINDUP), "enemy_starts_readable_attack")
+	await snapshot("02_enemy_windup")
+	check(await wait_phase(e, Rules.Phase.RECOVERY), "enemy_completes_active_attack")
+	check(p.combat.health < 100.0, "enemy_attack_hits_player")
+	# Actual world shape tests, including lateral, behind, range, and obstacle rejection.
+	close_fixture()
+	p.input_enabled = false
+	p.combat.attack()
+	check(p.resolve_attack() == "invalid" and e.combat.health == 100.0, "world_windup_no_hit")
+	p.combat.tick(p.combat.attack_windup + 0.001)
+	e.position.z = -2.0
+	check(p.resolve_attack() == "out_of_range" and e.combat.health == 100.0, "world_range_rejection")
+	e.position = Vector3(3.0, 0.02, 0.0)
+	check(p.resolve_attack() == "out_of_range", "world_lateral_rejection")
+	e.position = Vector3(0.0, 0.02, 3.0)
+	check(p.resolve_attack() == "out_of_range", "world_behind_rejection")
+	e.position = Vector3(0.0, 0.02, 0.0)
+	var obstacle := StaticBody3D.new()
+	var shape := CollisionShape3D.new()
+	var box := BoxShape3D.new()
+	box.size = Vector3(2.0, 2.0, 0.2)
+	shape.shape = box
+	obstacle.add_child(shape)
+	obstacle.position = Vector3(0.0, 1.0, 1.0)
+	arena.add_child(obstacle)
+	# Keep the attack state stable while the new shape is synchronized.
+	p.combat.phase = Rules.Phase.IDLE
+	await frames(2)
+	check(not p.valid_attack_target(e), "world_obstacle_blocks_hit")
+	obstacle.queue_free()
+	await frames(2)
+	p.combat.phase = Rules.Phase.ACTIVE
+	p.combat.hit_consumed = false
+	check(p.resolve_attack() == "hit" and e.combat.health == 82.0, "world_valid_active_hit")
+	check(p.resolve_attack() == "invalid" and e.combat.health == 82.0, "world_swing_hits_once")
+	# Drive guard and deflect through the same input/physics path used by a person.
+	p.input_enabled = true
+	close_fixture()
+	action("guard", true)
+	await frames(20)
+	e.combat.attack()
+	check(await wait_phase(e, Rules.Phase.RECOVERY), "guard_fixture_attack_completes")
+	check(p.last_result == "guard" and is_equal_approx(p.combat.health, 97.84) and p.combat.posture > 0.0, "input_guard_mitigates_and_pressures")
+	check(p.last_result != "deflected", "held_guard_is_mistimed_deflection")
+	action("guard", false)
+	await frames(2)
+	close_fixture()
+	e.combat.attack()
+	while e.combat.phase == Rules.Phase.WINDUP and e.combat.remaining > 0.09:
+		await frames(1)
+	action("guard", true)
+	await frames(7)
+	check(p.last_result == "deflected" and p.combat.health == 100.0 and e.combat.posture == 42.0, "input_timed_deflection")
+	await snapshot("03_successful_deflection")
+	action("guard", false)
+	await frames(2)
+	# Repeated real deflections must accumulate into a break, without synthetic posture.
+	for repetition in range(2):
+		await wait_phase(e, Rules.Phase.IDLE)
+		e.combat.attack()
+		while e.combat.phase == Rules.Phase.WINDUP and e.combat.remaining > 0.09:
+			await frames(1)
+		action("guard", true)
+		await frames(7)
+		action("guard", false)
+		await frames(1)
+	check(e.combat.phase == Rules.Phase.BROKEN and e.combat.posture == 100.0, "deflections_accumulate_posture_break")
+	await snapshot("04_posture_break")
+	var health_before: float = e.combat.health
+	action("attack", true)
+	await frames(1)
+	action("attack", false)
+	await frames(28)
+	check(is_equal_approx(health_before - e.combat.health, 36.0), "input_attack_punishes_break")
+	# Complete the duel with player input. AI remains enabled for this final encounter.
+	close_fixture()
+	e.enabled = true
+	var guard_held := false
+	var attack_held := false
+	var combat_frames := 0
+	while e.combat.phase != Rules.Phase.DEAD and p.combat.phase != Rules.Phase.DEAD and combat_frames < 1800:
+		var should_guard: bool = e.combat.phase == Rules.Phase.WINDUP and e.combat.remaining < 0.12 and p.combat.phase == Rules.Phase.IDLE
+		if should_guard != guard_held:
+			action("guard", should_guard)
+			guard_held = should_guard
+		var should_attack: bool = p.combat.phase == Rules.Phase.IDLE and not should_guard and e.combat.phase in [Rules.Phase.BROKEN, Rules.Phase.RECOVERY, Rules.Phase.STAGGER]
+		if should_attack != attack_held:
+			action("attack", should_attack)
+			attack_held = should_attack
+		await frames(1)
+		combat_frames += 1
+	action("guard", false)
+	action("attack", false)
+	check(e.combat.phase == Rules.Phase.DEAD and p.combat.health > 0.0, "input_bot_defeats_live_enemy")
+	check(is_equal_approx(e.visual.rotation.z, PI / 2.0), "defeated_pose_matches_rules_immediately")
+	await snapshot("05_enemy_defeat")
+	# Verify dodge input and reset after a completed encounter.
+	action("reset", true)
+	await frames(1)
+	action("reset", false)
+	await frames(3)
+	check(p.combat.health == 100.0 and e.combat.health == 100.0 and p.combat.posture == 0.0 and e.combat.posture == 0.0 and e.attack_number == 0 and p.last_result == "" and e.last_result == "" and not p.locked, "input_reset_restores_encounter")
+	e.enabled = false
+	var dodge_start := p.position
+	action("dodge", true)
+	await frames(1)
+	action("dodge", false)
+	check(p.combat.phase == Rules.Phase.DODGE, "input_dodge_starts")
+	await frames(20)
+	check(p.position.distance_to(dodge_start) > 1.5, "input_dodge_moves_player")
+	# A player death must also reset; use real enemy attacks against a stationary player.
+	close_fixture()
+	p.input_enabled = false
+	e.enabled = true
+	check(await wait_phase(p, Rules.Phase.DEAD, 1800), "live_enemy_can_defeat_player")
+	arena.reset_encounter()
+	check(p.combat.phase == Rules.Phase.IDLE and p.combat.health == 100.0 and p.velocity == Vector3.ZERO and e.combat.health == 100.0 and e.attack_number == 0, "reset_after_player_death")
+	var summary := {"suite": "graphical", "summary": true, "passed": passed, "failed": failed, "engine": Engine.get_version_info().string, "renderer": RenderingServer.get_video_adapter_name(), "combat_bot_frames": combat_frames}
+	records.append(summary)
+	print(JSON.stringify(summary))
+	var file := FileAccess.open(output.path_join("graphical.json"), FileAccess.WRITE)
+	file.store_string(JSON.stringify(records, "\t") + "\n")
+	get_tree().quit(1 if failed else 0)

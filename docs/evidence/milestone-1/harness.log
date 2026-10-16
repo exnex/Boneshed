@@ -1,0 +1,7 @@
+import: expected exit 0 confirmed
+combat: expected exit 0 confirmed
+negative_guard: expected exit 1 confirmed
+negative_deflect: expected exit 1 confirmed
+negative_phase: expected exit 1 confirmed
+graphical: expected exit 0 confirmed
+All checks passed; evidence: /workspace/Boneshed/artifacts/release-validation

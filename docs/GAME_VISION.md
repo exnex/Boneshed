@@ -31,7 +31,8 @@ No creature collecting or creature autobattling. No mandatory crafting empire, h
 - Body slots, augmentation compatibility, acquisition and repair logic
 - Keyword grammar, weights, rarity and generation constraints
 - Tower snapshot AI and validation/anti-cheat
-- Exact Godot stable version and platform targets
+- Final platform targets and desktop GPU rendering configuration (the Milestone 1
+  cloud prototype pins Godot 4.7.2 with GL Compatibility)
 
 ## First fun test
 A single ruined courtyard; one responsive player; one readable corrupted swordsman with a distinctive move; defeat, salvage, equip, and use that move in a second duel. If this is not fun, do not expand content.
