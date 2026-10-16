@@ -131,8 +131,10 @@ func receive(attacker: CombatState) -> String:
 		var vulnerable := phase == Phase.BROKEN
 		health = maxf(0.0, health - damage * (2.0 if vulnerable else 1.0))
 		if not vulnerable:
+			# A hit never shortens a recovery or stagger already being served.
+			var lockout := remaining if phase in [Phase.RECOVERY, Phase.STAGGER] else 0.0
 			phase = Phase.STAGGER
-			remaining = 0.24
+			remaining = maxf(0.24, lockout)
 		add_posture(18.0)
 		last_event = "PUNISH" if vulnerable else "HIT"
 	if health <= 0.0:

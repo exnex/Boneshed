@@ -72,8 +72,10 @@ func _physics_process(delta: float) -> void:
 		direction = dodge_direction
 		speed = dodge_speed
 	var response := deceleration if direction.length_squared() < 0.01 else acceleration
-	velocity.x = move_toward(velocity.x, direction.x * speed, response * delta)
-	velocity.z = move_toward(velocity.z, direction.z * speed, response * delta)
+	# Integrate horizontal velocity as one vector so acceleration does not favor world axes.
+	var horizontal := Vector2(velocity.x, velocity.z).move_toward(Vector2(direction.x, direction.z) * speed, response * delta)
+	velocity.x = horizontal.x
+	velocity.z = horizontal.y
 	if not is_on_floor():
 		velocity.y -= 24.0 * delta
 	else:
@@ -86,6 +88,10 @@ func _physics_process(delta: float) -> void:
 func try_dodge(direction: Vector3) -> bool:
 	if combat.dodge():
 		dodge_direction = direction.normalized() if direction.length_squared() > 0.01 else -facing
+		# Keep only momentum along the dodge, so a prior run cannot shorten or bend it.
+		var along := maxf(0.0, velocity.x * dodge_direction.x + velocity.z * dodge_direction.z)
+		velocity.x = dodge_direction.x * along
+		velocity.z = dodge_direction.z * along
 		return true
 	return false
 
