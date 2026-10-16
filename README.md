@@ -40,6 +40,7 @@ timing values, reproducible tests, evidence, and human playtesting limitations.
 | [Decision log](docs/DECISIONS.md) | Confirmed vs proposed features |
 | [Roadmap](docs/ROADMAP.md) | Prototype sequence and quality gates |
 | [Combat prototype](docs/COMBAT_PROTOTYPE.md) | Running the duel, controls, tests and evidence |
+| [Combat review](docs/COMBAT_REVIEW.md) | Independent review, exploits, fixes and priorities |
 | [AGENTS.md](AGENTS.md) | Shared instructions for AI development agents |
 | [CLAUDE.md](CLAUDE.md) | Claude-specific handoff |
 
