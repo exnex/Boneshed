@@ -69,3 +69,25 @@ Reproduce with `bash scripts/tooling/test.sh`, then
 `bash scripts/tooling/test_web.sh artifacts/new-web-check`. Test physical-phone
 performance, browser chrome/rotation, comfort, and timing feel by hand; emulation
 does not establish those results. PR #3 and combat-rule/AI/fighter files are unchanged.
+
+## Fresh environment recheck — 2026-10-16
+
+Fetched current main and inspected both open PRs (#3 and #5). PR #3 remains
+untouched. The feature PR is #5; no additional PR was created. Both Web exports
+succeeded again with the pinned engine, and all 35 real Chromium checks passed
+with no fatal browser/engine errors. The new production phone capture was inspected;
+controls fit the landscape viewport and leave the duel center clear. Fresh logs
+and the capture are in `recheck/`.
+
+The native import and 30 combat assertions passed, and all three injected faults
+were detected. However, the fresh native graphical run exceeded its 180-second
+timeout before completing. It reported no failed assertion before the timeout,
+but this rerun is **not a native graphical pass**. The earlier complete 35-check
+pass above is historical evidence. No game or test code changed during recheck.
+
+Pages access still returns HTTP 403 (integration permission restriction). The
+private repository and asset-branch commit remain unchanged. No hosted URL or
+physical Android test is claimed. The fresh ready-upload ZIP is
+`artifacts/recheck-browser/release.zip` (SHA-256
+`fa0fa54ad556f47634da54e2ca349046cbaf43b7eb4f737513adc4374283d47f`).
+The previously published asset branch still holds the earlier validated export.
