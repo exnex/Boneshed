@@ -8,10 +8,13 @@ or modified. The original prototype's known combat limitations therefore still a
 
 ## Playing
 
-The playable URL is the one reported by GitHub **Settings → Pages** after a
-successful deployment. A successful export or branch push alone is not a deployed
-site. This repository remains private. The Pages source branch contains only
-exported game assets; enabling Pages may make those assets publicly downloadable.
+**Play: https://exnex.github.io/Boneshed/**
+
+The owner made the repository public and enabled branch-based Pages hosting.
+The deployed production export was verified in real Chromium with desktop and
+phone-emulated landscape viewports. Physical Android testing remains outstanding.
+The source repository is now public as well as the exported game assets.
+
 Compiled game logic and assets are inherently downloadable in any browser build.
 The export excludes repository documents, original source files, test scripts,
 tooling, Git metadata, and credentials. This is not source-code obfuscation or DRM.
@@ -75,7 +78,7 @@ After that upload, the repository owner needs to do this once:
 3. Select **preview/browser-courtyard**, **/ (root)**, and **Save**.
 4. Wait for the Pages deployment, then open the URL GitHub displays on the phone.
 
-Keep the repository private; do not publish from `main` or the repository root.
+Publish only the export branch, not `main` or the source checkout.
 For a private repository, Pages availability depends on the account plan and
 organization policy. The GitHub integration in this task can push branches and
 create PRs, but its Pages API request returns `403 Resource not accessible by
@@ -145,7 +148,7 @@ checks require human testing on the final hosted site.
 - The export uses compiled GDScript; excluded QA code is loaded dynamically only
   when the matching QA command-line flag or export feature is present.
 
-No hosted URL is asserted until a deployment has actually been verified.
+The hosted URL above was verified after the owner enabled Pages.
 
 Final cloud results: **30 combat, 35 native graphical, and 35 browser checks
 passed**, with all three fault controls detected. Four browser captures were

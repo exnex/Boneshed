@@ -91,3 +91,15 @@ physical Android test is claimed. The fresh ready-upload ZIP is
 `artifacts/recheck-browser/release.zip` (SHA-256
 `fa0fa54ad556f47634da54e2ca349046cbaf43b7eb4f737513adc4374283d47f`).
 The previously published asset branch still holds the earlier validated export.
+
+## Hosted deployment verified — 2026-10-16
+
+The owner changed the repository to public and enabled Pages. GitHub reports
+`built`, sourced from `preview/browser-courtyard` at `/`. The playable URL is
+https://exnex.github.io/Boneshed/. Real Chromium loaded the hosted WebGL game
+in desktop and phone-emulated landscape viewports, observed the engine-ready
+message, and reported no page errors. Desktop pointer capture worked. Screenshots
+and console records are in `hosted/`. The cloud proxy CA was trusted by its specific
+public-key fingerprint for Chromium. No game changes were needed. This supersedes
+the historical private-repository / blocked-deployment status above. Physical
+Android performance and feel remain unverified.
