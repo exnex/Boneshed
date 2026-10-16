@@ -12,7 +12,7 @@ or modified. The original prototype's known combat limitations therefore still a
 
 The owner made the repository public and enabled branch-based Pages hosting.
 The deployed production export was verified in real Chromium with desktop and
-phone-emulated landscape viewports. Physical Android testing remains outstanding.
+phone-emulated landscape viewports. A human also tested the deployed build in a physical phone browser on 2026-10-16: the game was operable, but the touch buttons were not comfortably spaced. This is a known **low-priority testing-UI limitation**, not an Android release requirement. Desktop remains the target platform.
 The source repository is now public as well as the exported game assets.
 
 Compiled game logic and assets are inherently downloadable in any browser build.
@@ -60,7 +60,7 @@ Outputs are `artifacts/my-web-build/` (the site), `artifacts/my-web-build.zip`
 `artifacts/my-web-build.manifest.json` (file sizes, hashes, and audited PCK paths).
 Do not serve the whole repository. `file://` is not a supported WebAssembly host.
 
-## GitHub Pages: minimal publishing steps
+## GitHub Pages: publishing and updates
 
 `scripts/tooling/publish_web_preview.sh` uploads an audited production export to
 `preview/browser-courtyard`. It keeps that branch independent of `main` and of the
@@ -71,7 +71,7 @@ visibility, merges code, replaces an unrelated branch, or enables Pages itself.
 bash scripts/tooling/publish_web_preview.sh artifacts/my-web-build
 ```
 
-After that upload, the repository owner needs to do this once:
+**The owner has already enabled GitHub Pages and the hosted URL above works.** For another repository without Pages enabled, the owner needs to do this once:
 
 1. Open repository **Settings → Pages**.
 2. Under **Build and deployment**, choose **Deploy from a branch**.
@@ -80,9 +80,7 @@ After that upload, the repository owner needs to do this once:
 
 Publish only the export branch, not `main` or the source checkout.
 For a private repository, Pages availability depends on the account plan and
-organization policy. The GitHub integration in this task can push branches and
-create PRs, but its Pages API request returns `403 Resource not accessible by
-integration`. This is an API permission restriction, not an export failure.
+organization policy. During initial setup the GitHub integration's Pages API request returned `403 Resource not accessible by integration`. The owner subsequently enabled Pages successfully through repository settings. The 403 was an API permission restriction, not an export failure.
 
 For an update, export to a new directory and rerun the publisher. It adds a normal
 commit to the asset branch and pushes without force; the feature working tree stays
@@ -154,4 +152,8 @@ Final cloud results: **30 combat, 35 native graphical, and 35 browser checks
 passed**, with all three fault controls detected. Four browser captures were
 inspected; all five native captures match the original prototype byte-for-byte.
 See [the committed evidence](evidence/web-preview/README.md) for logs, manifests,
-screenshots, and the exact outstanding Pages owner action.
+screenshots, and the completed Pages setup. The later native graphical recheck timed out after 180 seconds without a failed assertion before timeout; the previously completed 35-check native pass is retained as earlier evidence, not a claim that the recheck passed.
+
+## Human feedback (2026-10-16)
+
+The owner played the deployed browser preview on desktop and a physical phone. Lock-on worked well and dodge felt nice; overall combat remained too early-stage to judge conclusively. Phone control spacing was uncomfortable, but this does **not** establish a mobile platform requirement. Enemy swing-release/impact telegraph readability and repeatable parry-tapping without enough downside were flagged for **separate combat iterations**; neither is introduced by this browser feature. The hosted preview is based on pre-PR #3 combat code and does not validate PR #3's unmerged movement fixes. Jumping is not yet implemented and remains outside this web-preview scope.
