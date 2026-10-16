@@ -35,14 +35,18 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not input_enabled:
 		return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		yaw -= event.relative.x * mouse_sensitivity
-		pitch = clampf(pitch - event.relative.y * mouse_sensitivity, -0.85, 0.25)
+		rotate_camera(event.relative)
 	if event.is_action_pressed("lock_on"):
 		locked = not locked
 	if event.is_action_pressed("release_mouse"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	if event.is_action_pressed("attack"):
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		if event is InputEventMouseButton:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func rotate_camera(relative: Vector2) -> void:
+	yaw -= relative.x * mouse_sensitivity
+	pitch = clampf(pitch - relative.y * mouse_sensitivity, -0.85, 0.25)
 
 func _physics_process(delta: float) -> void:
 	if input_enabled:

@@ -151,3 +151,6 @@ There is no buffered attack queue, audio, animation asset, salvage, inventory,
 progression, backend, multiplayer, or procedural world generation.
 
 Assess this duel before implementing the next milestone's salvageable augment.
+
+For a single-threaded browser export and Android touch testing, see
+[WEB_PREVIEW.md](WEB_PREVIEW.md). Its input adapter does not change these rules.

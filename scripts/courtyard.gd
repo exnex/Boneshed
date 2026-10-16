@@ -10,6 +10,7 @@ var event_text := "Enter the circle. Face the corrupted soul."
 var event_time := 0.0
 var encounter_time := 0.0
 var qa_mode := false
+var touch_controls: Control
 
 func _ready() -> void:
 	_setup_input()
@@ -29,13 +30,23 @@ func _ready() -> void:
 	hud.set_script(preload("res://scripts/hud.gd"))
 	hud.arena = self
 	canvas.add_child(hud)
+	touch_controls = Control.new()
+	touch_controls.set_script(preload("res://scripts/ui/touch_controls.gd"))
+	touch_controls.player = player
+	canvas.add_child(touch_controls)
 	qa_mode = "--qa" in OS.get_cmdline_user_args()
 	if qa_mode:
 		var qa := Node.new()
-		qa.set_script(preload("res://scripts/qa/graphical_test.gd"))
+		qa.set_script(load("res://scripts/qa/graphical_test.gd"))
 		add_child(qa)
-	else:
+	elif OS.has_feature("web_qa"):
+		var probe := Node.new()
+		probe.set_script(load("res://scripts/qa/web_probe.gd"))
+		add_child(probe)
+	elif not OS.has_feature("web"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if OS.has_feature("web"):
+		print("BONESHED_WEB_READY")
 
 func _physics_process(delta: float) -> void:
 	encounter_time += delta
