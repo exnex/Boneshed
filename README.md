@@ -32,6 +32,11 @@ guard/tap-deflect, Space to dodge, and R to reset. See
 [the prototype guide](docs/COMBAT_PROTOTYPE.md) for setup details, architecture,
 timing values, reproducible tests, evidence, and human playtesting limitations.
 
+For browser and Android testing, see [the web preview guide](docs/WEB_PREVIEW.md).
+The single-threaded HTML5 export adds multi-touch controls while keeping the
+desktop bindings and combat rules. It is a testing convenience; deployment requires
+publishing the exported assets through Pages or another static host.
+
 ## Start here
 
 | Document | Purpose |

@@ -1,0 +1,12 @@
+{
+  "repository": "exnex/Boneshed",
+  "repository_visibility": "private",
+  "asset_branch": "preview/browser-courtyard",
+  "asset_commit": "52fd703fdb1f7f35c3f709c511d21509316fefc8",
+  "pages_api_create_status": 403,
+  "pages_api_create_message": "Resource not accessible by integration",
+  "pages_enabled_observed": false,
+  "deployed_url": null,
+  "required_owner_action": "Settings > Pages > Deploy from a branch > preview/browser-courtyard > / (root) > Save",
+  "published_contents": "Audited Web release only: HTML, JavaScript, WebAssembly, PCK, splash image, .nojekyll; no source checkout, documents, tooling, or QA scripts."
+}

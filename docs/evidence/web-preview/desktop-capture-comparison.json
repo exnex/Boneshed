@@ -1,0 +1,22 @@
+{
+  "01_initial_courtyard.png": {
+    "sha256": "18165d90e5ed9d9adb0f923ffc5cab07b81bccd31a3d91ea76c1c95e71672d6b",
+    "matches_milestone_1": true
+  },
+  "02_enemy_windup.png": {
+    "sha256": "b8e89ffa07a0a05eb661f945e5801c6199559e8852f868ef605de6eaaa19dd24",
+    "matches_milestone_1": true
+  },
+  "03_successful_deflection.png": {
+    "sha256": "c637a2b945054ceb611e6112bab174a9e3a516e09189f4d0275d8f4861755d2a",
+    "matches_milestone_1": true
+  },
+  "04_posture_break.png": {
+    "sha256": "ce9afad1a4679a2af431bb5bcd64fbdf4ddbf602cd32354856a8758d71a9167b",
+    "matches_milestone_1": true
+  },
+  "05_enemy_defeat.png": {
+    "sha256": "bd4b50a6380995797cc417cc13711ce36b4dcfd1e84cfbb5874d4eaf8386794a",
+    "matches_milestone_1": true
+  }
+}

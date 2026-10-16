@@ -1,0 +1,18 @@
+{
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "browser": "Chromium 154.0.8037.57",
+  "python_playwright": "1.62.0",
+  "native_combat_passed": 30,
+  "native_graphical_passed": 35,
+  "expected_negative_runs": 3,
+  "browser_passed": 35,
+  "browser_failed": 0,
+  "browser_screenshots_inspected": 4,
+  "native_screenshots_match_original": true,
+  "physical_android_tested": false,
+  "hosted_site_verified": false,
+  "preview_branch_matches_tested_production_build": true,
+  "preview_branch_commit": "52fd703fdb1f7f35c3f709c511d21509316fefc8",
+  "ready_zip_sha256": "cf8cb44fbd0f8156cdca7fb8da0a1b773fa45104f784af650379e4145b875c10",
+  "official_templates_sha512": "ca4d71c4d7b81dfc15d1a98baa07534aa95b03fdda78a0075b06672e1648d2e5f40980c9adc28d23e1b92e732ee7bf3461997aa804af74ec2fcd7a93ccb84079"
+}
