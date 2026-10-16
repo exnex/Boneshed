@@ -15,3 +15,6 @@ Thumbs.db
 __pycache__/
 *.pyc
 .venv/
+
+# Each QA run uses a new directory; curated evidence lives in docs/evidence/.
+artifacts/
