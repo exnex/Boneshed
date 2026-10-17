@@ -1,0 +1,118 @@
+extends RefCounted
+## Loads and validates the prototype keyword vocabulary and interaction rules.
+## Validation problems are collected in `errors` rather than pushed to the engine log,
+## so tests can assert on them.
+
+const AXES := ["temperature", "moisture", "light", "enclosure", "elevation", "order", "vitality", "stillness", "sanctity", "age"]
+const THEME_POOLS := ["hazards", "encounters", "discoveries"]
+const KEYWORDS_PATH := "res://data/worldgen/keywords.json"
+const RULES_PATH := "res://data/worldgen/rules.json"
+
+var data_version := ""
+var keywords := {}
+var interactions: Array = []
+var biomes: Array = []
+var config := {}
+var errors: Array[String] = []
+
+func load_files(keywords_path := KEYWORDS_PATH, rules_path := RULES_PATH) -> bool:
+	errors.clear()
+	var vocabulary = _read_json(keywords_path)
+	var rules = _read_json(rules_path)
+	if not (vocabulary is Dictionary and rules is Dictionary):
+		return false
+	data_version = str(vocabulary.get("data_version", ""))
+	if data_version != str(rules.get("data_version", "")):
+		errors.append("data_version differs between keyword and rule files")
+	config = rules.get("config", {})
+	interactions = rules.get("interactions", [])
+	biomes = rules.get("biomes", [])
+	keywords.clear()
+	for entry in vocabulary.get("keywords", []):
+		var id := str(entry.get("id", ""))
+		if id.is_empty() or id != id.to_lower().strip_edges():
+			errors.append("keyword id must be lowercase and non-empty: '%s'" % id)
+		elif keywords.has(id):
+			errors.append("duplicate keyword id '%s'" % id)
+		keywords[id] = entry
+	_validate()
+	return errors.is_empty()
+
+func has_keyword(id: String) -> bool:
+	return keywords.has(id)
+
+func _read_json(path: String) -> Variant:
+	if not FileAccess.file_exists(path):
+		errors.append("missing data file %s" % path)
+		return null
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not parsed is Dictionary:
+		errors.append("%s is not a JSON object" % path)
+	return parsed
+
+func _validate() -> void:
+	var known_tags := {}
+	for id in keywords:
+		var senses: Array = keywords[id].get("senses", [])
+		if senses.is_empty():
+			errors.append("%s has no senses" % id)
+		var sense_ids := {}
+		for sense in senses:
+			var where := "%s/%s" % [id, sense.get("id", "?")]
+			if sense_ids.has(sense.get("id")):
+				errors.append("%s: duplicate sense id" % where)
+			sense_ids[sense.get("id")] = true
+			if sense.get("tags", []).is_empty():
+				errors.append("%s: needs at least one tag" % where)
+			for tag in sense.get("tags", []):
+				known_tags[tag] = true
+			_validate_effects(sense, where)
+	for id in keywords:
+		for sense in keywords[id].get("senses", []):
+			for tag in sense.get("resonates_with", []):
+				if not known_tags.has(tag):
+					errors.append("%s/%s resonates with unknown tag '%s'" % [id, sense.get("id"), tag])
+	var rule_ids := {}
+	for rule in interactions:
+		var rule_id := str(rule.get("id", ""))
+		if rule_ids.has(rule_id):
+			errors.append("duplicate interaction '%s'" % rule_id)
+		rule_ids[rule_id] = true
+		if not rule.get("kind") in ["synergy", "conflict"]:
+			errors.append("%s: kind must be synergy or conflict" % rule_id)
+		var requires: Array = rule.get("requires", [])
+		if requires.size() < 2 or requires.size() > 3:
+			errors.append("%s: requires 2 or 3 tags" % rule_id)
+		for tag in requires:
+			if not known_tags.has(tag):
+				errors.append("%s requires unknown tag '%s'" % [rule_id, tag])
+		_validate_effects(rule.get("effects", {}), "interaction " + rule_id)
+	for biome in biomes:
+		_validate_axes(biome.get("prototype", {}), "biome " + str(biome.get("id")))
+	var weights: Array = config.get("position_weights", [])
+	if weights.size() != 3:
+		errors.append("config.position_weights needs three entries")
+	for weight in weights:
+		if float(weight) <= 0.0 or float(weight) > 1.0:
+			errors.append("position weights must be in (0, 1]")
+	for axis in AXES:
+		if config.get("axis_poles", {}).get(axis, []).size() != 2:
+			errors.append("config.axis_poles.%s needs two pole names" % axis)
+
+func _validate_effects(effects: Dictionary, where: String) -> void:
+	_validate_axes(effects.get("axes", {}), where)
+	for pool in THEME_POOLS:
+		for theme in effects.get(pool, {}):
+			var weight := float(effects[pool][theme])
+			if weight <= 0.0 or weight > 1.0:
+				errors.append("%s: %s.%s weight %s outside (0, 1]" % [where, pool, theme, weight])
+	for descriptor in effects.get("atmosphere", []):
+		if not descriptor is String or descriptor.is_empty():
+			errors.append("%s: atmosphere descriptors must be non-empty strings" % where)
+
+func _validate_axes(axes: Dictionary, where: String) -> void:
+	for axis in axes:
+		if not axis in AXES:
+			errors.append("%s: unknown axis '%s'" % [where, axis])
+		elif absf(float(axes[axis])) > 1.0:
+			errors.append("%s: axis %s outside [-1, 1]" % [where, axis])

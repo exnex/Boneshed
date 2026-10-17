@@ -1,0 +1,339 @@
+{
+	"address": "Tempest Frozen Towering",
+	"data_version": "prototype-0.1",
+	"fingerprint": "7bc5aa48",
+	"generation": {
+		"atmosphere": {
+			"color_temperature": 0.029,
+			"corruption_tint": 0.0,
+			"fog_density": 0.367,
+			"light_level": 0.277,
+			"precipitation": 0.2,
+			"silence": 0.46,
+			"wind": 0.356
+		},
+		"challenge": {
+			"ambush_tendency": 0.444,
+			"encounter_density": 0.36,
+			"hazard_pressure": 1.0,
+			"traversal_difficulty": 0.696,
+			"visibility": 0.316
+		},
+		"structure": {
+			"interior_ratio": 0.072,
+			"passage_tightness": 0.261,
+			"verticality": 1.0
+		},
+		"terrain": {
+			"architecture_density": 0.251,
+			"elevation_bias": 1.0,
+			"ice_coverage": 0.586,
+			"patchwork": [
+				{
+					"axis": "stillness",
+					"regional_variance": 0.969
+				}
+			],
+			"relief": 0.712,
+			"ruin_level": 0.41,
+			"subterranean_ratio": 0.0,
+			"vegetation": 0.117,
+			"water_coverage": 0.211
+		}
+	},
+	"identity": {
+		"axes": {
+			"age": 0.0,
+			"elevation": 1.0,
+			"enclosure": -0.524,
+			"light": -0.374,
+			"moisture": 0.508,
+			"order": 0.2,
+			"sanctity": 0.0,
+			"stillness": -0.116,
+			"temperature": -0.9,
+			"vitality": -0.36
+		},
+		"biome": {
+			"primary": "frozen_reach",
+			"ranking": [
+				{
+					"affinity": 0.979,
+					"id": "frozen_reach",
+					"label": "Frozen reach"
+				},
+				{
+					"affinity": 0.913,
+					"id": "high_crags",
+					"label": "High crags"
+				},
+				{
+					"affinity": 0.771,
+					"id": "storm_coast",
+					"label": "Storm coast"
+				}
+			],
+			"secondary": "high_crags"
+		},
+		"interactions": [
+			{
+				"id": "black_ice",
+				"kind": "synergy",
+				"sources": [
+					"tempest",
+					"frozen"
+				],
+				"strength": 0.85,
+				"summary": "Floodwater frozen glassy and treacherous"
+			},
+			{
+				"id": "blizzard",
+				"kind": "synergy",
+				"sources": [
+					"tempest",
+					"frozen"
+				],
+				"strength": 0.85,
+				"summary": "Storm and frost become a blinding blizzard"
+			},
+			{
+				"id": "lightning_peaks",
+				"kind": "synergy",
+				"sources": [
+					"tempest",
+					"towering"
+				],
+				"strength": 0.9,
+				"summary": "High places drawing the storm's strikes"
+			}
+		],
+		"senses": [
+			{
+				"gloss": "Endless storm over exposed ground",
+				"keyword": "tempest",
+				"position": "1",
+				"resolution": "only_sense",
+				"scores": {
+					"storm": 0.0
+				},
+				"sense": "storm"
+			},
+			{
+				"gloss": "A world locked in killing frost",
+				"keyword": "frozen",
+				"position": "2",
+				"resolution": "only_sense",
+				"scores": {
+					"rime": 0.0
+				},
+				"sense": "rime"
+			},
+			{
+				"gloss": "Spires, cliffs and vertiginous drops",
+				"keyword": "towering",
+				"position": "3",
+				"resolution": "only_sense",
+				"scores": {
+					"heights": 0.0
+				},
+				"sense": "heights"
+			}
+		],
+		"tensions": [
+			{
+				"axis": "stillness",
+				"dominant": "turbulent",
+				"poles": [
+					"turbulent",
+					"still"
+				],
+				"resolution": "patchwork",
+				"strength": 0.724
+			}
+		],
+		"theme_tables": {
+			"discoveries": [
+				{
+					"id": "frozen_remains",
+					"weight": 0.184
+				},
+				{
+					"id": "ice_entombed_relics",
+					"weight": 0.173
+				},
+				{
+					"id": "wreckage",
+					"weight": 0.163
+				},
+				{
+					"id": "eyries",
+					"weight": 0.153
+				},
+				{
+					"id": "lookout_caches",
+					"weight": 0.153
+				},
+				{
+					"id": "clear_crystal",
+					"weight": 0.092
+				},
+				{
+					"id": "fulgurite",
+					"weight": 0.082
+				}
+			],
+			"encounters": [
+				{
+					"id": "preserved_dead",
+					"weight": 0.214
+				},
+				{
+					"id": "sentinels",
+					"weight": 0.212
+				},
+				{
+					"id": "storm_callers",
+					"weight": 0.169
+				},
+				{
+					"id": "cliff_stalkers",
+					"weight": 0.159
+				},
+				{
+					"id": "carrion_flocks",
+					"weight": 0.127
+				},
+				{
+					"id": "frost_hunters",
+					"weight": 0.119
+				}
+			],
+			"hazards": [
+				{
+					"id": "whiteout",
+					"weight": 0.169
+				},
+				{
+					"id": "falls",
+					"weight": 0.13
+				},
+				{
+					"id": "killing_cold",
+					"weight": 0.117
+				},
+				{
+					"id": "lightning_strikes",
+					"weight": 0.117
+				},
+				{
+					"id": "black_ice",
+					"weight": 0.111
+				},
+				{
+					"id": "gale",
+					"weight": 0.104
+				},
+				{
+					"id": "thin_ice",
+					"weight": 0.094
+				},
+				{
+					"id": "high_wind",
+					"weight": 0.065
+				},
+				{
+					"id": "lightning",
+					"weight": 0.062
+				},
+				{
+					"id": "rockfall",
+					"weight": 0.031
+				}
+			]
+		}
+	},
+	"identity_fingerprint": "255b5db4",
+	"input": {
+		"keywords": [
+			"tempest",
+			"frozen",
+			"towering"
+		],
+		"world_seed": "1001"
+	},
+	"provisional": true,
+	"schema_version": "0.1.0",
+	"streams": {
+		"atmosphere": "178b06b2",
+		"discoveries": "443bc48c",
+		"encounters": "ee316488",
+		"hazards": "07d13937",
+		"structure": "8db76fc7",
+		"terrain": "4654db9f"
+	},
+	"variation": {
+		"atmosphere": [
+			"glassy frozen flood",
+			"horizontal snow",
+			"thin air"
+		],
+		"axes": {
+			"age": {
+				"regional_variance": 0.1,
+				"value": -0.014
+			},
+			"elevation": {
+				"regional_variance": 0.1,
+				"value": 1.0
+			},
+			"enclosure": {
+				"regional_variance": 0.1,
+				"value": -0.477
+			},
+			"light": {
+				"regional_variance": 0.1,
+				"value": -0.447
+			},
+			"moisture": {
+				"regional_variance": 0.1,
+				"value": 0.507
+			},
+			"order": {
+				"regional_variance": 0.1,
+				"value": 0.145
+			},
+			"sanctity": {
+				"regional_variance": 0.1,
+				"value": 0.061
+			},
+			"stillness": {
+				"regional_variance": 0.969,
+				"value": -0.08
+			},
+			"temperature": {
+				"regional_variance": 0.1,
+				"value": -0.943
+			},
+			"vitality": {
+				"regional_variance": 0.1,
+				"value": -0.302
+			}
+		},
+		"featured": {
+			"discoveries": [
+				"frozen_remains",
+				"fulgurite",
+				"clear_crystal"
+			],
+			"encounters": [
+				"preserved_dead",
+				"sentinels"
+			],
+			"hazards": [
+				"whiteout",
+				"high_wind",
+				"lightning_strikes"
+			]
+		}
+	}
+}

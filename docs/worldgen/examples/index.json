@@ -1,0 +1,128 @@
+[
+	{
+		"file": "drowned_hollow_cathedral_1001.json",
+		"keywords": [
+			"drowned",
+			"hollow",
+			"cathedral"
+		],
+		"world_seed": "1001"
+	},
+	{
+		"file": "drowned_hollow_cathedral_1002.json",
+		"keywords": [
+			"drowned",
+			"hollow",
+			"cathedral"
+		],
+		"world_seed": "1002"
+	},
+	{
+		"file": "drowned_hollow_cathedral_1003.json",
+		"keywords": [
+			"drowned",
+			"hollow",
+			"cathedral"
+		],
+		"world_seed": "1003"
+	},
+	{
+		"file": "lightless_sunken_hollow_1001.json",
+		"keywords": [
+			"lightless",
+			"sunken",
+			"hollow"
+		],
+		"world_seed": "1001"
+	},
+	{
+		"file": "barren_tempest_gilded_1001.json",
+		"keywords": [
+			"barren",
+			"tempest",
+			"gilded"
+		],
+		"world_seed": "1001"
+	},
+	{
+		"file": "forgotten_hollow_profane_1001.json",
+		"keywords": [
+			"forgotten",
+			"hollow",
+			"profane"
+		],
+		"world_seed": "1001"
+	},
+	{
+		"file": "smoldering_frozen_ossuary_1001.json",
+		"keywords": [
+			"smoldering",
+			"frozen",
+			"ossuary"
+		],
+		"world_seed": "1001"
+	},
+	{
+		"file": "hallowed_profane_cathedral_1001.json",
+		"keywords": [
+			"hallowed",
+			"profane",
+			"cathedral"
+		],
+		"world_seed": "1001"
+	},
+	{
+		"file": "towering_sunken_thorned_1001.json",
+		"keywords": [
+			"towering",
+			"sunken",
+			"thorned"
+		],
+		"world_seed": "1001"
+	},
+	{
+		"file": "frozen_drowned_hollow_1001.json",
+		"keywords": [
+			"frozen",
+			"drowned",
+			"hollow"
+		],
+		"world_seed": "1001"
+	},
+	{
+		"file": "gilded_forgotten_ossuary_1001.json",
+		"keywords": [
+			"gilded",
+			"forgotten",
+			"ossuary"
+		],
+		"world_seed": "1001"
+	},
+	{
+		"file": "tempest_frozen_towering_1001.json",
+		"keywords": [
+			"tempest",
+			"frozen",
+			"towering"
+		],
+		"world_seed": "1001"
+	},
+	{
+		"file": "profane_gilded_hallowed_1001.json",
+		"keywords": [
+			"profane",
+			"gilded",
+			"hallowed"
+		],
+		"world_seed": "1001"
+	},
+	{
+		"file": "hallowed_gilded_profane_1001.json",
+		"keywords": [
+			"hallowed",
+			"gilded",
+			"profane"
+		],
+		"world_seed": "1001"
+	}
+]

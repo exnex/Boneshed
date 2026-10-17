@@ -1,0 +1,300 @@
+{
+	"address": "Frozen Drowned Hollow",
+	"data_version": "prototype-0.1",
+	"fingerprint": "21462064",
+	"generation": {
+		"atmosphere": {
+			"color_temperature": 0.104,
+			"corruption_tint": 0.065,
+			"fog_density": 0.779,
+			"light_level": 0.126,
+			"precipitation": 0.224,
+			"silence": 0.9,
+			"wind": 0.1
+		},
+		"challenge": {
+			"ambush_tendency": 0.902,
+			"encounter_density": 0.254,
+			"hazard_pressure": 0.814,
+			"traversal_difficulty": 0.651,
+			"visibility": 0.167
+		},
+		"structure": {
+			"interior_ratio": 0.478,
+			"passage_tightness": 0.978,
+			"verticality": 0.793
+		},
+		"terrain": {
+			"architecture_density": 0.15,
+			"elevation_bias": 0.13,
+			"ice_coverage": 0.758,
+			"patchwork": [],
+			"relief": 0.582,
+			"ruin_level": 0.424,
+			"subterranean_ratio": 0.869,
+			"vegetation": 0.16,
+			"water_coverage": 0.425
+		}
+	},
+	"identity": {
+		"axes": {
+			"age": 0.0,
+			"elevation": -0.816,
+			"enclosure": 1.0,
+			"light": -0.708,
+			"moisture": 0.916,
+			"order": 0.0,
+			"sanctity": 0.0,
+			"stillness": 0.79,
+			"temperature": -0.8,
+			"vitality": -0.32
+		},
+		"biome": {
+			"primary": "frozen_reach",
+			"ranking": [
+				{
+					"affinity": 0.964,
+					"id": "frozen_reach",
+					"label": "Frozen reach"
+				},
+				{
+					"affinity": 0.925,
+					"id": "cavern_depths",
+					"label": "Cavern depths"
+				},
+				{
+					"affinity": 0.888,
+					"id": "flooded_lowland",
+					"label": "Flooded lowland"
+				}
+			],
+			"secondary": "cavern_depths"
+		},
+		"interactions": [
+			{
+				"id": "black_ice",
+				"kind": "synergy",
+				"sources": [
+					"frozen",
+					"drowned"
+				],
+				"strength": 0.85,
+				"summary": "Floodwater frozen glassy and treacherous"
+			}
+		],
+		"senses": [
+			{
+				"gloss": "A world locked in killing frost",
+				"keyword": "frozen",
+				"position": "1",
+				"resolution": "only_sense",
+				"scores": {
+					"rime": 0.0
+				},
+				"sense": "rime"
+			},
+			{
+				"gloss": "Submerged ruins and standing black water",
+				"keyword": "drowned",
+				"position": "2",
+				"resolution": "only_sense",
+				"scores": {
+					"flooded": 0.0
+				},
+				"sense": "flooded"
+			},
+			{
+				"gloss": "Hollowed earth: caves and voids beneath",
+				"keyword": "hollow",
+				"position": "3",
+				"resolution": "context",
+				"scores": {
+					"cavern": 2.6,
+					"emptied": 0.0
+				},
+				"sense": "cavern"
+			}
+		],
+		"tensions": [],
+		"theme_tables": {
+			"discoveries": [
+				{
+					"id": "ore_veins",
+					"weight": 0.2
+				},
+				{
+					"id": "silted_relics",
+					"weight": 0.18
+				},
+				{
+					"id": "ice_entombed_relics",
+					"weight": 0.17
+				},
+				{
+					"id": "frozen_remains",
+					"weight": 0.16
+				},
+				{
+					"id": "pearl_bone",
+					"weight": 0.112
+				},
+				{
+					"id": "cave_paintings",
+					"weight": 0.1
+				},
+				{
+					"id": "clear_crystal",
+					"weight": 0.08
+				}
+			],
+			"encounters": [
+				{
+					"id": "drowned_dead",
+					"weight": 0.239
+				},
+				{
+					"id": "burrowers",
+					"weight": 0.213
+				},
+				{
+					"id": "preserved_dead",
+					"weight": 0.191
+				},
+				{
+					"id": "lurkers_below",
+					"weight": 0.144
+				},
+				{
+					"id": "cave_hermits",
+					"weight": 0.106
+				},
+				{
+					"id": "frost_hunters",
+					"weight": 0.106
+				}
+			],
+			"hazards": [
+				{
+					"id": "deep_water",
+					"weight": 0.158
+				},
+				{
+					"id": "black_ice",
+					"weight": 0.149
+				},
+				{
+					"id": "cave_in",
+					"weight": 0.14
+				},
+				{
+					"id": "killing_cold",
+					"weight": 0.14
+				},
+				{
+					"id": "thin_ice",
+					"weight": 0.112
+				},
+				{
+					"id": "undertow",
+					"weight": 0.095
+				},
+				{
+					"id": "blind_drops",
+					"weight": 0.088
+				},
+				{
+					"id": "whiteout",
+					"weight": 0.07
+				},
+				{
+					"id": "rot_fog",
+					"weight": 0.047
+				}
+			]
+		}
+	},
+	"identity_fingerprint": "97836aa2",
+	"input": {
+		"keywords": [
+			"frozen",
+			"drowned",
+			"hollow"
+		],
+		"world_seed": "1001"
+	},
+	"provisional": true,
+	"schema_version": "0.1.0",
+	"streams": {
+		"atmosphere": "b6aa736b",
+		"discoveries": "c8c98ac7",
+		"encounters": "136d4535",
+		"hazards": "ad0ac244",
+		"structure": "c370f054",
+		"terrain": "c9c95098"
+	},
+	"variation": {
+		"atmosphere": [
+			"glassy frozen flood",
+			"blue silence",
+			"black water"
+		],
+		"axes": {
+			"age": {
+				"regional_variance": 0.1,
+				"value": -0.044
+			},
+			"elevation": {
+				"regional_variance": 0.1,
+				"value": -0.741
+			},
+			"enclosure": {
+				"regional_variance": 0.1,
+				"value": 0.955
+			},
+			"light": {
+				"regional_variance": 0.1,
+				"value": -0.748
+			},
+			"moisture": {
+				"regional_variance": 0.1,
+				"value": 0.942
+			},
+			"order": {
+				"regional_variance": 0.1,
+				"value": -0.078
+			},
+			"sanctity": {
+				"regional_variance": 0.1,
+				"value": -0.065
+			},
+			"stillness": {
+				"regional_variance": 0.1,
+				"value": 0.8
+			},
+			"temperature": {
+				"regional_variance": 0.1,
+				"value": -0.793
+			},
+			"vitality": {
+				"regional_variance": 0.1,
+				"value": -0.372
+			}
+		},
+		"featured": {
+			"discoveries": [
+				"ore_veins",
+				"ice_entombed_relics",
+				"pearl_bone"
+			],
+			"encounters": [
+				"drowned_dead",
+				"preserved_dead"
+			],
+			"hazards": [
+				"deep_water",
+				"killing_cold",
+				"blind_drops"
+			]
+		}
+	}
+}

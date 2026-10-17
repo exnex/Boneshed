@@ -1,0 +1,288 @@
+{
+	"address": "Towering Sunken Thorned",
+	"data_version": "prototype-0.1",
+	"fingerprint": "f36f39b7",
+	"generation": {
+		"atmosphere": {
+			"color_temperature": 0.537,
+			"corruption_tint": 0.067,
+			"fog_density": 0.18,
+			"light_level": 0.388,
+			"precipitation": 0.003,
+			"silence": 0.431,
+			"wind": 0.196
+		},
+		"challenge": {
+			"ambush_tendency": 0.573,
+			"encounter_density": 0.436,
+			"hazard_pressure": 0.539,
+			"traversal_difficulty": 0.434,
+			"visibility": 0.446
+		},
+		"structure": {
+			"interior_ratio": 0.216,
+			"passage_tightness": 0.716,
+			"verticality": 0.337
+		},
+		"terrain": {
+			"architecture_density": 0.196,
+			"elevation_bias": 0.415,
+			"ice_coverage": 0.0,
+			"patchwork": [
+				{
+					"axis": "elevation",
+					"regional_variance": 1.0
+				}
+			],
+			"relief": 0.407,
+			"ruin_level": 0.487,
+			"subterranean_ratio": 0.328,
+			"vegetation": 0.511,
+			"water_coverage": 0.241
+		}
+	},
+	"identity": {
+		"axes": {
+			"age": 0.36,
+			"elevation": -0.1,
+			"enclosure": 0.395,
+			"light": -0.18,
+			"moisture": 0.0,
+			"order": -0.64,
+			"sanctity": 0.0,
+			"stillness": -0.16,
+			"temperature": 0.0,
+			"vitality": 0.9
+		},
+		"biome": {
+			"primary": "briar_wilds",
+			"ranking": [
+				{
+					"affinity": 0.926,
+					"id": "briar_wilds",
+					"label": "Briar wilds"
+				},
+				{
+					"affinity": 0.762,
+					"id": "cavern_depths",
+					"label": "Cavern depths"
+				},
+				{
+					"affinity": 0.745,
+					"id": "lightless_abyss",
+					"label": "Lightless abyss"
+				}
+			],
+			"secondary": "cavern_depths"
+		},
+		"interactions": [],
+		"senses": [
+			{
+				"gloss": "Spires, cliffs and vertiginous drops",
+				"keyword": "towering",
+				"position": "1",
+				"resolution": "only_sense",
+				"scores": {
+					"heights": 0.0
+				},
+				"sense": "heights"
+			},
+			{
+				"gloss": "A place that sank into the earth",
+				"keyword": "sunken",
+				"position": "2",
+				"resolution": "only_sense",
+				"scores": {
+					"subsided": 0.0
+				},
+				"sense": "subsided"
+			},
+			{
+				"gloss": "Wild growth that strangles everything",
+				"keyword": "thorned",
+				"position": "3",
+				"resolution": "only_sense",
+				"scores": {
+					"briar": 0.0
+				},
+				"sense": "briar"
+			}
+		],
+		"tensions": [
+			{
+				"axis": "elevation",
+				"dominant": "balanced",
+				"poles": [
+					"sunken",
+					"lofty"
+				],
+				"resolution": "patchwork",
+				"strength": 0.8
+			}
+		],
+		"theme_tables": {
+			"discoveries": [
+				{
+					"id": "buried_streets",
+					"weight": 0.211
+				},
+				{
+					"id": "bitter_herbs",
+					"weight": 0.205
+				},
+				{
+					"id": "sunken_vaults",
+					"weight": 0.158
+				},
+				{
+					"id": "swallowed_ruins",
+					"weight": 0.146
+				},
+				{
+					"id": "eyries",
+					"weight": 0.14
+				},
+				{
+					"id": "lookout_caches",
+					"weight": 0.14
+				}
+			],
+			"encounters": [
+				{
+					"id": "briar_beasts",
+					"weight": 0.232
+				},
+				{
+					"id": "buried_dead",
+					"weight": 0.186
+				},
+				{
+					"id": "sentinels",
+					"weight": 0.165
+				},
+				{
+					"id": "overgrown_dead",
+					"weight": 0.155
+				},
+				{
+					"id": "pit_dwellers",
+					"weight": 0.139
+				},
+				{
+					"id": "cliff_stalkers",
+					"weight": 0.124
+				}
+			],
+			"hazards": [
+				{
+					"id": "thorn_snares",
+					"weight": 0.265
+				},
+				{
+					"id": "falls",
+					"weight": 0.212
+				},
+				{
+					"id": "sinkholes",
+					"weight": 0.191
+				},
+				{
+					"id": "collapsing_ground",
+					"weight": 0.119
+				},
+				{
+					"id": "high_wind",
+					"weight": 0.106
+				},
+				{
+					"id": "spore_clouds",
+					"weight": 0.106
+				}
+			]
+		}
+	},
+	"identity_fingerprint": "3af920be",
+	"input": {
+		"keywords": [
+			"towering",
+			"sunken",
+			"thorned"
+		],
+		"world_seed": "1001"
+	},
+	"provisional": true,
+	"schema_version": "0.1.0",
+	"streams": {
+		"atmosphere": "26d20950",
+		"discoveries": "b1983eca",
+		"encounters": "3da2ad3a",
+		"hazards": "d98ecf79",
+		"structure": "e31d570d",
+		"terrain": "a21533b9"
+	},
+	"variation": {
+		"atmosphere": [
+			"streets below streets",
+			"green gloom",
+			"creaking stems"
+		],
+		"axes": {
+			"age": {
+				"regional_variance": 0.1,
+				"value": 0.305
+			},
+			"elevation": {
+				"regional_variance": 1.0,
+				"value": -0.171
+			},
+			"enclosure": {
+				"regional_variance": 0.388,
+				"value": 0.433
+			},
+			"light": {
+				"regional_variance": 0.1,
+				"value": -0.224
+			},
+			"moisture": {
+				"regional_variance": 0.1,
+				"value": 0.014
+			},
+			"order": {
+				"regional_variance": 0.292,
+				"value": -0.673
+			},
+			"sanctity": {
+				"regional_variance": 0.1,
+				"value": -0.067
+			},
+			"stillness": {
+				"regional_variance": 0.1,
+				"value": -0.138
+			},
+			"temperature": {
+				"regional_variance": 0.1,
+				"value": 0.075
+			},
+			"vitality": {
+				"regional_variance": 0.1,
+				"value": 0.875
+			}
+		},
+		"featured": {
+			"discoveries": [
+				"buried_streets",
+				"swallowed_ruins",
+				"bitter_herbs"
+			],
+			"encounters": [
+				"briar_beasts",
+				"cliff_stalkers"
+			],
+			"hazards": [
+				"thorn_snares",
+				"high_wind",
+				"falls"
+			]
+		}
+	}
+}

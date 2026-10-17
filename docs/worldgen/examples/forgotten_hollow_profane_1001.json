@@ -1,0 +1,258 @@
+{
+	"address": "Forgotten Hollow Profane",
+	"data_version": "prototype-0.1",
+	"fingerprint": "24a44f28",
+	"generation": {
+		"atmosphere": {
+			"color_temperature": 0.476,
+			"corruption_tint": 1.0,
+			"fog_density": 0.385,
+			"light_level": 0.394,
+			"precipitation": 0.001,
+			"silence": 0.919,
+			"wind": 0.11
+		},
+		"challenge": {
+			"ambush_tendency": 0.503,
+			"encounter_density": 0.249,
+			"hazard_pressure": 0.407,
+			"traversal_difficulty": 0.274,
+			"visibility": 0.403
+		},
+		"structure": {
+			"interior_ratio": 0.0,
+			"passage_tightness": 0.474,
+			"verticality": 0.241
+		},
+		"terrain": {
+			"architecture_density": 0.158,
+			"elevation_bias": 0.526,
+			"ice_coverage": 0.014,
+			"patchwork": [],
+			"relief": 0.259,
+			"ruin_level": 0.523,
+			"subterranean_ratio": 0.0,
+			"vegetation": 0.073,
+			"water_coverage": 0.282
+		}
+	},
+	"identity": {
+		"axes": {
+			"age": 0.0,
+			"elevation": 0.0,
+			"enclosure": 0.0,
+			"light": -0.16,
+			"moisture": 0.0,
+			"order": -0.2,
+			"sanctity": -1.0,
+			"stillness": 0.854,
+			"temperature": 0.0,
+			"vitality": -0.678
+		},
+		"biome": {
+			"primary": "silent_ruin",
+			"ranking": [
+				{
+					"affinity": 0.829,
+					"id": "silent_ruin",
+					"label": "Silent ruin"
+				},
+				{
+					"affinity": 0.817,
+					"id": "corrupted_fen",
+					"label": "Corrupted fen"
+				},
+				{
+					"affinity": 0.751,
+					"id": "ashfield",
+					"label": "Ashfield"
+				}
+			],
+			"secondary": "corrupted_fen"
+		},
+		"interactions": [],
+		"senses": [
+			{
+				"gloss": "Erased from memory; even its dead are nameless",
+				"keyword": "forgotten",
+				"position": "1",
+				"resolution": "context",
+				"scores": {
+					"ancient": 0.9,
+					"unremembered": 3.7
+				},
+				"sense": "unremembered"
+			},
+			{
+				"gloss": "Hollowed of life: a place everyone left",
+				"keyword": "hollow",
+				"position": "2",
+				"resolution": "context",
+				"scores": {
+					"cavern": 0.0,
+					"emptied": 2.6
+				},
+				"sense": "emptied"
+			},
+			{
+				"gloss": "Corruption soaked into stone and soul",
+				"keyword": "profane",
+				"position": "3",
+				"resolution": "only_sense",
+				"scores": {
+					"defiled": 0.0
+				},
+				"sense": "defiled"
+			}
+		],
+		"tensions": [],
+		"theme_tables": {
+			"discoveries": [
+				{
+					"id": "memory_shards",
+					"weight": 0.326
+				},
+				{
+					"id": "abandoned_belongings",
+					"weight": 0.201
+				},
+				{
+					"id": "tainted_ichor",
+					"weight": 0.195
+				},
+				{
+					"id": "heretic_texts",
+					"weight": 0.167
+				},
+				{
+					"id": "unmarked_graves",
+					"weight": 0.111
+				}
+			],
+			"encounters": [
+				{
+					"id": "defilers",
+					"weight": 0.234
+				},
+				{
+					"id": "husks",
+					"weight": 0.234
+				},
+				{
+					"id": "nameless_souls",
+					"weight": 0.208
+				},
+				{
+					"id": "twisted_faithful",
+					"weight": 0.182
+				},
+				{
+					"id": "echo_shades",
+					"weight": 0.141
+				}
+			],
+			"hazards": [
+				{
+					"id": "corruption_pools",
+					"weight": 0.351
+				},
+				{
+					"id": "memory_fog",
+					"weight": 0.253
+				},
+				{
+					"id": "soul_drain",
+					"weight": 0.221
+				},
+				{
+					"id": "whispering_madness",
+					"weight": 0.175
+				}
+			]
+		}
+	},
+	"identity_fingerprint": "9a086f3e",
+	"input": {
+		"keywords": [
+			"forgotten",
+			"hollow",
+			"profane"
+		],
+		"world_seed": "1001"
+	},
+	"provisional": true,
+	"schema_version": "0.1.0",
+	"streams": {
+		"atmosphere": "c127899f",
+		"discoveries": "897b7bb3",
+		"encounters": "f777d2b9",
+		"hazards": "0c6c1060",
+		"structure": "f2452990",
+		"terrain": "3921e9a4"
+	},
+	"variation": {
+		"atmosphere": [
+			"no birdsong",
+			"abandoned rooms",
+			"undisturbed dust"
+		],
+		"axes": {
+			"age": {
+				"regional_variance": 0.1,
+				"value": 0.056
+			},
+			"elevation": {
+				"regional_variance": 0.1,
+				"value": 0.052
+			},
+			"enclosure": {
+				"regional_variance": 0.1,
+				"value": -0.052
+			},
+			"light": {
+				"regional_variance": 0.1,
+				"value": -0.212
+			},
+			"moisture": {
+				"regional_variance": 0.1,
+				"value": 0.079
+			},
+			"order": {
+				"regional_variance": 0.1,
+				"value": -0.224
+			},
+			"sanctity": {
+				"regional_variance": 0.1,
+				"value": -1.0
+			},
+			"stillness": {
+				"regional_variance": 0.1,
+				"value": 0.838
+			},
+			"temperature": {
+				"regional_variance": 0.1,
+				"value": -0.048
+			},
+			"vitality": {
+				"regional_variance": 0.1,
+				"value": -0.74
+			}
+		},
+		"featured": {
+			"discoveries": [
+				"memory_shards",
+				"unmarked_graves",
+				"heretic_texts"
+			],
+			"encounters": [
+				"defilers",
+				"echo_shades"
+			],
+			"hazards": [
+				"corruption_pools",
+				"memory_fog",
+				"soul_drain"
+			]
+		}
+	}
+}

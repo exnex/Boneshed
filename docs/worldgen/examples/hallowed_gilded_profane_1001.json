@@ -1,0 +1,330 @@
+{
+	"address": "Hallowed Gilded Profane",
+	"data_version": "prototype-0.1",
+	"fingerprint": "4a0fd7f0",
+	"generation": {
+		"atmosphere": {
+			"color_temperature": 0.516,
+			"corruption_tint": 0.276,
+			"fog_density": 0.194,
+			"light_level": 0.809,
+			"precipitation": 0.0,
+			"silence": 0.657,
+			"wind": 0.107
+		},
+		"challenge": {
+			"ambush_tendency": 0.336,
+			"encounter_density": 0.312,
+			"hazard_pressure": 0.671,
+			"traversal_difficulty": 0.357,
+			"visibility": 0.815
+		},
+		"structure": {
+			"interior_ratio": 0.096,
+			"passage_tightness": 0.511,
+			"verticality": 0.227
+		},
+		"terrain": {
+			"architecture_density": 0.273,
+			"elevation_bias": 0.517,
+			"ice_coverage": 0.0,
+			"patchwork": [
+				{
+					"axis": "sanctity",
+					"regional_variance": 1.0
+				}
+			],
+			"relief": 0.217,
+			"ruin_level": 0.425,
+			"subterranean_ratio": 0.013,
+			"vegetation": 0.192,
+			"water_coverage": 0.259
+		}
+	},
+	"identity": {
+		"axes": {
+			"age": 0.0,
+			"elevation": 0.0,
+			"enclosure": 0.0,
+			"light": 0.562,
+			"moisture": 0.0,
+			"order": 0.12,
+			"sanctity": -0.2,
+			"stillness": 0.32,
+			"temperature": 0.0,
+			"vitality": -0.3
+		},
+		"biome": {
+			"primary": "silent_ruin",
+			"ranking": [
+				{
+					"affinity": 0.816,
+					"id": "silent_ruin",
+					"label": "Silent ruin"
+				},
+				{
+					"affinity": 0.785,
+					"id": "corrupted_fen",
+					"label": "Corrupted fen"
+				},
+				{
+					"affinity": 0.737,
+					"id": "ashfield",
+					"label": "Ashfield"
+				}
+			],
+			"secondary": "corrupted_fen"
+		},
+		"interactions": [
+			{
+				"id": "desecration",
+				"kind": "conflict",
+				"sources": [
+					"hallowed",
+					"profane"
+				],
+				"strength": 0.9,
+				"summary": "Holiness besieged by rot; neither has won"
+			},
+			{
+				"id": "false_idols",
+				"kind": "synergy",
+				"sources": [
+					"hallowed",
+					"gilded"
+				],
+				"strength": 0.85,
+				"summary": "Worship of beautiful, hollow idols"
+			}
+		],
+		"senses": [
+			{
+				"gloss": "Ground still guarded by an old holiness",
+				"keyword": "hallowed",
+				"position": "1",
+				"resolution": "only_sense",
+				"scores": {
+					"consecrated": 0.0
+				},
+				"sense": "consecrated"
+			},
+			{
+				"gloss": "A beautiful surface over something rotten",
+				"keyword": "gilded",
+				"position": "2",
+				"resolution": "context",
+				"scores": {
+					"false": 2.0,
+					"treasure": 0.8
+				},
+				"sense": "false"
+			},
+			{
+				"gloss": "Corruption soaked into stone and soul",
+				"keyword": "profane",
+				"position": "3",
+				"resolution": "only_sense",
+				"scores": {
+					"defiled": 0.0
+				},
+				"sense": "defiled"
+			}
+		],
+		"tensions": [
+			{
+				"axis": "sanctity",
+				"dominant": "profane",
+				"poles": [
+					"profane",
+					"hallowed"
+				],
+				"resolution": "patchwork",
+				"strength": 0.8
+			}
+		],
+		"theme_tables": {
+			"discoveries": [
+				{
+					"id": "cursed_treasure",
+					"weight": 0.17
+				},
+				{
+					"id": "tainted_ichor",
+					"weight": 0.165
+				},
+				{
+					"id": "votive_offerings",
+					"weight": 0.151
+				},
+				{
+					"id": "broken_relics",
+					"weight": 0.149
+				},
+				{
+					"id": "heretic_texts",
+					"weight": 0.142
+				},
+				{
+					"id": "fools_gold",
+					"weight": 0.128
+				},
+				{
+					"id": "blessed_steel",
+					"weight": 0.095
+				}
+			],
+			"encounters": [
+				{
+					"id": "defiled_saints",
+					"weight": 0.155
+				},
+				{
+					"id": "defilers",
+					"weight": 0.155
+				},
+				{
+					"id": "mimics",
+					"weight": 0.14
+				},
+				{
+					"id": "fallen_templars",
+					"weight": 0.138
+				},
+				{
+					"id": "idol_bearers",
+					"weight": 0.132
+				},
+				{
+					"id": "twisted_faithful",
+					"weight": 0.121
+				},
+				{
+					"id": "penitents",
+					"weight": 0.083
+				},
+				{
+					"id": "gilded_liars",
+					"weight": 0.078
+				}
+			],
+			"hazards": [
+				{
+					"id": "corruption_pools",
+					"weight": 0.213
+				},
+				{
+					"id": "mimic_hoards",
+					"weight": 0.172
+				},
+				{
+					"id": "warring_wards",
+					"weight": 0.134
+				},
+				{
+					"id": "judgment_wards",
+					"weight": 0.119
+				},
+				{
+					"id": "mesmerizing_shrines",
+					"weight": 0.109
+				},
+				{
+					"id": "whispering_madness",
+					"weight": 0.106
+				},
+				{
+					"id": "illusory_floors",
+					"weight": 0.096
+				},
+				{
+					"id": "blinding_glare",
+					"weight": 0.051
+				}
+			]
+		}
+	},
+	"identity_fingerprint": "ac00b312",
+	"input": {
+		"keywords": [
+			"hallowed",
+			"gilded",
+			"profane"
+		],
+		"world_seed": "1001"
+	},
+	"provisional": true,
+	"schema_version": "0.1.0",
+	"streams": {
+		"atmosphere": "069ff471",
+		"discoveries": "4094cecd",
+		"encounters": "0634fde7",
+		"hazards": "acef170e",
+		"structure": "67897bca",
+		"terrain": "92c8a012"
+	},
+	"variation": {
+		"atmosphere": [
+			"defaced altars",
+			"inverted icons",
+			"too-bright gold"
+		],
+		"axes": {
+			"age": {
+				"regional_variance": 0.1,
+				"value": 0.03
+			},
+			"elevation": {
+				"regional_variance": 0.1,
+				"value": 0.034
+			},
+			"enclosure": {
+				"regional_variance": 0.1,
+				"value": 0.022
+			},
+			"light": {
+				"regional_variance": 0.1,
+				"value": 0.618
+			},
+			"moisture": {
+				"regional_variance": 0.1,
+				"value": 0.037
+			},
+			"order": {
+				"regional_variance": 0.34,
+				"value": 0.17
+			},
+			"sanctity": {
+				"regional_variance": 1.0,
+				"value": -0.276
+			},
+			"stillness": {
+				"regional_variance": 0.1,
+				"value": 0.313
+			},
+			"temperature": {
+				"regional_variance": 0.1,
+				"value": 0.033
+			},
+			"vitality": {
+				"regional_variance": 0.1,
+				"value": -0.31
+			}
+		},
+		"featured": {
+			"discoveries": [
+				"cursed_treasure",
+				"fools_gold",
+				"broken_relics"
+			],
+			"encounters": [
+				"defiled_saints",
+				"mimics"
+			],
+			"hazards": [
+				"corruption_pools",
+				"mimic_hoards",
+				"whispering_madness"
+			]
+		}
+	}
+}

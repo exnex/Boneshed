@@ -1,0 +1,189 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Same words, same seed: two independent generators produced byte-identical JSON: true
+
+== Same words, different seeds ==
+DROWNED HOLLOW CATHEDRAL  (seed 1001)
+  Biome: Flooded lowland, bleeding into Cavern depths
+  Senses: drowned=flooded (only_sense), hollow=cavern (context), cathedral=nave (only_sense)
+  Tension: elevation contested (sunken vs lofty), dominant sunken -> patchwork
+  Interaction: flooded_sanctum [synergy] Holy halls half-swallowed by water
+  Atmosphere: candles on black water, cold draughts, dripping stone
+  Hazards: deep_water, cave_in, falling_masonry
+  Encounters: choir_wraiths, cave_hermits
+  Discoveries: reliquaries, ore_veins, silted_relics
+  Terrain: relief 0.352, water 0.791, ice 0.0, architecture 0.863, ruin 0.497, underground 0.699
+  Challenge: visibility 0.205, ambush 0.856, density 0.314, hazards 0.484, traversal 0.503
+  identity eeb99c48  fingerprint ab17a033
+DROWNED HOLLOW CATHEDRAL  (seed 1002)
+  Biome: Flooded lowland, bleeding into Cavern depths
+  Senses: drowned=flooded (only_sense), hollow=cavern (context), cathedral=nave (only_sense)
+  Tension: elevation contested (sunken vs lofty), dominant sunken -> patchwork
+  Interaction: flooded_sanctum [synergy] Holy halls half-swallowed by water
+  Atmosphere: candles on black water, dripping stone, broken rose windows
+  Hazards: deep_water, undertow, falling_masonry
+  Encounters: choir_wraiths, drowned_dead
+  Discoveries: reliquaries, silted_relics, ore_veins
+  Terrain: relief 0.404, water 0.822, ice 0.018, architecture 0.917, ruin 0.558, underground 0.715
+  Challenge: visibility 0.2, ambush 0.852, density 0.311, hazards 0.484, traversal 0.52
+  identity eeb99c48  fingerprint d8135eaa
+DROWNED HOLLOW CATHEDRAL  (seed 1003)
+  Biome: Flooded lowland, bleeding into Cavern depths
+  Senses: drowned=flooded (only_sense), hollow=cavern (context), cathedral=nave (only_sense)
+  Tension: elevation contested (sunken vs lofty), dominant sunken -> patchwork
+  Interaction: flooded_sanctum [synergy] Holy halls half-swallowed by water
+  Atmosphere: candles on black water, cold draughts, drifting silt
+  Hazards: deep_water, falling_masonry, cave_in
+  Encounters: choir_wraiths, fallen_templars
+  Discoveries: reliquaries, silted_relics, ore_veins
+  Terrain: relief 0.387, water 0.767, ice 0.065, architecture 0.883, ruin 0.505, underground 0.684
+  Challenge: visibility 0.237, ambush 0.818, density 0.321, hazards 0.484, traversal 0.514
+  identity eeb99c48  fingerprint c6a897ce
+
+== Different words, same seed ==
+LIGHTLESS SUNKEN HOLLOW  (seed 1001)
+  Biome: Sunken city, bleeding into Cavern depths
+  Senses: lightless=dark (only_sense), sunken=subsided (only_sense), hollow=cavern (context)
+  Interaction: bottomless_dark [synergy] Depths with no visible floor
+  Atmosphere: close ceilings, dripping stone, sounds too near
+  Hazards: blind_drops, bottomless_shafts, sinkholes
+  Encounters: burrowers, pit_dwellers
+  Discoveries: ore_veins, sunken_vaults, pale_lichen
+  Terrain: relief 0.647, water 0.171, ice 0.0, architecture 0.207, ruin 0.527, underground 0.937
+  Challenge: visibility 0.1, ambush 0.877, density 0.311, hazards 0.651, traversal 0.473
+  identity a0833c19  fingerprint 16110b92
+BARREN TEMPEST GILDED  (seed 1001)
+  Biome: Barren expanse, bleeding into Storm coast
+  Senses: barren=waste (only_sense), tempest=storm (only_sense), gilded=treasure (tie_primary)
+  Tension: moisture contested (arid vs drowned), dominant balanced -> patchwork
+  Atmosphere: sheeting rain, flat horizon, sudden flashes
+  Hazards: gale, trapped_vaults, rockfall
+  Encounters: carrion_flocks, wanderers
+  Discoveries: gold_leaf, bleached_bones, gem_inlays
+  Terrain: relief 0.364, water 0.214, ice 0.0, architecture 0.559, ruin 0.549, underground 0.021
+  Challenge: visibility 0.655, ambush 0.185, density 0.46, hazards 0.507, traversal 0.327
+  identity 28a7b601  fingerprint 09c222a3
+FORGOTTEN HOLLOW PROFANE  (seed 1001)
+  Biome: Silent ruin, bleeding into Corrupted fen
+  Senses: forgotten=unremembered (context), hollow=emptied (context), profane=defiled (only_sense)
+  Atmosphere: no birdsong, abandoned rooms, undisturbed dust
+  Hazards: corruption_pools, memory_fog, soul_drain
+  Encounters: defilers, echo_shades
+  Discoveries: memory_shards, unmarked_graves, heretic_texts
+  Terrain: relief 0.259, water 0.282, ice 0.014, architecture 0.158, ruin 0.523, underground 0.0
+  Challenge: visibility 0.403, ambush 0.503, density 0.249, hazards 0.407, traversal 0.274
+  identity 9a086f3e  fingerprint 24a44f28
+
+== Conflicting combinations ==
+SMOLDERING FROZEN OSSUARY  (seed 1001)
+  Biome: Catacomb, bleeding into Sanctum ruin
+  Senses: smoldering=embers (only_sense), frozen=rime (only_sense), ossuary=bone_vault (only_sense)
+  Tension: temperature contested (frozen vs scorching), dominant frozen -> patchwork
+  Tension: moisture contested (arid vs drowned), dominant balanced -> patchwork
+  Tension: stillness contested (turbulent vs still), dominant still -> patchwork
+  Interaction: thaw_cycle [conflict] Fire and frost wage a slow war; meltwater and scalding steam
+  Atmosphere: steam veils, dry dust, breath-fog
+  Hazards: killing_cold, whiteout, meltwater_floods
+  Encounters: bone_wardens, ossified_monks
+  Discoveries: bone_relics, frozen_remains, slag_metal
+  Terrain: relief 0.223, water 0.184, ice 0.046, architecture 0.733, ruin 0.811, underground 0.404
+  Challenge: visibility 0.576, ambush 0.572, density 0.324, hazards 0.962, traversal 0.405
+  identity 71a784a6  fingerprint 8eafceb4
+HALLOWED PROFANE CATHEDRAL  (seed 1001)
+  Biome: Silent ruin, bleeding into Sanctum ruin
+  Senses: hallowed=consecrated (only_sense), profane=defiled (only_sense), cathedral=nave (only_sense)
+  Tension: sanctity contested (profane vs hallowed), dominant balanced -> patchwork
+  Interaction: desecration [conflict] Holiness besieged by rot; neither has won
+  Atmosphere: defaced altars, vaulted dark, distant choir
+  Hazards: corruption_pools, warring_wards, blinding_glare
+  Encounters: fallen_templars, twisted_faithful
+  Discoveries: reliquaries, votive_offerings, broken_relics
+  Terrain: relief 0.389, water 0.241, ice 0.0, architecture 0.771, ruin 0.556, underground 0.339
+  Challenge: visibility 0.74, ambush 0.488, density 0.319, hazards 0.502, traversal 0.355
+  identity a94cc777  fingerprint c1e4578c
+TOWERING SUNKEN THORNED  (seed 1001)
+  Biome: Briar wilds, bleeding into Cavern depths
+  Senses: towering=heights (only_sense), sunken=subsided (only_sense), thorned=briar (only_sense)
+  Tension: elevation contested (sunken vs lofty), dominant balanced -> patchwork
+  Atmosphere: streets below streets, green gloom, creaking stems
+  Hazards: thorn_snares, high_wind, falls
+  Encounters: briar_beasts, cliff_stalkers
+  Discoveries: buried_streets, swallowed_ruins, bitter_herbs
+  Terrain: relief 0.407, water 0.241, ice 0.0, architecture 0.196, ruin 0.487, underground 0.328
+  Challenge: visibility 0.446, ambush 0.573, density 0.436, hazards 0.539, traversal 0.434
+  identity 3af920be  fingerprint f36f39b7
+
+== Synergistic combinations ==
+FROZEN DROWNED HOLLOW  (seed 1001)
+  Biome: Frozen reach, bleeding into Cavern depths
+  Senses: frozen=rime (only_sense), drowned=flooded (only_sense), hollow=cavern (context)
+  Interaction: black_ice [synergy] Floodwater frozen glassy and treacherous
+  Atmosphere: glassy frozen flood, blue silence, black water
+  Hazards: deep_water, killing_cold, blind_drops
+  Encounters: drowned_dead, preserved_dead
+  Discoveries: ore_veins, ice_entombed_relics, pearl_bone
+  Terrain: relief 0.582, water 0.425, ice 0.758, architecture 0.15, ruin 0.424, underground 0.869
+  Challenge: visibility 0.167, ambush 0.902, density 0.254, hazards 0.814, traversal 0.651
+  identity 97836aa2  fingerprint 21462064
+GILDED FORGOTTEN OSSUARY  (seed 1001)
+  Biome: Catacomb, bleeding into Sanctum ruin
+  Senses: gilded=treasure (context), forgotten=ancient (context), ossuary=bone_vault (only_sense)
+  Interaction: grave_goods [synergy] The dead were buried rich, and guard it
+  Atmosphere: stacked skulls, timeless hush, candle stubs
+  Hazards: crumbling_floors, trapped_vaults, collapsing_niches
+  Encounters: bone_wardens, relic_guardians
+  Discoveries: grave_goods, gold_leaf, lost_architecture
+  Terrain: relief 0.221, water 0.29, ice 0.0, architecture 0.651, ruin 0.926, underground 0.41
+  Challenge: visibility 0.651, ambush 0.544, density 0.35, hazards 0.47, traversal 0.272
+  identity e499ab8c  fingerprint bd7b4a85
+TEMPEST FROZEN TOWERING  (seed 1001)
+  Biome: Frozen reach, bleeding into High crags
+  Senses: tempest=storm (only_sense), frozen=rime (only_sense), towering=heights (only_sense)
+  Tension: stillness contested (turbulent vs still), dominant turbulent -> patchwork
+  Interaction: black_ice [synergy] Floodwater frozen glassy and treacherous
+  Interaction: blizzard [synergy] Storm and frost become a blinding blizzard
+  Interaction: lightning_peaks [synergy] High places drawing the storm's strikes
+  Atmosphere: glassy frozen flood, horizontal snow, thin air
+  Hazards: whiteout, high_wind, lightning_strikes
+  Encounters: preserved_dead, sentinels
+  Discoveries: frozen_remains, fulgurite, clear_crystal
+  Terrain: relief 0.712, water 0.211, ice 0.586, architecture 0.251, ruin 0.41, underground 0.0
+  Challenge: visibility 0.316, ambush 0.444, density 0.36, hazards 1.0, traversal 0.696
+  identity 255b5db4  fingerprint 7bc5aa48
+
+== Word order ==
+PROFANE GILDED HALLOWED  (seed 1001)
+  Biome: Silent ruin, bleeding into Sanctum ruin
+  Senses: profane=defiled (only_sense), gilded=false (context), hallowed=consecrated (only_sense)
+  Tension: sanctity contested (profane vs hallowed), dominant hallowed -> patchwork
+  Interaction: desecration [conflict] Holiness besieged by rot; neither has won
+  Interaction: false_idols [synergy] Worship of beautiful, hollow idols
+  Atmosphere: defaced altars, inverted icons, ghost of incense
+  Hazards: mimic_hoards, corruption_pools, judgment_wards
+  Encounters: fallen_templars, defilers
+  Discoveries: votive_offerings, broken_relics, cursed_treasure
+  Terrain: relief 0.239, water 0.191, ice 0.0, architecture 0.331, ruin 0.396, underground 0.0
+  Challenge: visibility 0.835, ambush 0.312, density 0.303, hazards 0.666, traversal 0.349
+  identity 0f0c45b5  fingerprint 443d524c
+HALLOWED GILDED PROFANE  (seed 1001)
+  Biome: Silent ruin, bleeding into Corrupted fen
+  Senses: hallowed=consecrated (only_sense), gilded=false (context), profane=defiled (only_sense)
+  Tension: sanctity contested (profane vs hallowed), dominant profane -> patchwork
+  Interaction: desecration [conflict] Holiness besieged by rot; neither has won
+  Interaction: false_idols [synergy] Worship of beautiful, hollow idols
+  Atmosphere: defaced altars, inverted icons, too-bright gold
+  Hazards: corruption_pools, mimic_hoards, whispering_madness
+  Encounters: defiled_saints, mimics
+  Discoveries: cursed_treasure, fools_gold, broken_relics
+  Terrain: relief 0.217, water 0.259, ice 0.0, architecture 0.273, ruin 0.425, underground 0.013
+  Challenge: visibility 0.815, ambush 0.336, density 0.312, hazards 0.671, traversal 0.357
+  identity ac00b312  fingerprint 4a0fd7f0
+
+== Invalid inputs ==
+["frozen","glimmering","hollow"] -> ok=false errors=["unknown_keyword"] warnings=[]
+["frozen","frozen","hollow"] -> ok=false errors=["duplicate_keyword"] warnings=[]
+["frozen","hollow"] -> ok=false errors=["wrong_keyword_count"] warnings=[]
+["frozen",7,"hollow"] -> ok=false errors=["invalid_keyword_type"] warnings=[]
+[" Frozen","DROWNED","hollow"] -> ok=true errors=[] warnings=["normalized_keyword","normalized_keyword"]
+
+Wrote 14 examples to /tmp/claude-0/smoke/final/examples
