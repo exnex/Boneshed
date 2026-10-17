@@ -162,6 +162,24 @@ try:
         check(moving_attack['attack_turn'] > .15, 'browser_turns_while_moving_and_swinging',
               {'radians_turned_during_moving_attack_phases': moving_attack['attack_turn']})
         page.screenshot(path=str(output/'04_desktop_moving_attack.png'))
+        for defense in ['dodge', 'guard']:
+            command(page, 'cancel_fixture')
+            page.mouse.click(600, 400)
+            wait(page, 'window.boneshedState.player.phase === 1')
+            command(page, 'attack_on_' + defense)
+            if defense == 'dodge':
+                page.keyboard.down('Space')
+            else:
+                page.mouse.down(button='right')
+            expected = 'evaded' if defense == 'dodge' else 'deflected'
+            wait(page, f'window.boneshedState.player.event === "{expected}"')
+            cancelled = state(page)
+            if defense == 'dodge':
+                page.keyboard.up('Space')
+            else:
+                page.mouse.up(button='right')
+            check(cancelled['attack_cancelled'] and cancelled['player']['health'] == 100 and cancelled['enemy']['health'] == 100,
+                  'browser_attack_cancels_to_' + defense, {'incoming_result': expected, 'health': cancelled['player']['health']})
         page.close()
         desktop.close()
 

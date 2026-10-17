@@ -57,6 +57,8 @@ func set_guard(held: bool, allow_deflect := true) -> void:
 	# it cannot manufacture a fresh deflection when the actor returns to idle.
 	var pressed := held and not guard_input_held
 	guard_input_held = held
+	if pressed:
+		_cancel_attack()
 	var allowed := phase == Phase.IDLE
 	if pressed:
 		guard_age = 0.0 if allowed and allow_deflect and deflect_ready_in <= 0.0 else 99.0
@@ -87,14 +89,25 @@ func attack(is_heavy := false) -> bool:
 	return true
 
 func dodge() -> bool:
-	if phase != Phase.IDLE or dodge_ready_in > 0.0:
+	if phase not in [Phase.IDLE, Phase.WINDUP, Phase.ACTIVE, Phase.RECOVERY] or dodge_ready_in > 0.0:
 		return false
+	_cancel_attack()
 	guarding = false
 	guard_age = 99.0
 	phase = Phase.DODGE
 	remaining = dodge_duration
 	dodge_ready_in = dodge_cooldown
 	return true
+
+func _cancel_attack() -> void:
+	if phase not in [Phase.WINDUP, Phase.ACTIVE, Phase.RECOVERY]:
+		return
+	# Discard the old swing before deferred hit resolution, including a swing
+	# already in its active window. A later action starts a new swing explicitly.
+	phase = Phase.IDLE
+	remaining = 0.0
+	hit_consumed = true
+	heavy = false
 
 func tick(delta: float) -> void:
 	guard_age += delta

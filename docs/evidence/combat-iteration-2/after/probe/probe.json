@@ -562,7 +562,7 @@
 		"guard_pressed_during": "own attack windup",
 		"guard_presses": 1,
 		"player_health": 97.84,
-		"player_idle_frame": 55,
+		"player_idle_frame": 1,
 		"result": "guard",
 		"scenario": "preheld_guard"
 	},

@@ -40,6 +40,9 @@ Keep approved direction separate from brainstorms. Amend this document only when
 - The NPC must also move while attacking, and moving players must be able to turn
   during their attacks. Steering rate and AI footwork remain provisional tuning.
 - Exact movement speed during attacks remains provisional tuning.
+- Dodging must grant invulnerability and cancel an attack immediately; a fresh
+  guard press must also cancel into defense during windup, swing or recovery.
+  Invulnerability duration, cooldown and defense tuning remain provisional.
 
 ## Pending decisions
 - Final platform targets and later desktop GPU rendering configuration.

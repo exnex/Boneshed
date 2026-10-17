@@ -30,6 +30,7 @@
           "guard": false,
           "move_forward": 0
         },
+        "attack_cancelled": false,
         "attack_distance": 0,
         "attack_turn": 0,
         "enemy": {
@@ -54,12 +55,12 @@
           "position": [
             0,
             9.11429524421692e-05,
-            1.59722149372101
+            1.32222139835358
           ],
           "posture": 0,
           "yaw": 0
         },
-        "tick": 80,
+        "tick": 151,
         "viewport": [
           1280,
           720
@@ -112,6 +113,22 @@
     "passed": true,
     "detail": {
       "radians_turned_during_moving_attack_phases": 0.839999955147505
+    }
+  },
+  {
+    "check": "browser_attack_cancels_to_dodge",
+    "passed": true,
+    "detail": {
+      "incoming_result": "evaded",
+      "health": 100
+    }
+  },
+  {
+    "check": "browser_attack_cancels_to_guard",
+    "passed": true,
+    "detail": {
+      "incoming_result": "deflected",
+      "health": 100
     }
   },
   {

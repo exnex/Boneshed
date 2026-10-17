@@ -54,15 +54,15 @@
     },
     "index.html": {
       "bytes": 5591,
-      "sha256": "9fc334721e4146e8234a9a212975c631e5de441b0bc28868af7873538dfd6012"
+      "sha256": "0de7cab876e1fe6b65a36a04cd2e9cfa026879800ec972378680e8b666ed11de"
     },
     "index.js": {
       "bytes": 279815,
       "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba"
     },
     "index.pck": {
-      "bytes": 119152,
-      "sha256": "70801a1d059ddfe07f8df757919ef3991f2b90a504b0321f95c3c03de92b1dab"
+      "bytes": 119936,
+      "sha256": "f290d2eedec7c7fcb48a666302a5392c37b4ac6356244e91c94cb6f4017572fb"
     },
     "index.png": {
       "bytes": 21443,

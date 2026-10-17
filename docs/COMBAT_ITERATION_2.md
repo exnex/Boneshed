@@ -16,7 +16,7 @@ Follow-up user direction confirms that players must not be rooted while swinging
 Normal locomotion now remains available during WINDUP, ACTIVE and RECOVERY, at the
 current full walk speed (5.5 m/s, provisional). Players can advance, retreat, strafe,
 move diagonally and change movement input mid-swing, with or without lock-on.
-Attack/guard/dodge commitment and hit-reaction restrictions are unchanged. Both
+Hit-reaction restrictions are unchanged. Both
 forms use the same movement and steering rules. The NPC now maintains distance and
 circles during windup, active and recovery, even when already in range. Its lateral
 input is 0.45 of its 2.7 m/s movement speed (about 1.22 m/s while circling), with
@@ -44,6 +44,38 @@ The rendered version feeds actual mouse events (headless uses the camera-input
 method because it cannot capture a mouse). Browser testing also checks facing
 while moving and swinging. A rendered real-AI footwork sequence supplements the
 fixed-pose timing captures.
+
+## Dodge invulnerability and defensive attack cancels
+
+Follow-up user direction confirms that dodge and guard can interrupt an attack.
+Space cancels WINDUP, ACTIVE or RECOVERY into dodge immediately when the existing
+0.65 s cooldown is ready. The existing full **0.30 s dodge invulnerability** applies
+from the cancel tick, including when blocked by a wall or unable to travel. Tests
+verify first/middle/last invulnerable instants and damage immediately after expiry.
+
+A **fresh guard press** cancels those same three attack phases immediately into
+guard. A ready, correctly timed press can deflect; repeated presses still use the
+0.32 s rearm rule and otherwise block normally. Already-held guard does not create
+a fresh deflection when returning from dodge, stagger or reset. Guarding still
+slows movement, and rear protection is unchanged.
+
+Both defensive cancels discard remaining attack time, mark the old swing consumed
+and clear its heavy flag before deferred hit resolution. They immediately remove
+the attack pose/volume and cannot resume the old swing. A hit already resolved
+cannot be undone. A dodge rejected by cooldown leaves the attack intact. Reactions,
+posture break, an ongoing dodge and death cannot be canceled this way; normal dodge
+cooldown and the full deflection stagger/break punish opportunity remain intact.
+Same-tick input priority is dodge, then guard, then attack. The shared rules support
+both forms; the NPC's current AI does not automatically dodge or cancel into guard.
+
+There are 58 added isolated checks and 25 real-input/rendered checks for these
+rules, including both basic/heavy attacks, all three cancel phases, actual incoming
+hits during stationary dodges, immediate block/deflect, no delayed hit or attack
+volume, retained cooldown/rearm limits and simultaneous inputs. Two browser checks
+drive real LMB→Space and LMB→RMB; their QA fixture lengthens windup to 4 s to isolate
+input transport latency and disables dodge travel to prove invulnerability. Native
+tests use normal durations and cover every phase. No timing change ships in the
+production export.
 
 ## Attack communication
 
@@ -90,7 +122,8 @@ Guard/deflect protect the front hemisphere, including the side boundary (facing 
 incoming direction **>= 0**, nominal ±90°). The scene computes this direction from
 positions and passes the scalar to the shared rules. Rear attacks deal normal hits.
 
-A block preserves the attacker's remaining active motion and natural recovery.
+A block preserves the attacker's remaining active motion and natural recovery
+unless the attacker deliberately cancels into dodge or guard.
 A deflection staggers for at least **remaining active + configured recovery**
 (minimum 0.35 s), or breaks posture. This gives a real punish opportunity and keeps
 a successful deflection from shortening the attacker's natural commitment.
@@ -153,9 +186,10 @@ Use new output directories. All tooling checks the exact engine build
 desktop browser tests use real Chromium/WebGL with keyboard/mouse. No touch adapter
 or touchscreen gameplay was restored. The production export excludes QA code.
 
-The native runner now includes 60 shared-rule checks, 8 live encounter gates,
-headless and rendered timing checks, and 86 graphical/input checks (including the
-49 movement/steering regressions). Desktop browser testing contains 16 checks.
+The native runner now includes 118 shared-rule checks, 8 live encounter gates,
+headless and rendered timing checks, and 111 graphical/input checks (including the
+49 movement/steering and 25 defense-cancel regressions). Desktop browser testing
+contains 18 checks.
 Negative controls deliberately break guard mitigation, deflection timing, windup
 activation, rearm protection, rear protection, committed-heavy resistance, AI defense,
 and visible weapon timing. Each must exit 1 and fail its designated assertion.
@@ -189,6 +223,10 @@ negative controls, captures, and limitations are indexed in
 - Without lock-on, hold W while swinging and rotate the mouse, then try changing
   WASD direction. Confirm body, sword and hit volume turn together. Watch the NPC
   circle and adjust range through its entire swing, including when already in range.
+- During each part of a swing, press Space or RMB. Confirm an immediate dodge or
+  guard, no delayed sword hit, and protection against an incoming strike. Dodge
+  against a wall to assess invulnerability independently of travel, then test
+  that an early dodge can still be hit after its 0.30 s invulnerability ends.
 
 Automation verifies these rules and outcomes. It does not establish fun, readability
 to a new player, latency tolerance, or final balance. The hit shape remains the

@@ -94,4 +94,29 @@ OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Devi
 {"check":"live_npc_moves_in_recovery","passed":true,"suite":"graphical"}
 {"check":"npc_attack_steering_is_responsive_and_capped","passed":true,"suite":"graphical"}
 {"check":"npc_tracks_moving_target_during_attack","passed":true,"suite":"graphical"}
-{"combat_bot_frames":418,"engine":"4.7.2-stable (official)","failed":0,"passed":86,"renderer":"llvmpipe (LLVM 19.1.7, 256 bits)","suite":"graphical","summary":true}
+{"check":"input_attack_cancel_dodge_WINDUP","passed":true,"suite":"graphical"}
+{"check":"input_cancel_defense_works_dodge_WINDUP","passed":true,"suite":"graphical"}
+{"check":"input_cancel_removes_hit_and_attack_visual_dodge_WINDUP","passed":true,"suite":"graphical"}
+{"check":"input_cancel_no_delayed_hit_dodge_WINDUP","passed":true,"suite":"graphical"}
+{"check":"input_attack_cancel_guard_WINDUP","passed":true,"suite":"graphical"}
+{"check":"input_cancel_defense_works_guard_WINDUP","passed":true,"suite":"graphical"}
+{"check":"input_cancel_removes_hit_and_attack_visual_guard_WINDUP","passed":true,"suite":"graphical"}
+{"check":"input_cancel_no_delayed_hit_guard_WINDUP","passed":true,"suite":"graphical"}
+{"check":"input_attack_cancel_dodge_ACTIVE","passed":true,"suite":"graphical"}
+{"check":"input_cancel_defense_works_dodge_ACTIVE","passed":true,"suite":"graphical"}
+{"check":"input_cancel_removes_hit_and_attack_visual_dodge_ACTIVE","passed":true,"suite":"graphical"}
+{"check":"input_cancel_no_delayed_hit_dodge_ACTIVE","passed":true,"suite":"graphical"}
+{"check":"input_attack_cancel_guard_ACTIVE","passed":true,"suite":"graphical"}
+{"check":"input_cancel_defense_works_guard_ACTIVE","passed":true,"suite":"graphical"}
+{"check":"input_cancel_removes_hit_and_attack_visual_guard_ACTIVE","passed":true,"suite":"graphical"}
+{"check":"input_cancel_no_delayed_hit_guard_ACTIVE","passed":true,"suite":"graphical"}
+{"check":"input_attack_cancel_dodge_RECOVERY","passed":true,"suite":"graphical"}
+{"check":"input_cancel_defense_works_dodge_RECOVERY","passed":true,"suite":"graphical"}
+{"check":"input_cancel_removes_hit_and_attack_visual_dodge_RECOVERY","passed":true,"suite":"graphical"}
+{"check":"input_cancel_no_delayed_hit_dodge_RECOVERY","passed":true,"suite":"graphical"}
+{"check":"input_attack_cancel_guard_RECOVERY","passed":true,"suite":"graphical"}
+{"check":"input_cancel_defense_works_guard_RECOVERY","passed":true,"suite":"graphical"}
+{"check":"input_cancel_removes_hit_and_attack_visual_guard_RECOVERY","passed":true,"suite":"graphical"}
+{"check":"input_cancel_no_delayed_hit_guard_RECOVERY","passed":true,"suite":"graphical"}
+{"check":"simultaneous_defenses_choose_dodge","passed":true,"suite":"graphical"}
+{"combat_bot_frames":418,"engine":"4.7.2-stable (official)","failed":0,"passed":111,"renderer":"llvmpipe (LLVM 19.1.7, 256 bits)","suite":"graphical","summary":true}

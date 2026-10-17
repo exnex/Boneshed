@@ -129,8 +129,52 @@ func run() -> void:
 	check(a.phase == b.phase and absf(a.remaining - b.remaining) < 0.00001, "timing_independent_of_step_size")
 	deflection_discipline()
 	heavy_interrupts()
+	attack_defense_cancels()
 	print(JSON.stringify({"suite": "combat", "summary": true, "passed": passed, "failed": failed, "negative": negative}))
 	quit(1 if failed else 0)
+
+func attack_defense_cancels() -> void:
+	for is_heavy in [false, true]:
+		for phase in [Rules.Phase.WINDUP, Rules.Phase.ACTIVE, Rules.Phase.RECOVERY]:
+			for defense in ["dodge", "guard"]:
+				var actor := Rules.new()
+				actor.attack(is_heavy)
+				if phase == Rules.Phase.ACTIVE:
+					actor.tick((actor.heavy_windup if is_heavy else actor.attack_windup) + 0.01)
+				elif phase == Rules.Phase.RECOVERY:
+					actor.tick((actor.heavy_windup if is_heavy else actor.attack_windup) + actor.active_duration + 0.01)
+				var label: String = defense + "_" + Rules.Phase.keys()[phase] + "_heavy_" + str(is_heavy)
+				if defense == "dodge":
+					check(actor.dodge() and actor.phase == Rules.Phase.DODGE, "cancel_into_" + label)
+					check(actor.receive(active_attacker()) == "evaded" and actor.health == 100.0 and actor.posture == 0.0, "cancel_dodge_iframes_" + label)
+				else:
+					actor.set_guard(true)
+					check(actor.phase == Rules.Phase.IDLE and actor.guarding, "cancel_into_" + label)
+					check(actor.receive(active_attacker()) == "deflected" and actor.health == 100.0, "cancel_guard_can_time_deflect_" + label)
+				var target := Rules.new()
+				check(actor.hit_consumed and not actor.heavy and target.receive(actor) == "invalid" and target.health == 100.0, "cancel_discards_old_hit_" + label)
+				actor.tick(2.0)
+				check(target.receive(actor) == "invalid" and target.health == 100.0, "cancel_never_resumes_swing_" + label)
+	for age in [0.0, 0.15, 0.299, 0.301]:
+		var actor := Rules.new()
+		actor.dodge()
+		actor.tick(age)
+		check(actor.receive(active_attacker()) == ("evaded" if age < actor.dodge_duration else "hit"), "dodge_iframe_boundary_" + str(age))
+	var actor := Rules.new()
+	actor.attack()
+	actor.dodge_ready_in = 0.2
+	check(not actor.dodge() and actor.phase == Rules.Phase.WINDUP and not actor.hit_consumed, "dodge_on_cooldown_does_not_cancel_attack")
+	actor.set_guard(true)
+	actor.set_guard(false)
+	actor.attack()
+	actor.set_guard(true)
+	check(actor.guarding and actor.receive(active_attacker()) == "guard", "guard_cancel_cannot_bypass_deflect_rearm")
+	for locked_phase in [Rules.Phase.STAGGER, Rules.Phase.BROKEN, Rules.Phase.DEAD, Rules.Phase.DODGE]:
+		actor.reset()
+		actor.phase = locked_phase
+		actor.remaining = 0.2
+		actor.set_guard(true)
+		check(not actor.guarding and not actor.dodge() and actor.phase == locked_phase, "cannot_defense_cancel_" + Rules.Phase.keys()[locked_phase])
 
 func deflection_discipline() -> void:
 	var defender := Rules.new()

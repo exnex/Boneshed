@@ -7,9 +7,9 @@ No human gameplay assessment was performed.
 
 | Evidence | Baseline | Iteration 2 |
 | --- | --- | --- |
-| Shared combat checks | [33 pass](baseline/native/combat.log) | [60 pass](after/native/combat.log) |
-| Native graphical/input | [37 pass](baseline/native/graphical.json) | [86 pass](after/native/graphical.json) |
-| Desktop browser | [14 pass](baseline/browser/checks.json) | [16 pass](after/browser/checks.json) |
+| Shared combat checks | [33 pass](baseline/native/combat.log) | [118 pass](after/native/combat.log) |
+| Native graphical/input | [37 pass](baseline/native/graphical.json) | [111 pass](after/native/graphical.json) |
+| Desktop browser | [14 pass](baseline/browser/checks.json) | [18 pass](after/browser/checks.json) |
 | Full adversarial measurements | [75 records](baseline/probe/probe.json) | [75 records](after/probe/probe.json) |
 | Added encounter gates | — | [8 pass](after/native/encounters.log) |
 | Rules/weapon transform timing | — | [159 headless checks](after/native/timing_headless.log), [209 rendered checks](after/native/timing_rendered.log) |
@@ -47,6 +47,16 @@ phase/reach alignment; the prototype still uses a box hit shape, not blade-mesh 
 
 ## Negative controls and provenance
 
+Defensive-cancel regressions [fail 17 checks on the previous code](defense-cancels/before.log)
+and [pass all 25 after the change](defense-cancels/after-headless.log). The final
+111-check rendered suite includes these same checks, with actual incoming hits
+while dodge travel is disabled, immediate guard/deflection, canceled hit/volume
+removal, no delayed damage and same-tick input priority. The 118-check combat suite
+also covers 0 / 0.15 / 0.299 / 0.301 s invulnerability boundaries, heavy/basic cancels,
+all three attack phases, cooldown failure and retained guard rearm protection.
+Browser Space/RMB tests use the QA-only 4 s windup fixture to isolate transport
+latency; native cases use normal durations. Production attack timing is unchanged.
+
 The NPC's live attack now includes circling and distance maintenance. See the
 [slowed rendered footwork sequence](movement/npc-footwork.gif),
 [recorded-speed video](movement/npc-footwork.mp4) and
@@ -56,12 +66,12 @@ the fixed-pose timing fixture above is deliberately separate.
 The added steering/NPC checks [fail 11 assertions before this fix](movement/steering-before.log).
 The complete focused suite [passes 49 checks afterward](movement/steering-after.log),
 covering key/mouse turning and live NPC travel through every attack phase. These
-are included in the final 86-check rendered suite.
+are included in the final 111-check rendered suite.
 
 The follow-up attack-movement checks also ran against the previous rooted Fighter:
 [26 failures, as expected](movement/rooted-before.log). The same real-input suite
 [passes all 38 checks after the fix](movement/after-headless.log); those 38 checks
-are included in the final 86-check rendered suite as well. They cover locomotion
+are included in the final 111-check rendered suite as well. They cover locomotion
 in all three attack phases, four movement directions with lock on/off, redirection,
 moving hit volumes, collision and retained hit-reaction restrictions.
 

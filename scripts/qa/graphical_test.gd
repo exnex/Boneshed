@@ -76,6 +76,10 @@ func run() -> void:
 	e = arena.enemy
 	e.enabled = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if "--defense-cancels-only" in OS.get_cmdline_user_args():
+		await defense_cancel_checks()
+		finish(0)
+		return
 	if "--npc-motion-only" in OS.get_cmdline_user_args():
 		await attack_steering_checks()
 		finish(0)
@@ -257,6 +261,7 @@ func run() -> void:
 	arena.reset_encounter()
 	check(p.combat.phase == Rules.Phase.IDLE and p.combat.health == 100.0 and p.velocity == Vector3.ZERO and e.combat.health == 100.0 and e.attack_number == 0, "reset_after_player_death")
 	await attack_movement_checks()
+	await defense_cancel_checks()
 	finish(combat_frames)
 
 func finish(combat_frames: int) -> void:
@@ -410,3 +415,43 @@ func attack_steering_checks() -> void:
 	await frames(5)
 	check(before_turn.angle_to(e.facing) > 0.30 and e.combat.phase == Rules.Phase.WINDUP, "npc_tracks_moving_target_during_attack")
 	p.input_enabled = true
+
+func defense_cancel_checks() -> void:
+	for phase in [Rules.Phase.WINDUP, Rules.Phase.ACTIVE, Rules.Phase.RECOVERY]:
+		for defense in ["dodge", "guard"]:
+			close_fixture()
+			p.input_enabled = true
+			e.position = Vector3(0.0, 0.02, -8.0)
+			action("attack", true)
+			await frames(1)
+			action("attack", false)
+			await wait_phase(p, phase)
+			# Put both weapons in reach on the cancel tick. Do not let dodge travel
+			# hide a damage bug: this must evade an actual hit while stationary.
+			e.position = p.position + p.facing * 1.8
+			e.facing = -p.facing
+			e.combat.attack()
+			e.combat.tick(e.combat.attack_windup + 0.001)
+			p.dodge_speed = 0.0
+			action(defense, true)
+			await frames(1)
+			var label: String = defense + "_" + Rules.Phase.keys()[phase]
+			check((p.combat.phase == Rules.Phase.DODGE if defense == "dodge" else p.combat.guarding), "input_attack_cancel_" + label)
+			check(p.combat.health == 100.0 and p.last_result == ("evaded" if defense == "dodge" else "deflected"), "input_cancel_defense_works_" + label)
+			check(e.combat.health == 100.0 and p.resolve_attack() == "invalid" and not p.indicator.visible, "input_cancel_removes_hit_and_attack_visual_" + label)
+			await frames(35)
+			check(e.combat.health == 100.0, "input_cancel_no_delayed_hit_" + label)
+			action(defense, false)
+			p.dodge_speed = 11.0
+			await frames(1)
+	# Same-tick requests have deterministic dodge > guard > attack priority.
+	close_fixture()
+	p.combat.attack()
+	action("attack", true)
+	action("guard", true)
+	action("dodge", true)
+	await frames(1)
+	check(p.combat.phase == Rules.Phase.DODGE and not p.combat.guarding, "simultaneous_defenses_choose_dodge")
+	for key in ["attack", "guard", "dodge"]:
+		action(key, false)
+	arena.reset_encounter()

@@ -93,7 +93,7 @@ are exported on the actor scripts for inspector iteration.
 | Deflection posture pressure on attacker | 42 |
 | Break threshold / vulnerability | 100 posture / 2.2 seconds |
 | Damage against broken target | 2×; hits do not extend the break |
-| Dodge duration / cooldown | 0.30 / 0.65 |
+| Dodge duration / invulnerability / cooldown | 0.30 / 0.30 / 0.65 |
 | Posture recovery delay / rate | 1.5 seconds / 12 per second when idle and unguarded |
 | Player move / dodge speed | 5.5 / 11 world units per second |
 | Acceleration / braking | 32 / 70 units per second squared |
@@ -104,12 +104,14 @@ strafing while locked. Movement input and mouse-relative movement also steer
 attacks while unlocked.
 Both forms currently turn at up to 270°/s during attack phases. The swordsman
 maintains distance and circles while swinging, with lateral input 0.45 of move speed.
-These are provisional tuning values. Movement does not cancel the attack; guard,
-dodge and another attack still wait for the committed action to finish. Hit reactions,
+These are provisional tuning values. Movement does not cancel the attack. Space
+or a fresh RMB press immediately cancels windup, active swing or recovery into
+dodge or guard. Dodge must be off cooldown; guard still uses normal deflection
+rearm rules. Another attack cannot cancel the swing. Hit reactions,
 posture breaks and death still restrict movement. The full movement speed is
 provisional tuning; freedom to move while swinging is confirmed user direction.
 
-Guarding slows movement and cannot cancel an attack. A fresh, rearmed guard press
+Guarding slows movement. A fresh, rearmed guard press, including an attack cancel,
 can deflect one frontal hit without chip damage; rapid unsuccessful raises require
 0.32 s to settle before another perfect window. Holding through an action/reset
 only blocks. Deflection preserves a full remaining active-plus-recovery punish
