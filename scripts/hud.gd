@@ -51,8 +51,6 @@ func _draw() -> void:
 		var message_width := font.get_string_size(message, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
 		draw_rect(Rect2(width * 0.5 - message_width * 0.5 - 20, height - 133, message_width + 40, 46), Color(0.03, 0.05, 0.06, 0.85))
 		text_at(Vector2(width * 0.5 - message_width * 0.5, height - 102), message, 23, Color("ead9ac"))
-	if arena.enemy.combat.phase == Rules.Phase.WINDUP:
-		text_at(Vector2(width * 0.5 - 90, 159), "HEAVY · WINDUP" if e.heavy else "SWORD · WINDUP", 18, Color("e3b46c"))
 
 func phase_name(phase: int) -> String:
 	return ["READY", "WINDUP", "ACTIVE", "RECOVERY", "RECOIL", "BROKEN", "DODGE", "DEAD"][phase] if phase < 8 else "?"

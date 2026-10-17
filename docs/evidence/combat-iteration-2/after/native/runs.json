@@ -1,0 +1,72 @@
+[
+  {
+    "run": "import",
+    "exit": 0,
+    "expected_exit": 0
+  },
+  {
+    "run": "combat",
+    "exit": 0,
+    "expected_exit": 0
+  },
+  {
+    "run": "negative_guard",
+    "exit": 1,
+    "expected_exit": 1
+  },
+  {
+    "run": "negative_deflect",
+    "exit": 1,
+    "expected_exit": 1
+  },
+  {
+    "run": "negative_phase",
+    "exit": 1,
+    "expected_exit": 1
+  },
+  {
+    "run": "negative_toggle",
+    "exit": 1,
+    "expected_exit": 1
+  },
+  {
+    "run": "negative_rear",
+    "exit": 1,
+    "expected_exit": 1
+  },
+  {
+    "run": "negative_poise",
+    "exit": 1,
+    "expected_exit": 1
+  },
+  {
+    "run": "encounters",
+    "exit": 0,
+    "expected_exit": 0
+  },
+  {
+    "run": "negative_defense",
+    "exit": 1,
+    "expected_exit": 1
+  },
+  {
+    "run": "timing_headless",
+    "exit": 0,
+    "expected_exit": 0
+  },
+  {
+    "run": "negative_visual",
+    "exit": 1,
+    "expected_exit": 1
+  },
+  {
+    "run": "graphical",
+    "exit": 0,
+    "expected_exit": 0
+  },
+  {
+    "run": "timing_rendered",
+    "exit": 0,
+    "expected_exit": 0
+  }
+]

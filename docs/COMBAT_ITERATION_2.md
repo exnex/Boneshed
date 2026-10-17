@@ -1,0 +1,234 @@
+# Combat iteration 2 — reading, deflection, and defense
+
+This implements the requested courtyard iteration against `d4622d6` (latest main
+fetched at preparation). PR #3 is merged at `d831cd8`; its recovery/stagger floor
+and both dodge/movement fixes are preserved. No open PRs were returned during
+preparation. The keyword generator/data and desktop camera/dodge controls are unchanged.
+
+**Confirmed scope:** improve this duel's attack communication and remove the two
+reported input-spam exploits. **Proposed tuning:** every number and defensive choice
+below is an evaluation parameter, not an approved permanent rule. **Open:** whether
+the resulting duel is readable, fair, and enjoyable to a person.
+
+## Movement while attacking
+
+Follow-up user direction confirms that players must not be rooted while swinging.
+Normal locomotion now remains available during WINDUP, ACTIVE and RECOVERY, at the
+current full walk speed (5.5 m/s, provisional). Players can advance, retreat, strafe,
+move diagonally and change movement input mid-swing, with or without lock-on.
+Hit-reaction restrictions are unchanged. Both
+forms use the same movement and steering rules. The NPC now maintains distance and
+circles during windup, active and recovery, even when already in range. Its lateral
+input is 0.45 of its 2.7 m/s movement speed (about 1.22 m/s while circling), with
+radial input clamped from `2 * (distance - preferred_distance)`. The deterministic
+circling side alternates each attack. These are provisional AI tuning values.
+
+Unlocked players now turn toward movement input throughout all attack phases,
+including while holding W and rotating the mouse. Locked players and the NPC steer
+toward their target. All use a provisional 270°/s attack turn limit to keep weapon
+motion visible instead of instantly flipping the hit volume. Weapon and hit-volume
+orientation follow the same facing every tick. This supersedes the earlier frozen
+enemy heading and idle-only unlocked player turning.
+
+There are 38 original real-input/physics movement regressions. Running these against the earlier
+rooted implementation produces 26 failures; the updated implementation passes all
+38. They sample displacement separately during every attack phase, verify the
+moving hit volume hits once, preserve body collision, accept direction changes, and
+retain stagger/break/death restrictions. A desktop browser regression also drives
+W plus mouse attack and verifies travel before the swing reaches recovery.
+
+A further 11 checks cover WASD/mouse steering during each attack phase, actual live
+NPC travel during each phase, and responsive capped NPC tracking. These 11 fail
+against the previous movement-only fix; all 49 focused checks pass with this update.
+The rendered version feeds actual mouse events (headless uses the camera-input
+method because it cannot capture a mouse). Browser testing also checks facing
+while moving and swinging. A rendered real-AI footwork sequence supplements the
+fixed-pose timing captures.
+
+## Dodge invulnerability and defensive attack cancels
+
+Follow-up user direction confirms that dodge and guard can interrupt an attack.
+Space cancels WINDUP, ACTIVE or RECOVERY into dodge immediately when the existing
+0.65 s cooldown is ready. The existing full **0.30 s dodge invulnerability** applies
+from the cancel tick, including when blocked by a wall or unable to travel. Tests
+verify first/middle/last invulnerable instants and damage immediately after expiry.
+
+A **fresh guard press** cancels those same three attack phases immediately into
+guard. A ready, correctly timed press can deflect; repeated presses still use the
+0.32 s rearm rule and otherwise block normally. Already-held guard does not create
+a fresh deflection when returning from dodge, stagger or reset. Guarding still
+slows movement, and rear protection is unchanged.
+
+Both defensive cancels discard remaining attack time, mark the old swing consumed
+and clear its heavy flag before deferred hit resolution. They immediately remove
+the attack pose/volume and cannot resume the old swing. A hit already resolved
+cannot be undone. A dodge rejected by cooldown leaves the attack intact. Reactions,
+posture break, an ongoing dodge and death cannot be canceled this way; normal dodge
+cooldown and the full deflection stagger/break punish opportunity remain intact.
+Same-tick input priority is dodge, then guard, then attack. The shared rules support
+both forms; the NPC's current AI does not automatically dodge or cancel into guard.
+
+There are 58 added isolated checks and 25 real-input/rendered checks for these
+rules, including both basic/heavy attacks, all three cancel phases, actual incoming
+hits during stationary dodges, immediate block/deflect, no delayed hit or attack
+volume, retained cooldown/rearm limits and simultaneous inputs. Two browser checks
+drive real LMB→Space and LMB→RMB; their QA fixture lengthens windup to 4 s to isolate
+input transport latency and disables dodge travel to prove invulnerability. Native
+tests use normal durations and cover every phase. No timing change ships in the
+production export.
+
+## Attack communication
+
+Both actors use the same phase-driven procedural pose. The sword arm follows the
+hand, the torso loads into the attack, and the blade rises above the body silhouette.
+The heavy loads higher than the basic. There are five observable stages:
+
+| Stage | Pose and rule |
+| --- | --- |
+| Early windup | Arm/blade rise and torso turns; no hit |
+| Commitment | Distinct held, raised sword; final 0.24 s of windup |
+| Release | Blade moves from the loaded pose into forward reach in the last 0.08 s; no hit |
+| Active | Blade is already extended on the first damaging tick, then sweeps across the front |
+| Recovery | Arm and torso slowly return to rest; no hit and no guarding |
+
+Release is a subdivision of WINDUP, so existing total attack durations and phase
+overshoot behavior stay intact. Hit resolution still reads shared rules; animation
+does not enable damage. The first active blade tip reaches approximately 2.35 m,
+matching the existing forward box's reach. Debug volumes remain available with F3.
+The central windup text and whole-body windup tint were removed; the body and
+weapon carry the cue. No trails, new particle effects, or external assets were added.
+
+The captured fixed-step basic first becomes active at tick 38 (0.633 s), and the
+heavy at tick 51 (0.850 s). These are 60 Hz quantized samples of 0.62/0.85 s windups.
+Evidence includes every tick's actual blade transform and hit result, five stage
+PNGs per attack, and 30 fps rendered sequences around release/contact/recovery.
+The timing fixture holds guard so contact can resolve without truncating the swing;
+HUD/debug volumes are hidden for these body/weapon captures.
+
+## Deflection discipline
+
+A fresh guard press starts the existing **0.16 s** window only when idle and rearmed.
+Each press starts/restarts **0.32 s** of settling before another unsuccessful attempt
+can open a window. Re-pressing while settling still raises a normal guard immediately;
+it never disables movement, attack, dodge, or block. The guard pose's wrists sit
+slightly lower while a suppressed re-press settles.
+
+An actual deflection clears settling, allowing the next deliberately timed press.
+One raise earns at most one deflection. Continuing to hold it blocks with chip and
+posture pressure. Input history is sampled even during attacks/staggers/dodges:
+holding through recovery or encounter reset cannot create a new perfect window.
+
+Guard/deflect protect the front hemisphere, including the side boundary (facing dot
+incoming direction **>= 0**, nominal ±90°). The scene computes this direction from
+positions and passes the scalar to the shared rules. Rear attacks deal normal hits.
+
+A block preserves the attacker's remaining active motion and natural recovery
+unless the attacker deliberately cancels into dodge or guard.
+A deflection staggers for at least **remaining active + configured recovery**
+(minimum 0.35 s), or breaks posture. This gives a real punish opportunity and keeps
+a successful deflection from shortening the attacker's natural commitment.
+
+## Restrained enemy defense
+
+When idle and threatened by an unconsumed, in-range player windup/swing, the swordsman
+raises a visible guard. This AI policy only blocks; it does not generate accidental
+perfect deflections. After contact, it lowers guard and starts the **existing 0.85 s
+heavy** in response, including when already within weapon reach but outside its
+preferred standing distance. There is no instant counter hit or random selection.
+
+The braced swordsman's configured block posture cost is **10 basic / 15 heavy**,
+versus the player's existing **28 / 42**. Health chip remains 12% for both, and
+deflecting either form's attack still applies 42 posture. This explicit form tuning
+keeps blind attacks on the guard from breaking it before the response can matter;
+it does not create a second damage/defense implementation. Human testing must assess
+whether this defensive asymmetry is understandable and appropriately restrained.
+
+Only heavy attacks resist ordinary hit interruption during the final **0.24 s**
+and their **0.16 s** active phase. They still take full health/posture damage.
+Earlier heavy windup and all basic windups remain interruptible; deflection, posture
+break, and death override resistance. Recovery, stagger, and break remain punishable
+and cannot raise AI guard. The rule is shared by player/enemy CombatState.
+
+## Before/after measurements
+
+Same default-start legal-input adversarial strategies, pinned engine, 60 Hz:
+
+| Strategy | Unchanged main | Iteration 2 |
+| --- | --- | --- |
+| Attack only, alternating press/release | Player wins at 100 HP in 7.12 s; 6/6 enemy windups interrupted | Player loses in 10.43 s; enemy 37.36 HP; 4 guards, 4 heavy responses, zero windup interruptions |
+| Guard 9 ticks on / 1 off; attack when enemy broken | Player wins at 100 HP in 11.82 s, 5 deflections | Player loses in 26.23 s; zero deflections; 9 blocks, posture breaks and punishes |
+| Hold guard forever | Player loses in 24.83 s | Player loses in 26.23 s |
+| Native graphical deflect/punish bot | Player wins at 100 HP in 334 ticks | Player wins at 100 HP in 418 ticks |
+| Timed rear guard press | Deflection, 100 HP | Normal hit, 82 HP |
+| Long-held rear guard | Block, 97.84 HP | Normal hit, 82 HP |
+
+The added encounter gates also test attack-only input at 1.2, 1.85, and 2.2 m,
+alternating every 2 or 5 ticks: all six lose at 8.50/8.70 s, enemy 37.36 HP.
+The skilled gate wins untouched in 418 ticks with three deflections and a break.
+
+These are deterministic fixtures, not a claim that every possible spam cadence is
+defeated. With moving, steering attacks, sidestep-and-punish now loses in 11.43 s
+(enemy 28 HP); backstep-and-punish still wins untouched in 14.35 s. Lunges and camera
+changes remain outside this iteration. The remaining spacing strategy deserves
+human assessment before expanding the combat design.
+
+## Validation
+
+```sh
+bash scripts/tooling/setup.sh
+BONESHED_GRAPHICAL_TIMEOUT=600 bash scripts/tooling/test.sh artifacts/iteration2-native
+bash scripts/tooling/probe.sh artifacts/iteration2-probe
+bash scripts/tooling/test_web.sh artifacts/iteration2-web
+```
+
+Use new output directories. All tooling checks the exact engine build
+`4.7.2.stable.official.ed1daf0bf`. Native rendered tests use Xvfb/Mesa llvmpipe;
+desktop browser tests use real Chromium/WebGL with keyboard/mouse. No touch adapter
+or touchscreen gameplay was restored. The production export excludes QA code.
+
+The native runner now includes 118 shared-rule checks, 8 live encounter gates,
+headless and rendered timing checks, and 111 graphical/input checks (including the
+49 movement/steering and 25 defense-cancel regressions). Desktop browser testing
+contains 18 checks.
+Negative controls deliberately break guard mitigation, deflection timing, windup
+activation, rearm protection, rear protection, committed-heavy resistance, AI defense,
+and visible weapon timing. Each must exit 1 and fail its designated assertion.
+
+The baseline native run passed 33 combat / 37 graphical checks and all three
+original negative controls; the baseline desktop browser passed 14 checks. A first
+baseline run hit the 180 s graphical timeout under concurrent software rendering;
+an isolated unchanged-main rerun with a 600 s limit passed. Initial sandboxed runs
+could not open editor/X11 sockets; final runs enabled the required networking/sockets.
+There are no skipped checks in the successful runs. Full results, state samples,
+negative controls, captures, and limitations are indexed in
+[the evidence directory](evidence/combat-iteration-2/README.md).
+
+## Human desktop playtest checklist
+
+- Run a few duels with F3 volumes off. Identify early windup, the raised commitment,
+  release, contact, and recovery from the body/sword. Compare basic versus heavy.
+- Read an attack, tap guard near release, and land a punish. Repeat without relying
+  on posture-break text; test at 60 and high refresh rates.
+- Raise guard early and hold it. Confirm a useful block with chip/posture pressure.
+  Try rapid guard taps, then pause briefly and time one fresh tap; assess the settling
+  delay and its small wrist-pose cue.
+- Turn away from an attack. Confirm rear damage and assess the frontal boundary.
+- Mash light attacks, watch the guard/heavy answer, then try stopping to deflect or
+  dodge it. Hit the heavy early versus after its raised commitment; assess fairness.
+- Confirm lock-on and dodges still feel familiar. Check close range and corners:
+  the player's body can still obscure the enemy torso/contact point even though the
+  raised sword is clearer. Report any unreadable release or apparently invisible hit.
+- Move forward, backward, sideways and diagonally while attacking, with and without
+  lock-on. Change direction mid-swing; confirm movement continues through recovery.
+- Without lock-on, hold W while swinging and rotate the mouse, then try changing
+  WASD direction. Confirm body, sword and hit volume turn together. Watch the NPC
+  circle and adjust range through its entire swing, including when already in range.
+- During each part of a swing, press Space or RMB. Confirm an immediate dodge or
+  guard, no delayed sword hit, and protection against an incoming strike. Dodge
+  against a wall to assess invulnerability independently of travel, then test
+  that an early dodge can still be hit after its 0.30 s invulnerability ends.
+
+Automation verifies these rules and outcomes. It does not establish fun, readability
+to a new player, latency tolerance, or final balance. The hit shape remains the
+prototype's forward box plus obstacle ray, not a swept blade collision mesh. The
+duel remains a primitive, silent prototype requiring human desktop playtesting.

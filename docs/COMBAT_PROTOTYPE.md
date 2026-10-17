@@ -61,7 +61,7 @@ opponent only once. The preview box is enabled by default for this evaluation bu
 - `scripts/characters/player.gd`: input, camera-relative motion, lock-on, and a
   sphere-shaped `SpringArm3D` that checks world geometry.
 - `scripts/ai/swordsman.gd`: deterministic detection, approach, distance maintenance,
-  and a two-basic/one-heavy attack cycle. The heading commits at attack start.
+  and a two-basic/one-heavy attack cycle, with attack footwork and shared steering.
 - `scripts/hud.gd`: live health/posture/state readouts and controls.
 - `scripts/qa/`: isolated combat tests and an in-scene graphical/input test driver.
 
@@ -84,22 +84,43 @@ are exported on the actor scripts for inspector iteration.
 | Active window | 0.16 |
 | Player/enemy recovery | 0.45 / 0.65 |
 | Deflection window after raising guard | 0.16 |
+| Unsuccessful deflection rearm / frontal arc | 0.32 / ±90° |
+| Committed windup / release before active | Final 0.24 / final 0.08 |
 | Basic/heavy health damage | 18 / 32 |
 | Guard chip | 12% of incoming health damage |
 | Guard posture pressure | 28 basic, 42 heavy |
+| Braced swordsman guard posture pressure | 10 basic, 15 heavy |
 | Deflection posture pressure on attacker | 42 |
 | Break threshold / vulnerability | 100 posture / 2.2 seconds |
 | Damage against broken target | 2×; hits do not extend the break |
-| Dodge duration / cooldown | 0.30 / 0.65 |
+| Dodge duration / invulnerability / cooldown | 0.30 / 0.30 / 0.65 |
 | Posture recovery delay / rate | 1.5 seconds / 12 per second when idle and unguarded |
 | Player move / dodge speed | 5.5 / 11 world units per second |
 | Acceleration / braking | 32 / 70 units per second squared |
 | Hit box length / width | 2.35 / 1.6, with 0.35 target capsule radius |
 
-Guarding slows movement and cannot cancel an attack. Deflection has no chip damage
-and staggers the attacker unless its posture breaks. Holding guard past the window
-blocks with chip damage and posture cost. Dodge grants evasion for its entire short
-phase, with a cooldown. A broken actor cannot act until the vulnerability expires.
+Attacks allow normal movement throughout windup, active swing and recovery, including
+strafing while locked. Movement input and mouse-relative movement also steer
+attacks while unlocked.
+Both forms currently turn at up to 270°/s during attack phases. The swordsman
+maintains distance and circles while swinging, with lateral input 0.45 of move speed.
+These are provisional tuning values. Movement does not cancel the attack. Space
+or a fresh RMB press immediately cancels windup, active swing or recovery into
+dodge or guard. Dodge must be off cooldown; guard still uses normal deflection
+rearm rules. Another attack cannot cancel the swing. Hit reactions,
+posture breaks and death still restrict movement. The full movement speed is
+provisional tuning; freedom to move while swinging is confirmed user direction.
+
+Guarding slows movement. A fresh, rearmed guard press, including an attack cancel,
+can deflect one frontal hit without chip damage; rapid unsuccessful raises require
+0.32 s to settle before another perfect window. Holding through an action/reset
+only blocks. Deflection preserves a full remaining active-plus-recovery punish
+window unless posture breaks. Held frontal guard blocks with chip/posture cost;
+rear hits bypass guard. Heavy attacks resist ordinary interrupts only in committed
+windup/active, while still taking damage and being vulnerable to deflection/break.
+Dodge grants evasion for its entire short phase, with a cooldown. A broken actor
+cannot act until the vulnerability expires. All values are provisional; see
+[Combat iteration 2](COMBAT_ITERATION_2.md) for the defensive AI and evidence.
 
 Correctness fixes from the [combat review](COMBAT_REVIEW.md) (no tuning values changed):
 a hit staggers for 0.24 s but never shortens a recovery or stagger already in progress;
@@ -156,8 +177,8 @@ This is a primitive, silent, single-opponent prototype. Automated input proves t
 encounter can execute and be won; it does not prove the duel is enjoyable, balanced,
 or accessible. Test attack interruption/stunlock, response latency, camera framing,
 telegraph readability, deflection generosity, dodge invulnerability, and break damage
-by hand at desktop frame rates. Guard currently protects all directions; there is no
-guard-direction rule. The active volume is a forward box rather than a blade sweep.
+by hand at desktop frame rates. Guard protects the front hemisphere. The active
+volume remains a forward box rather than a blade sweep.
 There is no buffered attack queue, audio, animation asset, salvage, inventory,
 progression, backend, multiplayer, or procedural world generation.
 

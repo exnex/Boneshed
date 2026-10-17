@@ -18,6 +18,8 @@ var enemy_interrupted := 0
 var only: PackedStringArray = []
 var last_e_phase := 0
 var held := {}
+var negative := ""
+var failed := 0
 
 func _initialize() -> void:
 	for arg in OS.get_cmdline_user_args():
@@ -25,6 +27,8 @@ func _initialize() -> void:
 			output = arg.trim_prefix("--evidence-dir=")
 		if arg.begins_with("--only="):
 			only = arg.trim_prefix("--only=").split(",")
+		if arg.begins_with("--negative="):
+			negative = arg.trim_prefix("--negative=")
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
 	arena = Courtyard.instantiate()
 	root.add_child(arena)
@@ -81,6 +85,7 @@ func fresh(enemy_ai := false) -> void:
 	p.input_enabled = true
 	p.dodge_speed = 11.0
 	e.enabled = enemy_ai
+	e.defense_enabled = negative != "defense"
 	tally = {}
 	enemy_attacks = 0
 	enemy_interrupted = 0
@@ -141,6 +146,8 @@ func run() -> void:
 		await hitbox_edges()
 	if only.is_empty() or "live_strategies" in only:
 		await live_strategies()
+	if "iteration2_regressions" in only:
+		await iteration2_regressions()
 	if only.is_empty() or "enemy_pathing" in only:
 		await enemy_pathing()
 	if only.is_empty() or "enemy_reactions" in only:
@@ -153,8 +160,8 @@ func run() -> void:
 		await tick_rates()
 	var file := FileAccess.open(output.path_join("probe.json"), FileAccess.WRITE)
 	file.store_string(JSON.stringify(records, "\t") + "\n")
-	print(JSON.stringify({"probe_summary": true, "records": records.size(), "engine": Engine.get_version_info().string}))
-	quit(0)
+	print(JSON.stringify({"probe_summary": true, "records": records.size(), "failed": failed, "engine": Engine.get_version_info().string}))
+	quit(1 if failed else 0)
 
 # --- Dodge ------------------------------------------------------------------
 
@@ -315,6 +322,7 @@ func preheld_guard() -> void:
 		frame += 1
 		if idle_frame < 0 and p.combat.phase == Rules.Phase.IDLE:
 			idle_frame = frame
+			p.facing = Vector3.FORWARD # Incoming contact is frontal; isolate pre-held guard.
 	release_all()
 	record("preheld_guard", {"guard_presses": 1, "guard_pressed_during": "own attack windup", "player_idle_frame": idle_frame, "result": p.last_result, "player_health": p.combat.health})
 
@@ -427,8 +435,10 @@ func hitbox_edges() -> void:
 
 # --- Live AI strategies -----------------------------------------------------
 
-func live(label: String, policy: Callable, limit := 2400) -> void:
+func live(label: String, policy: Callable, limit := 2400, distance := -1.0) -> Dictionary:
 	await fresh(true)
+	if distance > 0.0:
+		place(Vector3(0.0, 0.02, distance), Vector3(0.0, 0.02, 0.0))
 	p.locked = true
 	var frame := 0
 	while frame < limit and e.combat.phase != Rules.Phase.DEAD and p.combat.phase != Rules.Phase.DEAD:
@@ -438,6 +448,39 @@ func live(label: String, policy: Callable, limit := 2400) -> void:
 	release_all()
 	var data := {"strategy": label, "frames": frame, "seconds": snappedf(frame / 60.0, 0.01), "winner": "player" if e.combat.phase == Rules.Phase.DEAD else ("enemy" if p.combat.phase == Rules.Phase.DEAD else "timeout"), "player_health": p.combat.health, "enemy_health": e.combat.health, "enemy_attacks_started": enemy_attacks, "enemy_attacks_interrupted_in_windup": enemy_interrupted, "events": tally.duplicate()}
 	record("live_strategy", data)
+	return data
+
+func regression(condition: bool, label: String) -> void:
+	if not condition:
+		failed += 1
+	record("iteration2_regression", {"check": label, "passed": condition, "negative": negative})
+
+func skilled_policy(_frame: int) -> void:
+	var defend: bool = e.combat.phase == Rules.Phase.WINDUP and e.combat.remaining < 0.12 and p_idle()
+	if held.get("guard", false) != defend:
+		press("guard", defend)
+	var punish: bool = p_idle() and not defend and e.combat.phase in [Rules.Phase.BROKEN, Rules.Phase.RECOVERY, Rules.Phase.STAGGER]
+	if held.get("attack", false) != punish:
+		press("attack", punish)
+
+func iteration2_regressions() -> void:
+	# Legal press/release inputs, real scene/AI/hit resolution, no synthetic damage.
+	for distance in [1.2, 1.85, 2.2]:
+		for period in [2, 5]:
+			var outcome := await live("attack_only_%.2f_period_%d" % [distance, period], func(f): mash("attack", f, period), 2400, distance)
+			regression(outcome.winner == "enemy", "attack_only_loses_%.2f_period_%d" % [distance, period])
+	var toggle := await live("blind_toggle_and_break_punish", func(f):
+		if e.combat.phase == Rules.Phase.BROKEN:
+			if held.get("guard", false):
+				press("guard", false)
+			mash("attack", f)
+		else:
+			var want: bool = f % 10 != 9
+			if held.get("guard", false) != want:
+				press("guard", want))
+	regression(toggle.winner == "enemy" and toggle.events.get("player_deflected", 0) < 2, "blind_toggle_loses_without_repeated_deflections")
+	var skilled := await live("skilled_deflect_punish", skilled_policy, 2400, 1.85)
+	regression(skilled.winner == "player" and skilled.player_health == 100.0 and skilled.events.get("player_deflected", 0) >= 2, "skilled_deflect_punish_wins_untouched")
 
 func mash(action: String, frame: int, period := 2) -> void:
 	var want := frame % period == 0

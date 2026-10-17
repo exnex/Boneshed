@@ -1,0 +1,1644 @@
+[
+	{
+		"case": "standstill_backstep",
+		"configured_dodge_speed": 11.0,
+		"displacement_during_iframes": [
+			0.0,
+			-0.02,
+			1.661
+		],
+		"dodge_direction": [
+			0.0,
+			0.0,
+			1.0
+		],
+		"dodge_frames": 19,
+		"peak_speed": 9.6,
+		"post_dodge_slide_frames": 8,
+		"scenario": "dodge_momentum",
+		"speed_before": 0.0,
+		"total_displacement": [
+			0.0,
+			-0.02,
+			2.1
+		]
+	},
+	{
+		"case": "standstill_back_input",
+		"configured_dodge_speed": 11.0,
+		"displacement_during_iframes": [
+			-0.747,
+			-0.02,
+			1.495
+		],
+		"dodge_direction": [
+			-0.447,
+			0.0,
+			0.894
+		],
+		"dodge_frames": 19,
+		"peak_speed": 9.6,
+		"post_dodge_slide_frames": 8,
+		"scenario": "dodge_momentum",
+		"speed_before": 0.0,
+		"total_displacement": [
+			-0.977,
+			-0.02,
+			1.954
+		]
+	},
+	{
+		"case": "run_forward_then_dodge_back",
+		"configured_dodge_speed": 11.0,
+		"displacement_during_iframes": [
+			-0.747,
+			0.0,
+			1.495
+		],
+		"dodge_direction": [
+			-0.447,
+			0.0,
+			0.894
+		],
+		"dodge_frames": 19,
+		"peak_speed": 9.6,
+		"post_dodge_slide_frames": 8,
+		"scenario": "dodge_momentum",
+		"speed_before": 5.5,
+		"total_displacement": [
+			-0.977,
+			0.0,
+			1.954
+		]
+	},
+	{
+		"case": "run_forward_then_dodge_right",
+		"configured_dodge_speed": 11.0,
+		"displacement_during_iframes": [
+			1.495,
+			0.0,
+			0.747
+		],
+		"dodge_direction": [
+			0.894,
+			0.0,
+			0.447
+		],
+		"dodge_frames": 19,
+		"peak_speed": 9.6,
+		"post_dodge_slide_frames": 8,
+		"scenario": "dodge_momentum",
+		"speed_before": 5.5,
+		"total_displacement": [
+			1.954,
+			0.0,
+			0.977
+		]
+	},
+	{
+		"case": "run_forward_then_dodge_forward",
+		"configured_dodge_speed": 11.0,
+		"displacement_during_iframes": [
+			1.363,
+			0.0,
+			-2.725
+		],
+		"dodge_direction": [
+			0.447,
+			0.0,
+			-0.894
+		],
+		"dodge_frames": 19,
+		"peak_speed": 11.0,
+		"post_dodge_slide_frames": 9,
+		"scenario": "dodge_momentum",
+		"speed_before": 5.5,
+		"total_displacement": [
+			1.674,
+			0.0,
+			-3.347
+		]
+	},
+	{
+		"capsule_contact_distance": 0.7,
+		"ended_past_enemy": false,
+		"enemy_final": [
+			0.0,
+			0.0,
+			0.0
+		],
+		"hold_forward_after": false,
+		"min_center_distance": 0.701,
+		"player_final": [
+			0.0,
+			0.0,
+			0.701
+		],
+		"scenario": "dodge_into_enemy",
+		"start_lateral": 0.0
+	},
+	{
+		"capsule_contact_distance": 0.7,
+		"ended_past_enemy": false,
+		"enemy_final": [
+			0.0,
+			0.0,
+			0.0
+		],
+		"hold_forward_after": true,
+		"min_center_distance": 0.701,
+		"player_final": [
+			0.0,
+			0.0,
+			0.701
+		],
+		"scenario": "dodge_into_enemy",
+		"start_lateral": 0.0
+	},
+	{
+		"capsule_contact_distance": 0.7,
+		"ended_past_enemy": false,
+		"enemy_final": [
+			0.0,
+			0.0,
+			0.0
+		],
+		"hold_forward_after": false,
+		"min_center_distance": 0.7,
+		"player_final": [
+			0.15,
+			0.0,
+			0.684
+		],
+		"scenario": "dodge_into_enemy",
+		"start_lateral": 0.15
+	},
+	{
+		"capsule_contact_distance": 0.7,
+		"ended_past_enemy": false,
+		"enemy_final": [
+			0.0,
+			0.0,
+			0.0
+		],
+		"hold_forward_after": true,
+		"min_center_distance": 0.7,
+		"player_final": [
+			0.15,
+			0.0,
+			0.684
+		],
+		"scenario": "dodge_into_enemy",
+		"start_lateral": 0.15
+	},
+	{
+		"capsule_contact_distance": 0.7,
+		"ended_past_enemy": false,
+		"enemy_final": [
+			0.0,
+			0.0,
+			0.0
+		],
+		"hold_forward_after": false,
+		"min_center_distance": 0.708,
+		"player_final": [
+			0.482,
+			0.001,
+			0.533
+		],
+		"scenario": "dodge_into_enemy",
+		"start_lateral": 0.3
+	},
+	{
+		"capsule_contact_distance": 0.7,
+		"ended_past_enemy": true,
+		"enemy_final": [
+			0.0,
+			0.0,
+			0.0
+		],
+		"hold_forward_after": true,
+		"min_center_distance": 0.7,
+		"player_final": [
+			0.715,
+			0.001,
+			-2.158
+		],
+		"scenario": "dodge_into_enemy",
+		"start_lateral": 0.3
+	},
+	{
+		"capsule_contact_distance": 0.7,
+		"ended_past_enemy": false,
+		"enemy_final": [
+			0.0,
+			0.0,
+			0.0
+		],
+		"hold_forward_after": false,
+		"min_center_distance": 0.701,
+		"player_final": [
+			0.686,
+			0.001,
+			0.304
+		],
+		"scenario": "dodge_into_enemy",
+		"start_lateral": 0.45
+	},
+	{
+		"capsule_contact_distance": 0.7,
+		"ended_past_enemy": true,
+		"enemy_final": [
+			0.0,
+			0.0,
+			0.0
+		],
+		"hold_forward_after": true,
+		"min_center_distance": 0.701,
+		"player_final": [
+			0.795,
+			0.001,
+			-2.499
+		],
+		"scenario": "dodge_into_enemy",
+		"start_lateral": 0.45
+	},
+	{
+		"capsule_contact_distance": 0.7,
+		"ended_past_enemy": true,
+		"enemy_final": [
+			0.0,
+			0.0,
+			0.0
+		],
+		"hold_forward_after": false,
+		"min_center_distance": 0.701,
+		"player_final": [
+			0.828,
+			0.001,
+			-0.018
+		],
+		"scenario": "dodge_into_enemy",
+		"start_lateral": 0.6
+	},
+	{
+		"capsule_contact_distance": 0.7,
+		"ended_past_enemy": true,
+		"enemy_final": [
+			0.0,
+			0.0,
+			0.0
+		],
+		"hold_forward_after": true,
+		"min_center_distance": 0.701,
+		"player_final": [
+			0.879,
+			0.001,
+			-2.783
+		],
+		"scenario": "dodge_into_enemy",
+		"start_lateral": 0.6
+	},
+	{
+		"case": "perimeter_wall",
+		"final": [
+			0.0,
+			0.0,
+			11.25
+		],
+		"inside_arena": true,
+		"max_travel_into_obstacle": 0.65,
+		"scenario": "dodge_into_wall",
+		"start": [
+			0.0,
+			0.02,
+			10.6
+		]
+	},
+	{
+		"case": "corner",
+		"final": [
+			11.25,
+			0.001,
+			11.25
+		],
+		"inside_arena": true,
+		"max_travel_into_obstacle": 0.919,
+		"scenario": "dodge_into_wall",
+		"start": [
+			10.6,
+			0.02,
+			10.6
+		]
+	},
+	{
+		"case": "pillar",
+		"final": [
+			9.0,
+			0.0,
+			3.9
+		],
+		"inside_arena": true,
+		"max_travel_into_obstacle": 1.1,
+		"scenario": "dodge_into_wall",
+		"start": [
+			9.0,
+			0.02,
+			5.0
+		]
+	},
+	{
+		"escaped_distance": 2.28,
+		"player_final": [
+			8.633,
+			0.001,
+			11.15
+		],
+		"player_health": 100.0,
+		"scenario": "dodge_cornered"
+	},
+	{
+		"active_starts_frame": 38,
+		"case": "deflect_or_guard",
+		"outcomes": {
+			"14": "guard",
+			"15": "guard",
+			"16": "guard",
+			"17": "guard",
+			"18": "guard",
+			"19": "guard",
+			"20": "guard",
+			"21": "guard",
+			"22": "guard",
+			"23": "guard",
+			"24": "guard",
+			"25": "guard",
+			"26": "guard",
+			"27": "guard",
+			"28": "guard",
+			"29": "deflected",
+			"30": "deflected",
+			"31": "deflected",
+			"32": "deflected",
+			"33": "deflected",
+			"34": "deflected",
+			"35": "deflected",
+			"36": "deflected",
+			"37": "deflected",
+			"38": "hit",
+			"39": "hit",
+			"40": "hit",
+			"41": "hit",
+			"42": "hit",
+			"43": "hit",
+			"44": "hit",
+			"45": "hit"
+		},
+		"scenario": "timing_window",
+		"successful_count": 9,
+		"successful_press_frames": [
+			29,
+			30,
+			31,
+			32,
+			33,
+			34,
+			35,
+			36,
+			37
+		]
+	},
+	{
+		"active_starts_frame": 38,
+		"case": "dodge_iframes_only",
+		"outcomes": {
+			"14": "hit",
+			"15": "hit",
+			"16": "hit",
+			"17": "hit",
+			"18": "hit",
+			"19": "hit",
+			"20": "evaded",
+			"21": "evaded",
+			"22": "evaded",
+			"23": "evaded",
+			"24": "evaded",
+			"25": "evaded",
+			"26": "evaded",
+			"27": "evaded",
+			"28": "evaded",
+			"29": "evaded",
+			"30": "evaded",
+			"31": "evaded",
+			"32": "evaded",
+			"33": "evaded",
+			"34": "evaded",
+			"35": "evaded",
+			"36": "evaded",
+			"37": "evaded",
+			"38": "hit",
+			"39": "hit",
+			"40": "hit",
+			"41": "hit",
+			"42": "hit",
+			"43": "hit",
+			"44": "hit",
+			"45": "hit"
+		},
+		"scenario": "timing_window",
+		"successful_count": 18,
+		"successful_press_frames": [
+			20,
+			21,
+			22,
+			23,
+			24,
+			25,
+			26,
+			27,
+			28,
+			29,
+			30,
+			31,
+			32,
+			33,
+			34,
+			35,
+			36,
+			37
+		]
+	},
+	{
+		"active_starts_frame": 38,
+		"case": "dodge_with_backstep_movement",
+		"outcomes": {
+			"14": "no_contact",
+			"15": "no_contact",
+			"16": "no_contact",
+			"17": "no_contact",
+			"18": "no_contact",
+			"19": "no_contact",
+			"20": "no_contact",
+			"21": "no_contact",
+			"22": "no_contact",
+			"23": "no_contact",
+			"24": "no_contact",
+			"25": "no_contact",
+			"26": "no_contact",
+			"27": "no_contact",
+			"28": "no_contact",
+			"29": "no_contact",
+			"30": "evaded",
+			"31": "evaded",
+			"32": "evaded",
+			"33": "evaded",
+			"34": "evaded",
+			"35": "evaded",
+			"36": "evaded",
+			"37": "evaded",
+			"38": "hit",
+			"39": "hit",
+			"40": "hit",
+			"41": "hit",
+			"42": "hit",
+			"43": "hit",
+			"44": "hit",
+			"45": "hit"
+		},
+		"scenario": "timing_window",
+		"successful_count": 24,
+		"successful_press_frames": [
+			14,
+			15,
+			16,
+			17,
+			18,
+			19,
+			20,
+			21,
+			22,
+			23,
+			24,
+			25,
+			26,
+			27,
+			28,
+			29,
+			30,
+			31,
+			32,
+			33,
+			34,
+			35,
+			36,
+			37
+		]
+	},
+	{
+		"enemy_posture": 42.0,
+		"player_facing": [
+			0.0,
+			0.0,
+			1.0
+		],
+		"player_health": 100.0,
+		"result": "deflected",
+		"scenario": "guard_from_behind",
+		"timed_press": true
+	},
+	{
+		"enemy_posture": 0.0,
+		"player_facing": [
+			0.0,
+			0.0,
+			1.0
+		],
+		"player_health": 97.84,
+		"result": "guard",
+		"scenario": "guard_from_behind",
+		"timed_press": false
+	},
+	{
+		"guard_pressed_during": "own attack windup",
+		"guard_presses": 1,
+		"player_health": 100.0,
+		"player_idle_frame": 55,
+		"result": "deflected",
+		"scenario": "preheld_guard"
+	},
+	{
+		"attack_pressed_5_frames_before_recovery_end_phase_after": "IDLE",
+		"attack_while_guard_held_phase": "IDLE",
+		"release_guard_and_attack_same_frame_phase": "WINDUP",
+		"scenario": "input_conflicts"
+	},
+	{
+		"enemy_lockout_frames_after_active": 39,
+		"punished_by_hit": false,
+		"result": "",
+		"scenario": "recovery_after_whiff"
+	},
+	{
+		"enemy_lockout_frames_after_active": 39,
+		"punished_by_hit": true,
+		"result": "hit",
+		"scenario": "recovery_after_whiff"
+	},
+	{
+		"enemy_health": 82.0,
+		"enemy_result": "hit",
+		"player_active_offset_ticks": -3,
+		"player_health": 100.0,
+		"player_result": "",
+		"scenario": "simultaneous_attacks"
+	},
+	{
+		"enemy_health": 82.0,
+		"enemy_result": "hit",
+		"player_active_offset_ticks": -2,
+		"player_health": 100.0,
+		"player_result": "",
+		"scenario": "simultaneous_attacks"
+	},
+	{
+		"enemy_health": 82.0,
+		"enemy_result": "hit",
+		"player_active_offset_ticks": -1,
+		"player_health": 100.0,
+		"player_result": "",
+		"scenario": "simultaneous_attacks"
+	},
+	{
+		"enemy_health": 82.0,
+		"enemy_result": "hit",
+		"player_active_offset_ticks": 0,
+		"player_health": 100.0,
+		"player_result": "",
+		"scenario": "simultaneous_attacks"
+	},
+	{
+		"enemy_health": 100.0,
+		"enemy_result": "",
+		"player_active_offset_ticks": 1,
+		"player_health": 82.0,
+		"player_result": "hit",
+		"scenario": "simultaneous_attacks"
+	},
+	{
+		"enemy_health": 100.0,
+		"enemy_result": "",
+		"player_active_offset_ticks": 2,
+		"player_health": 82.0,
+		"player_result": "hit",
+		"scenario": "simultaneous_attacks"
+	},
+	{
+		"enemy_health": 100.0,
+		"enemy_result": "",
+		"player_active_offset_ticks": 3,
+		"player_health": 82.0,
+		"player_result": "hit",
+		"scenario": "simultaneous_attacks"
+	},
+	{
+		"enemy_health": 82.0,
+		"enemy_moved_behind_during_windup": true,
+		"enemy_result": "hit",
+		"locked": true,
+		"scenario": "facing_during_attack"
+	},
+	{
+		"enemy_health": 100.0,
+		"enemy_moved_behind_during_windup": true,
+		"enemy_result": "",
+		"locked": false,
+		"scenario": "facing_during_attack"
+	},
+	{
+		"case": "forward_2.30",
+		"result": "hit",
+		"scenario": "hitbox_edge",
+		"target_center": [
+			0.0,
+			0.02,
+			-2.3
+		]
+	},
+	{
+		"case": "forward_2.50_capsule_overlaps_box",
+		"result": "out_of_range",
+		"scenario": "hitbox_edge",
+		"target_center": [
+			0.0,
+			0.02,
+			-2.5
+		]
+	},
+	{
+		"case": "lateral_1.10_forward_1.0",
+		"result": "hit",
+		"scenario": "hitbox_edge",
+		"target_center": [
+			1.1,
+			0.02,
+			-1.0
+		]
+	},
+	{
+		"case": "lateral_1.20_forward_1.0",
+		"result": "out_of_range",
+		"scenario": "hitbox_edge",
+		"target_center": [
+			1.2,
+			0.02,
+			-1.0
+		]
+	},
+	{
+		"case": "side_by_side_touching_behind_origin",
+		"result": "out_of_range",
+		"scenario": "hitbox_edge",
+		"target_center": [
+			0.7,
+			0.02,
+			0.05
+		]
+	},
+	{
+		"case": "target_partially_behind_pillar",
+		"player": [
+			8.5,
+			0.0,
+			3.95
+		],
+		"result": "out_of_range",
+		"scenario": "hitbox_edge",
+		"target": [
+			8.5,
+			0.0,
+			2.05
+		]
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 5,
+		"enemy_health": 100.0,
+		"events": {
+			"player_defeated": 1,
+			"player_hit": 4
+		},
+		"frames": 665,
+		"player_health": 0.0,
+		"scenario": "live_strategy",
+		"seconds": 11.08,
+		"strategy": "stationary_no_input",
+		"winner": "enemy"
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 12,
+		"enemy_health": 100.0,
+		"events": {
+			"player_broken_frames": 266,
+			"player_defeated": 1,
+			"player_guard": 9,
+			"player_punish": 2
+		},
+		"frames": 1490,
+		"player_health": 0.0,
+		"scenario": "live_strategy",
+		"seconds": 24.83,
+		"strategy": "hold_guard_forever",
+		"winner": "enemy"
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 6,
+		"enemy_attacks_started": 6,
+		"enemy_health": 0.0,
+		"events": {
+			"enemy_defeated": 1,
+			"enemy_hit": 5
+		},
+		"frames": 427,
+		"player_health": 100.0,
+		"scenario": "live_strategy",
+		"seconds": 7.12,
+		"strategy": "mash_attack_only",
+		"winner": "player"
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 17,
+		"enemy_health": 100.0,
+		"events": {
+			"enemy_broken_frames": 665,
+			"player_deflected": 15,
+			"player_hit": 2
+		},
+		"frames": 2400,
+		"player_health": 50.0,
+		"scenario": "live_strategy",
+		"seconds": 40.0,
+		"strategy": "guard_toggle_9_on_1_off",
+		"winner": "timeout"
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 5,
+		"enemy_health": 0.0,
+		"events": {
+			"enemy_broken_frames": 156,
+			"enemy_defeated": 1,
+			"enemy_hit": 1,
+			"enemy_punish": 2,
+			"player_deflected": 5
+		},
+		"frames": 709,
+		"player_health": 100.0,
+		"scenario": "live_strategy",
+		"seconds": 11.82,
+		"strategy": "guard_toggle_9_on_1_off_attack_when_broken",
+		"winner": "player"
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 6,
+		"enemy_health": 0.0,
+		"events": {
+			"enemy_defeated": 1,
+			"enemy_hit": 5
+		},
+		"frames": 879,
+		"player_health": 100.0,
+		"scenario": "live_strategy",
+		"seconds": 14.65,
+		"strategy": "sidestep_windup_then_punish",
+		"winner": "player"
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 6,
+		"enemy_health": 0.0,
+		"events": {
+			"enemy_defeated": 1,
+			"enemy_hit": 5
+		},
+		"frames": 931,
+		"player_health": 100.0,
+		"scenario": "live_strategy",
+		"seconds": 15.52,
+		"strategy": "backstep_windup_then_punish",
+		"winner": "player"
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 8,
+		"enemy_health": 100.0,
+		"events": {
+			"player_defeated": 1,
+			"player_evaded": 3,
+			"player_hit": 4
+		},
+		"frames": 1212,
+		"player_health": 0.0,
+		"scenario": "live_strategy",
+		"seconds": 20.2,
+		"strategy": "dodge_whenever_ready_no_attack",
+		"winner": "enemy"
+	},
+	{
+		"ai_state": "APPROACH",
+		"case": "player_behind_pillar",
+		"enemy_attacks_started": 0,
+		"enemy_final": [
+			9.0,
+			0.0,
+			2.1
+		],
+		"min_distance": 2.5,
+		"player_health": 100.0,
+		"scenario": "enemy_pathing"
+	},
+	{
+		"ai_state": "ATTACK",
+		"case": "player_behind_brazier",
+		"enemy_attacks_started": 5,
+		"enemy_final": [
+			7.0,
+			0.0,
+			5.373
+		],
+		"min_distance": 1.83,
+		"player_health": 100.0,
+		"scenario": "enemy_pathing"
+	},
+	{
+		"ai_state": "APPROACH",
+		"case": "player_behind_low_block",
+		"enemy_attacks_started": 0,
+		"enemy_final": [
+			7.3,
+			0.0,
+			-5.376
+		],
+		"min_distance": 3.82,
+		"player_health": 100.0,
+		"scenario": "enemy_pathing"
+	},
+	{
+		"enemy_facing": [
+			0.0,
+			0.0,
+			-1.0
+		],
+		"scenario": "enemy_turn",
+		"ticks_to_face_player_behind": 1
+	},
+	{
+		"break_ticks": 133,
+		"cooldown_left_when_broken": 0.78,
+		"scenario": "enemy_after_break",
+		"ticks_from_break_end_to_next_windup": 47
+	},
+	{
+		"camera_inside_enemy_capsule": false,
+		"distance": 1.85,
+		"enemy_blocks_view_of_player": false,
+		"enemy_chest_hidden_behind_player": true,
+		"enemy_chest_px": [
+			583,
+			351
+		],
+		"enemy_feet_px": [
+			585,
+			427
+		],
+		"player_chest_px": [
+			566,
+			396
+		],
+		"player_half_width_px": 37,
+		"scenario": "camera_framing_locked",
+		"spring_length": 6.0
+	},
+	{
+		"camera_inside_enemy_capsule": false,
+		"distance": 3.0,
+		"enemy_blocks_view_of_player": false,
+		"enemy_chest_hidden_behind_player": true,
+		"enemy_chest_px": [
+			590,
+			332
+		],
+		"enemy_feet_px": [
+			591,
+			400
+		],
+		"player_chest_px": [
+			566,
+			396
+		],
+		"player_half_width_px": 37,
+		"scenario": "camera_framing_locked",
+		"spring_length": 6.0
+	},
+	{
+		"camera_inside_enemy_capsule": false,
+		"distance": 5.0,
+		"enemy_blocks_view_of_player": false,
+		"enemy_chest_hidden_behind_player": true,
+		"enemy_chest_px": [
+			599,
+			308
+		],
+		"enemy_feet_px": [
+			600,
+			365
+		],
+		"player_chest_px": [
+			566,
+			396
+		],
+		"player_half_width_px": 37,
+		"scenario": "camera_framing_locked",
+		"spring_length": 6.0
+	},
+	{
+		"camera_inside_enemy_capsule": false,
+		"case": "enemy_behind_player_free_camera",
+		"enemy_blocks_view_of_player": false,
+		"enemy_chest_hidden_behind_player": false,
+		"enemy_chest_px": [
+			572,
+			540
+		],
+		"enemy_feet_px": [
+			575,
+			622
+		],
+		"player_chest_px": [
+			566,
+			396
+		],
+		"player_half_width_px": 37,
+		"scenario": "camera_enemy_behind",
+		"spring_length": 6.0
+	},
+	{
+		"camera_inside_enemy_capsule": false,
+		"camera_to_player_head": 1.31,
+		"case": "player_cornered_locked",
+		"enemy_blocks_view_of_player": false,
+		"enemy_chest_hidden_behind_player": false,
+		"enemy_chest_px": [
+			500,
+			323
+		],
+		"enemy_feet_px": [
+			512,
+			503
+		],
+		"player_chest_px": [
+			248,
+			548
+		],
+		"player_half_width_px": 196,
+		"scenario": "camera_corner",
+		"spring_length": 1.04
+	},
+	{
+		"lock_acquired_through_pillar": true,
+		"lock_has_range_limit": false,
+		"scenario": "lock_on",
+		"still_locked_after_enemy_death": true
+	},
+	{
+		"mouse_mode_after": 0,
+		"phase_after_recapture_click": "WINDUP",
+		"scenario": "mouse_recapture_click"
+	},
+	{
+		"after_reset_frame": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-2.991
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"before": {
+			"enemy_health": 100.0,
+			"enemy_phase": "WINDUP",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				1.8
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"case": "enemy_active_in_range",
+		"events_in_scenario": {},
+		"five_frames_later": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-2.822
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"scenario": "reset"
+	},
+	{
+		"after_reset_frame": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-2.991
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"before": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				0.009
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "DODGE",
+			"player_pos": [
+				0.0,
+				0.0,
+				1.853
+			],
+			"player_pose_rot_z": 0.35,
+			"player_posture": 0.0
+		},
+		"case": "player_dodging",
+		"events_in_scenario": {},
+		"five_frames_later": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-2.822
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"scenario": "reset"
+	},
+	{
+		"after_reset_frame": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-2.991
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 0.017,
+			"player_guarding": true,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"before": {
+			"enemy_health": 100.0,
+			"enemy_phase": "STAGGER",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enemy_pose_rot_z": -0.2,
+			"enemy_posture": 42.0,
+			"impact_visible": true,
+			"player_guard_age": 0.117,
+			"player_guarding": true,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				1.8
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"case": "enemy_deflect_stagger",
+		"events_in_scenario": {
+			"player_deflected": 1
+		},
+		"five_frames_later": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-2.822
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 0.1,
+			"player_guarding": true,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"scenario": "reset"
+	},
+	{
+		"after_reset_frame": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-3.0
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"before": {
+			"enemy_health": 0.0,
+			"enemy_phase": "DEAD",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enemy_pose_rot_z": 1.571,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				1.8
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"case": "enemy_dead",
+		"events_in_scenario": {},
+		"five_frames_later": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-3.0
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"scenario": "reset"
+	},
+	{
+		"after_reset_frame": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-2.991
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"before": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 0.0,
+			"player_phase": "DEAD",
+			"player_pos": [
+				0.0,
+				0.0,
+				1.8
+			],
+			"player_pose_rot_z": 1.571,
+			"player_posture": 0.0
+		},
+		"case": "player_dead",
+		"events_in_scenario": {},
+		"five_frames_later": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-2.822
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"scenario": "reset"
+	},
+	{
+		"after_reset_frame": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-2.991
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"before": {
+			"enemy_health": 100.0,
+			"enemy_phase": "BROKEN",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enemy_pose_rot_z": 0.3,
+			"enemy_posture": 100.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				1.8
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"case": "enemy_broken",
+		"events_in_scenario": {
+			"enemy_broken_frames": 2
+		},
+		"five_frames_later": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-2.822
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"scenario": "reset"
+	},
+	{
+		"after_reset_frame": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-2.991
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"before": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				1.8
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"case": "reset_spam_10",
+		"events_in_scenario": {},
+		"five_frames_later": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-2.822
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 99.017,
+			"player_guarding": false,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"scenario": "reset"
+	},
+	{
+		"after_reset_frame": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-2.991
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 0.017,
+			"player_guarding": true,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"before": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 0.5,
+			"player_guarding": true,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				1.8
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"case": "guard_held_through_reset",
+		"events_in_scenario": {},
+		"five_frames_later": {
+			"enemy_health": 100.0,
+			"enemy_phase": "IDLE",
+			"enemy_pos": [
+				0.0,
+				0.0,
+				-2.822
+			],
+			"enemy_pose_rot_z": 0.0,
+			"enemy_posture": 0.0,
+			"impact_visible": false,
+			"player_guard_age": 0.1,
+			"player_guarding": true,
+			"player_health": 100.0,
+			"player_phase": "IDLE",
+			"player_pos": [
+				0.0,
+				0.0,
+				4.0
+			],
+			"player_pose_rot_z": 0.0,
+			"player_posture": 0.0
+		},
+		"scenario": "reset"
+	},
+	{
+		"deflect_success_leads": 4,
+		"deflect_window_seconds_effective": 0.133,
+		"physics_hz": 30,
+		"scenario": "tick_rate",
+		"standstill_dodge_distance": 2.102
+	},
+	{
+		"deflect_success_leads": 9,
+		"deflect_window_seconds_effective": 0.15,
+		"physics_hz": 60,
+		"scenario": "tick_rate",
+		"standstill_dodge_distance": 2.1
+	},
+	{
+		"deflect_success_leads": 19,
+		"deflect_window_seconds_effective": 0.158,
+		"physics_hz": 120,
+		"scenario": "tick_rate",
+		"standstill_dodge_distance": 1.983
+	},
+	{
+		"deflect_success_leads": 38,
+		"deflect_window_seconds_effective": 0.158,
+		"physics_hz": 240,
+		"scenario": "tick_rate",
+		"standstill_dodge_distance": 2.041
+	}
+]

@@ -1,0 +1,136 @@
+[
+	{
+		"check": "input_attack_cancel_dodge_WINDUP",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_defense_works_dodge_WINDUP",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_removes_hit_and_attack_visual_dodge_WINDUP",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_no_delayed_hit_dodge_WINDUP",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_attack_cancel_guard_WINDUP",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_defense_works_guard_WINDUP",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_removes_hit_and_attack_visual_guard_WINDUP",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_no_delayed_hit_guard_WINDUP",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_attack_cancel_dodge_ACTIVE",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_defense_works_dodge_ACTIVE",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_removes_hit_and_attack_visual_dodge_ACTIVE",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_no_delayed_hit_dodge_ACTIVE",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_attack_cancel_guard_ACTIVE",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_defense_works_guard_ACTIVE",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_removes_hit_and_attack_visual_guard_ACTIVE",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_no_delayed_hit_guard_ACTIVE",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_attack_cancel_dodge_RECOVERY",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_defense_works_dodge_RECOVERY",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_removes_hit_and_attack_visual_dodge_RECOVERY",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_no_delayed_hit_dodge_RECOVERY",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_attack_cancel_guard_RECOVERY",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_defense_works_guard_RECOVERY",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_removes_hit_and_attack_visual_guard_RECOVERY",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "input_cancel_no_delayed_hit_guard_RECOVERY",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "simultaneous_defenses_choose_dodge",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"combat_bot_frames": 0,
+		"engine": "4.7.2-stable (official)",
+		"failed": 0,
+		"passed": 25,
+		"renderer": "",
+		"suite": "graphical",
+		"summary": true
+	}
+]

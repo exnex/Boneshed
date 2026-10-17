@@ -1,0 +1,279 @@
+{
+  "baseline_commit": "d4622d60bdc71ebe29e96c1b31e22a85b963a424",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "strategies": {
+    "stationary_no_input": {
+      "before": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 5,
+        "enemy_health": 100.0,
+        "events": {
+          "player_defeated": 1,
+          "player_hit": 4
+        },
+        "frames": 665,
+        "player_health": 0.0,
+        "scenario": "live_strategy",
+        "seconds": 11.08,
+        "strategy": "stationary_no_input",
+        "winner": "enemy"
+      },
+      "after": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 5,
+        "enemy_health": 100.0,
+        "events": {
+          "player_defeated": 1,
+          "player_hit": 4
+        },
+        "frames": 665,
+        "player_health": 0.0,
+        "scenario": "live_strategy",
+        "seconds": 11.08,
+        "strategy": "stationary_no_input",
+        "winner": "enemy"
+      }
+    },
+    "hold_guard_forever": {
+      "before": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 12,
+        "enemy_health": 100.0,
+        "events": {
+          "player_broken_frames": 266,
+          "player_defeated": 1,
+          "player_guard": 9,
+          "player_punish": 2
+        },
+        "frames": 1490,
+        "player_health": 0.0,
+        "scenario": "live_strategy",
+        "seconds": 24.83,
+        "strategy": "hold_guard_forever",
+        "winner": "enemy"
+      },
+      "after": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 12,
+        "enemy_health": 100.0,
+        "events": {
+          "player_broken_frames": 266,
+          "player_defeated": 1,
+          "player_guard": 9,
+          "player_punish": 2
+        },
+        "frames": 1574,
+        "player_health": 0.0,
+        "scenario": "live_strategy",
+        "seconds": 26.23,
+        "strategy": "hold_guard_forever",
+        "winner": "enemy"
+      }
+    },
+    "mash_attack_only": {
+      "before": {
+        "enemy_attacks_interrupted_in_windup": 6,
+        "enemy_attacks_started": 6,
+        "enemy_health": 0.0,
+        "events": {
+          "enemy_defeated": 1,
+          "enemy_hit": 5
+        },
+        "frames": 427,
+        "player_health": 100.0,
+        "scenario": "live_strategy",
+        "seconds": 7.12,
+        "strategy": "mash_attack_only",
+        "winner": "player"
+      },
+      "after": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 4,
+        "enemy_health": 37.36,
+        "events": {
+          "enemy_guard": 4,
+          "enemy_hit": 3,
+          "player_defeated": 1,
+          "player_hit": 3
+        },
+        "frames": 626,
+        "player_health": 0.0,
+        "scenario": "live_strategy",
+        "seconds": 10.43,
+        "strategy": "mash_attack_only",
+        "winner": "enemy"
+      }
+    },
+    "guard_toggle_9_on_1_off": {
+      "before": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 17,
+        "enemy_health": 100.0,
+        "events": {
+          "enemy_broken_frames": 665,
+          "player_deflected": 15,
+          "player_hit": 2
+        },
+        "frames": 2400,
+        "player_health": 50.0,
+        "scenario": "live_strategy",
+        "seconds": 40.0,
+        "strategy": "guard_toggle_9_on_1_off",
+        "winner": "timeout"
+      },
+      "after": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 12,
+        "enemy_health": 100.0,
+        "events": {
+          "player_broken_frames": 266,
+          "player_defeated": 1,
+          "player_guard": 9,
+          "player_punish": 2
+        },
+        "frames": 1574,
+        "player_health": 0.0,
+        "scenario": "live_strategy",
+        "seconds": 26.23,
+        "strategy": "guard_toggle_9_on_1_off",
+        "winner": "enemy"
+      }
+    },
+    "guard_toggle_9_on_1_off_attack_when_broken": {
+      "before": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 5,
+        "enemy_health": 0.0,
+        "events": {
+          "enemy_broken_frames": 156,
+          "enemy_defeated": 1,
+          "enemy_hit": 1,
+          "enemy_punish": 2,
+          "player_deflected": 5
+        },
+        "frames": 709,
+        "player_health": 100.0,
+        "scenario": "live_strategy",
+        "seconds": 11.82,
+        "strategy": "guard_toggle_9_on_1_off_attack_when_broken",
+        "winner": "player"
+      },
+      "after": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 12,
+        "enemy_health": 100.0,
+        "events": {
+          "player_broken_frames": 266,
+          "player_defeated": 1,
+          "player_guard": 9,
+          "player_punish": 2
+        },
+        "frames": 1574,
+        "player_health": 0.0,
+        "scenario": "live_strategy",
+        "seconds": 26.23,
+        "strategy": "guard_toggle_9_on_1_off_attack_when_broken",
+        "winner": "enemy"
+      }
+    },
+    "sidestep_windup_then_punish": {
+      "before": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 6,
+        "enemy_health": 0.0,
+        "events": {
+          "enemy_defeated": 1,
+          "enemy_hit": 5
+        },
+        "frames": 879,
+        "player_health": 100.0,
+        "scenario": "live_strategy",
+        "seconds": 14.65,
+        "strategy": "sidestep_windup_then_punish",
+        "winner": "player"
+      },
+      "after": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 5,
+        "enemy_health": 28.0,
+        "events": {
+          "enemy_hit": 4,
+          "player_defeated": 1,
+          "player_hit": 4
+        },
+        "frames": 686,
+        "player_health": 0.0,
+        "scenario": "live_strategy",
+        "seconds": 11.43,
+        "strategy": "sidestep_windup_then_punish",
+        "winner": "enemy"
+      }
+    },
+    "backstep_windup_then_punish": {
+      "before": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 6,
+        "enemy_health": 0.0,
+        "events": {
+          "enemy_defeated": 1,
+          "enemy_hit": 5
+        },
+        "frames": 931,
+        "player_health": 100.0,
+        "scenario": "live_strategy",
+        "seconds": 15.52,
+        "strategy": "backstep_windup_then_punish",
+        "winner": "player"
+      },
+      "after": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 6,
+        "enemy_health": 0.0,
+        "events": {
+          "enemy_defeated": 1,
+          "enemy_hit": 5
+        },
+        "frames": 861,
+        "player_health": 100.0,
+        "scenario": "live_strategy",
+        "seconds": 14.35,
+        "strategy": "backstep_windup_then_punish",
+        "winner": "player"
+      }
+    },
+    "dodge_whenever_ready_no_attack": {
+      "before": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 8,
+        "enemy_health": 100.0,
+        "events": {
+          "player_defeated": 1,
+          "player_evaded": 3,
+          "player_hit": 4
+        },
+        "frames": 1212,
+        "player_health": 0.0,
+        "scenario": "live_strategy",
+        "seconds": 20.2,
+        "strategy": "dodge_whenever_ready_no_attack",
+        "winner": "enemy"
+      },
+      "after": {
+        "enemy_attacks_interrupted_in_windup": 0,
+        "enemy_attacks_started": 8,
+        "enemy_health": 100.0,
+        "events": {
+          "player_defeated": 1,
+          "player_evaded": 2,
+          "player_hit": 4
+        },
+        "frames": 1231,
+        "player_health": 0.0,
+        "scenario": "live_strategy",
+        "seconds": 20.52,
+        "strategy": "dodge_whenever_ready_no_attack",
+        "winner": "enemy"
+      }
+    }
+  }
+}

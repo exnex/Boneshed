@@ -76,6 +76,18 @@ func run() -> void:
 	e = arena.enemy
 	e.enabled = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if "--defense-cancels-only" in OS.get_cmdline_user_args():
+		await defense_cancel_checks()
+		finish(0)
+		return
+	if "--npc-motion-only" in OS.get_cmdline_user_args():
+		await attack_steering_checks()
+		finish(0)
+		return
+	if "--attack-movement-only" in OS.get_cmdline_user_args():
+		await attack_movement_checks()
+		finish(0)
+		return
 	await frames(12)
 	check(p.is_on_floor() and e.is_on_floor(), "actors_grounded")
 	await snapshot("01_initial_courtyard")
@@ -248,9 +260,198 @@ func run() -> void:
 	check(await wait_phase(p, Rules.Phase.DEAD, 1800), "live_enemy_can_defeat_player")
 	arena.reset_encounter()
 	check(p.combat.phase == Rules.Phase.IDLE and p.combat.health == 100.0 and p.velocity == Vector3.ZERO and e.combat.health == 100.0 and e.attack_number == 0, "reset_after_player_death")
+	await attack_movement_checks()
+	await defense_cancel_checks()
+	finish(combat_frames)
+
+func finish(combat_frames: int) -> void:
 	var summary := {"suite": "graphical", "summary": true, "passed": passed, "failed": failed, "engine": Engine.get_version_info().string, "renderer": RenderingServer.get_video_adapter_name(), "combat_bot_frames": combat_frames}
 	records.append(summary)
 	print(JSON.stringify(summary))
 	var file := FileAccess.open(output.path_join("graphical.json"), FileAccess.WRITE)
 	file.store_string(JSON.stringify(records, "\t") + "\n")
 	get_tree().quit(1 if failed else 0)
+
+func attack_movement_checks() -> void:
+	# Real input and CharacterBody3D physics across a complete swing, from rest.
+	# Sample each phase separately so coasting out of windup cannot mask a root.
+	for lock in [false, true]:
+		for movement in [["move_forward"], ["move_back"], ["move_right"], ["move_forward", "move_right"]]:
+			arena.reset_encounter()
+			e.enabled = false
+			e.position = Vector3(0.0, 0.02, -8.0)
+			p.input_enabled = true
+			p.locked = lock
+			await frames(2)
+			for key in movement:
+				action(key, true)
+			action("attack", true)
+			await frames(1)
+			action("attack", false)
+			var distance := {Rules.Phase.WINDUP: 0.0, Rules.Phase.ACTIVE: 0.0, Rules.Phase.RECOVERY: 0.0}
+			for tick in range(90):
+				var phase: int = p.combat.phase
+				if phase == Rules.Phase.IDLE:
+					break
+				var before := p.position
+				await frames(1)
+				if distance.has(phase) and phase == p.combat.phase:
+					distance[phase] += Vector2(p.position.x - before.x, p.position.z - before.z).length()
+			for key in movement:
+				action(key, false)
+			var label := "locked_" + str(lock) + "_" + "_".join(movement)
+			check(distance[Rules.Phase.WINDUP] > 0.8, "attack_moves_windup_" + label)
+			check(distance[Rules.Phase.ACTIVE] > 0.5, "attack_moves_active_" + label)
+			check(distance[Rules.Phase.RECOVERY] > 1.5, "attack_moves_recovery_" + label)
+			check(p.combat.phase == Rules.Phase.IDLE, "moving_attack_completes_" + label)
+	# Approach from outside reach: movement must carry the real hit volume with it.
+	close_fixture()
+	p.position.z = 3.6
+	action("move_forward", true)
+	action("attack", true)
+	await frames(1)
+	action("attack", false)
+	await wait_phase(p, Rules.Phase.IDLE)
+	action("move_forward", false)
+	check(e.combat.health == 82.0 and p.position.z < 2.2, "moving_attack_carries_hitbox_and_hits_once")
+	check(p.position.distance_to(e.position) >= 0.69, "moving_attack_preserves_body_collision")
+	# Redirect while the swing is still in preparation; locked attacks can strafe.
+	arena.reset_encounter()
+	e.enabled = false
+	e.position = Vector3(0.0, 0.02, -8.0)
+	p.locked = true
+	action("move_forward", true)
+	action("attack", true)
+	await frames(1)
+	action("attack", false)
+	await frames(7)
+	action("move_forward", false)
+	action("move_right", true)
+	var redirect_start := p.position
+	await frames(12)
+	action("move_right", false)
+	check(p.position.x > redirect_start.x + 0.3 and p.velocity.x > 3.0, "swing_accepts_changed_movement_input")
+	# A movement request must not walk out of genuine hit reactions or death.
+	for phase in [Rules.Phase.STAGGER, Rules.Phase.BROKEN, Rules.Phase.DEAD]:
+		arena.reset_encounter()
+		e.enabled = false
+		p.combat.phase = phase
+		p.combat.remaining = 0.5
+		var before := p.position
+		action("move_right", true)
+		await frames(8)
+		action("move_right", false)
+		check(absf(p.position.x - before.x) < 0.01, "movement_still_restricted_" + Rules.Phase.keys()[phase])
+	await attack_steering_checks()
+	arena.reset_encounter()
+
+func attack_steering_checks() -> void:
+	for phase in [Rules.Phase.WINDUP, Rules.Phase.ACTIVE, Rules.Phase.RECOVERY]:
+		for mouse_turn in [false, true]:
+			arena.reset_encounter()
+			e.enabled = false
+			e.position = Vector3(0.0, 0.02, -8.0)
+			p.locked = false
+			action("move_forward", true)
+			action("attack", true)
+			await frames(1)
+			action("attack", false)
+			await wait_phase(p, phase)
+			if mouse_turn:
+				var mouse := InputEventMouseMotion.new()
+				mouse.relative = Vector2(-240.0, 0.0)
+				if DisplayServer.get_name() == "headless":
+					# Headless has no captured mouse; rendered runs feed the real event.
+					p.rotate_camera(mouse.relative)
+				else:
+					Input.parse_input_event(mouse)
+			else:
+				action("move_forward", false)
+				action("move_right", true)
+			var old_facing := p.facing
+			await frames(4)
+			action("move_forward", false)
+			action("move_right", false)
+			var visual_yaw := atan2(-p.facing.x, -p.facing.z)
+			check(old_facing.angle_to(p.facing) > 0.20 and absf(angle_difference(p.visual.rotation.y, visual_yaw)) < 0.001 and p.combat.phase == phase,
+				"turn_while_moving_attack_" + Rules.Phase.keys()[phase] + "_mouse_" + str(mouse_turn))
+	# Observe a real AI attack, including lateral footwork at its preferred range.
+	close_fixture()
+	p.input_enabled = false
+	p.combat.set_guard(true)
+	e.enabled = true
+	e.cooldown = 0.0
+	await wait_phase(e, Rules.Phase.WINDUP)
+	var distance := {Rules.Phase.WINDUP: 0.0, Rules.Phase.ACTIVE: 0.0, Rules.Phase.RECOVERY: 0.0}
+	var capture_motion := "--capture-movement" in OS.get_cmdline_user_args() and DisplayServer.get_name() != "headless"
+	if capture_motion:
+		DirAccess.make_dir_recursive_absolute(output.path_join("motion"))
+		p.debug_hitboxes = false
+		e.debug_hitboxes = false
+	for tick in range(160):
+		var phase: int = e.combat.phase
+		if phase == Rules.Phase.IDLE:
+			break
+		var before := e.position
+		await frames(1)
+		if distance.has(phase) and e.combat.phase == phase:
+			distance[phase] += Vector2(e.position.x - before.x, e.position.z - before.z).length()
+		if capture_motion and tick % 2 == 0:
+			await snapshot("motion/frame_%03d" % (tick / 2))
+	check(distance[Rules.Phase.WINDUP] > 0.3, "live_npc_moves_in_windup")
+	check(distance[Rules.Phase.ACTIVE] > 0.08, "live_npc_moves_in_active_swing")
+	check(distance[Rules.Phase.RECOVERY] > 0.3, "live_npc_moves_in_recovery")
+	records.append({"npc_attack_travel": distance})
+	# Moving target: AI must steer during its swing without snapping instantly.
+	close_fixture()
+	p.input_enabled = false
+	e.enabled = true
+	e.combat.attack(true)
+	await frames(1)
+	p.position = Vector3(2.0, 0.02, 0.0)
+	var before_turn := e.facing
+	await frames(1)
+	check(before_turn.angle_to(e.facing) > 0.01 and before_turn.angle_to(e.facing) <= deg_to_rad(e.attack_turn_speed) / 60.0 + 0.001, "npc_attack_steering_is_responsive_and_capped")
+	await frames(5)
+	check(before_turn.angle_to(e.facing) > 0.30 and e.combat.phase == Rules.Phase.WINDUP, "npc_tracks_moving_target_during_attack")
+	p.input_enabled = true
+
+func defense_cancel_checks() -> void:
+	for phase in [Rules.Phase.WINDUP, Rules.Phase.ACTIVE, Rules.Phase.RECOVERY]:
+		for defense in ["dodge", "guard"]:
+			close_fixture()
+			p.input_enabled = true
+			e.position = Vector3(0.0, 0.02, -8.0)
+			action("attack", true)
+			await frames(1)
+			action("attack", false)
+			await wait_phase(p, phase)
+			# Put both weapons in reach on the cancel tick. Do not let dodge travel
+			# hide a damage bug: this must evade an actual hit while stationary.
+			e.position = p.position + p.facing * 1.8
+			e.facing = -p.facing
+			e.combat.attack()
+			e.combat.tick(e.combat.attack_windup + 0.001)
+			p.dodge_speed = 0.0
+			action(defense, true)
+			await frames(1)
+			var label: String = defense + "_" + Rules.Phase.keys()[phase]
+			check((p.combat.phase == Rules.Phase.DODGE if defense == "dodge" else p.combat.guarding), "input_attack_cancel_" + label)
+			check(p.combat.health == 100.0 and p.last_result == ("evaded" if defense == "dodge" else "deflected"), "input_cancel_defense_works_" + label)
+			check(e.combat.health == 100.0 and p.resolve_attack() == "invalid" and not p.indicator.visible, "input_cancel_removes_hit_and_attack_visual_" + label)
+			await frames(35)
+			check(e.combat.health == 100.0, "input_cancel_no_delayed_hit_" + label)
+			action(defense, false)
+			p.dodge_speed = 11.0
+			await frames(1)
+	# Same-tick requests have deterministic dodge > guard > attack priority.
+	close_fixture()
+	p.combat.attack()
+	action("attack", true)
+	action("guard", true)
+	action("dodge", true)
+	await frames(1)
+	check(p.combat.phase == Rules.Phase.DODGE and not p.combat.guarding, "simultaneous_defenses_choose_dodge")
+	for key in ["attack", "guard", "dodge"]:
+		action(key, false)
+	arena.reset_encounter()

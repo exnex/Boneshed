@@ -35,6 +35,15 @@ Keep approved direction separate from brainstorms. Amend this document only when
   and attack timing rules remain provisional and require human evaluation.
 - Salvageable augmentations are deferred until after assessment of this duel.
 
+## Confirmed combat direction — 2026-10-17
+- Player attacks must allow movement through windup, swing and recovery.
+- The NPC must also move while attacking, and moving players must be able to turn
+  during their attacks. Steering rate and AI footwork remain provisional tuning.
+- Exact movement speed during attacks remains provisional tuning.
+- Dodging must grant invulnerability and cancel an attack immediately; a fresh
+  guard press must also cancel into defense during windup, swing or recovery.
+  Invulnerability duration, cooldown and defense tuning remain provisional.
+
 ## Pending decisions
 - Final platform targets and later desktop GPU rendering configuration.
 - Exactly how skill/posture/deflection mechanics differ from inspiration.

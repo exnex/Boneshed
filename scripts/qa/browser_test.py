@@ -147,6 +147,39 @@ try:
         wait(page, f'window.boneshedState.player.position[2] > {start[2] + 1}')
         check(state(page)['player']['position'][2] > start[2] + 1, 'browser_keyboard_dodge_moves_player')
         page.screenshot(path=str(output/'03_desktop_dodge.png'))
+        command(page, 'reset')
+        command(page, 'ai_off')
+        start = state(page)['player']['position']
+        page.keyboard.down('w')
+        page.mouse.click(600, 400)
+        wait(page, 'window.boneshedState.player.phase === 1 || window.boneshedState.player.phase === 2')
+        page.mouse.move(810, 400)
+        wait(page, 'window.boneshedState.player.phase === 3')
+        moving_attack = state(page)
+        page.keyboard.up('w')
+        check(moving_attack['attack_distance'] > 1.0, 'browser_moves_while_swinging',
+              {'distance_during_attack_phases': moving_attack['attack_distance']})
+        check(moving_attack['attack_turn'] > .15, 'browser_turns_while_moving_and_swinging',
+              {'radians_turned_during_moving_attack_phases': moving_attack['attack_turn']})
+        page.screenshot(path=str(output/'04_desktop_moving_attack.png'))
+        for defense in ['dodge', 'guard']:
+            command(page, 'cancel_fixture')
+            page.mouse.click(600, 400)
+            wait(page, 'window.boneshedState.player.phase === 1')
+            command(page, 'attack_on_' + defense)
+            if defense == 'dodge':
+                page.keyboard.down('Space')
+            else:
+                page.mouse.down(button='right')
+            expected = 'evaded' if defense == 'dodge' else 'deflected'
+            wait(page, f'window.boneshedState.player.event === "{expected}"')
+            cancelled = state(page)
+            if defense == 'dodge':
+                page.keyboard.up('Space')
+            else:
+                page.mouse.up(button='right')
+            check(cancelled['attack_cancelled'] and cancelled['player']['health'] == 100 and cancelled['enemy']['health'] == 100,
+                  'browser_attack_cancels_to_' + defense, {'incoming_result': expected, 'health': cancelled['player']['health']})
         page.close()
         desktop.close()
 

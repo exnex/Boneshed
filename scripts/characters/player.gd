@@ -55,10 +55,10 @@ func _physics_process(delta: float) -> void:
 		if locked and is_instance_valid(opponent) and opponent.combat.phase != Rules.Phase.DEAD:
 			var toward := opponent.global_position - global_position
 			toward.y = 0.0
-			facing = toward.normalized()
+			turn_toward(toward, delta)
 			yaw = lerp_angle(yaw, atan2(-facing.x, -facing.z), delta * 8.0)
-		elif desired_move.length_squared() > 0.01 and combat.phase == Rules.Phase.IDLE:
-			facing = desired_move.normalized()
+		elif desired_move.length_squared() > 0.01 and combat.phase in [Rules.Phase.IDLE, Rules.Phase.WINDUP, Rules.Phase.ACTIVE, Rules.Phase.RECOVERY]:
+			turn_toward(desired_move, delta)
 		combat.set_guard(Input.is_action_pressed("guard"))
 		if Input.is_action_just_pressed("attack"):
 			combat.attack()
