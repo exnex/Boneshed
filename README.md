@@ -44,6 +44,7 @@ timing values, reproducible tests, evidence, and human playtesting limitations.
 | [Combat prototype](docs/COMBAT_PROTOTYPE.md) | Running the duel, controls, tests and evidence |
 | [Combat review](docs/COMBAT_REVIEW.md) | Independent review, exploits, fixes and priorities |
 | [Keyword world blueprints](docs/WORLDGEN_KEYWORDS.md) | Isolated, provisional three-keyword → WorldBlueprint prototype |
+| [Shared builds and salvage](docs/SHARED_BUILDS.md) | Isolated, provisional player/enemy build contract and salvage → equip prototype |
 | [AGENTS.md](AGENTS.md) | Shared instructions for AI development agents |
 | [CLAUDE.md](CLAUDE.md) | Claude-specific handoff |
 

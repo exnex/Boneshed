@@ -1,0 +1,521 @@
+{
+	"catalog": {
+		"fingerprint": "fa6f289b25e330d5",
+		"version": "0.1.0"
+	},
+	"identity": {
+		"ability": "ability.marrow_lunge",
+		"catalog_fingerprint": "9c74bed5a514ec25",
+		"enemy_effective": {
+			"active": 0.2,
+			"guard_posture": 45.0,
+			"health_damage": 26.0,
+			"reach": 3.4,
+			"recovery": 1.12,
+			"width": 0.9,
+			"windup": 1.05
+		},
+		"enemy_fingerprint": "9c74bed5a514ec25",
+		"player_effective": {
+			"active": 0.2,
+			"guard_posture": 45.0,
+			"health_damage": 26.0,
+			"reach": 3.4,
+			"recovery": 0.8,
+			"width": 0.9,
+			"windup": 0.7
+		},
+		"player_fingerprint": "9c74bed5a514ec25",
+		"ref_fingerprint": "9c74bed5a514ec25"
+	},
+	"step_1_player_build": {
+		"build": {
+			"build_id": "player.fixture",
+			"carried": [],
+			"catalog_version": "0.1.0",
+			"equipped": {
+				"main_hand": "item.notched_sword"
+			},
+			"profile": "profile.duelist",
+			"schema": "boneshed.build.v0"
+		},
+		"resolved": {
+			"abilities": [
+				{
+					"binding": "light",
+					"effective": {
+						"active": 0.16,
+						"guard_posture": 28.0,
+						"health_damage": 18.0,
+						"reach": 2.35,
+						"recovery": 0.45,
+						"width": 1.6,
+						"windup": 0.34
+					},
+					"fingerprint": "a48b5b6ff38fb2b6",
+					"id": "attack.slash",
+					"module": "module.slash_basic",
+					"source": {
+						"item": "item.notched_sword",
+						"slot": "main_hand"
+					}
+				},
+				{
+					"binding": "heavy",
+					"effective": {
+						"active": 0.16,
+						"guard_posture": 42.0,
+						"health_damage": 32.0,
+						"reach": 2.35,
+						"recovery": 0.45,
+						"width": 1.6,
+						"windup": 0.85
+					},
+					"fingerprint": "01791065d6a455d3",
+					"id": "attack.heavy_slash",
+					"module": "module.slash_heavy",
+					"source": {
+						"item": "item.notched_sword",
+						"slot": "main_hand"
+					}
+				}
+			],
+			"build_id": "player.fixture",
+			"catalog_version": "0.1.0",
+			"equipped": [
+				{
+					"item": "item.notched_sword",
+					"item_fingerprint": "f6a28db295876e11",
+					"slot": "main_hand"
+				}
+			],
+			"fingerprint": "57db0db3e8f08af3",
+			"profile": "profile.duelist",
+			"schema": "boneshed.resolved_build.v0",
+			"stat_sources": {},
+			"stats": {
+				"deflect_window": 0.16,
+				"guard_chip": 0.12,
+				"max_health": 100.0,
+				"max_posture": 100.0,
+				"move_speed": 5.5,
+				"posture_recovery_rate": 12.0,
+				"recovery_scale": 1.0,
+				"windup_scale": 1.0
+			},
+			"tags": [
+				"wield.blade"
+			],
+			"tradeoffs": [
+				{
+					"advantages": [
+						{
+							"ability": "attack.slash",
+							"kind": "grants_ability"
+						},
+						{
+							"ability": "attack.heavy_slash",
+							"kind": "grants_ability"
+						}
+					],
+					"disadvantages": [],
+					"item": "item.notched_sword"
+				}
+			]
+		}
+	},
+	"step_2_corrupted_soul_build": {
+		"build": {
+			"build_id": "soul.marrow_swordsman",
+			"carried": [],
+			"catalog_version": "0.1.0",
+			"equipped": {
+				"main_hand": "item.notched_sword",
+				"right_arm": "item.marrow_arm"
+			},
+			"profile": "profile.corrupted_swordsman",
+			"schema": "boneshed.build.v0"
+		},
+		"resolved": {
+			"abilities": [
+				{
+					"binding": "light",
+					"effective": {
+						"active": 0.16,
+						"guard_posture": 28.0,
+						"health_damage": 18.0,
+						"reach": 2.35,
+						"recovery": 0.63,
+						"width": 1.6,
+						"windup": 0.51
+					},
+					"fingerprint": "a48b5b6ff38fb2b6",
+					"id": "attack.slash",
+					"module": "module.slash_basic",
+					"source": {
+						"item": "item.notched_sword",
+						"slot": "main_hand"
+					}
+				},
+				{
+					"binding": "heavy",
+					"effective": {
+						"active": 0.16,
+						"guard_posture": 42.0,
+						"health_damage": 32.0,
+						"reach": 2.35,
+						"recovery": 0.63,
+						"width": 1.6,
+						"windup": 1.275
+					},
+					"fingerprint": "01791065d6a455d3",
+					"id": "attack.heavy_slash",
+					"module": "module.slash_heavy",
+					"source": {
+						"item": "item.notched_sword",
+						"slot": "main_hand"
+					}
+				},
+				{
+					"binding": "special",
+					"effective": {
+						"active": 0.2,
+						"guard_posture": 45.0,
+						"health_damage": 26.0,
+						"reach": 3.4,
+						"recovery": 1.12,
+						"width": 0.9,
+						"windup": 1.05
+					},
+					"fingerprint": "9c74bed5a514ec25",
+					"id": "ability.marrow_lunge",
+					"module": "module.marrow_lunge",
+					"source": {
+						"item": "item.marrow_arm",
+						"slot": "right_arm"
+					}
+				}
+			],
+			"build_id": "soul.marrow_swordsman",
+			"catalog_version": "0.1.0",
+			"equipped": [
+				{
+					"item": "item.notched_sword",
+					"item_fingerprint": "f6a28db295876e11",
+					"slot": "main_hand"
+				},
+				{
+					"item": "item.marrow_arm",
+					"item_fingerprint": "218ece00e33f4202",
+					"slot": "right_arm"
+				}
+			],
+			"fingerprint": "2566ce0cb5599bfd",
+			"profile": "profile.corrupted_swordsman",
+			"schema": "boneshed.resolved_build.v0",
+			"stat_sources": {
+				"deflect_window": [
+					{
+						"item": "item.marrow_arm",
+						"op": "add",
+						"value": -0.05
+					}
+				]
+			},
+			"stats": {
+				"deflect_window": 0.11,
+				"guard_chip": 0.12,
+				"max_health": 100.0,
+				"max_posture": 120.0,
+				"move_speed": 2.7,
+				"posture_recovery_rate": 12.0,
+				"recovery_scale": 1.4,
+				"windup_scale": 1.5
+			},
+			"tags": [
+				"body.augmented",
+				"body.marrow_arm",
+				"wield.blade"
+			],
+			"tradeoffs": [
+				{
+					"advantages": [
+						{
+							"ability": "attack.slash",
+							"kind": "grants_ability"
+						},
+						{
+							"ability": "attack.heavy_slash",
+							"kind": "grants_ability"
+						}
+					],
+					"disadvantages": [],
+					"item": "item.notched_sword"
+				},
+				{
+					"advantages": [
+						{
+							"ability": "ability.marrow_lunge",
+							"kind": "grants_ability"
+						}
+					],
+					"disadvantages": [
+						{
+							"kind": "stat",
+							"op": "add",
+							"stat": "deflect_window",
+							"value": -0.05
+						},
+						{
+							"kind": "excludes_tag",
+							"tag": "grip.two_handed"
+						}
+					],
+					"item": "item.marrow_arm"
+				}
+			]
+		}
+	},
+	"step_3_victory_fixture": {
+		"defeated": {
+			"build_id": "soul.marrow_swordsman",
+			"carried": [],
+			"catalog_version": "0.1.0",
+			"equipped": {
+				"main_hand": "item.notched_sword",
+				"right_arm": "item.marrow_arm"
+			},
+			"profile": "profile.corrupted_swordsman",
+			"schema": "boneshed.build.v0"
+		},
+		"encounter_id": "fixture.marrow_duel",
+		"outcome": "victory",
+		"schema": "boneshed.encounter_result.v0",
+		"victor_build_id": "player.fixture"
+	},
+	"step_4_salvage_refs": [
+		{
+			"abilities": [
+				{
+					"fingerprint": "9c74bed5a514ec25",
+					"id": "ability.marrow_lunge"
+				}
+			],
+			"catalog_version": "0.1.0",
+			"item": "item.marrow_arm",
+			"item_fingerprint": "218ece00e33f4202",
+			"ref_id": "6eda82130f2845a3",
+			"schema": "boneshed.salvage_ref.v0",
+			"source": {
+				"build_id": "soul.marrow_swordsman",
+				"encounter_id": "fixture.marrow_duel",
+				"slot": "right_arm"
+			}
+		}
+	],
+	"step_5_acquired_and_equipped": {
+		"after_acquire": {
+			"build_id": "player.fixture",
+			"carried": [
+				"item.marrow_arm"
+			],
+			"catalog_version": "0.1.0",
+			"equipped": {
+				"main_hand": "item.notched_sword"
+			},
+			"profile": "profile.duelist",
+			"schema": "boneshed.build.v0"
+		},
+		"after_equip": {
+			"build_id": "player.fixture",
+			"carried": [],
+			"catalog_version": "0.1.0",
+			"equipped": {
+				"main_hand": "item.notched_sword",
+				"right_arm": "item.marrow_arm"
+			},
+			"profile": "profile.duelist",
+			"schema": "boneshed.build.v0"
+		}
+	},
+	"step_6_resolved_player": {
+		"abilities": [
+			{
+				"binding": "light",
+				"effective": {
+					"active": 0.16,
+					"guard_posture": 28.0,
+					"health_damage": 18.0,
+					"reach": 2.35,
+					"recovery": 0.45,
+					"width": 1.6,
+					"windup": 0.34
+				},
+				"fingerprint": "a48b5b6ff38fb2b6",
+				"id": "attack.slash",
+				"module": "module.slash_basic",
+				"source": {
+					"item": "item.notched_sword",
+					"slot": "main_hand"
+				}
+			},
+			{
+				"binding": "heavy",
+				"effective": {
+					"active": 0.16,
+					"guard_posture": 42.0,
+					"health_damage": 32.0,
+					"reach": 2.35,
+					"recovery": 0.45,
+					"width": 1.6,
+					"windup": 0.85
+				},
+				"fingerprint": "01791065d6a455d3",
+				"id": "attack.heavy_slash",
+				"module": "module.slash_heavy",
+				"source": {
+					"item": "item.notched_sword",
+					"slot": "main_hand"
+				}
+			},
+			{
+				"binding": "special",
+				"effective": {
+					"active": 0.2,
+					"guard_posture": 45.0,
+					"health_damage": 26.0,
+					"reach": 3.4,
+					"recovery": 0.8,
+					"width": 0.9,
+					"windup": 0.7
+				},
+				"fingerprint": "9c74bed5a514ec25",
+				"id": "ability.marrow_lunge",
+				"module": "module.marrow_lunge",
+				"source": {
+					"item": "item.marrow_arm",
+					"slot": "right_arm"
+				}
+			}
+		],
+		"build_id": "player.fixture",
+		"catalog_version": "0.1.0",
+		"equipped": [
+			{
+				"item": "item.notched_sword",
+				"item_fingerprint": "f6a28db295876e11",
+				"slot": "main_hand"
+			},
+			{
+				"item": "item.marrow_arm",
+				"item_fingerprint": "218ece00e33f4202",
+				"slot": "right_arm"
+			}
+		],
+		"fingerprint": "a0756b2831eefdd9",
+		"profile": "profile.duelist",
+		"schema": "boneshed.resolved_build.v0",
+		"stat_sources": {
+			"deflect_window": [
+				{
+					"item": "item.marrow_arm",
+					"op": "add",
+					"value": -0.05
+				}
+			]
+		},
+		"stats": {
+			"deflect_window": 0.11,
+			"guard_chip": 0.12,
+			"max_health": 100.0,
+			"max_posture": 100.0,
+			"move_speed": 5.5,
+			"posture_recovery_rate": 12.0,
+			"recovery_scale": 1.0,
+			"windup_scale": 1.0
+		},
+		"tags": [
+			"body.augmented",
+			"body.marrow_arm",
+			"wield.blade"
+		],
+		"tradeoffs": [
+			{
+				"advantages": [
+					{
+						"ability": "attack.slash",
+						"kind": "grants_ability"
+					},
+					{
+						"ability": "attack.heavy_slash",
+						"kind": "grants_ability"
+					}
+				],
+				"disadvantages": [],
+				"item": "item.notched_sword"
+			},
+			{
+				"advantages": [
+					{
+						"ability": "ability.marrow_lunge",
+						"kind": "grants_ability"
+					}
+				],
+				"disadvantages": [
+					{
+						"kind": "stat",
+						"op": "add",
+						"stat": "deflect_window",
+						"value": -0.05
+					},
+					{
+						"kind": "excludes_tag",
+						"tag": "grip.two_handed"
+					}
+				],
+				"item": "item.marrow_arm"
+			}
+		]
+	},
+	"step_7_change": {
+		"abilities_added": [
+			"ability.marrow_lunge"
+		],
+		"abilities_removed": [],
+		"new_tradeoffs": [
+			{
+				"advantages": [
+					{
+						"ability": "ability.marrow_lunge",
+						"kind": "grants_ability"
+					}
+				],
+				"disadvantages": [
+					{
+						"kind": "stat",
+						"op": "add",
+						"stat": "deflect_window",
+						"value": -0.05
+					},
+					{
+						"kind": "excludes_tag",
+						"tag": "grip.two_handed"
+					}
+				],
+				"item": "item.marrow_arm"
+			}
+		],
+		"stats": {
+			"deflect_window": {
+				"after": 0.11,
+				"before": 0.16,
+				"delta": -0.05
+			}
+		},
+		"tags_added": [
+			"body.augmented",
+			"body.marrow_arm"
+		],
+		"tags_removed": []
+	}
+}
