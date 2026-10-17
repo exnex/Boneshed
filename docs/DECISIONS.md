@@ -13,6 +13,11 @@ Keep approved direction separate from brainstorms. Amend this document only when
 - Tower of Memories: player-cached builds become AI-operated encounters for other players to fight actively and asynchronously.
 - No creature collection or creature autobattler.
 
+## Confirmed keyword-world principle — 2026-10-17
+- **Recognizable identity, unpredictable worlds (option B):** the same three-word address consistently establishes a recognizable thematic identity, atmosphere and broad content expectations, but a fresh seed can produce substantially different geography, landmarks, traversal layouts, dungeon structures, encounter arrangements and discoveries. Players should not know the entire expedition from its words alone.
+- This is a **design goal**, not approval of the current generator's exact word ordering, position weights, seed jitter, sample words, duplicate handling, biome mapping, encounter-density formulas or contradiction-resolution implementation.
+- Preserve deterministic replay for a given address plus seed and sufficient constraints for readable, fair precision combat. Variation should not mean arbitrary semantic identity changes.
+
 ## Proposed, not locked
 - Lootable bodies as actual inventories.
 - Extraction-style expedition carry limits, loss on defeat, limited stash.
