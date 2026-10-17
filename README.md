@@ -32,7 +32,7 @@ guard/tap-deflect, Space to dodge, and R to reset. See
 [the prototype guide](docs/COMBAT_PROTOTYPE.md) for setup details, architecture,
 timing values, reproducible tests, evidence, and human playtesting limitations.
 
-**[Play the browser preview](https://exnex.github.io/Boneshed/)** or see [the web preview guide](docs/WEB_PREVIEW.md). The hosted single-threaded HTML5 export preserves desktop keyboard/mouse input and provides optional touch controls for remote testing. **Boneshed targets desktop, not mobile**; the phone button layout has known spacing issues. Human browser feedback highlights promising lock-on/dodge but unresolved parry-spam and swing-impact readability; those are separate combat tasks. The web preview currently predates unmerged combat PR #3.
+**[Play the browser preview](https://exnex.github.io/Boneshed/)** or see [the web preview guide](docs/WEB_PREVIEW.md). The hosted single-threaded HTML5 export preserves desktop keyboard/mouse input for desktop keyboard-and-mouse testing only. **Boneshed targets desktop; touchscreen gameplay is not supported**. Human browser feedback highlights promising lock-on/dodge but unresolved parry-spam and swing-impact readability; those are separate combat tasks. The web preview was initially published before combat PR #3; regenerate the hosted export to include the latest main changes.
 
 ## Start here
 
