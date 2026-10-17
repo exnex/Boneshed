@@ -8,8 +8,8 @@ No human gameplay assessment was performed.
 | Evidence | Baseline | Iteration 2 |
 | --- | --- | --- |
 | Shared combat checks | [33 pass](baseline/native/combat.log) | [60 pass](after/native/combat.log) |
-| Native graphical/input | [37 pass](baseline/native/graphical.json) | [37 pass](after/native/graphical.json) |
-| Desktop browser | [14 pass](baseline/browser/checks.json) | [14 pass](after/browser/checks.json) |
+| Native graphical/input | [37 pass](baseline/native/graphical.json) | [75 pass](after/native/graphical.json) |
+| Desktop browser | [14 pass](baseline/browser/checks.json) | [15 pass](after/browser/checks.json) |
 | Full adversarial measurements | [75 records](baseline/probe/probe.json) | [75 records](after/probe/probe.json) |
 | Added encounter gates | — | [8 pass](after/native/encounters.log) |
 | Rules/weapon transform timing | — | [159 headless checks](after/native/timing_headless.log), [209 rendered checks](after/native/timing_rendered.log) |
@@ -46,6 +46,13 @@ It also verifies front/rear guard through actual Fighter hit resolution. This is
 phase/reach alignment; the prototype still uses a box hit shape, not blade-mesh sweeps.
 
 ## Negative controls and provenance
+
+The follow-up attack-movement checks also ran against the previous rooted Fighter:
+[26 failures, as expected](movement/rooted-before.log). The same real-input suite
+[passes all 38 checks after the fix](movement/after-headless.log); those 38 checks
+are included in the final 75-check rendered suite as well. They cover locomotion
+in all three attack phases, four movement directions with lock on/off, redirection,
+moving hit volumes, collision and retained hit-reaction restrictions.
 
 The native runner fails if the designated assertion does not fail or the process
 does not exit 1 for a negative control:

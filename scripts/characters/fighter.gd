@@ -69,7 +69,9 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	combat.tick(delta)
-	var movable := combat.phase in [Rules.Phase.IDLE, Rules.Phase.DODGE]
+	# Attacking commits the action, not the actor's feet. Keep locomotion through
+	# preparation, contact and follow-through; hit reactions still stop movement.
+	var movable := combat.phase in [Rules.Phase.IDLE, Rules.Phase.WINDUP, Rules.Phase.ACTIVE, Rules.Phase.RECOVERY, Rules.Phase.DODGE]
 	var direction := desired_move.limit_length(1.0) if movable else Vector3.ZERO
 	var speed := move_speed * (0.45 if combat.guarding else 1.0)
 	if combat.phase == Rules.Phase.DODGE:

@@ -76,6 +76,10 @@ func run() -> void:
 	e = arena.enemy
 	e.enabled = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if "--attack-movement-only" in OS.get_cmdline_user_args():
+		await attack_movement_checks()
+		finish(0)
+		return
 	await frames(12)
 	check(p.is_on_floor() and e.is_on_floor(), "actors_grounded")
 	await snapshot("01_initial_courtyard")
@@ -248,9 +252,85 @@ func run() -> void:
 	check(await wait_phase(p, Rules.Phase.DEAD, 1800), "live_enemy_can_defeat_player")
 	arena.reset_encounter()
 	check(p.combat.phase == Rules.Phase.IDLE and p.combat.health == 100.0 and p.velocity == Vector3.ZERO and e.combat.health == 100.0 and e.attack_number == 0, "reset_after_player_death")
+	await attack_movement_checks()
+	finish(combat_frames)
+
+func finish(combat_frames: int) -> void:
 	var summary := {"suite": "graphical", "summary": true, "passed": passed, "failed": failed, "engine": Engine.get_version_info().string, "renderer": RenderingServer.get_video_adapter_name(), "combat_bot_frames": combat_frames}
 	records.append(summary)
 	print(JSON.stringify(summary))
 	var file := FileAccess.open(output.path_join("graphical.json"), FileAccess.WRITE)
 	file.store_string(JSON.stringify(records, "\t") + "\n")
 	get_tree().quit(1 if failed else 0)
+
+func attack_movement_checks() -> void:
+	# Real input and CharacterBody3D physics across a complete swing, from rest.
+	# Sample each phase separately so coasting out of windup cannot mask a root.
+	for lock in [false, true]:
+		for movement in [["move_forward"], ["move_back"], ["move_right"], ["move_forward", "move_right"]]:
+			arena.reset_encounter()
+			e.enabled = false
+			e.position = Vector3(0.0, 0.02, -8.0)
+			p.input_enabled = true
+			p.locked = lock
+			await frames(2)
+			for key in movement:
+				action(key, true)
+			action("attack", true)
+			await frames(1)
+			action("attack", false)
+			var distance := {Rules.Phase.WINDUP: 0.0, Rules.Phase.ACTIVE: 0.0, Rules.Phase.RECOVERY: 0.0}
+			for tick in range(90):
+				var phase: int = p.combat.phase
+				if phase == Rules.Phase.IDLE:
+					break
+				var before := p.position
+				await frames(1)
+				if distance.has(phase) and phase == p.combat.phase:
+					distance[phase] += Vector2(p.position.x - before.x, p.position.z - before.z).length()
+			for key in movement:
+				action(key, false)
+			var label := "locked_" + str(lock) + "_" + "_".join(movement)
+			check(distance[Rules.Phase.WINDUP] > 0.8, "attack_moves_windup_" + label)
+			check(distance[Rules.Phase.ACTIVE] > 0.5, "attack_moves_active_" + label)
+			check(distance[Rules.Phase.RECOVERY] > 1.5, "attack_moves_recovery_" + label)
+			check(p.combat.phase == Rules.Phase.IDLE, "moving_attack_completes_" + label)
+	# Approach from outside reach: movement must carry the real hit volume with it.
+	close_fixture()
+	p.position.z = 3.6
+	action("move_forward", true)
+	action("attack", true)
+	await frames(1)
+	action("attack", false)
+	await wait_phase(p, Rules.Phase.IDLE)
+	action("move_forward", false)
+	check(e.combat.health == 82.0 and p.position.z < 2.2, "moving_attack_carries_hitbox_and_hits_once")
+	check(p.position.distance_to(e.position) >= 0.69, "moving_attack_preserves_body_collision")
+	# Redirect while the swing is still in preparation; locked attacks can strafe.
+	arena.reset_encounter()
+	e.enabled = false
+	e.position = Vector3(0.0, 0.02, -8.0)
+	p.locked = true
+	action("move_forward", true)
+	action("attack", true)
+	await frames(1)
+	action("attack", false)
+	await frames(7)
+	action("move_forward", false)
+	action("move_right", true)
+	var redirect_start := p.position
+	await frames(12)
+	action("move_right", false)
+	check(p.position.x > redirect_start.x + 0.3 and p.velocity.x > 3.0, "swing_accepts_changed_movement_input")
+	# A movement request must not walk out of genuine hit reactions or death.
+	for phase in [Rules.Phase.STAGGER, Rules.Phase.BROKEN, Rules.Phase.DEAD]:
+		arena.reset_encounter()
+		e.enabled = false
+		p.combat.phase = phase
+		p.combat.remaining = 0.5
+		var before := p.position
+		action("move_right", true)
+		await frames(8)
+		action("move_right", false)
+		check(absf(p.position.x - before.x) < 0.01, "movement_still_restricted_" + Rules.Phase.keys()[phase])
+	arena.reset_encounter()

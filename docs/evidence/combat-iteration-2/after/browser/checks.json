@@ -30,6 +30,7 @@
           "guard": false,
           "move_forward": 0
         },
+        "attack_distance": 0,
         "enemy": {
           "health": 100,
           "phase": 0,
@@ -47,12 +48,12 @@
           "position": [
             0,
             9.11429524421692e-05,
-            1.32222139835358
+            1.13888800144196
           ],
           "posture": 0,
           "yaw": 0
         },
-        "tick": 165,
+        "tick": 115,
         "viewport": [
           1280,
           720
@@ -92,6 +93,13 @@
   {
     "check": "browser_keyboard_dodge_moves_player",
     "passed": true
+  },
+  {
+    "check": "browser_moves_while_swinging",
+    "passed": true,
+    "detail": {
+      "distance_during_attack_phases": 2.65555644035339
+    }
   },
   {
     "check": "no_fatal_browser_or_engine_errors",

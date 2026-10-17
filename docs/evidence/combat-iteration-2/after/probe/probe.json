@@ -819,18 +819,18 @@
 	},
 	{
 		"enemy_attacks_interrupted_in_windup": 0,
-		"enemy_attacks_started": 8,
+		"enemy_attacks_started": 6,
 		"enemy_health": 0.0,
 		"events": {
 			"enemy_broken_frames": 58,
 			"enemy_defeated": 1,
-			"enemy_guard": 4,
-			"enemy_hit": 4
+			"enemy_guard": 1,
+			"enemy_hit": 5
 		},
-		"frames": 1097,
+		"frames": 945,
 		"player_health": 100.0,
 		"scenario": "live_strategy",
-		"seconds": 18.28,
+		"seconds": 15.75,
 		"strategy": "backstep_windup_then_punish",
 		"winner": "player"
 	},

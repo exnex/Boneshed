@@ -35,6 +35,10 @@ Keep approved direction separate from brainstorms. Amend this document only when
   and attack timing rules remain provisional and require human evaluation.
 - Salvageable augmentations are deferred until after assessment of this duel.
 
+## Confirmed combat direction — 2026-10-17
+- Player attacks must allow movement through windup, swing and recovery.
+- Exact movement speed during attacks remains provisional tuning.
+
 ## Pending decisions
 - Final platform targets and later desktop GPU rendering configuration.
 - Exactly how skill/posture/deflection mechanics differ from inspiration.

@@ -99,6 +99,12 @@ are exported on the actor scripts for inspector iteration.
 | Acceleration / braking | 32 / 70 units per second squared |
 | Hit box length / width | 2.35 / 1.6, with 0.35 target capsule radius |
 
+Attacks allow normal movement throughout windup, active swing and recovery, including
+strafing while locked. Movement does not cancel the attack or its recovery; guard,
+dodge and another attack still wait for the committed action to finish. Hit reactions,
+posture breaks and death still restrict movement. The full movement speed is
+provisional tuning; freedom to move while swinging is confirmed user direction.
+
 Guarding slows movement and cannot cancel an attack. A fresh, rearmed guard press
 can deflect one frontal hit without chip damage; rapid unsuccessful raises require
 0.32 s to settle before another perfect window. Holding through an action/reset

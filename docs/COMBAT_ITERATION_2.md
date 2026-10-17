@@ -10,6 +10,23 @@ reported input-spam exploits. **Proposed tuning:** every number and defensive ch
 below is an evaluation parameter, not an approved permanent rule. **Open:** whether
 the resulting duel is readable, fair, and enjoyable to a person.
 
+## Movement while attacking
+
+Follow-up user direction confirms that players must not be rooted while swinging.
+Normal locomotion now remains available during WINDUP, ACTIVE and RECOVERY, at the
+current full walk speed (5.5 m/s, provisional). Players can advance, retreat, strafe,
+move diagonally and change movement input mid-swing, with or without lock-on.
+Attack/guard/dodge commitment and hit-reaction restrictions are unchanged. Both
+forms use the same movement gate; the swordsman's existing AI still chooses to
+stand while delivering its telegraphed attacks.
+
+There are 38 added real-input/physics regressions. Running these against the earlier
+rooted implementation produces 26 failures; the updated implementation passes all
+38. They sample displacement separately during every attack phase, verify the
+moving hit volume hits once, preserve body collision, accept direction changes, and
+retain stagger/break/death restrictions. A desktop browser regression also drives
+W plus mouse attack and verifies travel before the swing reaches recovery.
+
 ## Attack communication
 
 Both actors use the same phase-driven procedural pose. The sword arm follows the
@@ -100,7 +117,7 @@ The skilled gate wins untouched in 418 ticks with three deflections and a break.
 
 These are deterministic fixtures, not a claim that every possible spam cadence is
 defeated. Sidestepping then punishing still wins untouched (14.65 s); backstepping
-then punishing also wins untouched (18.28 s). Windup tracking, lunges, and camera
+then punishing also wins untouched (15.75 s). Windup tracking, lunges, and camera
 changes were outside this iteration. These remaining spacing strategies deserve
 human assessment before expanding the combat design.
 
@@ -119,7 +136,8 @@ desktop browser tests use real Chromium/WebGL with keyboard/mouse. No touch adap
 or touchscreen gameplay was restored. The production export excludes QA code.
 
 The native runner now includes 60 shared-rule checks, 8 live encounter gates,
-headless and rendered timing checks, and the existing 37 graphical/input checks.
+headless and rendered timing checks, and 75 graphical/input checks (including the
+38 movement regressions). Desktop browser testing contains 15 checks.
 Negative controls deliberately break guard mitigation, deflection timing, windup
 activation, rearm protection, rear protection, committed-heavy resistance, AI defense,
 and visible weapon timing. Each must exit 1 and fail its designated assertion.
@@ -148,6 +166,8 @@ negative controls, captures, and limitations are indexed in
 - Confirm lock-on and dodges still feel familiar. Check close range and corners:
   the player's body can still obscure the enemy torso/contact point even though the
   raised sword is clearer. Report any unreadable release or apparently invisible hit.
+- Move forward, backward, sideways and diagonally while attacking, with and without
+  lock-on. Change direction mid-swing; confirm movement continues through recovery.
 
 Automation verifies these rules and outcomes. It does not establish fun, readability
 to a new player, latency tolerance, or final balance. The hit shape remains the

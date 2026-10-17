@@ -147,6 +147,18 @@ try:
         wait(page, f'window.boneshedState.player.position[2] > {start[2] + 1}')
         check(state(page)['player']['position'][2] > start[2] + 1, 'browser_keyboard_dodge_moves_player')
         page.screenshot(path=str(output/'03_desktop_dodge.png'))
+        command(page, 'reset')
+        command(page, 'ai_off')
+        start = state(page)['player']['position']
+        page.keyboard.down('w')
+        page.mouse.click(600, 400)
+        wait(page, 'window.boneshedState.player.phase === 1 || window.boneshedState.player.phase === 2')
+        wait(page, 'window.boneshedState.player.phase === 3')
+        moving_attack = state(page)
+        page.keyboard.up('w')
+        check(moving_attack['attack_distance'] > 1.0, 'browser_moves_while_swinging',
+              {'distance_during_attack_phases': moving_attack['attack_distance']})
+        page.screenshot(path=str(output/'04_desktop_moving_attack.png'))
         page.close()
         desktop.close()
 
