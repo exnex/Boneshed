@@ -84,9 +84,12 @@ are exported on the actor scripts for inspector iteration.
 | Active window | 0.16 |
 | Player/enemy recovery | 0.45 / 0.65 |
 | Deflection window after raising guard | 0.16 |
+| Unsuccessful deflection rearm / frontal arc | 0.32 / ±90° |
+| Committed windup / release before active | Final 0.24 / final 0.08 |
 | Basic/heavy health damage | 18 / 32 |
 | Guard chip | 12% of incoming health damage |
 | Guard posture pressure | 28 basic, 42 heavy |
+| Braced swordsman guard posture pressure | 10 basic, 15 heavy |
 | Deflection posture pressure on attacker | 42 |
 | Break threshold / vulnerability | 100 posture / 2.2 seconds |
 | Damage against broken target | 2×; hits do not extend the break |
@@ -96,10 +99,16 @@ are exported on the actor scripts for inspector iteration.
 | Acceleration / braking | 32 / 70 units per second squared |
 | Hit box length / width | 2.35 / 1.6, with 0.35 target capsule radius |
 
-Guarding slows movement and cannot cancel an attack. Deflection has no chip damage
-and staggers the attacker unless its posture breaks. Holding guard past the window
-blocks with chip damage and posture cost. Dodge grants evasion for its entire short
-phase, with a cooldown. A broken actor cannot act until the vulnerability expires.
+Guarding slows movement and cannot cancel an attack. A fresh, rearmed guard press
+can deflect one frontal hit without chip damage; rapid unsuccessful raises require
+0.32 s to settle before another perfect window. Holding through an action/reset
+only blocks. Deflection preserves a full remaining active-plus-recovery punish
+window unless posture breaks. Held frontal guard blocks with chip/posture cost;
+rear hits bypass guard. Heavy attacks resist ordinary interrupts only in committed
+windup/active, while still taking damage and being vulnerable to deflection/break.
+Dodge grants evasion for its entire short phase, with a cooldown. A broken actor
+cannot act until the vulnerability expires. All values are provisional; see
+[Combat iteration 2](COMBAT_ITERATION_2.md) for the defensive AI and evidence.
 
 Correctness fixes from the [combat review](COMBAT_REVIEW.md) (no tuning values changed):
 a hit staggers for 0.24 s but never shortens a recovery or stagger already in progress;
@@ -156,8 +165,8 @@ This is a primitive, silent, single-opponent prototype. Automated input proves t
 encounter can execute and be won; it does not prove the duel is enjoyable, balanced,
 or accessible. Test attack interruption/stunlock, response latency, camera framing,
 telegraph readability, deflection generosity, dodge invulnerability, and break damage
-by hand at desktop frame rates. Guard currently protects all directions; there is no
-guard-direction rule. The active volume is a forward box rather than a blade sweep.
+by hand at desktop frame rates. Guard protects the front hemisphere. The active
+volume remains a forward box rather than a blade sweep.
 There is no buffered attack queue, audio, animation asset, salvage, inventory,
 progression, backend, multiplayer, or procedural world generation.
 

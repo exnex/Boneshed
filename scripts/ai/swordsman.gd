@@ -8,16 +8,25 @@ var enabled := true
 var cooldown := 0.8
 var attack_number := 0
 var ai_state := "WAIT"
+var defense_enabled := true
+var counter_pending := false
+var observed_event := 0
 
 func _ready() -> void:
 	body_color = Color("9b5265")
 	move_speed = 2.7
 	combat.attack_windup = 0.62
 	combat.recovery_duration = 0.65
+	combat.guard_posture = 10.0 # Provisional braced form; deflecting its attacks still costs it 42.
 	super._ready()
 
 func _physics_process(delta: float) -> void:
 	desired_move = Vector3.ZERO
+	if event_serial != observed_event:
+		if defense_enabled and last_result == "guard":
+			counter_pending = true
+			cooldown = 0.0
+		observed_event = event_serial
 	if enabled and is_instance_valid(opponent) and opponent.combat.phase != Rules.Phase.DEAD and combat.phase != Rules.Phase.DEAD:
 		var toward := opponent.global_position - global_position
 		toward.y = 0.0
@@ -26,25 +35,37 @@ func _physics_process(delta: float) -> void:
 			cooldown = maxf(0.0, cooldown - delta)
 			if distance < detection_range:
 				facing = toward.normalized()
-				if distance > preferred_distance:
+				# Raise early, hold through contact, then answer with the existing heavy.
+				# Never defend while recovering/staggered/broken: those remain punishable.
+				var threatened: bool = opponent.combat.phase in [Rules.Phase.WINDUP, Rules.Phase.ACTIVE] and not opponent.combat.hit_consumed and distance <= attack_range
+				combat.set_guard(defense_enabled and threatened, false)
+				if defense_enabled and threatened:
+					ai_state = "GUARD"
+				elif distance > preferred_distance and not (counter_pending and distance <= attack_range):
 					ai_state = "APPROACH"
 					desired_move = facing
 				elif cooldown <= 0.0:
 					attack_number += 1
-					combat.attack(attack_number % 3 == 0)
+					combat.attack(counter_pending or attack_number % 3 == 0)
+					counter_pending = false
 					cooldown = attack_interval
 					ai_state = "ATTACK"
 				else:
 					ai_state = "MEASURE"
 			else:
+				combat.set_guard(false)
 				ai_state = "WAIT"
 	else:
 		ai_state = "WAIT"
+	if not enabled or combat.phase != Rules.Phase.IDLE or not is_instance_valid(opponent) or opponent.combat.phase == Rules.Phase.DEAD:
+		combat.set_guard(false)
 	super._physics_process(delta)
 
 func reset_at(point: Vector3) -> void:
 	super.reset_at(point)
 	cooldown = 0.8
 	attack_number = 0
+	counter_pending = false
+	observed_event = 0
 	ai_state = "WAIT"
 	facing = Vector3.BACK

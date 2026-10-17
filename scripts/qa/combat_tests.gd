@@ -127,5 +127,115 @@ func run() -> void:
 	for i in range(93):
 		b.tick(0.01)
 	check(a.phase == b.phase and absf(a.remaining - b.remaining) < 0.00001, "timing_independent_of_step_size")
+	deflection_discipline()
+	heavy_interrupts()
 	print(JSON.stringify({"suite": "combat", "summary": true, "passed": passed, "failed": failed, "negative": negative}))
 	quit(1 if failed else 0)
+
+func deflection_discipline() -> void:
+	var defender := Rules.new()
+	defender.set_guard(true)
+	defender.tick(0.05)
+	check(defender.receive(active_attacker()) == "deflected", "fresh_precise_press_deflects")
+	check(defender.receive(active_attacker()) == "guard", "one_deflection_per_raise")
+	defender.set_guard(false)
+	defender.set_guard(true)
+	check(defender.receive(active_attacker()) == "deflected", "successful_deflect_rearms_next_press")
+	defender.reset()
+	defender.set_guard(true)
+	defender.tick(0.20)
+	check(defender.receive(active_attacker()) == "guard", "early_press_blocks_with_chip")
+	defender.reset()
+	check(defender.receive(active_attacker()) == "hit", "late_press_takes_hit")
+	defender.set_guard(true)
+	defender.tick(0.25)
+	defender.set_guard(true)
+	check(defender.guarding and defender.guard_age > defender.deflect_window, "held_during_stagger_returns_as_block_only")
+	defender.reset()
+	defender.set_guard(true)
+	for i in range(120):
+		defender.tick(1.0 / 60.0)
+		defender.set_guard(true)
+	check(defender.receive(active_attacker()) == "guard", "held_guard_never_refreshes_window")
+	defender.reset()
+	if negative == "toggle":
+		defender.deflect_rearm = 0.0
+	defender.set_guard(true)
+	defender.tick(0.15)
+	defender.set_guard(false)
+	defender.tick(1.0 / 60.0)
+	defender.set_guard(true)
+	check(defender.guarding and defender.receive(active_attacker()) == "guard", "rapid_toggle_cannot_refresh_deflect")
+	# Each attempted raise extends settling: periodically tapping is not a free retry.
+	defender.reset()
+	var deflections := 0
+	for i in range(12):
+		defender.set_guard(true)
+		defender.tick(0.15)
+		if i > 0 and defender.receive(active_attacker()) == "deflected":
+			deflections += 1
+		defender.set_guard(false)
+		defender.tick(1.0 / 60.0)
+		# Avoid a posture break obscuring whether the guard press rearmed.
+		defender.posture = 0.0
+	check(deflections == 0, "continuous_toggle_stays_in_settling")
+	defender.set_guard(false)
+	defender.tick(defender.deflect_rearm + 0.001)
+	defender.set_guard(true)
+	check(defender.receive(active_attacker()) == "deflected", "brief_settling_restores_full_window")
+	defender.reset(true)
+	defender.set_guard(true)
+	check(defender.receive(active_attacker()) == "guard", "guard_held_through_reset_is_block_only")
+	for dot in [1.0, 0.0, -0.01, -1.0]:
+		defender.reset()
+		if negative == "rear":
+			defender.guard_arc_cos = -1.0
+		defender.set_guard(true)
+		var result := defender.receive(active_attacker(), dot)
+		check(result == ("deflected" if dot >= 0.0 else "hit"), "guard_arc_dot_" + str(dot))
+	defender = Rules.new()
+	defender.set_guard(true)
+	var attacker := active_attacker()
+	var natural_lockout := attacker.remaining + attacker.recovery_duration
+	defender.receive(attacker)
+	check(attacker.remaining >= natural_lockout, "deflection_preserves_full_punish_window")
+	defender.reset()
+	defender.set_guard(true)
+	defender.tick(0.3)
+	attacker = active_attacker()
+	var active_remaining := attacker.remaining
+	defender.receive(attacker)
+	check(attacker.phase == Rules.Phase.ACTIVE and attacker.remaining == active_remaining, "block_preserves_visible_follow_through")
+
+func heavy_interrupts() -> void:
+	for heavy_attack in [false, true]:
+		for remaining_time in [0.40, 0.20, 0.04]:
+			var target := Rules.new()
+			target.attack(heavy_attack)
+			target.remaining = remaining_time
+			if negative == "poise":
+				target.commitment_duration = 0.0
+			target.receive(active_attacker())
+			var should_resist: bool = heavy_attack and remaining_time <= 0.24
+			check(target.phase == (Rules.Phase.WINDUP if should_resist else Rules.Phase.STAGGER) and target.health == 82.0 and target.posture == 18.0,
+				"heavy_commitment_" + str(heavy_attack) + "_" + str(remaining_time))
+	var target := Rules.new()
+	target.attack(true)
+	target.tick(target.heavy_windup + 0.001)
+	target.receive(active_attacker())
+	check(target.phase == Rules.Phase.ACTIVE and target.health == 82.0, "heavy_active_resists_light_interrupt")
+	target.posture = 90.0
+	target.receive(active_attacker())
+	check(target.phase == Rules.Phase.BROKEN, "posture_break_overrides_heavy_poise")
+	target.reset()
+	target.attack(true)
+	target.tick(target.heavy_windup + 0.001)
+	var defender := Rules.new()
+	defender.set_guard(true)
+	check(defender.receive(target) == "deflected" and target.phase == Rules.Phase.STAGGER, "heavy_poise_does_not_prevent_deflection")
+	target.reset()
+	target.attack(true)
+	target.remaining = 0.1
+	target.health = 10.0
+	target.receive(active_attacker())
+	check(target.phase == Rules.Phase.DEAD, "death_overrides_heavy_poise")
