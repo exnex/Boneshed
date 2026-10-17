@@ -1,0 +1,311 @@
+{
+	"data_version": "prototype-0.1",
+	"note": "PROTOTYPE DATA. Vocabulary, glosses and weights are illustrative test fixtures, not approved game content.",
+	"keywords": [
+		{
+			"id": "drowned",
+			"category": "condition",
+			"senses": [
+				{
+					"id": "flooded",
+					"gloss": "Submerged ruins and standing black water",
+					"tags": ["water", "depth"],
+					"resonates_with": [],
+					"axes": {"moisture": 1.0, "elevation": -0.6, "light": -0.3, "stillness": 0.4},
+					"hazards": {"deep_water": 1.0, "undertow": 0.6, "rot_fog": 0.3},
+					"encounters": {"drowned_dead": 1.0, "lurkers_below": 0.6},
+					"discoveries": {"silted_relics": 0.8, "pearl_bone": 0.5},
+					"atmosphere": ["black water", "drifting silt", "muffled sound"]
+				}
+			]
+		},
+		{
+			"id": "frozen",
+			"category": "condition",
+			"senses": [
+				{
+					"id": "rime",
+					"gloss": "A world locked in killing frost",
+					"tags": ["cold"],
+					"resonates_with": [],
+					"axes": {"temperature": -1.0, "stillness": 0.7, "vitality": -0.4, "moisture": 0.2},
+					"hazards": {"killing_cold": 1.0, "thin_ice": 0.8, "whiteout": 0.5},
+					"encounters": {"preserved_dead": 0.9, "frost_hunters": 0.5},
+					"discoveries": {"frozen_remains": 0.8, "clear_crystal": 0.4},
+					"atmosphere": ["hoarfrost", "breath-fog", "blue silence"]
+				}
+			]
+		},
+		{
+			"id": "smoldering",
+			"category": "condition",
+			"senses": [
+				{
+					"id": "embers",
+					"gloss": "Land that burned and never stopped",
+					"tags": ["fire"],
+					"resonates_with": [],
+					"axes": {"temperature": 0.9, "moisture": -0.6, "vitality": -0.5, "light": 0.2, "stillness": -0.3},
+					"hazards": {"scorched_ground": 1.0, "ember_fall": 0.8, "choking_smoke": 0.6},
+					"encounters": {"cinder_wraiths": 1.0, "burned_pilgrims": 0.5},
+					"discoveries": {"slag_metal": 0.8, "char_relics": 0.4},
+					"atmosphere": ["orange haze", "drifting ash", "heat-shimmer"]
+				}
+			]
+		},
+		{
+			"id": "tempest",
+			"category": "condition",
+			"senses": [
+				{
+					"id": "storm",
+					"gloss": "Endless storm over exposed ground",
+					"tags": ["storm", "air", "water"],
+					"resonates_with": [],
+					"axes": {"stillness": -1.0, "moisture": 0.5, "light": -0.2, "enclosure": -0.4},
+					"hazards": {"gale": 1.0, "lightning": 0.6, "rockfall": 0.3},
+					"encounters": {"storm_callers": 0.8, "carrion_flocks": 0.6},
+					"discoveries": {"wreckage": 0.8, "fulgurite": 0.4},
+					"atmosphere": ["sheeting rain", "sudden flashes", "howling wind"]
+				}
+			]
+		},
+		{
+			"id": "lightless",
+			"category": "condition",
+			"senses": [
+				{
+					"id": "dark",
+					"gloss": "Darkness that swallows lanterns",
+					"tags": ["void", "dark"],
+					"resonates_with": [],
+					"axes": {"light": -1.0, "stillness": 0.5, "enclosure": 0.3},
+					"hazards": {"blind_drops": 0.9, "disorientation": 0.7},
+					"encounters": {"things_unseen": 1.0, "lantern_eaters": 0.4},
+					"discoveries": {"lost_lanterns": 0.6, "pale_lichen": 0.5},
+					"atmosphere": ["total dark", "faint phosphor", "sounds too near"]
+				}
+			]
+		},
+		{
+			"id": "hallowed",
+			"category": "spirit",
+			"senses": [
+				{
+					"id": "consecrated",
+					"gloss": "Ground still guarded by an old holiness",
+					"tags": ["sacred", "light"],
+					"resonates_with": [],
+					"axes": {"sanctity": 1.0, "light": 0.5, "order": 0.4, "stillness": 0.4},
+					"hazards": {"judgment_wards": 0.7, "blinding_glare": 0.3},
+					"encounters": {"fallen_templars": 1.0, "penitents": 0.6},
+					"discoveries": {"votive_offerings": 0.8, "blessed_steel": 0.5},
+					"atmosphere": ["shafts of pale light", "ghost of incense", "distant choir"]
+				}
+			]
+		},
+		{
+			"id": "profane",
+			"category": "spirit",
+			"senses": [
+				{
+					"id": "defiled",
+					"gloss": "Corruption soaked into stone and soul",
+					"tags": ["profane", "corruption"],
+					"resonates_with": [],
+					"axes": {"sanctity": -1.0, "vitality": -0.3, "order": -0.2},
+					"hazards": {"corruption_pools": 1.0, "whispering_madness": 0.5},
+					"encounters": {"defilers": 0.9, "twisted_faithful": 0.7},
+					"discoveries": {"tainted_ichor": 0.7, "heretic_texts": 0.6},
+					"atmosphere": ["sickly green tint", "inverted icons", "wet whispers"]
+				}
+			]
+		},
+		{
+			"id": "hollow",
+			"category": "form",
+			"senses": [
+				{
+					"id": "cavern",
+					"gloss": "Hollowed earth: caves and voids beneath",
+					"tags": ["earth", "depth", "stone"],
+					"resonates_with": ["depth", "earth", "stone", "water", "dark", "cold"],
+					"axes": {"enclosure": 1.0, "elevation": -0.6, "light": -0.6},
+					"hazards": {"cave_in": 0.8, "blind_drops": 0.5},
+					"encounters": {"burrowers": 0.8, "cave_hermits": 0.4},
+					"discoveries": {"ore_veins": 0.8, "cave_paintings": 0.4},
+					"atmosphere": ["dripping stone", "close ceilings", "cold draughts"]
+				},
+				{
+					"id": "emptied",
+					"gloss": "Hollowed of life: a place everyone left",
+					"tags": ["absence", "memory", "spirit"],
+					"resonates_with": ["memory", "sacred", "profane", "death", "absence", "bone", "spirit"],
+					"axes": {"vitality": -0.6, "stillness": 0.8, "sanctity": -0.2},
+					"hazards": {"soul_drain": 0.7},
+					"encounters": {"husks": 1.0, "echo_shades": 0.6},
+					"discoveries": {"abandoned_belongings": 0.8, "memory_shards": 0.5},
+					"atmosphere": ["abandoned rooms", "no birdsong", "undisturbed dust"]
+				}
+			]
+		},
+		{
+			"id": "towering",
+			"category": "landform",
+			"senses": [
+				{
+					"id": "heights",
+					"gloss": "Spires, cliffs and vertiginous drops",
+					"tags": ["height", "stone"],
+					"resonates_with": [],
+					"axes": {"elevation": 1.0, "enclosure": -0.3, "order": 0.2, "stillness": -0.2},
+					"hazards": {"falls": 1.0, "high_wind": 0.5},
+					"encounters": {"sentinels": 0.8, "cliff_stalkers": 0.6},
+					"discoveries": {"eyries": 0.6, "lookout_caches": 0.6},
+					"atmosphere": ["vertiginous drops", "clouds below", "thin air"]
+				}
+			]
+		},
+		{
+			"id": "sunken",
+			"category": "landform",
+			"senses": [
+				{
+					"id": "subsided",
+					"gloss": "A place that sank into the earth",
+					"tags": ["depth", "ruin"],
+					"resonates_with": [],
+					"axes": {"elevation": -1.0, "age": 0.4, "enclosure": 0.3, "light": -0.2},
+					"hazards": {"sinkholes": 0.8, "collapsing_ground": 0.5},
+					"encounters": {"buried_dead": 0.8, "pit_dwellers": 0.6},
+					"discoveries": {"buried_streets": 0.8, "sunken_vaults": 0.6},
+					"atmosphere": ["sagging rooftops", "streets below streets", "stale air"]
+				}
+			]
+		},
+		{
+			"id": "barren",
+			"category": "landform",
+			"senses": [
+				{
+					"id": "waste",
+					"gloss": "Open, lifeless, exposed ground",
+					"tags": ["waste", "earth"],
+					"resonates_with": [],
+					"axes": {"enclosure": -1.0, "vitality": -0.8, "moisture": -0.5},
+					"hazards": {"exposure": 0.9, "sinking_sand": 0.4},
+					"encounters": {"wanderers": 0.8, "carrion_flocks": 0.5},
+					"discoveries": {"bleached_bones": 0.8, "buried_cache": 0.4},
+					"atmosphere": ["flat horizon", "bleached light", "endless wind-hiss"]
+				}
+			]
+		},
+		{
+			"id": "thorned",
+			"category": "landform",
+			"senses": [
+				{
+					"id": "briar",
+					"gloss": "Wild growth that strangles everything",
+					"tags": ["wild", "life"],
+					"resonates_with": [],
+					"axes": {"vitality": 0.9, "order": -0.8, "enclosure": 0.5},
+					"hazards": {"thorn_snares": 1.0, "spore_clouds": 0.4},
+					"encounters": {"briar_beasts": 0.9, "overgrown_dead": 0.6},
+					"discoveries": {"bitter_herbs": 0.7, "swallowed_ruins": 0.5},
+					"atmosphere": ["choking briars", "green gloom", "creaking stems"]
+				}
+			]
+		},
+		{
+			"id": "ossuary",
+			"category": "architecture",
+			"senses": [
+				{
+					"id": "bone_vault",
+					"gloss": "Halls built from and for the dead",
+					"tags": ["bone", "death", "built"],
+					"resonates_with": [],
+					"axes": {"vitality": -1.0, "order": 0.7, "enclosure": 0.7, "sanctity": 0.2, "age": 0.6},
+					"hazards": {"collapsing_niches": 0.7, "grave_miasma": 0.6},
+					"encounters": {"bone_wardens": 1.0, "ossified_monks": 0.5},
+					"discoveries": {"bone_relics": 1.0, "grave_goods": 0.5},
+					"atmosphere": ["stacked skulls", "dry dust", "candle stubs"]
+				}
+			]
+		},
+		{
+			"id": "cathedral",
+			"category": "architecture",
+			"senses": [
+				{
+					"id": "nave",
+					"gloss": "Vast vaulted halls of worship",
+					"tags": ["sacred", "built", "height"],
+					"resonates_with": [],
+					"axes": {"order": 1.0, "enclosure": 0.6, "elevation": 0.4, "sanctity": 0.6, "age": 0.4},
+					"hazards": {"falling_masonry": 0.7},
+					"encounters": {"choir_wraiths": 0.8, "fallen_templars": 0.6},
+					"discoveries": {"reliquaries": 0.8, "stained_glass": 0.5},
+					"atmosphere": ["vaulted dark", "broken rose windows", "dust in shafts of light"]
+				}
+			]
+		},
+		{
+			"id": "forgotten",
+			"category": "time",
+			"senses": [
+				{
+					"id": "ancient",
+					"gloss": "Ruins older than any record",
+					"tags": ["ruin", "age"],
+					"resonates_with": ["built", "stone", "sacred", "bone", "height", "ruin"],
+					"axes": {"age": 1.0, "order": -0.3, "vitality": 0.2},
+					"hazards": {"crumbling_floors": 0.8},
+					"encounters": {"relic_guardians": 0.8, "dust_shades": 0.4},
+					"discoveries": {"lost_architecture": 0.9, "ancient_arms": 0.6},
+					"atmosphere": ["worn inscriptions", "root-split stone", "timeless hush"]
+				},
+				{
+					"id": "unremembered",
+					"gloss": "Erased from memory; even its dead are nameless",
+					"tags": ["memory", "absence"],
+					"resonates_with": ["absence", "spirit", "void", "death", "profane", "memory"],
+					"axes": {"stillness": 0.6, "light": -0.2, "sanctity": -0.3},
+					"hazards": {"memory_fog": 0.9},
+					"encounters": {"nameless_souls": 1.0},
+					"discoveries": {"memory_shards": 0.9, "unmarked_graves": 0.5},
+					"atmosphere": ["faces worn smooth", "names scratched out", "half-heard voices"]
+				}
+			]
+		},
+		{
+			"id": "gilded",
+			"category": "fortune",
+			"senses": [
+				{
+					"id": "treasure",
+					"gloss": "Tarnished riches of a fallen power",
+					"tags": ["wealth", "built"],
+					"resonates_with": ["built", "sacred", "bone", "death", "ruin", "height"],
+					"axes": {"order": 0.5, "light": 0.3, "age": 0.2},
+					"hazards": {"trapped_vaults": 0.8},
+					"encounters": {"hoard_keepers": 0.9, "grave_robbers": 0.5},
+					"discoveries": {"gold_leaf": 0.9, "gem_inlays": 0.6},
+					"atmosphere": ["tarnished gold", "glints in dust", "opulent decay"]
+				},
+				{
+					"id": "false",
+					"gloss": "A beautiful surface over something rotten",
+					"tags": ["deceit", "wealth"],
+					"resonates_with": ["profane", "corruption", "void", "absence", "deceit", "dark"],
+					"axes": {"sanctity": -0.4, "light": 0.3},
+					"hazards": {"mimic_hoards": 0.9, "illusory_floors": 0.5},
+					"encounters": {"mimics": 0.9, "gilded_liars": 0.5},
+					"discoveries": {"cursed_treasure": 0.8, "fools_gold": 0.6},
+					"atmosphere": ["too-bright gold", "painted smiles", "hollow ringing"]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,136 @@
+{
+	"data_version": "prototype-0.1",
+	"note": "PROTOTYPE DATA. Every number here is provisional and awaits human tuning.",
+	"config": {
+		"position_weights": [0.8, 0.9, 1.0],
+		"contest_threshold": 0.3,
+		"axis_jitter": 0.08,
+		"featured_counts": {"hazards": 3, "encounters": 2, "discoveries": 3},
+		"atmosphere_count": 3,
+		"encounter_density_band": [0.15, 0.55],
+		"hazard_saturation": 7.0,
+		"axis_poles": {
+			"temperature": ["frozen", "scorching"],
+			"moisture": ["arid", "drowned"],
+			"light": ["lightless", "radiant"],
+			"enclosure": ["open", "enclosed"],
+			"elevation": ["sunken", "lofty"],
+			"order": ["wild", "built"],
+			"vitality": ["dead", "teeming"],
+			"stillness": ["turbulent", "still"],
+			"sanctity": ["profane", "hallowed"],
+			"age": ["recent", "ancient"]
+		}
+	},
+	"interactions": [
+		{
+			"id": "thaw_cycle", "kind": "conflict", "requires": ["cold", "fire"],
+			"summary": "Fire and frost wage a slow war; meltwater and scalding steam",
+			"effects": {"axes": {"moisture": 0.5, "stillness": -0.3},
+				"hazards": {"meltwater_floods": 0.9, "scalding_steam": 0.8},
+				"atmosphere": ["steam veils", "dripping thaw"]}
+		},
+		{
+			"id": "black_ice", "kind": "synergy", "requires": ["water", "cold"],
+			"summary": "Floodwater frozen glassy and treacherous",
+			"effects": {"axes": {"stillness": 0.3},
+				"hazards": {"black_ice": 1.0},
+				"discoveries": {"ice_entombed_relics": 0.8},
+				"atmosphere": ["glassy frozen flood"]}
+		},
+		{
+			"id": "blizzard", "kind": "synergy", "requires": ["storm", "cold"],
+			"summary": "Storm and frost become a blinding blizzard",
+			"effects": {"axes": {"light": -0.3},
+				"hazards": {"whiteout": 1.0},
+				"atmosphere": ["horizontal snow"]}
+		},
+		{
+			"id": "desecration", "kind": "conflict", "requires": ["sacred", "profane"],
+			"summary": "Holiness besieged by rot; neither has won",
+			"effects": {"hazards": {"warring_wards": 0.7},
+				"encounters": {"defiled_saints": 1.0},
+				"discoveries": {"broken_relics": 0.7},
+				"atmosphere": ["defaced altars"]}
+		},
+		{
+			"id": "reliquary", "kind": "synergy", "requires": ["sacred", "bone"],
+			"summary": "The holy dead are kept and venerated here",
+			"effects": {"encounters": {"penitent_dead": 0.9},
+				"discoveries": {"saint_bones": 1.0},
+				"atmosphere": ["bones in gilt niches"]}
+		},
+		{
+			"id": "grave_goods", "kind": "synergy", "requires": ["wealth", "death"],
+			"summary": "The dead were buried rich, and guard it",
+			"effects": {"hazards": {"cursed_tombs": 0.7},
+				"discoveries": {"grave_goods": 1.0}}
+		},
+		{
+			"id": "wildfire", "kind": "conflict", "requires": ["fire", "wild"],
+			"summary": "Growth and fire consume each other in moving fronts",
+			"effects": {"axes": {"vitality": -0.3},
+				"hazards": {"wildfire_fronts": 1.0},
+				"atmosphere": ["burning thickets"]}
+		},
+		{
+			"id": "bottomless_dark", "kind": "synergy", "requires": ["void", "depth"],
+			"summary": "Depths with no visible floor",
+			"effects": {"axes": {"light": -0.2, "enclosure": 0.2},
+				"hazards": {"bottomless_shafts": 0.9}}
+		},
+		{
+			"id": "grieving_shades", "kind": "synergy", "requires": ["memory", "death"],
+			"summary": "The dead linger, half-remembering who they were",
+			"effects": {"encounters": {"grieving_shades": 1.0},
+				"discoveries": {"keepsakes": 0.7},
+				"atmosphere": ["weeping in empty halls"]}
+		},
+		{
+			"id": "lightning_peaks", "kind": "synergy", "requires": ["storm", "height"],
+			"summary": "High places drawing the storm's strikes",
+			"effects": {"hazards": {"lightning_strikes": 1.0}}
+		},
+		{
+			"id": "flooded_sanctum", "kind": "synergy", "requires": ["water", "sacred"],
+			"summary": "Holy halls half-swallowed by water",
+			"effects": {"discoveries": {"sunken_reliquaries": 0.8},
+				"atmosphere": ["candles on black water"]}
+		},
+		{
+			"id": "swallowed_masonry", "kind": "conflict", "requires": ["wild", "built"],
+			"summary": "Wild growth tearing built stone apart",
+			"effects": {"axes": {"age": 0.3},
+				"discoveries": {"swallowed_ruins": 0.7},
+				"atmosphere": ["roots through masonry"]}
+		},
+		{
+			"id": "blight", "kind": "conflict", "requires": ["life", "death"],
+			"summary": "Life and death tangled into a spreading blight",
+			"effects": {"hazards": {"blight_spores": 0.8},
+				"encounters": {"blighted_growths": 0.8}}
+		},
+		{
+			"id": "false_idols", "kind": "synergy", "requires": ["deceit", "sacred"],
+			"summary": "Worship of beautiful, hollow idols",
+			"effects": {"encounters": {"idol_bearers": 0.9},
+				"hazards": {"mesmerizing_shrines": 0.6}}
+		}
+	],
+	"biomes": [
+		{"id": "flooded_lowland", "label": "Flooded lowland", "prototype": {"moisture": 0.9, "elevation": -0.5}},
+		{"id": "frozen_reach", "label": "Frozen reach", "prototype": {"temperature": -0.9, "vitality": -0.3}},
+		{"id": "ashfield", "label": "Ashfield", "prototype": {"temperature": 0.7, "vitality": -0.6, "moisture": -0.5}},
+		{"id": "storm_coast", "label": "Storm coast", "prototype": {"stillness": -0.9, "moisture": 0.5, "enclosure": -0.4}},
+		{"id": "sanctum_ruin", "label": "Sanctum ruin", "prototype": {"order": 0.8, "sanctity": 0.5, "enclosure": 0.5}},
+		{"id": "catacomb", "label": "Catacomb", "prototype": {"enclosure": 0.7, "vitality": -0.9, "order": 0.5}},
+		{"id": "cavern_depths", "label": "Cavern depths", "prototype": {"enclosure": 0.9, "elevation": -0.6, "light": -0.6}},
+		{"id": "briar_wilds", "label": "Briar wilds", "prototype": {"vitality": 0.7, "order": -0.7}},
+		{"id": "high_crags", "label": "High crags", "prototype": {"elevation": 0.9, "enclosure": -0.3}},
+		{"id": "barren_expanse", "label": "Barren expanse", "prototype": {"enclosure": -0.8, "vitality": -0.6, "moisture": -0.4}},
+		{"id": "corrupted_fen", "label": "Corrupted fen", "prototype": {"sanctity": -0.8, "vitality": -0.2}},
+		{"id": "silent_ruin", "label": "Silent ruin", "prototype": {"stillness": 0.7, "vitality": -0.4, "age": 0.5}},
+		{"id": "lightless_abyss", "label": "Lightless abyss", "prototype": {"light": -0.9, "enclosure": 0.4}},
+		{"id": "sunken_city", "label": "Sunken city", "prototype": {"elevation": -0.9, "age": 0.4, "order": 0.3}}
+	]
+}

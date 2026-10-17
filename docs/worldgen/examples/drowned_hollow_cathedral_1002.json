@@ -1,0 +1,304 @@
+{
+	"address": "Drowned Hollow Cathedral",
+	"data_version": "prototype-0.1",
+	"fingerprint": "d8135eaa",
+	"generation": {
+		"atmosphere": {
+			"color_temperature": 0.489,
+			"corruption_tint": 0.0,
+			"fog_density": 0.635,
+			"light_level": 0.162,
+			"precipitation": 0.005,
+			"silence": 0.662,
+			"wind": 0.1
+		},
+		"challenge": {
+			"ambush_tendency": 0.852,
+			"encounter_density": 0.311,
+			"hazard_pressure": 0.484,
+			"traversal_difficulty": 0.52,
+			"visibility": 0.2
+		},
+		"structure": {
+			"interior_ratio": 0.96,
+			"passage_tightness": 0.96,
+			"verticality": 0.526
+		},
+		"terrain": {
+			"architecture_density": 0.917,
+			"elevation_bias": 0.296,
+			"ice_coverage": 0.018,
+			"patchwork": [
+				{
+					"axis": "elevation",
+					"regional_variance": 0.58
+				}
+			],
+			"relief": 0.404,
+			"ruin_level": 0.558,
+			"subterranean_ratio": 0.715,
+			"vegetation": 0.427,
+			"water_coverage": 0.822
+		}
+	},
+	"identity": {
+		"axes": {
+			"age": 0.4,
+			"elevation": -0.361,
+			"enclosure": 0.96,
+			"light": -0.65,
+			"moisture": 0.8,
+			"order": 1.0,
+			"sanctity": 0.6,
+			"stillness": 0.32,
+			"temperature": 0.0,
+			"vitality": 0.0
+		},
+		"biome": {
+			"primary": "flooded_lowland",
+			"ranking": [
+				{
+					"affinity": 0.939,
+					"id": "flooded_lowland",
+					"label": "Flooded lowland"
+				},
+				{
+					"affinity": 0.927,
+					"id": "cavern_depths",
+					"label": "Cavern depths"
+				},
+				{
+					"affinity": 0.852,
+					"id": "sanctum_ruin",
+					"label": "Sanctum ruin"
+				}
+			],
+			"secondary": "cavern_depths"
+		},
+		"interactions": [
+			{
+				"id": "flooded_sanctum",
+				"kind": "synergy",
+				"sources": [
+					"drowned",
+					"cathedral"
+				],
+				"strength": 0.9,
+				"summary": "Holy halls half-swallowed by water"
+			}
+		],
+		"senses": [
+			{
+				"gloss": "Submerged ruins and standing black water",
+				"keyword": "drowned",
+				"position": "1",
+				"resolution": "only_sense",
+				"scores": {
+					"flooded": 0.0
+				},
+				"sense": "flooded"
+			},
+			{
+				"gloss": "Hollowed earth: caves and voids beneath",
+				"keyword": "hollow",
+				"position": "2",
+				"resolution": "context",
+				"scores": {
+					"cavern": 1.6,
+					"emptied": 1.0
+				},
+				"sense": "cavern"
+			},
+			{
+				"gloss": "Vast vaulted halls of worship",
+				"keyword": "cathedral",
+				"position": "3",
+				"resolution": "only_sense",
+				"scores": {
+					"nave": 0.0
+				},
+				"sense": "nave"
+			}
+		],
+		"tensions": [
+			{
+				"axis": "elevation",
+				"dominant": "sunken",
+				"poles": [
+					"sunken",
+					"lofty"
+				],
+				"resolution": "patchwork",
+				"strength": 0.4
+			}
+		],
+		"theme_tables": {
+			"discoveries": [
+				{
+					"id": "reliquaries",
+					"weight": 0.193
+				},
+				{
+					"id": "ore_veins",
+					"weight": 0.174
+				},
+				{
+					"id": "sunken_reliquaries",
+					"weight": 0.174
+				},
+				{
+					"id": "silted_relics",
+					"weight": 0.155
+				},
+				{
+					"id": "stained_glass",
+					"weight": 0.121
+				},
+				{
+					"id": "pearl_bone",
+					"weight": 0.097
+				},
+				{
+					"id": "cave_paintings",
+					"weight": 0.087
+				}
+			],
+			"encounters": [
+				{
+					"id": "choir_wraiths",
+					"weight": 0.213
+				},
+				{
+					"id": "drowned_dead",
+					"weight": 0.213
+				},
+				{
+					"id": "burrowers",
+					"weight": 0.191
+				},
+				{
+					"id": "fallen_templars",
+					"weight": 0.16
+				},
+				{
+					"id": "lurkers_below",
+					"weight": 0.128
+				},
+				{
+					"id": "cave_hermits",
+					"weight": 0.096
+				}
+			],
+			"hazards": [
+				{
+					"id": "deep_water",
+					"weight": 0.236
+				},
+				{
+					"id": "cave_in",
+					"weight": 0.212
+				},
+				{
+					"id": "falling_masonry",
+					"weight": 0.206
+				},
+				{
+					"id": "undertow",
+					"weight": 0.142
+				},
+				{
+					"id": "blind_drops",
+					"weight": 0.133
+				},
+				{
+					"id": "rot_fog",
+					"weight": 0.071
+				}
+			]
+		}
+	},
+	"identity_fingerprint": "eeb99c48",
+	"input": {
+		"keywords": [
+			"drowned",
+			"hollow",
+			"cathedral"
+		],
+		"world_seed": "1002"
+	},
+	"provisional": true,
+	"schema_version": "0.1.0",
+	"streams": {
+		"atmosphere": "1626478a",
+		"discoveries": "412c5214",
+		"encounters": "f28718c0",
+		"hazards": "c34a810f",
+		"structure": "93a7931f",
+		"terrain": "b31d4d57"
+	},
+	"variation": {
+		"atmosphere": [
+			"candles on black water",
+			"dripping stone",
+			"broken rose windows"
+		],
+		"axes": {
+			"age": {
+				"regional_variance": 0.1,
+				"value": 0.445
+			},
+			"elevation": {
+				"regional_variance": 0.58,
+				"value": -0.408
+			},
+			"enclosure": {
+				"regional_variance": 0.1,
+				"value": 0.92
+			},
+			"light": {
+				"regional_variance": 0.1,
+				"value": -0.676
+			},
+			"moisture": {
+				"regional_variance": 0.1,
+				"value": 0.785
+			},
+			"order": {
+				"regional_variance": 0.1,
+				"value": 1.0
+			},
+			"sanctity": {
+				"regional_variance": 0.1,
+				"value": 0.574
+			},
+			"stillness": {
+				"regional_variance": 0.1,
+				"value": 0.324
+			},
+			"temperature": {
+				"regional_variance": 0.1,
+				"value": -0.022
+			},
+			"vitality": {
+				"regional_variance": 0.1,
+				"value": -0.038
+			}
+		},
+		"featured": {
+			"discoveries": [
+				"reliquaries",
+				"silted_relics",
+				"ore_veins"
+			],
+			"encounters": [
+				"choir_wraiths",
+				"drowned_dead"
+			],
+			"hazards": [
+				"deep_water",
+				"undertow",
+				"falling_masonry"
+			]
+		}
+	}
+}

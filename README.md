@@ -43,6 +43,7 @@ timing values, reproducible tests, evidence, and human playtesting limitations.
 | [Roadmap](docs/ROADMAP.md) | Prototype sequence and quality gates |
 | [Combat prototype](docs/COMBAT_PROTOTYPE.md) | Running the duel, controls, tests and evidence |
 | [Combat review](docs/COMBAT_REVIEW.md) | Independent review, exploits, fixes and priorities |
+| [Keyword world blueprints](docs/WORLDGEN_KEYWORDS.md) | Isolated, provisional three-keyword → WorldBlueprint prototype |
 | [AGENTS.md](AGENTS.md) | Shared instructions for AI development agents |
 | [CLAUDE.md](CLAUDE.md) | Claude-specific handoff |
 

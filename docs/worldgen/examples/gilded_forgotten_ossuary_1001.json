@@ -1,0 +1,281 @@
+{
+	"address": "Gilded Forgotten Ossuary",
+	"data_version": "prototype-0.1",
+	"fingerprint": "bd7b4a85",
+	"generation": {
+		"atmosphere": {
+			"color_temperature": 0.54,
+			"corruption_tint": 0.0,
+			"fog_density": 0.217,
+			"light_level": 0.633,
+			"precipitation": 0.0,
+			"silence": 0.502,
+			"wind": 0.1
+		},
+		"challenge": {
+			"ambush_tendency": 0.544,
+			"encounter_density": 0.35,
+			"hazard_pressure": 0.47,
+			"traversal_difficulty": 0.272,
+			"visibility": 0.651
+		},
+		"structure": {
+			"interior_ratio": 0.59,
+			"passage_tightness": 0.828,
+			"verticality": 0.234
+		},
+		"terrain": {
+			"architecture_density": 0.651,
+			"elevation_bias": 0.479,
+			"ice_coverage": 0.0,
+			"patchwork": [],
+			"relief": 0.221,
+			"ruin_level": 0.926,
+			"subterranean_ratio": 0.41,
+			"vegetation": 0.035,
+			"water_coverage": 0.29
+		}
+	},
+	"identity": {
+		"axes": {
+			"age": 0.966,
+			"elevation": 0.0,
+			"enclosure": 0.7,
+			"light": 0.24,
+			"moisture": 0.0,
+			"order": 0.55,
+			"sanctity": 0.2,
+			"stillness": 0.0,
+			"temperature": 0.0,
+			"vitality": -0.82
+		},
+		"biome": {
+			"primary": "catacomb",
+			"ranking": [
+				{
+					"affinity": 0.973,
+					"id": "catacomb",
+					"label": "Catacomb"
+				},
+				{
+					"affinity": 0.873,
+					"id": "sanctum_ruin",
+					"label": "Sanctum ruin"
+				},
+				{
+					"affinity": 0.744,
+					"id": "ashfield",
+					"label": "Ashfield"
+				}
+			],
+			"secondary": "sanctum_ruin"
+		},
+		"interactions": [
+			{
+				"id": "grave_goods",
+				"kind": "synergy",
+				"sources": [
+					"gilded",
+					"ossuary"
+				],
+				"strength": 0.9,
+				"summary": "The dead were buried rich, and guard it"
+			}
+		],
+		"senses": [
+			{
+				"gloss": "Tarnished riches of a fallen power",
+				"keyword": "gilded",
+				"position": "1",
+				"resolution": "context",
+				"scores": {
+					"false": 0.9,
+					"treasure": 3.9
+				},
+				"sense": "treasure"
+			},
+			{
+				"gloss": "Ruins older than any record",
+				"keyword": "forgotten",
+				"position": "2",
+				"resolution": "context",
+				"scores": {
+					"ancient": 2.8,
+					"unremembered": 1.0
+				},
+				"sense": "ancient"
+			},
+			{
+				"gloss": "Halls built from and for the dead",
+				"keyword": "ossuary",
+				"position": "3",
+				"resolution": "only_sense",
+				"scores": {
+					"bone_vault": 0.0
+				},
+				"sense": "bone_vault"
+			}
+		],
+		"tensions": [],
+		"theme_tables": {
+			"discoveries": [
+				{
+					"id": "grave_goods",
+					"weight": 0.283
+				},
+				{
+					"id": "bone_relics",
+					"weight": 0.202
+				},
+				{
+					"id": "lost_architecture",
+					"weight": 0.164
+				},
+				{
+					"id": "gold_leaf",
+					"weight": 0.145
+				},
+				{
+					"id": "ancient_arms",
+					"weight": 0.109
+				},
+				{
+					"id": "gem_inlays",
+					"weight": 0.097
+				}
+			],
+			"encounters": [
+				{
+					"id": "bone_wardens",
+					"weight": 0.27
+				},
+				{
+					"id": "hoard_keepers",
+					"weight": 0.195
+				},
+				{
+					"id": "relic_guardians",
+					"weight": 0.195
+				},
+				{
+					"id": "ossified_monks",
+					"weight": 0.135
+				},
+				{
+					"id": "grave_robbers",
+					"weight": 0.108
+				},
+				{
+					"id": "dust_shades",
+					"weight": 0.097
+				}
+			],
+			"hazards": [
+				{
+					"id": "crumbling_floors",
+					"weight": 0.219
+				},
+				{
+					"id": "collapsing_niches",
+					"weight": 0.213
+				},
+				{
+					"id": "trapped_vaults",
+					"weight": 0.195
+				},
+				{
+					"id": "cursed_tombs",
+					"weight": 0.191
+				},
+				{
+					"id": "grave_miasma",
+					"weight": 0.182
+				}
+			]
+		}
+	},
+	"identity_fingerprint": "e499ab8c",
+	"input": {
+		"keywords": [
+			"gilded",
+			"forgotten",
+			"ossuary"
+		],
+		"world_seed": "1001"
+	},
+	"provisional": true,
+	"schema_version": "0.1.0",
+	"streams": {
+		"atmosphere": "a841d634",
+		"discoveries": "f6f637c6",
+		"encounters": "2d50422e",
+		"hazards": "dd144d65",
+		"structure": "6a27f229",
+		"terrain": "9e3092f5"
+	},
+	"variation": {
+		"atmosphere": [
+			"stacked skulls",
+			"timeless hush",
+			"candle stubs"
+		],
+		"axes": {
+			"age": {
+				"regional_variance": 0.1,
+				"value": 0.889
+			},
+			"elevation": {
+				"regional_variance": 0.1,
+				"value": -0.043
+			},
+			"enclosure": {
+				"regional_variance": 0.1,
+				"value": 0.655
+			},
+			"light": {
+				"regional_variance": 0.1,
+				"value": 0.266
+			},
+			"moisture": {
+				"regional_variance": 0.1,
+				"value": 0.077
+			},
+			"order": {
+				"regional_variance": 0.424,
+				"value": 0.525
+			},
+			"sanctity": {
+				"regional_variance": 0.1,
+				"value": 0.263
+			},
+			"stillness": {
+				"regional_variance": 0.1,
+				"value": 0.004
+			},
+			"temperature": {
+				"regional_variance": 0.1,
+				"value": 0.08
+			},
+			"vitality": {
+				"regional_variance": 0.316,
+				"value": -0.88
+			}
+		},
+		"featured": {
+			"discoveries": [
+				"grave_goods",
+				"gold_leaf",
+				"lost_architecture"
+			],
+			"encounters": [
+				"bone_wardens",
+				"relic_guardians"
+			],
+			"hazards": [
+				"crumbling_floors",
+				"trapped_vaults",
+				"collapsing_niches"
+			]
+		}
+	}
+}

@@ -1,0 +1,285 @@
+{
+	"address": "Barren Tempest Gilded",
+	"data_version": "prototype-0.1",
+	"fingerprint": "09c222a3",
+	"generation": {
+		"atmosphere": {
+			"color_temperature": 0.509,
+			"corruption_tint": 0.027,
+			"fog_density": 0.119,
+			"light_level": 0.598,
+			"precipitation": 0.0,
+			"silence": 0.04,
+			"wind": 0.744
+		},
+		"challenge": {
+			"ambush_tendency": 0.185,
+			"encounter_density": 0.46,
+			"hazard_pressure": 0.507,
+			"traversal_difficulty": 0.327,
+			"visibility": 0.655
+		},
+		"structure": {
+			"interior_ratio": 0.272,
+			"passage_tightness": 0.046,
+			"verticality": 0.242
+		},
+		"terrain": {
+			"architecture_density": 0.559,
+			"elevation_bias": 0.473,
+			"ice_coverage": 0.0,
+			"patchwork": [
+				{
+					"axis": "moisture",
+					"regional_variance": 0.58
+				}
+			],
+			"relief": 0.364,
+			"ruin_level": 0.549,
+			"subterranean_ratio": 0.021,
+			"vegetation": 0.112,
+			"water_coverage": 0.214
+		}
+	},
+	"identity": {
+		"axes": {
+			"age": 0.2,
+			"elevation": 0.0,
+			"enclosure": -0.872,
+			"light": 0.12,
+			"moisture": 0.05,
+			"order": 0.5,
+			"sanctity": 0.0,
+			"stillness": -0.9,
+			"temperature": 0.0,
+			"vitality": -0.64
+		},
+		"biome": {
+			"primary": "barren_expanse",
+			"ranking": [
+				{
+					"affinity": 0.868,
+					"id": "barren_expanse",
+					"label": "Barren expanse"
+				},
+				{
+					"affinity": 0.812,
+					"id": "storm_coast",
+					"label": "Storm coast"
+				},
+				{
+					"affinity": 0.743,
+					"id": "ashfield",
+					"label": "Ashfield"
+				}
+			],
+			"secondary": "storm_coast"
+		},
+		"interactions": [],
+		"senses": [
+			{
+				"gloss": "Open, lifeless, exposed ground",
+				"keyword": "barren",
+				"position": "1",
+				"resolution": "only_sense",
+				"scores": {
+					"waste": 0.0
+				},
+				"sense": "waste"
+			},
+			{
+				"gloss": "Endless storm over exposed ground",
+				"keyword": "tempest",
+				"position": "2",
+				"resolution": "only_sense",
+				"scores": {
+					"storm": 0.0
+				},
+				"sense": "storm"
+			},
+			{
+				"gloss": "Tarnished riches of a fallen power",
+				"keyword": "gilded",
+				"position": "3",
+				"resolution": "tie_primary",
+				"scores": {
+					"false": 0.0,
+					"treasure": 0.0
+				},
+				"sense": "treasure"
+			}
+		],
+		"tensions": [
+			{
+				"axis": "moisture",
+				"dominant": "balanced",
+				"poles": [
+					"arid",
+					"drowned"
+				],
+				"resolution": "patchwork",
+				"strength": 0.4
+			}
+		],
+		"theme_tables": {
+			"discoveries": [
+				{
+					"id": "gold_leaf",
+					"weight": 0.254
+				},
+				{
+					"id": "wreckage",
+					"weight": 0.203
+				},
+				{
+					"id": "bleached_bones",
+					"weight": 0.181
+				},
+				{
+					"id": "gem_inlays",
+					"weight": 0.169
+				},
+				{
+					"id": "fulgurite",
+					"weight": 0.102
+				},
+				{
+					"id": "buried_cache",
+					"weight": 0.09
+				}
+			],
+			"encounters": [
+				{
+					"id": "carrion_flocks",
+					"weight": 0.254
+				},
+				{
+					"id": "hoard_keepers",
+					"weight": 0.243
+				},
+				{
+					"id": "storm_callers",
+					"weight": 0.195
+				},
+				{
+					"id": "wanderers",
+					"weight": 0.173
+				},
+				{
+					"id": "grave_robbers",
+					"weight": 0.135
+				}
+			],
+			"hazards": [
+				{
+					"id": "gale",
+					"weight": 0.254
+				},
+				{
+					"id": "trapped_vaults",
+					"weight": 0.225
+				},
+				{
+					"id": "exposure",
+					"weight": 0.203
+				},
+				{
+					"id": "lightning",
+					"weight": 0.152
+				},
+				{
+					"id": "sinking_sand",
+					"weight": 0.09
+				},
+				{
+					"id": "rockfall",
+					"weight": 0.076
+				}
+			]
+		}
+	},
+	"identity_fingerprint": "28a7b601",
+	"input": {
+		"keywords": [
+			"barren",
+			"tempest",
+			"gilded"
+		],
+		"world_seed": "1001"
+	},
+	"provisional": true,
+	"schema_version": "0.1.0",
+	"streams": {
+		"atmosphere": "0c0c8680",
+		"discoveries": "6e72c35a",
+		"encounters": "2990156a",
+		"hazards": "05ddd5e9",
+		"structure": "b361e9fd",
+		"terrain": "d2471229"
+	},
+	"variation": {
+		"atmosphere": [
+			"sheeting rain",
+			"flat horizon",
+			"sudden flashes"
+		],
+		"axes": {
+			"age": {
+				"regional_variance": 0.1,
+				"value": 0.187
+			},
+			"elevation": {
+				"regional_variance": 0.1,
+				"value": -0.053
+			},
+			"enclosure": {
+				"regional_variance": 0.1,
+				"value": -0.908
+			},
+			"light": {
+				"regional_variance": 0.316,
+				"value": 0.196
+			},
+			"moisture": {
+				"regional_variance": 0.58,
+				"value": -0.021
+			},
+			"order": {
+				"regional_variance": 0.1,
+				"value": 0.544
+			},
+			"sanctity": {
+				"regional_variance": 0.1,
+				"value": -0.027
+			},
+			"stillness": {
+				"regional_variance": 0.1,
+				"value": -0.919
+			},
+			"temperature": {
+				"regional_variance": 0.1,
+				"value": 0.017
+			},
+			"vitality": {
+				"regional_variance": 0.1,
+				"value": -0.575
+			}
+		},
+		"featured": {
+			"discoveries": [
+				"gold_leaf",
+				"bleached_bones",
+				"gem_inlays"
+			],
+			"encounters": [
+				"carrion_flocks",
+				"wanderers"
+			],
+			"hazards": [
+				"gale",
+				"trapped_vaults",
+				"rockfall"
+			]
+		}
+	}
+}

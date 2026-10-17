@@ -1,0 +1,343 @@
+{
+	"address": "Smoldering Frozen Ossuary",
+	"data_version": "prototype-0.1",
+	"fingerprint": "8eafceb4",
+	"generation": {
+		"atmosphere": {
+			"color_temperature": 0.393,
+			"corruption_tint": 0.0,
+			"fog_density": 0.215,
+			"light_level": 0.546,
+			"precipitation": 0.0,
+			"silence": 0.607,
+			"wind": 0.1
+		},
+		"challenge": {
+			"ambush_tendency": 0.572,
+			"encounter_density": 0.324,
+			"hazard_pressure": 0.962,
+			"traversal_difficulty": 0.405,
+			"visibility": 0.576
+		},
+		"structure": {
+			"interior_ratio": 0.672,
+			"passage_tightness": 0.822,
+			"verticality": 0.236
+		},
+		"terrain": {
+			"architecture_density": 0.733,
+			"elevation_bias": 0.477,
+			"ice_coverage": 0.046,
+			"patchwork": [
+				{
+					"axis": "temperature",
+					"regional_variance": 0.964
+				},
+				{
+					"axis": "moisture",
+					"regional_variance": 0.676
+				},
+				{
+					"axis": "stillness",
+					"regional_variance": 0.621
+				}
+			],
+			"relief": 0.223,
+			"ruin_level": 0.811,
+			"subterranean_ratio": 0.404,
+			"vegetation": 0.018,
+			"water_coverage": 0.184
+		}
+	},
+	"identity": {
+		"axes": {
+			"age": 0.6,
+			"elevation": 0.0,
+			"enclosure": 0.7,
+			"light": 0.16,
+			"moisture": 0.049,
+			"order": 0.7,
+			"sanctity": 0.2,
+			"stillness": 0.196,
+			"temperature": -0.18,
+			"vitality": -1.0
+		},
+		"biome": {
+			"primary": "catacomb",
+			"ranking": [
+				{
+					"affinity": 0.935,
+					"id": "catacomb",
+					"label": "Catacomb"
+				},
+				{
+					"affinity": 0.892,
+					"id": "sanctum_ruin",
+					"label": "Sanctum ruin"
+				},
+				{
+					"affinity": 0.772,
+					"id": "silent_ruin",
+					"label": "Silent ruin"
+				}
+			],
+			"secondary": "sanctum_ruin"
+		},
+		"interactions": [
+			{
+				"id": "thaw_cycle",
+				"kind": "conflict",
+				"sources": [
+					"smoldering",
+					"frozen"
+				],
+				"strength": 0.85,
+				"summary": "Fire and frost wage a slow war; meltwater and scalding steam"
+			}
+		],
+		"senses": [
+			{
+				"gloss": "Land that burned and never stopped",
+				"keyword": "smoldering",
+				"position": "1",
+				"resolution": "only_sense",
+				"scores": {
+					"embers": 0.0
+				},
+				"sense": "embers"
+			},
+			{
+				"gloss": "A world locked in killing frost",
+				"keyword": "frozen",
+				"position": "2",
+				"resolution": "only_sense",
+				"scores": {
+					"rime": 0.0
+				},
+				"sense": "rime"
+			},
+			{
+				"gloss": "Halls built from and for the dead",
+				"keyword": "ossuary",
+				"position": "3",
+				"resolution": "only_sense",
+				"scores": {
+					"bone_vault": 0.0
+				},
+				"sense": "bone_vault"
+			}
+		],
+		"tensions": [
+			{
+				"axis": "temperature",
+				"dominant": "frozen",
+				"poles": [
+					"frozen",
+					"scorching"
+				],
+				"resolution": "patchwork",
+				"strength": 0.72
+			},
+			{
+				"axis": "moisture",
+				"dominant": "balanced",
+				"poles": [
+					"arid",
+					"drowned"
+				],
+				"resolution": "patchwork",
+				"strength": 0.48
+			},
+			{
+				"axis": "stillness",
+				"dominant": "still",
+				"poles": [
+					"turbulent",
+					"still"
+				],
+				"resolution": "patchwork",
+				"strength": 0.434
+			}
+		],
+		"theme_tables": {
+			"discoveries": [
+				{
+					"id": "bone_relics",
+					"weight": 0.282
+				},
+				{
+					"id": "frozen_remains",
+					"weight": 0.203
+				},
+				{
+					"id": "slag_metal",
+					"weight": 0.181
+				},
+				{
+					"id": "grave_goods",
+					"weight": 0.141
+				},
+				{
+					"id": "clear_crystal",
+					"weight": 0.102
+				},
+				{
+					"id": "char_relics",
+					"weight": 0.09
+				}
+			],
+			"encounters": [
+				{
+					"id": "bone_wardens",
+					"weight": 0.253
+				},
+				{
+					"id": "preserved_dead",
+					"weight": 0.205
+				},
+				{
+					"id": "cinder_wraiths",
+					"weight": 0.202
+				},
+				{
+					"id": "ossified_monks",
+					"weight": 0.126
+				},
+				{
+					"id": "frost_hunters",
+					"weight": 0.114
+				},
+				{
+					"id": "burned_pilgrims",
+					"weight": 0.101
+				}
+			],
+			"hazards": [
+				{
+					"id": "killing_cold",
+					"weight": 0.134
+				},
+				{
+					"id": "scorched_ground",
+					"weight": 0.119
+				},
+				{
+					"id": "meltwater_floods",
+					"weight": 0.114
+				},
+				{
+					"id": "thin_ice",
+					"weight": 0.107
+				},
+				{
+					"id": "collapsing_niches",
+					"weight": 0.104
+				},
+				{
+					"id": "scalding_steam",
+					"weight": 0.101
+				},
+				{
+					"id": "ember_fall",
+					"weight": 0.095
+				},
+				{
+					"id": "grave_miasma",
+					"weight": 0.089
+				},
+				{
+					"id": "choking_smoke",
+					"weight": 0.071
+				},
+				{
+					"id": "whiteout",
+					"weight": 0.067
+				}
+			]
+		}
+	},
+	"identity_fingerprint": "71a784a6",
+	"input": {
+		"keywords": [
+			"smoldering",
+			"frozen",
+			"ossuary"
+		],
+		"world_seed": "1001"
+	},
+	"provisional": true,
+	"schema_version": "0.1.0",
+	"streams": {
+		"atmosphere": "314affc3",
+		"discoveries": "6911fb4f",
+		"encounters": "9d07d0ad",
+		"hazards": "dfcec01c",
+		"structure": "9d1a0c2c",
+		"terrain": "75236fb0"
+	},
+	"variation": {
+		"atmosphere": [
+			"steam veils",
+			"dry dust",
+			"breath-fog"
+		],
+		"axes": {
+			"age": {
+				"regional_variance": 0.1,
+				"value": 0.615
+			},
+			"elevation": {
+				"regional_variance": 0.1,
+				"value": -0.045
+			},
+			"enclosure": {
+				"regional_variance": 0.1,
+				"value": 0.643
+			},
+			"light": {
+				"regional_variance": 0.1,
+				"value": 0.092
+			},
+			"moisture": {
+				"regional_variance": 0.676,
+				"value": -0.019
+			},
+			"order": {
+				"regional_variance": 0.1,
+				"value": 0.701
+			},
+			"sanctity": {
+				"regional_variance": 0.1,
+				"value": 0.132
+			},
+			"stillness": {
+				"regional_variance": 0.621,
+				"value": 0.215
+			},
+			"temperature": {
+				"regional_variance": 0.964,
+				"value": -0.213
+			},
+			"vitality": {
+				"regional_variance": 0.1,
+				"value": -0.923
+			}
+		},
+		"featured": {
+			"discoveries": [
+				"bone_relics",
+				"frozen_remains",
+				"slag_metal"
+			],
+			"encounters": [
+				"bone_wardens",
+				"ossified_monks"
+			],
+			"hazards": [
+				"killing_cold",
+				"whiteout",
+				"meltwater_floods"
+			]
+		}
+	}
+}

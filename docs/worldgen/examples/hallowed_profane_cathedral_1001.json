@@ -1,0 +1,303 @@
+{
+	"address": "Hallowed Profane Cathedral",
+	"data_version": "prototype-0.1",
+	"fingerprint": "c1e4578c",
+	"generation": {
+		"atmosphere": {
+			"color_temperature": 0.527,
+			"corruption_tint": 0.0,
+			"fog_density": 0.203,
+			"light_level": 0.728,
+			"precipitation": 0.0,
+			"silence": 0.629,
+			"wind": 0.176
+		},
+		"challenge": {
+			"ambush_tendency": 0.488,
+			"encounter_density": 0.319,
+			"hazard_pressure": 0.502,
+			"traversal_difficulty": 0.355,
+			"visibility": 0.74
+		},
+		"structure": {
+			"interior_ratio": 0.691,
+			"passage_tightness": 0.783,
+			"verticality": 0.503
+		},
+		"terrain": {
+			"architecture_density": 0.771,
+			"elevation_bias": 0.689,
+			"ice_coverage": 0.0,
+			"patchwork": [
+				{
+					"axis": "sanctity",
+					"regional_variance": 1.0
+				}
+			],
+			"relief": 0.389,
+			"ruin_level": 0.556,
+			"subterranean_ratio": 0.339,
+			"vegetation": 0.195,
+			"water_coverage": 0.241
+		}
+	},
+	"identity": {
+		"axes": {
+			"age": 0.4,
+			"elevation": 0.4,
+			"enclosure": 0.6,
+			"light": 0.4,
+			"moisture": 0.0,
+			"order": 0.82,
+			"sanctity": 0.02,
+			"stillness": 0.32,
+			"temperature": 0.0,
+			"vitality": -0.27
+		},
+		"biome": {
+			"primary": "silent_ruin",
+			"ranking": [
+				{
+					"affinity": 0.881,
+					"id": "silent_ruin",
+					"label": "Silent ruin"
+				},
+				{
+					"affinity": 0.858,
+					"id": "sanctum_ruin",
+					"label": "Sanctum ruin"
+				},
+				{
+					"affinity": 0.794,
+					"id": "catacomb",
+					"label": "Catacomb"
+				}
+			],
+			"secondary": "sanctum_ruin"
+		},
+		"interactions": [
+			{
+				"id": "desecration",
+				"kind": "conflict",
+				"sources": [
+					"profane",
+					"cathedral"
+				],
+				"strength": 0.95,
+				"summary": "Holiness besieged by rot; neither has won"
+			}
+		],
+		"senses": [
+			{
+				"gloss": "Ground still guarded by an old holiness",
+				"keyword": "hallowed",
+				"position": "1",
+				"resolution": "only_sense",
+				"scores": {
+					"consecrated": 0.0
+				},
+				"sense": "consecrated"
+			},
+			{
+				"gloss": "Corruption soaked into stone and soul",
+				"keyword": "profane",
+				"position": "2",
+				"resolution": "only_sense",
+				"scores": {
+					"defiled": 0.0
+				},
+				"sense": "defiled"
+			},
+			{
+				"gloss": "Vast vaulted halls of worship",
+				"keyword": "cathedral",
+				"position": "3",
+				"resolution": "only_sense",
+				"scores": {
+					"nave": 0.0
+				},
+				"sense": "nave"
+			}
+		],
+		"tensions": [
+			{
+				"axis": "sanctity",
+				"dominant": "balanced",
+				"poles": [
+					"profane",
+					"hallowed"
+				],
+				"resolution": "patchwork",
+				"strength": 0.9
+			}
+		],
+		"theme_tables": {
+			"discoveries": [
+				{
+					"id": "reliquaries",
+					"weight": 0.192
+				},
+				{
+					"id": "broken_relics",
+					"weight": 0.159
+				},
+				{
+					"id": "votive_offerings",
+					"weight": 0.153
+				},
+				{
+					"id": "tainted_ichor",
+					"weight": 0.151
+				},
+				{
+					"id": "heretic_texts",
+					"weight": 0.129
+				},
+				{
+					"id": "stained_glass",
+					"weight": 0.12
+				},
+				{
+					"id": "blessed_steel",
+					"weight": 0.096
+				}
+			],
+			"encounters": [
+				{
+					"id": "fallen_templars",
+					"weight": 0.276
+				},
+				{
+					"id": "defiled_saints",
+					"weight": 0.187
+				},
+				{
+					"id": "defilers",
+					"weight": 0.16
+				},
+				{
+					"id": "choir_wraiths",
+					"weight": 0.158
+				},
+				{
+					"id": "twisted_faithful",
+					"weight": 0.124
+				},
+				{
+					"id": "penitents",
+					"weight": 0.095
+				}
+			],
+			"hazards": [
+				{
+					"id": "corruption_pools",
+					"weight": 0.256
+				},
+				{
+					"id": "falling_masonry",
+					"weight": 0.199
+				},
+				{
+					"id": "warring_wards",
+					"weight": 0.189
+				},
+				{
+					"id": "judgment_wards",
+					"weight": 0.159
+				},
+				{
+					"id": "whispering_madness",
+					"weight": 0.128
+				},
+				{
+					"id": "blinding_glare",
+					"weight": 0.068
+				}
+			]
+		}
+	},
+	"identity_fingerprint": "a94cc777",
+	"input": {
+		"keywords": [
+			"hallowed",
+			"profane",
+			"cathedral"
+		],
+		"world_seed": "1001"
+	},
+	"provisional": true,
+	"schema_version": "0.1.0",
+	"streams": {
+		"atmosphere": "3c253f0c",
+		"discoveries": "10cc744e",
+		"encounters": "43a43506",
+		"hazards": "38a5c8bd",
+		"structure": "2093e1e1",
+		"terrain": "868bd16d"
+	},
+	"variation": {
+		"atmosphere": [
+			"defaced altars",
+			"vaulted dark",
+			"distant choir"
+		],
+		"axes": {
+			"age": {
+				"regional_variance": 0.1,
+				"value": 0.332
+			},
+			"elevation": {
+				"regional_variance": 0.1,
+				"value": 0.379
+			},
+			"enclosure": {
+				"regional_variance": 0.1,
+				"value": 0.565
+			},
+			"light": {
+				"regional_variance": 0.1,
+				"value": 0.457
+			},
+			"moisture": {
+				"regional_variance": 0.1,
+				"value": 0.014
+			},
+			"order": {
+				"regional_variance": 0.316,
+				"value": 0.816
+			},
+			"sanctity": {
+				"regional_variance": 1.0,
+				"value": 0.034
+			},
+			"stillness": {
+				"regional_variance": 0.1,
+				"value": 0.259
+			},
+			"temperature": {
+				"regional_variance": 0.1,
+				"value": 0.054
+			},
+			"vitality": {
+				"regional_variance": 0.1,
+				"value": -0.283
+			}
+		},
+		"featured": {
+			"discoveries": [
+				"reliquaries",
+				"votive_offerings",
+				"broken_relics"
+			],
+			"encounters": [
+				"fallen_templars",
+				"twisted_faithful"
+			],
+			"hazards": [
+				"corruption_pools",
+				"warring_wards",
+				"blinding_glare"
+			]
+		}
+	}
+}
