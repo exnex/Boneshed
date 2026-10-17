@@ -1,0 +1,98 @@
+{
+	"schema": "boneshed.build_catalog.v0",
+	"catalog_version": "0.1.0",
+	"provisional": "Every stat, slot, value, restriction and effect in this file is a prototype placeholder awaiting human approval. Not balanced. Not wired into the courtyard.",
+	"stats": [
+		{"id": "max_health", "min": 1, "max": 999, "better": "higher"},
+		{"id": "max_posture", "min": 1, "max": 999, "better": "higher"},
+		{"id": "move_speed", "min": 0, "max": 20, "better": "higher"},
+		{"id": "deflect_window", "min": 0, "max": 0.5, "better": "higher"},
+		{"id": "guard_chip", "min": 0, "max": 1, "better": "lower"},
+		{"id": "posture_recovery_rate", "min": 0, "max": 100, "better": "higher"},
+		{"id": "windup_scale", "min": 0.25, "max": 4, "better": "lower"},
+		{"id": "recovery_scale", "min": 0.25, "max": 4, "better": "lower"}
+	],
+	"slots": [
+		{"id": "main_hand", "accepts": "weapon"},
+		{"id": "left_arm", "accepts": "augment"},
+		{"id": "right_arm", "accepts": "augment"}
+	],
+	"bindings": ["light", "heavy", "special"],
+	"profiles": [
+		{
+			"id": "profile.duelist",
+			"name": "Duelist",
+			"notes": "Mirrors the current courtyard player values.",
+			"stats": {"max_health": 100, "max_posture": 100, "move_speed": 5.5, "deflect_window": 0.16, "guard_chip": 0.12, "posture_recovery_rate": 12, "windup_scale": 1.0, "recovery_scale": 1.0}
+		},
+		{
+			"id": "profile.corrupted_swordsman",
+			"name": "Corrupted Swordsman",
+			"notes": "Example enemy form: exceptional posture paired with slow movement and slow, readable attacks. Approximates, but does not exactly reproduce, the courtyard enemy.",
+			"stats": {"max_health": 100, "max_posture": 120, "move_speed": 2.7, "deflect_window": 0.16, "guard_chip": 0.12, "posture_recovery_rate": 12, "windup_scale": 1.5, "recovery_scale": 1.4}
+		}
+	],
+	"abilities": [
+		{
+			"id": "attack.slash",
+			"name": "Slash",
+			"binding": "light",
+			"tags": ["melee", "blade", "light"],
+			"requires_tags": ["wield.blade"],
+			"module": "module.slash_basic",
+			"telegraph": "Short shoulder draw-back.",
+			"timing": {"windup": 0.34, "active": 0.16, "recovery": 0.45},
+			"hit": {"health_damage": 18, "guard_posture": 28, "reach": 2.35, "width": 1.6}
+		},
+		{
+			"id": "attack.heavy_slash",
+			"name": "Heavy Slash",
+			"binding": "heavy",
+			"tags": ["melee", "blade", "heavy"],
+			"requires_tags": ["wield.blade"],
+			"module": "module.slash_heavy",
+			"telegraph": "Long overhead raise.",
+			"timing": {"windup": 0.85, "active": 0.16, "recovery": 0.45},
+			"hit": {"health_damage": 32, "guard_posture": 42, "reach": 2.35, "width": 1.6}
+		},
+		{
+			"id": "ability.marrow_lunge",
+			"name": "Marrow Lunge",
+			"binding": "special",
+			"tags": ["melee", "thrust", "signature", "corrupted"],
+			"requires_tags": ["body.marrow_arm"],
+			"module": "module.marrow_lunge",
+			"telegraph": "The bone arm splits open and draws far back before a straight, long thrust.",
+			"timing": {"windup": 0.7, "active": 0.2, "recovery": 0.8},
+			"hit": {"health_damage": 26, "guard_posture": 45, "reach": 3.4, "width": 0.9}
+		}
+	],
+	"items": [
+		{
+			"id": "item.notched_sword",
+			"name": "Notched Sword",
+			"category": "weapon",
+			"fits_slots": ["main_hand"],
+			"provides_tags": ["wield.blade"],
+			"requires_tags": [],
+			"excludes_tags": [],
+			"grants": ["attack.slash", "attack.heavy_slash"],
+			"modifiers": [],
+			"salvageable": false,
+			"notes": "Ordinary one-handed blade. Not salvageable in this prototype."
+		},
+		{
+			"id": "item.marrow_arm",
+			"name": "Marrow Arm",
+			"category": "augment",
+			"fits_slots": ["right_arm"],
+			"provides_tags": ["body.marrow_arm", "body.augmented"],
+			"requires_tags": [],
+			"excludes_tags": ["grip.two_handed"],
+			"grants": ["ability.marrow_lunge"],
+			"modifiers": [{"stat": "deflect_window", "op": "add", "value": -0.05}],
+			"salvageable": true,
+			"notes": "Signature augment of the corrupted swordsman. The heavy bone arm raises guard late (shorter deflection window) and cannot share a two-handed grip."
+		}
+	]
+}
