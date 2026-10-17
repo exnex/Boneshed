@@ -1,12 +1,14 @@
 # Three-Keyword World Blueprints — Design and Prototype
 
-**Status: isolated prototype. Nothing here is a confirmed game mechanic.**
+**Status: isolated prototype.** The high-level keyword identity-versus-seed-variation principle is confirmed in [DECISIONS.md](DECISIONS.md); individual algorithms, weights and content remain provisional.
 The confirmed direction (see [DECISIONS.md](DECISIONS.md)) is only that three poetic,
 .hack-inspired keywords and a fresh seed influence a world's resources, elemental
 conditions, landforms, enemies and difficulty. Everything below — the vocabulary, the
 axes, the weights, the rules and the formulas — is **Proposed** prototype work that
 needs human review. No terrain, dungeon, enemy or loot is generated, and nothing here
 touches combat, the courtyard scene or the browser export.
+
+**Confirmed direction (2026-10-17):** The same three words should produce a recognizable world identity while allowing substantially different seeded maps, landmarks, encounters and discoveries. The present prototype deliberately varies only bounded parameters and featured themes; it does **not yet implement or demonstrate** that broader world realization. This gap is future work, not a failure of its deterministic blueprint contract.
 
 The success criterion is narrow: show that three words plus a seed produce
 **diverse, reproducible and meaningfully differentiated** blueprints that future
