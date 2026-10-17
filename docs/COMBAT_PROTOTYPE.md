@@ -101,6 +101,12 @@ and staggers the attacker unless its posture breaks. Holding guard past the wind
 blocks with chip damage and posture cost. Dodge grants evasion for its entire short
 phase, with a cooldown. A broken actor cannot act until the vulnerability expires.
 
+Correctness fixes from the [combat review](COMBAT_REVIEW.md) (no tuning values changed):
+a hit staggers for 0.24 s but never shortens a recovery or stagger already in progress;
+a dodge keeps only the momentum that points along its direction; and horizontal
+acceleration is applied as one vector, so diagonal movement no longer accelerates
+faster than axis-aligned movement.
+
 ## Validation and evidence
 
 ```sh
@@ -131,7 +137,12 @@ Curated logs, state records, and five inspected captures are stored in
 positions, phases, health, and posture frozen at capture time. `runs.json` records
 the underlying process exit statuses.
 
-Final recorded result: headless import succeeded, **30 combat assertions and 35
+After the combat review the suites contain **33 combat and 37 graphical assertions**
+(all passing; negatives unchanged), and `bash scripts/tooling/probe.sh` records
+adversarial measurements (exploit strategies, timing windows, camera framing). See
+[`evidence/combat-review/`](evidence/combat-review/README.md).
+
+Milestone 1 recorded result: headless import succeeded, **30 combat assertions and 35
 graphical assertions passed**. All three negative controls exited 1 as required
 (guard: 3 failed assertions; deflection: 2; phase: 3). No required check failed or
 was skipped in the final run. The scripted win took 334 simulation frames; the

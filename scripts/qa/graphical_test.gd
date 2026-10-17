@@ -218,6 +218,29 @@ func run() -> void:
 	check(p.combat.phase == Rules.Phase.DODGE, "input_dodge_starts")
 	await frames(20)
 	check(p.position.distance_to(dodge_start) > 1.5, "input_dodge_moves_player")
+	# Review fix: a dodge out of a run must travel along its input direction. Use a
+	# yawed camera so camera-relative directions are not aligned with world axes.
+	arena.reset_encounter()
+	e.enabled = false
+	p.yaw = 0.6
+	action("move_forward", true)
+	await frames(40)
+	action("move_forward", false)
+	action("move_back", true)
+	action("dodge", true)
+	await frames(1)
+	action("dodge", false)
+	var run_dodge_start := p.position
+	var run_dodge_direction := p.dodge_direction
+	while p.combat.phase == Rules.Phase.DODGE:
+		await frames(1)
+	action("move_back", false)
+	var travelled := p.position - run_dodge_start
+	var along := travelled.dot(run_dodge_direction)
+	var off_axis := (travelled - run_dodge_direction * along).length()
+	check(along > 1.4, "dodge_out_of_run_keeps_distance")
+	check(off_axis < 0.1, "dodge_out_of_run_keeps_direction")
+	await frames(20)
 	# A player death must also reset; use real enemy attacks against a stationary player.
 	close_fixture()
 	p.input_enabled = false

@@ -104,6 +104,20 @@ func run() -> void:
 	check(not b.attack() and not b.dodge(), "dead_actor_cannot_act")
 	b.reset()
 	check(b.health == 100.0 and b.posture == 0.0 and b.phase == Rules.Phase.IDLE and not b.guarding and b.dodge_ready_in == 0.0 and b.last_event == "" and not b.hit_consumed, "reset_restores_combat_state")
+	# Review fix: a hit must never shorten a lockout the target is already serving.
+	a = active_attacker()
+	a.tick(a.active_duration)
+	var lockout := a.remaining
+	a.receive(active_attacker())
+	check(a.phase == Rules.Phase.STAGGER and a.remaining >= lockout - 0.0001, "hit_does_not_shorten_recovery")
+	a.reset()
+	a.phase = Rules.Phase.STAGGER
+	a.remaining = 0.35
+	a.receive(active_attacker())
+	check(a.remaining >= 0.35 - 0.0001, "hit_does_not_shorten_stagger")
+	a.reset()
+	a.receive(active_attacker())
+	check(a.phase == Rules.Phase.STAGGER and is_equal_approx(a.remaining, 0.24), "idle_hit_stagger_unchanged")
 	# Independent step sizes must land on the same combat phase and duration.
 	a = Rules.new()
 	b = Rules.new()
