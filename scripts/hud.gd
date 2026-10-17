@@ -21,9 +21,6 @@ func bar(point: Vector2, width: float, ratio: float, color: Color) -> void:
 func _draw() -> void:
 	if not is_instance_valid(arena):
 		return
-	if is_instance_valid(arena.touch_controls) and arena.touch_controls.active:
-		_draw_touch_hud()
-		return
 	var width := get_viewport_rect().size.x
 	var height := get_viewport_rect().size.y
 	draw_rect(Rect2(0, 0, width, 124), Color(0.025, 0.04, 0.05, 0.86))
@@ -60,30 +57,3 @@ func _draw() -> void:
 func phase_name(phase: int) -> String:
 	return ["READY", "WINDUP", "ACTIVE", "RECOVERY", "RECOIL", "BROKEN", "DODGE", "DEAD"][phase] if phase < 8 else "?"
 
-func _draw_touch_hud() -> void:
-	var size := get_viewport_rect().size
-	var p = arena.player.combat
-	var e = arena.enemy.combat
-	var panel := size.x * 0.36
-	draw_rect(Rect2(0, 0, size.x, 104), Color(0.025, 0.04, 0.05, 0.82))
-	text_at(Vector2(24, 32), "PILGRIM  %03d" % p.health, 24)
-	bar(Vector2(24, 46), panel, p.health / p.max_health, Color("89bbaa"))
-	bar(Vector2(24, 64), panel, p.posture / p.max_posture, Color("dcb565"))
-	var right := size.x - panel - 24
-	text_at(Vector2(right, 32), "SWORDSMAN  %03d" % e.health, 24, Color("dca6a8"))
-	bar(Vector2(right, 46), panel, e.health / e.max_health, Color("b56b7b"))
-	bar(Vector2(right, 64), panel, e.posture / e.max_posture, Color("dcb565"))
-	text_at(Vector2(size.x * 0.43, 34), "LOCKED" if arena.player.locked else "FREE", 23)
-	text_at(Vector2(right, 94), phase_name(e.phase), 20)
-	var message := ""
-	if e.phase == Rules.Phase.DEAD:
-		message = "SOUL RELEASED"
-	elif p.phase == Rules.Phase.DEAD:
-		message = "YOU FELL · RESET"
-	elif e.phase == Rules.Phase.BROKEN:
-		message = "POSTURE BROKEN"
-	elif arena.event_time > 0.0 and "DEFLECTION" in arena.event_text:
-		message = "DEFLECTION"
-	if message != "":
-		var width := font.get_string_size(message, HORIZONTAL_ALIGNMENT_LEFT, -1, 28).x
-		text_at(Vector2((size.x - width) * 0.5, size.y * 0.82), message, 28, Color("ead9ac"))

@@ -1,0 +1,104 @@
+[
+  {
+    "check": "release_boots_in_real_browser",
+    "passed": true
+  },
+  {
+    "check": "release_has_no_qa_bridge",
+    "passed": true
+  },
+  {
+    "check": "single_threaded_without_isolation_headers",
+    "passed": true
+  },
+  {
+    "check": "release_click_captures_mouse",
+    "passed": true
+  },
+  {
+    "check": "browser_keyboard_moves_player",
+    "passed": true,
+    "detail": {
+      "start": [
+        0,
+        9.11429524421692e-05,
+        4
+      ],
+      "end": {
+        "actions": {
+          "attack": false,
+          "guard": false,
+          "move_forward": 0
+        },
+        "enemy": {
+          "health": 100,
+          "phase": 0,
+          "posture": 0,
+          "remaining": 0
+        },
+        "player": {
+          "event": "",
+          "guard_age": 99.0166666666667,
+          "guarding": false,
+          "health": 100,
+          "locked": false,
+          "phase": 0,
+          "pitch": -0.28,
+          "position": [
+            0,
+            9.11429524421692e-05,
+            1.32222139835358
+          ],
+          "posture": 0,
+          "yaw": 0
+        },
+        "tick": 175,
+        "viewport": [
+          1280,
+          720
+        ]
+      },
+      "focus": "canvas"
+    }
+  },
+  {
+    "check": "browser_mouse_attack",
+    "passed": true
+  },
+  {
+    "check": "captured_mouse_rotates_camera",
+    "passed": true
+  },
+  {
+    "check": "browser_keyboard_lock",
+    "passed": true
+  },
+  {
+    "check": "browser_keyboard_reset",
+    "passed": true
+  },
+  {
+    "check": "browser_mouse_attack_damages_enemy",
+    "passed": true
+  },
+  {
+    "check": "mouse_held_guard_is_not_deflection",
+    "passed": true
+  },
+  {
+    "check": "mouse_timed_deflection",
+    "passed": true
+  },
+  {
+    "check": "browser_keyboard_dodge_moves_player",
+    "passed": true
+  },
+  {
+    "check": "no_fatal_browser_or_engine_errors",
+    "passed": true,
+    "detail": {
+      "page_errors": [],
+      "fatal_console": []
+    }
+  }
+]

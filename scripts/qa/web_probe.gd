@@ -1,6 +1,6 @@
 extends Node
 ## Only the separate Web QA export contains this instrumentation.
-## Tests send actual browser keyboard/mouse/CDP touches; commands arrange fixtures.
+## Tests send actual browser keyboard/mouse inputs; commands arrange fixtures.
 
 var arena: Node3D
 var callback: JavaScriptObject
@@ -17,11 +17,9 @@ func _command(args: Array) -> void:
 		return
 	var command := str(args[0])
 	if command == "reset":
-		arena.touch_controls.release_all()
 		arena.reset_encounter()
 	elif command == "fixture":
 		attack_on_guard = false
-		arena.touch_controls.release_all()
 		arena.reset_encounter()
 		arena.enemy.enabled = false
 		arena.player.position = Vector3(0.0, 0.02, 2.0)
@@ -54,10 +52,5 @@ func _physics_process(_delta: float) -> void:
 		arena.enemy.combat.remaining = 0.08
 	var p = arena.player
 	var e = arena.enemy
-	var controls = arena.touch_controls
-	var buttons := {}
-	for key in controls.layout:
-		var point: Vector2 = controls.layout[key]
-		buttons[key] = [point.x, point.y]
-	var state := {"tick": ticks, "viewport": [get_viewport().get_visible_rect().size.x, get_viewport().get_visible_rect().size.y], "touch_ui": controls.active, "contacts": controls.contacts.size(), "buttons": buttons, "stick_radius": controls.stick_radius, "player": {"position": [p.position.x, p.position.y, p.position.z], "health": p.combat.health, "posture": p.combat.posture, "phase": p.combat.phase, "guarding": p.combat.guarding, "guard_age": p.combat.guard_age, "event": p.last_result, "yaw": p.yaw, "pitch": p.pitch, "locked": p.locked}, "enemy": {"health": e.combat.health, "posture": e.combat.posture, "phase": e.combat.phase, "remaining": e.combat.remaining}, "actions": {"attack": Input.is_action_pressed("attack"), "guard": Input.is_action_pressed("guard"), "move_forward": Input.get_action_strength("move_forward")}}
+	var state := {"tick": ticks, "viewport": [get_viewport().get_visible_rect().size.x, get_viewport().get_visible_rect().size.y], "player": {"position": [p.position.x, p.position.y, p.position.z], "health": p.combat.health, "posture": p.combat.posture, "phase": p.combat.phase, "guarding": p.combat.guarding, "guard_age": p.combat.guard_age, "event": p.last_result, "yaw": p.yaw, "pitch": p.pitch, "locked": p.locked}, "enemy": {"health": e.combat.health, "posture": e.combat.posture, "phase": e.combat.phase, "remaining": e.combat.remaining}, "actions": {"attack": Input.is_action_pressed("attack"), "guard": Input.is_action_pressed("guard"), "move_forward": Input.get_action_strength("move_forward")}}
 	JavaScriptBridge.eval("window.boneshedState = " + JSON.stringify(state))
