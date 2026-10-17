@@ -38,6 +38,7 @@ with (root / 'index.pck').open('rb') as pack:
         paths.append(path)
         pack.read(8 + 8 + 16 + 4)
 assert not any('/docs/' in p or '/artifacts/' in p or '/tooling/' in p or '/.git' in p for p in paths)
+assert not any('touch_controls' in p for p in paths), 'Artifact contains removed touch adapter'
 if preset == 'Web':
     assert not any('/qa/' in p for p in paths), 'Production artifact contains QA code'
 manifest = {'engine': '4.7.2.stable.official.ed1daf0bf', 'preset': preset,

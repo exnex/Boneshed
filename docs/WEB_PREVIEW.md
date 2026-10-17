@@ -20,7 +20,7 @@ bash scripts/tooling/test.sh
 bash scripts/tooling/test_web.sh artifacts/my-browser-check
 ```
 
-Use fresh, empty output paths. The Web export is single-threaded and does not require COOP/COEP headers. `export_web.sh` generates the deployable site, ZIP and audited resource manifest. The production export excludes source, tooling and QA scripts; compiled gameplay logic is still inspectable in principle and should not be treated as DRM.
+Use fresh, empty output paths. Run native and browser suites sequentially when using software rendering. On constrained hosts, `BONESHED_GRAPHICAL_TIMEOUT=600 LP_NUM_THREADS=2 bash scripts/tooling/test.sh` allows the same native assertions more rendering time (the default timeout remains 180 seconds). The Web export is single-threaded and does not require COOP/COEP headers. `export_web.sh` generates the deployable site, ZIP and audited resource manifest. The production export excludes source, tooling and QA scripts; compiled gameplay logic is still inspectable in principle and should not be treated as DRM.
 
 GitHub Pages is configured to serve the exported static assets from `preview/browser-courtyard`. To publish a new export:
 
@@ -32,7 +32,7 @@ Publishing the new asset branch is separate from merging source into `main`. **M
 
 ## Validation scope
 
-The desktop Web QA build retains browser boot, pointer lock, keyboard movement, attack, camera, target lock, reset, guard and timed deflection checks. The desktop browser suite must be rerun following removal of mobile cases. Native Godot combat and graphical suites, their negative controls, and the adversarial probe remain required. Historical mobile test evidence remains in `docs/evidence/web-preview/` solely as a historical record, **not** evidence of ongoing mobile support.
+The desktop Web QA build retains browser boot, pointer lock, keyboard movement, attack, camera, target lock, reset, guard and timed deflection checks. The desktop browser suite also checks Space-key dodging. Fresh results and reproduction details are recorded in [the PR #6 validation evidence](evidence/desktop-browser-validation/README.md). Native Godot combat and graphical suites, their negative controls, and the adversarial probe remain required. Historical mobile test evidence remains in `docs/evidence/web-preview/` solely as a historical record, **not** evidence of ongoing mobile support.
 
 ## Human gameplay notes
 

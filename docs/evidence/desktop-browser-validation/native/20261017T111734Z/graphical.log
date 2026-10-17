@@ -1,0 +1,47 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+WARNING: Failed to load cached shader, recompiling.
+     at: _load_from_cache (drivers/gles3/shader_gles3.cpp:615)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+{"check":"actors_grounded","passed":true,"suite":"graphical"}
+{"check":"screenshot_01_initial_courtyard","passed":true,"suite":"graphical"}
+{"enemy":{"event":"","health":100.0,"phase":"IDLE","position":[0.0,0.0000911438837647438,-2.99111104011536],"posture":0.0},"message":"Enter the circle. Face the corrupted soul.","player":{"event":"","health":100.0,"phase":"IDLE","position":[0.0,0.0000911429524421692,4.0],"posture":0.0},"screenshot":"01_initial_courtyard"}
+{"check":"input_moves_player","passed":true,"suite":"graphical"}
+{"check":"movement_stops_responsively","passed":true,"suite":"graphical"}
+{"check":"mouse_rotates_camera","passed":true,"suite":"graphical"}
+{"check":"target_lock_input","passed":true,"suite":"graphical"}
+{"check":"camera_avoids_wall","passed":true,"suite":"graphical"}
+{"check":"enemy_detects_and_approaches","passed":true,"suite":"graphical"}
+{"check":"enemy_starts_readable_attack","passed":true,"suite":"graphical"}
+{"check":"screenshot_02_enemy_windup","passed":true,"suite":"graphical"}
+{"enemy":{"event":"","health":100.0,"phase":"WINDUP","position":[0.0,0.000273436307907104,2.19888949394226],"posture":0.0},"message":"Enter the circle. Face the corrupted soul.","player":{"event":"","health":100.0,"phase":"IDLE","position":[0.0,0.000273436307907104,4.0],"posture":0.0},"screenshot":"02_enemy_windup"}
+{"check":"enemy_completes_active_attack","passed":true,"suite":"graphical"}
+{"check":"enemy_attack_hits_player","passed":true,"suite":"graphical"}
+{"check":"world_windup_no_hit","passed":true,"suite":"graphical"}
+{"check":"world_range_rejection","passed":true,"suite":"graphical"}
+{"check":"world_lateral_rejection","passed":true,"suite":"graphical"}
+{"check":"world_behind_rejection","passed":true,"suite":"graphical"}
+{"check":"world_obstacle_blocks_hit","passed":true,"suite":"graphical"}
+{"check":"world_valid_active_hit","passed":true,"suite":"graphical"}
+{"check":"world_swing_hits_once","passed":true,"suite":"graphical"}
+{"check":"guard_fixture_attack_completes","passed":true,"suite":"graphical"}
+{"check":"input_guard_mitigates_and_pressures","passed":true,"suite":"graphical"}
+{"check":"held_guard_is_mistimed_deflection","passed":true,"suite":"graphical"}
+{"check":"input_timed_deflection","passed":true,"suite":"graphical"}
+{"check":"screenshot_03_successful_deflection","passed":true,"suite":"graphical"}
+{"enemy":{"event":"","health":100.0,"phase":"STAGGER","position":[0.0,0.000273436307907104,0.0],"posture":42.0},"message":"Pilgrim · DEFLECTION","player":{"event":"DEFLECTION","health":100.0,"phase":"IDLE","position":[0.0,0.000273436307907104,2.0],"posture":0.0},"screenshot":"03_successful_deflection"}
+{"check":"deflections_accumulate_posture_break","passed":true,"suite":"graphical"}
+{"check":"screenshot_04_posture_break","passed":true,"suite":"graphical"}
+{"enemy":{"event":"POSTURE BREAK","health":100.0,"phase":"BROKEN","position":[0.0,0.000273436307907104,0.0],"posture":100.0},"message":"Pilgrim · DEFLECTION","player":{"event":"DEFLECTION","health":100.0,"phase":"IDLE","position":[0.0,0.000273436307907104,2.0],"posture":0.0},"screenshot":"04_posture_break"}
+{"check":"input_attack_punishes_break","passed":true,"suite":"graphical"}
+{"check":"input_bot_defeats_live_enemy","passed":true,"suite":"graphical"}
+{"check":"defeated_pose_matches_rules_immediately","passed":true,"suite":"graphical"}
+{"check":"screenshot_05_enemy_defeat","passed":true,"suite":"graphical"}
+{"enemy":{"event":"DEFEATED","health":0.0,"phase":"DEAD","position":[0.0,0.000273436307907104,0.210000038146973],"posture":18.0},"message":"CorruptedSwordsman · DEFEATED","player":{"event":"DEFLECTION","health":100.0,"phase":"ACTIVE","position":[0.0,0.000273436307907104,2.0],"posture":0.0},"screenshot":"05_enemy_defeat"}
+{"check":"input_reset_restores_encounter","passed":true,"suite":"graphical"}
+{"check":"input_dodge_starts","passed":true,"suite":"graphical"}
+{"check":"input_dodge_moves_player","passed":true,"suite":"graphical"}
+{"check":"dodge_out_of_run_keeps_distance","passed":true,"suite":"graphical"}
+{"check":"dodge_out_of_run_keeps_direction","passed":true,"suite":"graphical"}

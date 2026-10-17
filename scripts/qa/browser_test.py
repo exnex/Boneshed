@@ -139,6 +139,14 @@ try:
         wait(page, 'window.boneshedState.player.event === "deflected"')
         check(state(page)['player']['health'] == 100 and state(page)['enemy']['posture'] == 42, 'mouse_timed_deflection')
         page.mouse.up(button='right')
+        page.screenshot(path=str(output/'02_desktop_deflection.png'))
+        command(page, 'reset')
+        command(page, 'ai_off')
+        start = state(page)['player']['position']
+        page.keyboard.press('Space')
+        wait(page, f'window.boneshedState.player.position[2] > {start[2] + 1}')
+        check(state(page)['player']['position'][2] > start[2] + 1, 'browser_keyboard_dodge_moves_player')
+        page.screenshot(path=str(output/'03_desktop_dodge.png'))
         page.close()
         desktop.close()
 
