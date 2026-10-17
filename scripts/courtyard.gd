@@ -10,7 +10,6 @@ var event_text := "Enter the circle. Face the corrupted soul."
 var event_time := 0.0
 var encounter_time := 0.0
 var qa_mode := false
-var touch_controls: Control
 
 func _ready() -> void:
 	_setup_input()
@@ -30,10 +29,6 @@ func _ready() -> void:
 	hud.set_script(preload("res://scripts/hud.gd"))
 	hud.arena = self
 	canvas.add_child(hud)
-	touch_controls = Control.new()
-	touch_controls.set_script(preload("res://scripts/ui/touch_controls.gd"))
-	touch_controls.player = player
-	canvas.add_child(touch_controls)
 	qa_mode = "--qa" in OS.get_cmdline_user_args()
 	if qa_mode:
 		var qa := Node.new()
