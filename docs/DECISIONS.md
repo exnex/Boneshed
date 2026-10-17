@@ -37,6 +37,8 @@ Keep approved direction separate from brainstorms. Amend this document only when
 
 ## Confirmed combat direction — 2026-10-17
 - Player attacks must allow movement through windup, swing and recovery.
+- The NPC must also move while attacking, and moving players must be able to turn
+  during their attacks. Steering rate and AI footwork remain provisional tuning.
 - Exact movement speed during attacks remains provisional tuning.
 
 ## Pending decisions

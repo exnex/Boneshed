@@ -1,0 +1,1406 @@
+[
+	{
+		"check": "turn_while_moving_attack_WINDUP_mouse_false",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "turn_while_moving_attack_WINDUP_mouse_true",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "turn_while_moving_attack_ACTIVE_mouse_false",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "turn_while_moving_attack_ACTIVE_mouse_true",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "turn_while_moving_attack_RECOVERY_mouse_false",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "turn_while_moving_attack_RECOVERY_mouse_true",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "screenshot_motion/frame_000",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.00492723658680916,
+				0.000273436307907104,
+				0.222046196460724
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_000"
+	},
+	{
+		"check": "screenshot_motion/frame_001",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.0287498775869608,
+				0.000273436307907104,
+				0.235646396875381
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_001"
+	},
+	{
+		"check": "screenshot_motion/frame_002",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.0679381936788559,
+				0.000273436307907104,
+				0.224314838647842
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_002"
+	},
+	{
+		"check": "screenshot_motion/frame_003",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.108945667743683,
+				0.000273436307907104,
+				0.213564023375511
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_003"
+	},
+	{
+		"check": "screenshot_motion/frame_004",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.150040566921234,
+				0.000273436307907104,
+				0.205934271216393
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_004"
+	},
+	{
+		"check": "screenshot_motion/frame_005",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.191135555505753,
+				0.000273436307907104,
+				0.201041340827942
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_005"
+	},
+	{
+		"check": "screenshot_motion/frame_006",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.232162848114967,
+				0.000273436307907104,
+				0.198565274477005
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_006"
+	},
+	{
+		"check": "screenshot_motion/frame_007",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.273069322109222,
+				0.000273436307907104,
+				0.198239639401436
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_007"
+	},
+	{
+		"check": "screenshot_motion/frame_008",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.31381294131279,
+				0.000273436307907104,
+				0.19984245300293
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_008"
+	},
+	{
+		"check": "screenshot_motion/frame_009",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.354359894990921,
+				0.000273436307907104,
+				0.203188687562943
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_009"
+	},
+	{
+		"check": "screenshot_motion/frame_010",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.394682437181473,
+				0.000273436307907104,
+				0.208123996853828
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_010"
+	},
+	{
+		"check": "screenshot_motion/frame_011",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.434757232666016,
+				0.000273436307907104,
+				0.214519396424294
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_011"
+	},
+	{
+		"check": "screenshot_motion/frame_012",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.474564164876938,
+				0.000273436307907104,
+				0.222266986966133
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_012"
+	},
+	{
+		"check": "screenshot_motion/frame_013",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.514085352420807,
+				0.000273436307907104,
+				0.231276258826256
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_013"
+	},
+	{
+		"check": "screenshot_motion/frame_014",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.553304374217987,
+				0.000273436307907104,
+				0.241471081972122
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_014"
+	},
+	{
+		"check": "screenshot_motion/frame_015",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.592206001281738,
+				0.000273436307907104,
+				0.25278714299202
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_015"
+	},
+	{
+		"check": "screenshot_motion/frame_016",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.630775511264801,
+				0.000273436307907104,
+				0.265169948339462
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_016"
+	},
+	{
+		"check": "screenshot_motion/frame_017",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "WINDUP",
+			"position": [
+				0.668998718261719,
+				0.000273436307907104,
+				0.278572976589203
+			],
+			"posture": 0.0
+		},
+		"message": "Enter the circle. Face the corrupted soul.",
+		"player": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 0.0
+		},
+		"screenshot": "motion/frame_017"
+	},
+	{
+		"check": "screenshot_motion/frame_018",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "ACTIVE",
+			"position": [
+				0.706861436367035,
+				0.000273436307907104,
+				0.292956292629242
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_018"
+	},
+	{
+		"check": "screenshot_motion/frame_019",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "ACTIVE",
+			"position": [
+				0.744349658489227,
+				0.000273436307907104,
+				0.308285385370255
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_019"
+	},
+	{
+		"check": "screenshot_motion/frame_020",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "ACTIVE",
+			"position": [
+				0.781449317932129,
+				0.000273436307907104,
+				0.324530035257339
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_020"
+	},
+	{
+		"check": "screenshot_motion/frame_021",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "ACTIVE",
+			"position": [
+				0.818146347999573,
+				0.000273436307907104,
+				0.341663688421249
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_021"
+	},
+	{
+		"check": "screenshot_motion/frame_022",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "ACTIVE",
+			"position": [
+				0.854426503181458,
+				0.000273436307907104,
+				0.359662592411041
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_022"
+	},
+	{
+		"check": "screenshot_motion/frame_023",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				0.890275478363037,
+				0.000273436307907104,
+				0.378505378961563
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_023"
+	},
+	{
+		"check": "screenshot_motion/frame_024",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				0.925678908824921,
+				0.000273436307907104,
+				0.398172497749329
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_024"
+	},
+	{
+		"check": "screenshot_motion/frame_025",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				0.960622251033783,
+				0.000273436307907104,
+				0.418645888566971
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_025"
+	},
+	{
+		"check": "screenshot_motion/frame_026",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				0.995091080665588,
+				0.000273436307907104,
+				0.439908623695374
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_026"
+	},
+	{
+		"check": "screenshot_motion/frame_027",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.02907085418701,
+				0.000273436307907104,
+				0.46194463968277
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_027"
+	},
+	{
+		"check": "screenshot_motion/frame_028",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.06254684925079,
+				0.000273436307907104,
+				0.484738618135452
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_028"
+	},
+	{
+		"check": "screenshot_motion/frame_029",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.09550476074219,
+				0.000273436307907104,
+				0.508275628089905
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_029"
+	},
+	{
+		"check": "screenshot_motion/frame_030",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.12793016433716,
+				0.000273436307907104,
+				0.532541215419769
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_030"
+	},
+	{
+		"check": "screenshot_motion/frame_031",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.15980863571167,
+				0.000273436307907104,
+				0.557521045207977
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_031"
+	},
+	{
+		"check": "screenshot_motion/frame_032",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.19112586975098,
+				0.000273436307907104,
+				0.583201050758362
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_032"
+	},
+	{
+		"check": "screenshot_motion/frame_033",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.22186768054962,
+				0.000273436307907104,
+				0.609567165374756
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_033"
+	},
+	{
+		"check": "screenshot_motion/frame_034",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.25202023983002,
+				0.000273436307907104,
+				0.636605203151703
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_034"
+	},
+	{
+		"check": "screenshot_motion/frame_035",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.28156971931458,
+				0.000273436307907104,
+				0.664301097393036
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_035"
+	},
+	{
+		"check": "screenshot_motion/frame_036",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.31050264835358,
+				0.000273436307907104,
+				0.692640602588654
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_036"
+	},
+	{
+		"check": "screenshot_motion/frame_037",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.3388055562973,
+				0.000273436307907104,
+				0.721609354019165
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_037"
+	},
+	{
+		"check": "screenshot_motion/frame_038",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.3664653301239,
+				0.000273436307907104,
+				0.751192808151245
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_038"
+	},
+	{
+		"check": "screenshot_motion/frame_039",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.3934690952301,
+				0.000273436307907104,
+				0.781376242637634
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_039"
+	},
+	{
+		"check": "screenshot_motion/frame_040",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.41980421543121,
+				0.000273436307907104,
+				0.812144815921783
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_040"
+	},
+	{
+		"check": "screenshot_motion/frame_041",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "RECOVERY",
+			"position": [
+				1.44545841217041,
+				0.000273436307907104,
+				0.843483448028564
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_041"
+	},
+	{
+		"check": "screenshot_motion/frame_042",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"enemy": {
+			"event": "",
+			"health": 100.0,
+			"phase": "IDLE",
+			"position": [
+				1.47041940689087,
+				0.000273436307907104,
+				0.875376880168915
+			],
+			"posture": 0.0
+		},
+		"message": "Pilgrim · GUARD",
+		"player": {
+			"event": "GUARD",
+			"health": 97.84,
+			"phase": "IDLE",
+			"position": [
+				0.0,
+				0.000273436307907104,
+				2.0
+			],
+			"posture": 28.0
+		},
+		"screenshot": "motion/frame_042"
+	},
+	{
+		"check": "live_npc_moves_in_windup",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "live_npc_moves_in_active_swing",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "live_npc_moves_in_recovery",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"npc_attack_travel": {
+			"1": 0.722152449190617,
+			"2": 0.162003759294748,
+			"3": 0.769506368786097
+		}
+	},
+	{
+		"check": "npc_attack_steering_is_responsive_and_capped",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "npc_tracks_moving_target_during_attack",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"combat_bot_frames": 0,
+		"engine": "4.7.2-stable (official)",
+		"failed": 0,
+		"passed": 54,
+		"renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+		"suite": "graphical",
+		"summary": true
+	}
+]

@@ -259,9 +259,9 @@
 			"health": 0.0,
 			"phase": "DEAD",
 			"position": [
-				0.0,
+				0.956443727016449,
 				0.000273436307907104,
-				0.210000038146973
+				0.414981335401535
 			],
 			"posture": 70.0
 		},
@@ -505,10 +505,72 @@
 		"suite": "graphical"
 	},
 	{
+		"check": "turn_while_moving_attack_WINDUP_mouse_false",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "turn_while_moving_attack_WINDUP_mouse_true",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "turn_while_moving_attack_ACTIVE_mouse_false",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "turn_while_moving_attack_ACTIVE_mouse_true",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "turn_while_moving_attack_RECOVERY_mouse_false",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "turn_while_moving_attack_RECOVERY_mouse_true",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "live_npc_moves_in_windup",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "live_npc_moves_in_active_swing",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "live_npc_moves_in_recovery",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"npc_attack_travel": {
+			"1": 0.722152449190617,
+			"2": 0.162003759294748,
+			"3": 0.769506368786097
+		}
+	},
+	{
+		"check": "npc_attack_steering_is_responsive_and_capped",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
+		"check": "npc_tracks_moving_target_during_attack",
+		"passed": true,
+		"suite": "graphical"
+	},
+	{
 		"combat_bot_frames": 418,
 		"engine": "4.7.2-stable (official)",
 		"failed": 0,
-		"passed": 75,
+		"passed": 86,
 		"renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
 		"suite": "graphical",
 		"summary": true

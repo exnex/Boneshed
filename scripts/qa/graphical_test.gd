@@ -76,6 +76,10 @@ func run() -> void:
 	e = arena.enemy
 	e.enabled = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if "--npc-motion-only" in OS.get_cmdline_user_args():
+		await attack_steering_checks()
+		finish(0)
+		return
 	if "--attack-movement-only" in OS.get_cmdline_user_args():
 		await attack_movement_checks()
 		finish(0)
@@ -333,4 +337,76 @@ func attack_movement_checks() -> void:
 		await frames(8)
 		action("move_right", false)
 		check(absf(p.position.x - before.x) < 0.01, "movement_still_restricted_" + Rules.Phase.keys()[phase])
+	await attack_steering_checks()
 	arena.reset_encounter()
+
+func attack_steering_checks() -> void:
+	for phase in [Rules.Phase.WINDUP, Rules.Phase.ACTIVE, Rules.Phase.RECOVERY]:
+		for mouse_turn in [false, true]:
+			arena.reset_encounter()
+			e.enabled = false
+			e.position = Vector3(0.0, 0.02, -8.0)
+			p.locked = false
+			action("move_forward", true)
+			action("attack", true)
+			await frames(1)
+			action("attack", false)
+			await wait_phase(p, phase)
+			if mouse_turn:
+				var mouse := InputEventMouseMotion.new()
+				mouse.relative = Vector2(-240.0, 0.0)
+				if DisplayServer.get_name() == "headless":
+					# Headless has no captured mouse; rendered runs feed the real event.
+					p.rotate_camera(mouse.relative)
+				else:
+					Input.parse_input_event(mouse)
+			else:
+				action("move_forward", false)
+				action("move_right", true)
+			var old_facing := p.facing
+			await frames(4)
+			action("move_forward", false)
+			action("move_right", false)
+			var visual_yaw := atan2(-p.facing.x, -p.facing.z)
+			check(old_facing.angle_to(p.facing) > 0.20 and absf(angle_difference(p.visual.rotation.y, visual_yaw)) < 0.001 and p.combat.phase == phase,
+				"turn_while_moving_attack_" + Rules.Phase.keys()[phase] + "_mouse_" + str(mouse_turn))
+	# Observe a real AI attack, including lateral footwork at its preferred range.
+	close_fixture()
+	p.input_enabled = false
+	p.combat.set_guard(true)
+	e.enabled = true
+	e.cooldown = 0.0
+	await wait_phase(e, Rules.Phase.WINDUP)
+	var distance := {Rules.Phase.WINDUP: 0.0, Rules.Phase.ACTIVE: 0.0, Rules.Phase.RECOVERY: 0.0}
+	var capture_motion := "--capture-movement" in OS.get_cmdline_user_args() and DisplayServer.get_name() != "headless"
+	if capture_motion:
+		DirAccess.make_dir_recursive_absolute(output.path_join("motion"))
+		p.debug_hitboxes = false
+		e.debug_hitboxes = false
+	for tick in range(160):
+		var phase: int = e.combat.phase
+		if phase == Rules.Phase.IDLE:
+			break
+		var before := e.position
+		await frames(1)
+		if distance.has(phase) and e.combat.phase == phase:
+			distance[phase] += Vector2(e.position.x - before.x, e.position.z - before.z).length()
+		if capture_motion and tick % 2 == 0:
+			await snapshot("motion/frame_%03d" % (tick / 2))
+	check(distance[Rules.Phase.WINDUP] > 0.3, "live_npc_moves_in_windup")
+	check(distance[Rules.Phase.ACTIVE] > 0.08, "live_npc_moves_in_active_swing")
+	check(distance[Rules.Phase.RECOVERY] > 0.3, "live_npc_moves_in_recovery")
+	records.append({"npc_attack_travel": distance})
+	# Moving target: AI must steer during its swing without snapping instantly.
+	close_fixture()
+	p.input_enabled = false
+	e.enabled = true
+	e.combat.attack(true)
+	await frames(1)
+	p.position = Vector3(2.0, 0.02, 0.0)
+	var before_turn := e.facing
+	await frames(1)
+	check(before_turn.angle_to(e.facing) > 0.01 and before_turn.angle_to(e.facing) <= deg_to_rad(e.attack_turn_speed) / 60.0 + 0.001, "npc_attack_steering_is_responsive_and_capped")
+	await frames(5)
+	check(before_turn.angle_to(e.facing) > 0.30 and e.combat.phase == Rules.Phase.WINDUP, "npc_tracks_moving_target_during_attack")
+	p.input_enabled = true

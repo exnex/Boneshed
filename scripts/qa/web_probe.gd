@@ -7,12 +7,15 @@ var callback: JavaScriptObject
 var ticks := 0
 var attack_on_guard := false
 var attack_distance := 0.0
+var attack_turn := 0.0
 var previous_position := Vector3.ZERO
+var previous_facing := Vector3.FORWARD
 var previous_phase := 0
 
 func _ready() -> void:
 	arena = get_parent()
 	previous_position = arena.player.position
+	previous_facing = arena.player.facing
 	callback = JavaScriptBridge.create_callback(_command)
 	JavaScriptBridge.get_interface("window").boneshedCommand = callback
 
@@ -49,7 +52,9 @@ func _command(args: Array) -> void:
 		attack_on_guard = true
 	if command in ["reset", "fixture"]:
 		attack_distance = 0.0
+		attack_turn = 0.0
 		previous_position = arena.player.position
+		previous_facing = arena.player.facing
 		previous_phase = 0
 
 func _physics_process(_delta: float) -> void:
@@ -64,7 +69,10 @@ func _physics_process(_delta: float) -> void:
 	# action boundaries and reset teleports; browser scheduling cannot inflate it.
 	if previous_phase in [1, 2, 3] and p.combat.phase == previous_phase:
 		attack_distance += Vector2(p.position.x - previous_position.x, p.position.z - previous_position.z).length()
+		if p.desired_move.length_squared() > 0.01:
+			attack_turn += previous_facing.angle_to(p.facing)
 	previous_position = p.position
+	previous_facing = p.facing
 	previous_phase = p.combat.phase
-	var state := {"tick": ticks, "attack_distance": attack_distance, "viewport": [get_viewport().get_visible_rect().size.x, get_viewport().get_visible_rect().size.y], "player": {"position": [p.position.x, p.position.y, p.position.z], "health": p.combat.health, "posture": p.combat.posture, "phase": p.combat.phase, "guarding": p.combat.guarding, "guard_age": p.combat.guard_age, "event": p.last_result, "yaw": p.yaw, "pitch": p.pitch, "locked": p.locked}, "enemy": {"health": e.combat.health, "posture": e.combat.posture, "phase": e.combat.phase, "remaining": e.combat.remaining}, "actions": {"attack": Input.is_action_pressed("attack"), "guard": Input.is_action_pressed("guard"), "move_forward": Input.get_action_strength("move_forward")}}
+	var state := {"tick": ticks, "attack_distance": attack_distance, "attack_turn": attack_turn, "viewport": [get_viewport().get_visible_rect().size.x, get_viewport().get_visible_rect().size.y], "player": {"facing": [p.facing.x, p.facing.y, p.facing.z], "position": [p.position.x, p.position.y, p.position.z], "health": p.combat.health, "posture": p.combat.posture, "phase": p.combat.phase, "guarding": p.combat.guarding, "guard_age": p.combat.guard_age, "event": p.last_result, "yaw": p.yaw, "pitch": p.pitch, "locked": p.locked}, "enemy": {"health": e.combat.health, "posture": e.combat.posture, "phase": e.combat.phase, "remaining": e.combat.remaining}, "actions": {"attack": Input.is_action_pressed("attack"), "guard": Input.is_action_pressed("guard"), "move_forward": Input.get_action_strength("move_forward")}}
 	JavaScriptBridge.eval("window.boneshedState = " + JSON.stringify(state))

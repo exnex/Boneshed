@@ -4,6 +4,7 @@ extends "res://scripts/characters/fighter.gd"
 @export var detection_range := 18.0
 @export var preferred_distance := 1.85
 @export var attack_interval := 0.65
+@export var attack_strafe := 0.45 # Fraction of move speed; provisional visible footwork.
 var enabled := true
 var cooldown := 0.8
 var attack_number := 0
@@ -55,6 +56,14 @@ func _physics_process(delta: float) -> void:
 			else:
 				combat.set_guard(false)
 				ai_state = "WAIT"
+		elif combat.phase in [Rules.Phase.WINDUP, Rules.Phase.ACTIVE, Rules.Phase.RECOVERY]:
+			# Keep working the distance and circling while swinging, including when
+			# already in range. Both the visible body and hit volume follow facing.
+			turn_toward(toward, delta)
+			var radial := toward.normalized()
+			var tangent := radial.cross(Vector3.UP) * (1.0 if attack_number % 2 == 0 else -1.0)
+			desired_move = (radial * clampf((distance - preferred_distance) * 2.0, -1.0, 1.0) + tangent * attack_strafe).limit_length(1.0)
+			ai_state = "ATTACK FOOTWORK"
 	else:
 		ai_state = "WAIT"
 	if not enabled or combat.phase != Rules.Phase.IDLE or not is_instance_valid(opponent) or opponent.combat.phase == Rules.Phase.DEAD:

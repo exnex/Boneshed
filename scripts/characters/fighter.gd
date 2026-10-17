@@ -9,6 +9,7 @@ var combat := Rules.new()
 @export var dodge_speed := 11.0
 @export var attack_range := 2.35
 @export var attack_width := 1.6
+@export var attack_turn_speed := 270.0 # Degrees/second; provisional, shared steering limit.
 var desired_move := Vector3.ZERO
 var facing := Vector3.FORWARD
 var dodge_direction := Vector3.FORWARD
@@ -100,6 +101,17 @@ func try_dodge(direction: Vector3) -> bool:
 		velocity.z = dodge_direction.z * along
 		return true
 	return false
+
+func turn_toward(direction: Vector3, delta: float) -> void:
+	if direction.length_squared() < 0.01:
+		return
+	var target_yaw := atan2(-direction.x, -direction.z)
+	if combat.phase in [Rules.Phase.WINDUP, Rules.Phase.ACTIVE, Rules.Phase.RECOVERY]:
+		var current_yaw := atan2(-facing.x, -facing.z)
+		var turn := clampf(angle_difference(current_yaw, target_yaw), -deg_to_rad(attack_turn_speed) * delta, deg_to_rad(attack_turn_speed) * delta)
+		facing = Vector3.FORWARD.rotated(Vector3.UP, current_yaw + turn)
+	else:
+		facing = direction.normalized()
 
 func valid_attack_target(target: Fighter) -> bool:
 	# Oriented box in front of the actor, intersected with the target capsule radius.

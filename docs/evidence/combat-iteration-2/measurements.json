@@ -194,18 +194,19 @@
       },
       "after": {
         "enemy_attacks_interrupted_in_windup": 0,
-        "enemy_attacks_started": 6,
-        "enemy_health": 0.0,
+        "enemy_attacks_started": 5,
+        "enemy_health": 28.0,
         "events": {
-          "enemy_defeated": 1,
-          "enemy_hit": 5
+          "enemy_hit": 4,
+          "player_defeated": 1,
+          "player_hit": 4
         },
-        "frames": 879,
-        "player_health": 100.0,
+        "frames": 686,
+        "player_health": 0.0,
         "scenario": "live_strategy",
-        "seconds": 14.65,
+        "seconds": 11.43,
         "strategy": "sidestep_windup_then_punish",
-        "winner": "player"
+        "winner": "enemy"
       }
     },
     "backstep_windup_then_punish": {
@@ -229,15 +230,13 @@
         "enemy_attacks_started": 6,
         "enemy_health": 0.0,
         "events": {
-          "enemy_broken_frames": 58,
           "enemy_defeated": 1,
-          "enemy_guard": 1,
           "enemy_hit": 5
         },
-        "frames": 945,
+        "frames": 861,
         "player_health": 100.0,
         "scenario": "live_strategy",
-        "seconds": 15.75,
+        "seconds": 14.35,
         "strategy": "backstep_windup_then_punish",
         "winner": "player"
       }
@@ -265,13 +264,13 @@
         "enemy_health": 100.0,
         "events": {
           "player_defeated": 1,
-          "player_evaded": 3,
+          "player_evaded": 2,
           "player_hit": 4
         },
-        "frames": 1212,
+        "frames": 1231,
         "player_health": 0.0,
         "scenario": "live_strategy",
-        "seconds": 20.2,
+        "seconds": 20.52,
         "strategy": "dodge_whenever_ready_no_attack",
         "winner": "enemy"
       }

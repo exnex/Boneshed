@@ -8,8 +8,8 @@ No human gameplay assessment was performed.
 | Evidence | Baseline | Iteration 2 |
 | --- | --- | --- |
 | Shared combat checks | [33 pass](baseline/native/combat.log) | [60 pass](after/native/combat.log) |
-| Native graphical/input | [37 pass](baseline/native/graphical.json) | [75 pass](after/native/graphical.json) |
-| Desktop browser | [14 pass](baseline/browser/checks.json) | [15 pass](after/browser/checks.json) |
+| Native graphical/input | [37 pass](baseline/native/graphical.json) | [86 pass](after/native/graphical.json) |
+| Desktop browser | [14 pass](baseline/browser/checks.json) | [16 pass](after/browser/checks.json) |
 | Full adversarial measurements | [75 records](baseline/probe/probe.json) | [75 records](after/probe/probe.json) |
 | Added encounter gates | — | [8 pass](after/native/encounters.log) |
 | Rules/weapon transform timing | — | [159 headless checks](after/native/timing_headless.log), [209 rendered checks](after/native/timing_rendered.log) |
@@ -47,10 +47,21 @@ phase/reach alignment; the prototype still uses a box hit shape, not blade-mesh 
 
 ## Negative controls and provenance
 
+The NPC's live attack now includes circling and distance maintenance. See the
+[slowed rendered footwork sequence](movement/npc-footwork.gif),
+[recorded-speed video](movement/npc-footwork.mp4) and
+[real scene states](movement/npc-rendered.json). This footage runs the enabled AI;
+the fixed-pose timing fixture above is deliberately separate.
+
+The added steering/NPC checks [fail 11 assertions before this fix](movement/steering-before.log).
+The complete focused suite [passes 49 checks afterward](movement/steering-after.log),
+covering key/mouse turning and live NPC travel through every attack phase. These
+are included in the final 86-check rendered suite.
+
 The follow-up attack-movement checks also ran against the previous rooted Fighter:
 [26 failures, as expected](movement/rooted-before.log). The same real-input suite
 [passes all 38 checks after the fix](movement/after-headless.log); those 38 checks
-are included in the final 75-check rendered suite as well. They cover locomotion
+are included in the final 86-check rendered suite as well. They cover locomotion
 in all three attack phases, four movement directions with lock on/off, redirection,
 moving hit volumes, collision and retained hit-reaction restrictions.
 
@@ -94,6 +105,13 @@ bash scripts/tooling/test_web.sh artifacts/iteration2-web
 # Optional: create recorded-speed video from the native runner's frame sequence.
 ffmpeg -framerate 30 -i artifacts/iteration2-native/timing-rendered/basic/frame_%03d.png \
   -c:v libx264 -pix_fmt yuv420p basic.mp4
+
+# Optional: capture an enabled NPC attack with actual footwork and steering.
+source scripts/tooling/env.sh
+xvfb-run -a -s '-screen 0 1280x720x24 -nolisten tcp' "$GODOT_BIN" \
+  --path "$REPO_ROOT" --rendering-method gl_compatibility --fixed-fps 60 -- \
+  --qa --npc-motion-only --capture-movement \
+  --evidence-dir="$REPO_ROOT/artifacts/npc-motion"
 ```
 
 The native runner generates all raw sequence frames; this curated directory retains

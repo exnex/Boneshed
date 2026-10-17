@@ -17,15 +17,33 @@ Normal locomotion now remains available during WINDUP, ACTIVE and RECOVERY, at t
 current full walk speed (5.5 m/s, provisional). Players can advance, retreat, strafe,
 move diagonally and change movement input mid-swing, with or without lock-on.
 Attack/guard/dodge commitment and hit-reaction restrictions are unchanged. Both
-forms use the same movement gate; the swordsman's existing AI still chooses to
-stand while delivering its telegraphed attacks.
+forms use the same movement and steering rules. The NPC now maintains distance and
+circles during windup, active and recovery, even when already in range. Its lateral
+input is 0.45 of its 2.7 m/s movement speed (about 1.22 m/s while circling), with
+radial input clamped from `2 * (distance - preferred_distance)`. The deterministic
+circling side alternates each attack. These are provisional AI tuning values.
 
-There are 38 added real-input/physics regressions. Running these against the earlier
+Unlocked players now turn toward movement input throughout all attack phases,
+including while holding W and rotating the mouse. Locked players and the NPC steer
+toward their target. All use a provisional 270°/s attack turn limit to keep weapon
+motion visible instead of instantly flipping the hit volume. Weapon and hit-volume
+orientation follow the same facing every tick. This supersedes the earlier frozen
+enemy heading and idle-only unlocked player turning.
+
+There are 38 original real-input/physics movement regressions. Running these against the earlier
 rooted implementation produces 26 failures; the updated implementation passes all
 38. They sample displacement separately during every attack phase, verify the
 moving hit volume hits once, preserve body collision, accept direction changes, and
 retain stagger/break/death restrictions. A desktop browser regression also drives
 W plus mouse attack and verifies travel before the swing reaches recovery.
+
+A further 11 checks cover WASD/mouse steering during each attack phase, actual live
+NPC travel during each phase, and responsive capped NPC tracking. These 11 fail
+against the previous movement-only fix; all 49 focused checks pass with this update.
+The rendered version feeds actual mouse events (headless uses the camera-input
+method because it cannot capture a mouse). Browser testing also checks facing
+while moving and swinging. A rendered real-AI footwork sequence supplements the
+fixed-pose timing captures.
 
 ## Attack communication
 
@@ -116,9 +134,9 @@ alternating every 2 or 5 ticks: all six lose at 8.50/8.70 s, enemy 37.36 HP.
 The skilled gate wins untouched in 418 ticks with three deflections and a break.
 
 These are deterministic fixtures, not a claim that every possible spam cadence is
-defeated. Sidestepping then punishing still wins untouched (14.65 s); backstepping
-then punishing also wins untouched (15.75 s). Windup tracking, lunges, and camera
-changes were outside this iteration. These remaining spacing strategies deserve
+defeated. With moving, steering attacks, sidestep-and-punish now loses in 11.43 s
+(enemy 28 HP); backstep-and-punish still wins untouched in 14.35 s. Lunges and camera
+changes remain outside this iteration. The remaining spacing strategy deserves
 human assessment before expanding the combat design.
 
 ## Validation
@@ -136,8 +154,8 @@ desktop browser tests use real Chromium/WebGL with keyboard/mouse. No touch adap
 or touchscreen gameplay was restored. The production export excludes QA code.
 
 The native runner now includes 60 shared-rule checks, 8 live encounter gates,
-headless and rendered timing checks, and 75 graphical/input checks (including the
-38 movement regressions). Desktop browser testing contains 15 checks.
+headless and rendered timing checks, and 86 graphical/input checks (including the
+49 movement/steering regressions). Desktop browser testing contains 16 checks.
 Negative controls deliberately break guard mitigation, deflection timing, windup
 activation, rearm protection, rear protection, committed-heavy resistance, AI defense,
 and visible weapon timing. Each must exit 1 and fail its designated assertion.
@@ -168,6 +186,9 @@ negative controls, captures, and limitations are indexed in
   raised sword is clearer. Report any unreadable release or apparently invisible hit.
 - Move forward, backward, sideways and diagonally while attacking, with and without
   lock-on. Change direction mid-swing; confirm movement continues through recovery.
+- Without lock-on, hold W while swinging and rotate the mouse, then try changing
+  WASD direction. Confirm body, sword and hit volume turn together. Watch the NPC
+  circle and adjust range through its entire swing, including when already in range.
 
 Automation verifies these rules and outcomes. It does not establish fun, readability
 to a new player, latency tolerance, or final balance. The hit shape remains the

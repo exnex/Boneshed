@@ -31,6 +31,7 @@
           "move_forward": 0
         },
         "attack_distance": 0,
+        "attack_turn": 0,
         "enemy": {
           "health": 100,
           "phase": 0,
@@ -39,6 +40,11 @@
         },
         "player": {
           "event": "",
+          "facing": [
+            0,
+            0,
+            -1
+          ],
           "guard_age": 99.0166666666667,
           "guarding": false,
           "health": 100,
@@ -48,12 +54,12 @@
           "position": [
             0,
             9.11429524421692e-05,
-            1.13888800144196
+            1.59722149372101
           ],
           "posture": 0,
           "yaw": 0
         },
-        "tick": 115,
+        "tick": 80,
         "viewport": [
           1280,
           720
@@ -98,7 +104,14 @@
     "check": "browser_moves_while_swinging",
     "passed": true,
     "detail": {
-      "distance_during_attack_phases": 2.65555644035339
+      "distance_during_attack_phases": 4.90312766283751
+    }
+  },
+  {
+    "check": "browser_turns_while_moving_and_swinging",
+    "passed": true,
+    "detail": {
+      "radians_turned_during_moving_attack_phases": 0.839999955147505
     }
   },
   {

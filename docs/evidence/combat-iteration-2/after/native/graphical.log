@@ -37,7 +37,7 @@ OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Devi
 {"check":"input_bot_defeats_live_enemy","passed":true,"suite":"graphical"}
 {"check":"defeated_pose_matches_rules_immediately","passed":true,"suite":"graphical"}
 {"check":"screenshot_05_enemy_defeat","passed":true,"suite":"graphical"}
-{"enemy":{"event":"DEFEATED","health":0.0,"phase":"DEAD","position":[0.0,0.000273436307907104,0.210000038146973],"posture":70.0},"message":"CorruptedSwordsman · DEFEATED","player":{"event":"DEFLECTION","health":100.0,"phase":"ACTIVE","position":[0.0,0.000273436307907104,2.0],"posture":0.0},"screenshot":"05_enemy_defeat"}
+{"enemy":{"event":"DEFEATED","health":0.0,"phase":"DEAD","position":[0.956443727016449,0.000273436307907104,0.414981335401535],"posture":70.0},"message":"CorruptedSwordsman · DEFEATED","player":{"event":"DEFLECTION","health":100.0,"phase":"ACTIVE","position":[0.0,0.000273436307907104,2.0],"posture":0.0},"screenshot":"05_enemy_defeat"}
 {"check":"input_reset_restores_encounter","passed":true,"suite":"graphical"}
 {"check":"input_dodge_starts","passed":true,"suite":"graphical"}
 {"check":"input_dodge_moves_player","passed":true,"suite":"graphical"}
@@ -83,4 +83,15 @@ OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Devi
 {"check":"movement_still_restricted_STAGGER","passed":true,"suite":"graphical"}
 {"check":"movement_still_restricted_BROKEN","passed":true,"suite":"graphical"}
 {"check":"movement_still_restricted_DEAD","passed":true,"suite":"graphical"}
-{"combat_bot_frames":418,"engine":"4.7.2-stable (official)","failed":0,"passed":75,"renderer":"llvmpipe (LLVM 19.1.7, 256 bits)","suite":"graphical","summary":true}
+{"check":"turn_while_moving_attack_WINDUP_mouse_false","passed":true,"suite":"graphical"}
+{"check":"turn_while_moving_attack_WINDUP_mouse_true","passed":true,"suite":"graphical"}
+{"check":"turn_while_moving_attack_ACTIVE_mouse_false","passed":true,"suite":"graphical"}
+{"check":"turn_while_moving_attack_ACTIVE_mouse_true","passed":true,"suite":"graphical"}
+{"check":"turn_while_moving_attack_RECOVERY_mouse_false","passed":true,"suite":"graphical"}
+{"check":"turn_while_moving_attack_RECOVERY_mouse_true","passed":true,"suite":"graphical"}
+{"check":"live_npc_moves_in_windup","passed":true,"suite":"graphical"}
+{"check":"live_npc_moves_in_active_swing","passed":true,"suite":"graphical"}
+{"check":"live_npc_moves_in_recovery","passed":true,"suite":"graphical"}
+{"check":"npc_attack_steering_is_responsive_and_capped","passed":true,"suite":"graphical"}
+{"check":"npc_tracks_moving_target_during_attack","passed":true,"suite":"graphical"}
+{"combat_bot_frames":418,"engine":"4.7.2-stable (official)","failed":0,"passed":86,"renderer":"llvmpipe (LLVM 19.1.7, 256 bits)","suite":"graphical","summary":true}

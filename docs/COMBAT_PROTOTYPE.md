@@ -61,7 +61,7 @@ opponent only once. The preview box is enabled by default for this evaluation bu
 - `scripts/characters/player.gd`: input, camera-relative motion, lock-on, and a
   sphere-shaped `SpringArm3D` that checks world geometry.
 - `scripts/ai/swordsman.gd`: deterministic detection, approach, distance maintenance,
-  and a two-basic/one-heavy attack cycle. The heading commits at attack start.
+  and a two-basic/one-heavy attack cycle, with attack footwork and shared steering.
 - `scripts/hud.gd`: live health/posture/state readouts and controls.
 - `scripts/qa/`: isolated combat tests and an in-scene graphical/input test driver.
 
@@ -100,7 +100,11 @@ are exported on the actor scripts for inspector iteration.
 | Hit box length / width | 2.35 / 1.6, with 0.35 target capsule radius |
 
 Attacks allow normal movement throughout windup, active swing and recovery, including
-strafing while locked. Movement does not cancel the attack or its recovery; guard,
+strafing while locked. Movement input and mouse-relative movement also steer
+attacks while unlocked.
+Both forms currently turn at up to 270°/s during attack phases. The swordsman
+maintains distance and circles while swinging, with lateral input 0.45 of move speed.
+These are provisional tuning values. Movement does not cancel the attack; guard,
 dodge and another attack still wait for the committed action to finish. Hit reactions,
 posture breaks and death still restrict movement. The full movement speed is
 provisional tuning; freedom to move while swinging is confirmed user direction.

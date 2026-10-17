@@ -153,11 +153,14 @@ try:
         page.keyboard.down('w')
         page.mouse.click(600, 400)
         wait(page, 'window.boneshedState.player.phase === 1 || window.boneshedState.player.phase === 2')
+        page.mouse.move(810, 400)
         wait(page, 'window.boneshedState.player.phase === 3')
         moving_attack = state(page)
         page.keyboard.up('w')
         check(moving_attack['attack_distance'] > 1.0, 'browser_moves_while_swinging',
               {'distance_during_attack_phases': moving_attack['attack_distance']})
+        check(moving_attack['attack_turn'] > .15, 'browser_turns_while_moving_and_swinging',
+              {'radians_turned_during_moving_attack_phases': moving_attack['attack_turn']})
         page.screenshot(path=str(output/'04_desktop_moving_attack.png'))
         page.close()
         desktop.close()
