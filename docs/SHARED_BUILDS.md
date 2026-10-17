@@ -207,14 +207,17 @@ Coordinate with the combat-readability/deflection work first; steps 2–4 touch 
 - No skill that exists without a carrier item; see decision 1.
 - Stats affect timing only through two global scales; damage is per ability only.
 
+## Confirmed direction for future anatomy design (2026-10-17)
+
+The owner selected **extreme bodily transformations, subject to gameplay constraints**. The system must be able to represent major silhouette/proportion changes, unusual limbs and potential changes in fighting style without abandoning readable precision combat, compatible animations/hitboxes or consistent input. The current `main_hand`, `left_arm`, `right_arm` slots are **minimal test fixtures**, not final anatomical limits. Do not infer approval for unrestricted full-body reconstruction, mandatory penalties, Marrow Arm tuning or a specific slot hierarchy. Future designs should propose extensible body/attachment constraints and show how unusual forms remain playable and readable before integration.
+
 ## 7. Decisions requiring human approval
 
 1. **Abilities only come from items/augments** (no free-floating learned skills).
    Simplest single source of truth; salvaging a "skill" would need a carrier item.
 2. **Bindings**: `light` / `heavy` / `special`, one ability each. A salvaged
    signature goes on a new `special` input rather than replacing light/heavy.
-3. **Body slots**: only `main_hand`, `left_arm`, `right_arm` for now, and whether
-   asymmetric parts (Marrow Arm is right-arm only) are desirable.
+3. **Body slots**: only `main_hand`, `left_arm`, `right_arm` in this fixture; design a future extensible anatomy/attachment model for confirmed extreme transformations, while preserving combat readability. Exact slot rules and asymmetric-part handling remain open.
 4. **Augments must carry an explicit disadvantage** (enforced by catalog validation).
 5. **Wielder timing model**: global `windup_scale`/`recovery_scale` stats vs.
    per-ability overrides from the profile. Affects how enemy forms are expressed.

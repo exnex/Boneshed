@@ -18,6 +18,11 @@ Keep approved direction separate from brainstorms. Amend this document only when
 - This is a **design goal**, not approval of the current generator's exact word ordering, position weights, seed jitter, sample words, duplicate handling, biome mapping, encounter-density formulas or contradiction-resolution implementation.
 - Preserve deterministic replay for a given address plus seed and sufficient constraints for readable, fair precision combat. Variation should not mean arbitrary semantic identity changes.
 
+## Confirmed augmentation direction — 2026-10-17
+- **Extreme bodily transformations are allowed, with gameplay constraints (option B).** Salvaged body augmentations may substantially change anatomy, proportions, silhouette, limb count and fighting style; characters need not stay conventionally humanoid.
+- Such transformations must retain readable attacks and hitboxes, reliable controls, fair combat and equipment/animation compatibility. The exact anatomy-slot taxonomy, degree of modularity, movement exceptions, transformation costs and allowed builds are **not yet decided**.
+- This does not approve a fully modular, unrestricted body-reconstruction system or the prototype Marrow Arm's numerical penalties.
+
 ## Proposed, not locked
 - Lootable bodies as actual inventories.
 - Extraction-style expedition carry limits, loss on defeat, limited stash.
