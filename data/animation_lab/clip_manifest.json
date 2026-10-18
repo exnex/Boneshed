@@ -1,0 +1,42 @@
+{
+	"schema": "boneshed.animation_clip_manifest.v0",
+	"provisional": "Animation-lab data only. Marker times were chosen by a human-style reading of hand-speed profiles and frames of third-party trial clips; they are not production timing and nothing here is read by combat.",
+	"skeleton": {
+		"root_bone": "root",
+		"weapon_bone": "hand_r",
+		"upper_body_bones_from": "spine_02",
+		"model_forward": "+z"
+	},
+	"weapon": {
+		"grip_offset": [0.0, 0.085, 0.0],
+		"blade_axis": [0.0, 0.0, 1.0],
+		"blade_base": 0.12,
+		"blade_tip": 1.05,
+		"notes": "Placeholder longsword authored as primitive geometry in code. Grip offset and +Z blade axis were chosen from bone-axis measurements across Idle_Sword, Sword_Block and Sword_Attack."
+	},
+	"clips": {
+		"idle": {"file": "base", "source": "Idle_Sword", "loop": true, "root": "in_place"},
+		"walk_forward": {"file": "base", "source": "Walk", "loop": true, "root": "in_place"},
+		"walk_backward": {"file": "addon", "source": "Walk_Backwards", "loop": true, "root": "in_place"},
+		"strafe_left": {"file": "addon", "source": "Strafe_left", "loop": true, "root": "in_place",
+			"known_defects": ["loop_seam: ~6.7 cm bone gap between last and first frame (visible pop each cycle); needs cleanup in Blender"]},
+		"strafe_right": {"file": "addon", "source": "Strafe_right", "loop": true, "root": "in_place",
+			"known_defects": ["loop_seam: ~6.7 cm bone gap between last and first frame (visible pop each cycle); needs cleanup in Blender"]},
+		"slash": {"file": "base", "source": "Sword_Attack", "loop": false, "root": "in_place",
+			"markers": {"start": 0.0, "loaded": 0.38, "release": 0.45, "contact": 0.483, "active_end": 0.633, "recovered": 1.7},
+			"marker_rule": "contact = first frame the blade midpoint enters the forward hemisphere; active_end = arc complete. Chosen from the blade path, not from hand speed alone.",
+			"known_defects": ["0.43-0.45 s: hitch at the top of the windup (tip speed drops 10 -> 6.5 m/s then jumps to 42 m/s)", "follow-through drives the tip to ~0.16 m above the floor"]},
+		"guard": {"file": "base", "source": "Sword_Block", "loop": false, "root": "in_place",
+			"markers": {"start": 0.0, "raised": 0.15, "hold": 0.3, "lower": 0.65, "lowered": 1.2}},
+		"stagger": {"file": "base", "source": "Idle_Shield_Break", "loop": false, "root": "in_place"},
+		"flinch": {"file": "base", "source": "Hit_Chest", "loop": false, "root": "in_place", "additive": true,
+			"known_defects": ["source keys the Armature node position (non-bone track); stripped at import, otherwise the additive layer lifts the body ~0.58 m"]},
+		"dodge_back": {"file": "addon", "source": "Dodge_back_RM", "loop": false, "root": "root_motion"}
+	},
+	"timings": {
+		"source_pacing": {"windup": 0.483, "commitment": 0.103, "release": 0.033, "active": 0.15, "recovery": 1.067,
+			"notes": "Rule durations equal to the clip's own marker spacing (warp ratio 1.0 everywhere)."},
+		"courtyard_slash": {"from_build_catalog": "attack.slash", "commitment": 0.24, "release": 0.08},
+		"swordsman_slash": {"from_build_catalog": "attack.slash", "profile": "profile.corrupted_swordsman", "commitment": 0.24, "release": 0.08}
+	}
+}

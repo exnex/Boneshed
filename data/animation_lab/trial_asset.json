@@ -1,0 +1,18 @@
+{
+	"schema": "boneshed.animation_trial_asset.v0",
+	"status": "Evaluation only. Fetched into the tools directory outside the checkout; never committed, shipped or loaded by the game. Vendoring requires explicit human approval (AGENTS.md).",
+	"source": "Mesh2Motion/mesh2motion-app",
+	"commit": "653a9698f5f315523072f1c3ff3496100401317b",
+	"base_url": "https://raw.githubusercontent.com/Mesh2Motion/mesh2motion-app/653a9698f5f315523072f1c3ff3496100401317b/static/animations/",
+	"files": [
+		{"name": "human-base-animations.glb", "sha256": "406eb0a8dc4ab366e623b79b6e3005a4951392e1bda78ae39c1099d31147733c"},
+		{"name": "human-addon-animations.glb", "sha256": "a0d64d555e0d492026b72d58bf8e16c5e86779295f9093e376dcc001915c2c95"}
+	],
+	"license": {
+		"claimed": "CC0 for art assets (models, rigs, animations); MIT for code.",
+		"evidence": "README.md 'Licenses' section at the pinned commit. The repository has no LICENSE file at that commit (raw request returned 404).",
+		"provenance": "Third-party press (GameFromScratch) reports part of the human library comes from Quaternius, whose Universal Animation Library is published as CC0. Clip-level provenance is not recorded in the files.",
+		"excluded": "static/animations/human-mocap-animations.glb and CarnegieMellonAnimations/ are not used: they derive from CMU motion-capture data with separate terms."
+	},
+	"generator": "Khronos glTF Blender I/O v5.1.18 (read from the glTF asset header)"
+}
