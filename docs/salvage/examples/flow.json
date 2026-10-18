@@ -1,38 +1,40 @@
 {
 	"catalog": {
-		"fingerprint": "fa6f289b25e330d5",
-		"version": "0.1.0"
+		"fingerprint": "f31a3cb9c5e6b731",
+		"version": "0.2.0"
 	},
 	"identity": {
 		"ability": "ability.marrow_lunge",
-		"catalog_fingerprint": "9c74bed5a514ec25",
+		"catalog_fingerprint": "81ec54bb09fe8bc0",
 		"enemy_effective": {
 			"active": 0.2,
 			"guard_posture": 45.0,
 			"health_damage": 26.0,
-			"reach": 3.4,
-			"recovery": 1.12,
-			"width": 0.9,
-			"windup": 1.05
-		},
-		"enemy_fingerprint": "9c74bed5a514ec25",
-		"player_effective": {
-			"active": 0.2,
-			"guard_posture": 45.0,
-			"health_damage": 26.0,
+			"posture_damage": 18.0,
 			"reach": 3.4,
 			"recovery": 0.8,
 			"width": 0.9,
 			"windup": 0.7
 		},
-		"player_fingerprint": "9c74bed5a514ec25",
-		"ref_fingerprint": "9c74bed5a514ec25"
+		"enemy_fingerprint": "81ec54bb09fe8bc0",
+		"player_effective": {
+			"active": 0.2,
+			"guard_posture": 45.0,
+			"health_damage": 26.0,
+			"posture_damage": 18.0,
+			"reach": 3.4,
+			"recovery": 0.8,
+			"width": 0.9,
+			"windup": 0.7
+		},
+		"player_fingerprint": "81ec54bb09fe8bc0",
+		"ref_fingerprint": "81ec54bb09fe8bc0"
 	},
 	"step_1_player_build": {
 		"build": {
 			"build_id": "player.fixture",
 			"carried": [],
-			"catalog_version": "0.1.0",
+			"catalog_version": "0.2.0",
 			"equipped": {
 				"main_hand": "item.notched_sword"
 			},
@@ -47,12 +49,13 @@
 						"active": 0.16,
 						"guard_posture": 28.0,
 						"health_damage": 18.0,
+						"posture_damage": 18.0,
 						"reach": 2.35,
 						"recovery": 0.45,
 						"width": 1.6,
 						"windup": 0.34
 					},
-					"fingerprint": "a48b5b6ff38fb2b6",
+					"fingerprint": "f61fdcf2bbad55e7",
 					"id": "attack.slash",
 					"module": "module.slash_basic",
 					"source": {
@@ -66,12 +69,13 @@
 						"active": 0.16,
 						"guard_posture": 42.0,
 						"health_damage": 32.0,
+						"posture_damage": 18.0,
 						"reach": 2.35,
 						"recovery": 0.45,
 						"width": 1.6,
 						"windup": 0.85
 					},
-					"fingerprint": "01791065d6a455d3",
+					"fingerprint": "295f87504ed3bdfb",
 					"id": "attack.heavy_slash",
 					"module": "module.slash_heavy",
 					"source": {
@@ -81,7 +85,7 @@
 				}
 			],
 			"build_id": "player.fixture",
-			"catalog_version": "0.1.0",
+			"catalog_version": "0.2.0",
 			"equipped": [
 				{
 					"item": "item.notched_sword",
@@ -89,16 +93,19 @@
 					"slot": "main_hand"
 				}
 			],
-			"fingerprint": "57db0db3e8f08af3",
+			"fingerprint": "52081ce7fb819353",
+			"guard_posture_overrides": {},
 			"profile": "profile.duelist",
 			"schema": "boneshed.resolved_build.v0",
 			"stat_sources": {},
 			"stats": {
+				"deflect_posture": 42.0,
 				"deflect_window": 0.16,
 				"guard_chip": 0.12,
 				"max_health": 100.0,
 				"max_posture": 100.0,
 				"move_speed": 5.5,
+				"posture_recovery_delay": 1.5,
 				"posture_recovery_rate": 12.0,
 				"recovery_scale": 1.0,
 				"windup_scale": 1.0
@@ -128,7 +135,7 @@
 		"build": {
 			"build_id": "soul.marrow_swordsman",
 			"carried": [],
-			"catalog_version": "0.1.0",
+			"catalog_version": "0.2.0",
 			"equipped": {
 				"main_hand": "item.notched_sword",
 				"right_arm": "item.marrow_arm"
@@ -144,12 +151,13 @@
 						"active": 0.16,
 						"guard_posture": 28.0,
 						"health_damage": 18.0,
+						"posture_damage": 18.0,
 						"reach": 2.35,
-						"recovery": 0.63,
+						"recovery": 0.65,
 						"width": 1.6,
-						"windup": 0.51
+						"windup": 0.62
 					},
-					"fingerprint": "a48b5b6ff38fb2b6",
+					"fingerprint": "f61fdcf2bbad55e7",
 					"id": "attack.slash",
 					"module": "module.slash_basic",
 					"source": {
@@ -163,12 +171,13 @@
 						"active": 0.16,
 						"guard_posture": 42.0,
 						"health_damage": 32.0,
+						"posture_damage": 18.0,
 						"reach": 2.35,
-						"recovery": 0.63,
+						"recovery": 0.65,
 						"width": 1.6,
-						"windup": 1.275
+						"windup": 0.85
 					},
-					"fingerprint": "01791065d6a455d3",
+					"fingerprint": "295f87504ed3bdfb",
 					"id": "attack.heavy_slash",
 					"module": "module.slash_heavy",
 					"source": {
@@ -182,12 +191,13 @@
 						"active": 0.2,
 						"guard_posture": 45.0,
 						"health_damage": 26.0,
+						"posture_damage": 18.0,
 						"reach": 3.4,
-						"recovery": 1.12,
+						"recovery": 0.8,
 						"width": 0.9,
-						"windup": 1.05
+						"windup": 0.7
 					},
-					"fingerprint": "9c74bed5a514ec25",
+					"fingerprint": "81ec54bb09fe8bc0",
 					"id": "ability.marrow_lunge",
 					"module": "module.marrow_lunge",
 					"source": {
@@ -197,7 +207,7 @@
 				}
 			],
 			"build_id": "soul.marrow_swordsman",
-			"catalog_version": "0.1.0",
+			"catalog_version": "0.2.0",
 			"equipped": [
 				{
 					"item": "item.notched_sword",
@@ -210,7 +220,11 @@
 					"slot": "right_arm"
 				}
 			],
-			"fingerprint": "2566ce0cb5599bfd",
+			"fingerprint": "3bcb8eb07daae913",
+			"guard_posture_overrides": {
+				"heavy": 15.0,
+				"light": 10.0
+			},
 			"profile": "profile.corrupted_swordsman",
 			"schema": "boneshed.resolved_build.v0",
 			"stat_sources": {
@@ -223,14 +237,16 @@
 				]
 			},
 			"stats": {
+				"deflect_posture": 42.0,
 				"deflect_window": 0.11,
 				"guard_chip": 0.12,
 				"max_health": 100.0,
-				"max_posture": 120.0,
+				"max_posture": 100.0,
 				"move_speed": 2.7,
+				"posture_recovery_delay": 1.5,
 				"posture_recovery_rate": 12.0,
-				"recovery_scale": 1.4,
-				"windup_scale": 1.5
+				"recovery_scale": 1.0,
+				"windup_scale": 1.0
 			},
 			"tags": [
 				"body.augmented",
@@ -280,7 +296,7 @@
 		"defeated": {
 			"build_id": "soul.marrow_swordsman",
 			"carried": [],
-			"catalog_version": "0.1.0",
+			"catalog_version": "0.2.0",
 			"equipped": {
 				"main_hand": "item.notched_sword",
 				"right_arm": "item.marrow_arm"
@@ -297,11 +313,11 @@
 		{
 			"abilities": [
 				{
-					"fingerprint": "9c74bed5a514ec25",
+					"fingerprint": "81ec54bb09fe8bc0",
 					"id": "ability.marrow_lunge"
 				}
 			],
-			"catalog_version": "0.1.0",
+			"catalog_version": "0.2.0",
 			"item": "item.marrow_arm",
 			"item_fingerprint": "218ece00e33f4202",
 			"ref_id": "6eda82130f2845a3",
@@ -319,7 +335,7 @@
 			"carried": [
 				"item.marrow_arm"
 			],
-			"catalog_version": "0.1.0",
+			"catalog_version": "0.2.0",
 			"equipped": {
 				"main_hand": "item.notched_sword"
 			},
@@ -329,7 +345,7 @@
 		"after_equip": {
 			"build_id": "player.fixture",
 			"carried": [],
-			"catalog_version": "0.1.0",
+			"catalog_version": "0.2.0",
 			"equipped": {
 				"main_hand": "item.notched_sword",
 				"right_arm": "item.marrow_arm"
@@ -346,12 +362,13 @@
 					"active": 0.16,
 					"guard_posture": 28.0,
 					"health_damage": 18.0,
+					"posture_damage": 18.0,
 					"reach": 2.35,
 					"recovery": 0.45,
 					"width": 1.6,
 					"windup": 0.34
 				},
-				"fingerprint": "a48b5b6ff38fb2b6",
+				"fingerprint": "f61fdcf2bbad55e7",
 				"id": "attack.slash",
 				"module": "module.slash_basic",
 				"source": {
@@ -365,12 +382,13 @@
 					"active": 0.16,
 					"guard_posture": 42.0,
 					"health_damage": 32.0,
+					"posture_damage": 18.0,
 					"reach": 2.35,
 					"recovery": 0.45,
 					"width": 1.6,
 					"windup": 0.85
 				},
-				"fingerprint": "01791065d6a455d3",
+				"fingerprint": "295f87504ed3bdfb",
 				"id": "attack.heavy_slash",
 				"module": "module.slash_heavy",
 				"source": {
@@ -384,12 +402,13 @@
 					"active": 0.2,
 					"guard_posture": 45.0,
 					"health_damage": 26.0,
+					"posture_damage": 18.0,
 					"reach": 3.4,
 					"recovery": 0.8,
 					"width": 0.9,
 					"windup": 0.7
 				},
-				"fingerprint": "9c74bed5a514ec25",
+				"fingerprint": "81ec54bb09fe8bc0",
 				"id": "ability.marrow_lunge",
 				"module": "module.marrow_lunge",
 				"source": {
@@ -399,7 +418,7 @@
 			}
 		],
 		"build_id": "player.fixture",
-		"catalog_version": "0.1.0",
+		"catalog_version": "0.2.0",
 		"equipped": [
 			{
 				"item": "item.notched_sword",
@@ -412,7 +431,8 @@
 				"slot": "right_arm"
 			}
 		],
-		"fingerprint": "a0756b2831eefdd9",
+		"fingerprint": "492f49bd1de9d595",
+		"guard_posture_overrides": {},
 		"profile": "profile.duelist",
 		"schema": "boneshed.resolved_build.v0",
 		"stat_sources": {
@@ -425,11 +445,13 @@
 			]
 		},
 		"stats": {
+			"deflect_posture": 42.0,
 			"deflect_window": 0.11,
 			"guard_chip": 0.12,
 			"max_health": 100.0,
 			"max_posture": 100.0,
 			"move_speed": 5.5,
+			"posture_recovery_delay": 1.5,
 			"posture_recovery_rate": 12.0,
 			"recovery_scale": 1.0,
 			"windup_scale": 1.0

@@ -14,7 +14,7 @@ python3 - "$GODOT_BIN" "$REPO_ROOT" "$run_dir" <<'PY'
 import json, os, pathlib, subprocess, sys
 engine, repo, output = sys.argv[1], sys.argv[2], pathlib.Path(sys.argv[3])
 results = []
-def run(name, args, expected=0, required=None, seconds=60):
+def run(name, args, expected=0, required=None, seconds=60, expected_error=None):
     # timeout and subprocess preserve the engine's outcome; logs cannot mask failures.
     with (output/f'{name}.log').open('w') as log:
         result = subprocess.run(['timeout', str(seconds), *args], stdout=log, stderr=subprocess.STDOUT)
@@ -24,7 +24,9 @@ def run(name, args, expected=0, required=None, seconds=60):
         if line.startswith('{'):
             records.append(json.loads(line))
     assert result.returncode == expected, f'{name}: exit {result.returncode}, see {output/name}.log'
-    assert 'SCRIPT ERROR:' not in text and 'ERROR:' not in text, f'{name}: engine errors in log'
+    assert 'SCRIPT ERROR:' not in text, f'{name}: script errors in log'
+    errors = [line for line in text.splitlines() if line.startswith('ERROR:')]
+    assert (len(errors) == 1 and expected_error in errors[0]) if expected_error else not errors, f'{name}: unexpected engine errors in log'
     if required:
         required(records)
     results.append({'run': name, 'exit': result.returncode, 'expected_exit': expected})
@@ -35,7 +37,18 @@ def positive(records):
     summary = next(r for r in records if r.get('summary'))
     assert summary['passed'] >= 60 and summary['failed'] == 0
 run('import', base + ['--editor', '--import'])
-run('combat', base + ['--script', 'res://scripts/qa/combat_tests.gd'], required=positive)
+def integration_checks(records):
+    summary = next(r for r in records if r.get('summary'))
+    assert summary['passed'] >= 76 and summary['failed'] == 0
+run('combat_builds', base + ['--script', 'res://scripts/qa/combat_build_tests.gd'], required=integration_checks)
+def invalid_startup(records):
+    assert any(r.get('check') == 'invalid_startup_creates_no_fighters_or_world' and r['passed'] for r in records)
+run('invalid_build_startup', base + ['--script', 'res://scripts/qa/combat_build_tests.gd', '--', '--invalid-startup'],
+    expected=1, required=invalid_startup, expected_error='Courtyard build initialization failed:')
+def combat_checks(records):
+    summary = next(r for r in records if r.get('summary'))
+    assert summary['passed'] == 118 and summary['failed'] == 0
+run('combat', base + ['--script', 'res://scripts/qa/combat_tests.gd'], required=combat_checks)
 for control, check in [('guard', 'guard_mitigates_damage'), ('deflect', 'timed_deflection'), ('phase', 'windup_cannot_damage'),
                        ('toggle', 'rapid_toggle_cannot_refresh_deflect'), ('rear', 'guard_arc_dot_-1.0'),
                        ('poise', 'heavy_commitment_true_0.2')]:
@@ -61,7 +74,7 @@ run('graphical', ['xvfb-run', '-a', '-s', '-screen 0 1280x720x24 -nolisten tcp',
     '--fixed-fps', '60', '--', '--qa', f'--evidence-dir={output}'], seconds=int(os.environ.get("BONESHED_GRAPHICAL_TIMEOUT", "180")))
 records = json.loads((output/'graphical.json').read_text())
 summary = next(r for r in records if r.get('summary'))
-assert summary['passed'] >= 30 and summary['failed'] == 0
+assert summary['passed'] == 111 and summary['failed'] == 0
 assert len(list(output.glob('*.png'))) == 5
 assert 'llvmpipe' in (output/'graphical.log').read_text(), 'Software renderer not confirmed'
 run('timing_rendered', ['xvfb-run', '-a', '-s', '-screen 0 1280x720x24 -nolisten tcp', engine,

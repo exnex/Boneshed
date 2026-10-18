@@ -1,0 +1,63 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1msavepack[22m | Started Packing (102 steps)[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://data/builds/catalog.json[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://data/worldgen/keywords.json[39m[0m
+[  13% ] [90m[1msavepack[22m | Storing File: res://data/worldgen/rules.json[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://scripts/hud.gdc[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://scripts/courtyard.gdc[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://scripts/worldgen/seed_stream.gdc[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://scripts/worldgen/keyword_library.gdc[39m[0m
+[  43% ] [90m[1msavepack[22m | Storing File: res://scripts/worldgen/blueprint_generator.gdc[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://scripts/characters/fighter.gdc[39m[0m
+[  56% ] [90m[1msavepack[22m | Storing File: res://scripts/characters/player.gdc[39m[0m
+[  62% ] [90m[1msavepack[22m | Storing File: res://scripts/combat/combat_state.gdc[39m[0m
+[  67% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-0003a92ad9094295e7257ce029d45e7d-courtyard.scn[39m[0m
+[  74% ] [90m[1msavepack[22m | Storing File: res://scripts/ai/swordsman.gdc[39m[0m
+[  80% ] [90m[1msavepack[22m | Storing File: res://scripts/builds/build_catalog.gdc[39m[0m
+[  86% ] [90m[1msavepack[22m | Storing File: res://scripts/builds/build_rules.gdc[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://scripts/builds/salvage.gdc[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://scripts/hud.gd.remap[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://scripts/courtyard.gd.remap[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://scripts/worldgen/seed_stream.gd.remap[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://scripts/worldgen/keyword_library.gd.remap[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://scripts/worldgen/blueprint_generator.gd.remap[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://scripts/characters/fighter.gd.remap[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://scripts/characters/player.gd.remap[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://scripts/combat/combat_state.gd.remap[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://scenes/courtyard.tscn.remap[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://scripts/ai/swordsman.gd.remap[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://scripts/builds/build_catalog.gd.remap[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://scripts/builds/build_rules.gd.remap[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://scripts/builds/salvage.gd.remap[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://.godot/global_script_class_cache.cfg[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://.godot/uid_cache.bin[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://project.binary[39m[0m
+[92m[ DONE ][39m [1msavepack[22m
+[0m
+Audited 32 packed resources. Upload ZIP: /workspace/Boneshed/artifacts/gate2-before/web/release.zip

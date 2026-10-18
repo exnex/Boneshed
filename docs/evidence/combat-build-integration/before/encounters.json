@@ -1,0 +1,188 @@
+[
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 4,
+		"enemy_health": 37.36,
+		"events": {
+			"enemy_guard": 4,
+			"enemy_hit": 3,
+			"player_defeated": 1,
+			"player_hit": 3
+		},
+		"frames": 510,
+		"player_health": 0.0,
+		"scenario": "live_strategy",
+		"seconds": 8.5,
+		"strategy": "attack_only_1.20_period_2",
+		"winner": "enemy"
+	},
+	{
+		"check": "attack_only_loses_1.20_period_2",
+		"negative": "",
+		"passed": true,
+		"scenario": "iteration2_regression"
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 4,
+		"enemy_health": 37.36,
+		"events": {
+			"enemy_guard": 4,
+			"enemy_hit": 3,
+			"player_defeated": 1,
+			"player_hit": 3
+		},
+		"frames": 522,
+		"player_health": 0.0,
+		"scenario": "live_strategy",
+		"seconds": 8.7,
+		"strategy": "attack_only_1.20_period_5",
+		"winner": "enemy"
+	},
+	{
+		"check": "attack_only_loses_1.20_period_5",
+		"negative": "",
+		"passed": true,
+		"scenario": "iteration2_regression"
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 4,
+		"enemy_health": 37.36,
+		"events": {
+			"enemy_guard": 4,
+			"enemy_hit": 3,
+			"player_defeated": 1,
+			"player_hit": 3
+		},
+		"frames": 510,
+		"player_health": 0.0,
+		"scenario": "live_strategy",
+		"seconds": 8.5,
+		"strategy": "attack_only_1.85_period_2",
+		"winner": "enemy"
+	},
+	{
+		"check": "attack_only_loses_1.85_period_2",
+		"negative": "",
+		"passed": true,
+		"scenario": "iteration2_regression"
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 4,
+		"enemy_health": 37.36,
+		"events": {
+			"enemy_guard": 4,
+			"enemy_hit": 3,
+			"player_defeated": 1,
+			"player_hit": 3
+		},
+		"frames": 522,
+		"player_health": 0.0,
+		"scenario": "live_strategy",
+		"seconds": 8.7,
+		"strategy": "attack_only_1.85_period_5",
+		"winner": "enemy"
+	},
+	{
+		"check": "attack_only_loses_1.85_period_5",
+		"negative": "",
+		"passed": true,
+		"scenario": "iteration2_regression"
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 4,
+		"enemy_health": 37.36,
+		"events": {
+			"enemy_guard": 4,
+			"enemy_hit": 3,
+			"player_defeated": 1,
+			"player_hit": 3
+		},
+		"frames": 510,
+		"player_health": 0.0,
+		"scenario": "live_strategy",
+		"seconds": 8.5,
+		"strategy": "attack_only_2.20_period_2",
+		"winner": "enemy"
+	},
+	{
+		"check": "attack_only_loses_2.20_period_2",
+		"negative": "",
+		"passed": true,
+		"scenario": "iteration2_regression"
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 4,
+		"enemy_health": 37.36,
+		"events": {
+			"enemy_guard": 4,
+			"enemy_hit": 3,
+			"player_defeated": 1,
+			"player_hit": 3
+		},
+		"frames": 522,
+		"player_health": 0.0,
+		"scenario": "live_strategy",
+		"seconds": 8.7,
+		"strategy": "attack_only_2.20_period_5",
+		"winner": "enemy"
+	},
+	{
+		"check": "attack_only_loses_2.20_period_5",
+		"negative": "",
+		"passed": true,
+		"scenario": "iteration2_regression"
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 12,
+		"enemy_health": 100.0,
+		"events": {
+			"player_broken_frames": 266,
+			"player_defeated": 1,
+			"player_guard": 9,
+			"player_punish": 2
+		},
+		"frames": 1574,
+		"player_health": 0.0,
+		"scenario": "live_strategy",
+		"seconds": 26.23,
+		"strategy": "blind_toggle_and_break_punish",
+		"winner": "enemy"
+	},
+	{
+		"check": "blind_toggle_loses_without_repeated_deflections",
+		"negative": "",
+		"passed": true,
+		"scenario": "iteration2_regression"
+	},
+	{
+		"enemy_attacks_interrupted_in_windup": 0,
+		"enemy_attacks_started": 3,
+		"enemy_health": 0.0,
+		"events": {
+			"enemy_broken_frames": 133,
+			"enemy_defeated": 1,
+			"enemy_guard": 1,
+			"enemy_hit": 1,
+			"enemy_punish": 2,
+			"player_deflected": 3
+		},
+		"frames": 418,
+		"player_health": 100.0,
+		"scenario": "live_strategy",
+		"seconds": 6.97,
+		"strategy": "skilled_deflect_punish",
+		"winner": "player"
+	},
+	{
+		"check": "skilled_deflect_punish_wins_untouched",
+		"negative": "",
+		"passed": true,
+		"scenario": "iteration2_regression"
+	}
+]
