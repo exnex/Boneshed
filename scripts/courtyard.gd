@@ -29,12 +29,12 @@ func _ready() -> void:
 	_setup_input()
 	_build_courtyard()
 	player = Player.new()
-	player.combat = BuildAdapter.create_state(prepared.configs.player)
+	player.combat = prepared.states.player
 	player.move_speed = prepared.configs.player.move_speed
 	player.name = "Pilgrim"
 	add_child(player)
 	enemy = Swordsman.new()
-	enemy.combat = BuildAdapter.create_state(prepared.configs.enemy)
+	enemy.combat = prepared.states.enemy
 	enemy.move_speed = prepared.configs.enemy.move_speed
 	enemy.name = "CorruptedSwordsman"
 	add_child(enemy)

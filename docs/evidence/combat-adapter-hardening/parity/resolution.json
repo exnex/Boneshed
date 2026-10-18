@@ -1,0 +1,240 @@
+{
+	"configs": {
+		"enemy": {
+			"combat": {
+				"attack_windup": 0.62,
+				"deflect_posture": 42.0,
+				"deflect_window": 0.16,
+				"guard_chip": 0.12,
+				"guard_posture_overrides": {
+					"heavy": 15.0,
+					"light": 10.0
+				},
+				"heavy_active_duration": 0.16,
+				"heavy_damage": 32.0,
+				"heavy_guard_posture": 42.0,
+				"heavy_hit_posture": 18.0,
+				"heavy_recovery_duration": 0.65,
+				"heavy_windup": 0.85,
+				"light_active_duration": 0.16,
+				"light_damage": 18.0,
+				"light_guard_posture": 28.0,
+				"light_hit_posture": 18.0,
+				"light_recovery_duration": 0.65,
+				"max_health": 100.0,
+				"max_posture": 100.0,
+				"posture_recovery_delay": 1.5,
+				"posture_recovery_rate": 12.0
+			},
+			"move_speed": 2.7
+		},
+		"player": {
+			"combat": {
+				"attack_windup": 0.34,
+				"deflect_posture": 42.0,
+				"deflect_window": 0.16,
+				"guard_chip": 0.12,
+				"guard_posture_overrides": {},
+				"heavy_active_duration": 0.16,
+				"heavy_damage": 32.0,
+				"heavy_guard_posture": 42.0,
+				"heavy_hit_posture": 18.0,
+				"heavy_recovery_duration": 0.45,
+				"heavy_windup": 0.85,
+				"light_active_duration": 0.16,
+				"light_damage": 18.0,
+				"light_guard_posture": 28.0,
+				"light_hit_posture": 18.0,
+				"light_recovery_duration": 0.45,
+				"max_health": 100.0,
+				"max_posture": 100.0,
+				"posture_recovery_delay": 1.5,
+				"posture_recovery_rate": 12.0
+			},
+			"move_speed": 5.5
+		}
+	},
+	"resolved": {
+		"enemy": {
+			"abilities": [
+				{
+					"binding": "light",
+					"effective": {
+						"active": 0.16,
+						"guard_posture": 28.0,
+						"health_damage": 18.0,
+						"posture_damage": 18.0,
+						"reach": 2.35,
+						"recovery": 0.65,
+						"width": 1.6,
+						"windup": 0.62
+					},
+					"fingerprint": "f61fdcf2bbad55e7",
+					"id": "attack.slash",
+					"module": "module.slash_basic",
+					"source": {
+						"item": "item.notched_sword",
+						"slot": "main_hand"
+					}
+				},
+				{
+					"binding": "heavy",
+					"effective": {
+						"active": 0.16,
+						"guard_posture": 42.0,
+						"health_damage": 32.0,
+						"posture_damage": 18.0,
+						"reach": 2.35,
+						"recovery": 0.65,
+						"width": 1.6,
+						"windup": 0.85
+					},
+					"fingerprint": "295f87504ed3bdfb",
+					"id": "attack.heavy_slash",
+					"module": "module.slash_heavy",
+					"source": {
+						"item": "item.notched_sword",
+						"slot": "main_hand"
+					}
+				}
+			],
+			"build_id": "courtyard.enemy",
+			"catalog_version": "0.2.0",
+			"equipped": [
+				{
+					"item": "item.notched_sword",
+					"item_fingerprint": "f6a28db295876e11",
+					"slot": "main_hand"
+				}
+			],
+			"fingerprint": "be37d8cc779784e0",
+			"guard_posture_overrides": {
+				"heavy": 15.0,
+				"light": 10.0
+			},
+			"profile": "profile.corrupted_swordsman",
+			"schema": "boneshed.resolved_build.v0",
+			"stat_sources": {},
+			"stats": {
+				"deflect_posture": 42.0,
+				"deflect_window": 0.16,
+				"guard_chip": 0.12,
+				"max_health": 100.0,
+				"max_posture": 100.0,
+				"move_speed": 2.7,
+				"posture_recovery_delay": 1.5,
+				"posture_recovery_rate": 12.0,
+				"recovery_scale": 1.0,
+				"windup_scale": 1.0
+			},
+			"tags": [
+				"wield.blade"
+			],
+			"tradeoffs": [
+				{
+					"advantages": [
+						{
+							"ability": "attack.slash",
+							"kind": "grants_ability"
+						},
+						{
+							"ability": "attack.heavy_slash",
+							"kind": "grants_ability"
+						}
+					],
+					"disadvantages": [],
+					"item": "item.notched_sword"
+				}
+			]
+		},
+		"player": {
+			"abilities": [
+				{
+					"binding": "light",
+					"effective": {
+						"active": 0.16,
+						"guard_posture": 28.0,
+						"health_damage": 18.0,
+						"posture_damage": 18.0,
+						"reach": 2.35,
+						"recovery": 0.45,
+						"width": 1.6,
+						"windup": 0.34
+					},
+					"fingerprint": "f61fdcf2bbad55e7",
+					"id": "attack.slash",
+					"module": "module.slash_basic",
+					"source": {
+						"item": "item.notched_sword",
+						"slot": "main_hand"
+					}
+				},
+				{
+					"binding": "heavy",
+					"effective": {
+						"active": 0.16,
+						"guard_posture": 42.0,
+						"health_damage": 32.0,
+						"posture_damage": 18.0,
+						"reach": 2.35,
+						"recovery": 0.45,
+						"width": 1.6,
+						"windup": 0.85
+					},
+					"fingerprint": "295f87504ed3bdfb",
+					"id": "attack.heavy_slash",
+					"module": "module.slash_heavy",
+					"source": {
+						"item": "item.notched_sword",
+						"slot": "main_hand"
+					}
+				}
+			],
+			"build_id": "courtyard.player",
+			"catalog_version": "0.2.0",
+			"equipped": [
+				{
+					"item": "item.notched_sword",
+					"item_fingerprint": "f6a28db295876e11",
+					"slot": "main_hand"
+				}
+			],
+			"fingerprint": "b644ab71d01c8093",
+			"guard_posture_overrides": {},
+			"profile": "profile.duelist",
+			"schema": "boneshed.resolved_build.v0",
+			"stat_sources": {},
+			"stats": {
+				"deflect_posture": 42.0,
+				"deflect_window": 0.16,
+				"guard_chip": 0.12,
+				"max_health": 100.0,
+				"max_posture": 100.0,
+				"move_speed": 5.5,
+				"posture_recovery_delay": 1.5,
+				"posture_recovery_rate": 12.0,
+				"recovery_scale": 1.0,
+				"windup_scale": 1.0
+			},
+			"tags": [
+				"wield.blade"
+			],
+			"tradeoffs": [
+				{
+					"advantages": [
+						{
+							"ability": "attack.slash",
+							"kind": "grants_ability"
+						},
+						{
+							"ability": "attack.heavy_slash",
+							"kind": "grants_ability"
+						}
+					],
+					"disadvantages": [],
+					"item": "item.notched_sword"
+				}
+			]
+		}
+	}
+}
