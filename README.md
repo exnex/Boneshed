@@ -46,6 +46,7 @@ timing values, reproducible tests, evidence, and human playtesting limitations.
 | [Combat prototype](docs/COMBAT_PROTOTYPE.md) | Running the duel, controls, tests and evidence |
 | [Combat review](docs/COMBAT_REVIEW.md) | Independent review, exploits, fixes and priorities |
 | [Combat iteration 2](docs/COMBAT_ITERATION_2.md) | Attack readability, deflection discipline, enemy defense and provisional tuning |
+| [Combat presentation 3](docs/COMBAT_PRESENTATION_3.md) | Articulated placeholder poses, restrained reactions, camera/HUD cleanup and human playtest |
 | [Keyword world blueprints](docs/WORLDGEN_KEYWORDS.md) | Isolated, provisional three-keyword → WorldBlueprint prototype |
 | [Combat build integration](docs/COMBAT_BUILD_INTEGRATION.md) | Live courtyard adapter, exact parity and validation |
 | [First playable loop](docs/FIRST_PLAYABLE.md) | Human controls, inherited attack, salvage/equip progression and evidence |
