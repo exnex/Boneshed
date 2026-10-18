@@ -1,11 +1,14 @@
 extends Node3D
 
+const Progression = preload("res://scripts/combat/duel_progression.gd")
+const AttackModules = preload("res://scripts/combat/attack_modules.gd")
 const Player = preload("res://scripts/characters/player.gd")
 const Swordsman = preload("res://scripts/ai/swordsman.gd")
 const Rules = preload("res://scripts/combat/combat_state.gd")
 const BuildAdapter = preload("res://scripts/combat/build_adapter.gd")
 @export var catalog_path := "res://data/builds/catalog.json"
 @export var builds_path := BuildAdapter.BUILDS_PATH
+var progression: Progression
 var resolved_builds: Dictionary = {}
 var player: Fighter
 var enemy: Fighter
@@ -25,6 +28,7 @@ func _ready() -> void:
 		set_physics_process(false)
 		get_tree().quit(1)
 		return
+	progression = Progression.new(prepared)
 	resolved_builds = prepared.resolved
 	_setup_input()
 	_build_courtyard()
@@ -40,7 +44,7 @@ func _ready() -> void:
 	add_child(enemy)
 	player.opponent = enemy
 	enemy.opponent = player
-	reset_encounter()
+	_reset_positions()
 	var canvas := CanvasLayer.new()
 	add_child(canvas)
 	hud = Control.new()
@@ -66,6 +70,18 @@ func _physics_process(delta: float) -> void:
 	event_time = maxf(0.0, event_time - delta)
 	# Resolve after both actors tick/move (deferred), with a fixed player-first tie rule.
 	_resolve_duel.call_deferred()
+	if Input.is_action_just_pressed("salvage"):
+		_report_transaction(progression.acquire(), "MARROW ARM ACQUIRED · E to equip")
+	if Input.is_action_just_pressed("equip"):
+		var equipped := progression.equip()
+		if equipped.ok:
+			resolved_builds.player = equipped.resolved.player
+			player.combat = equipped.states.player
+			player.move_speed = equipped.configs.player.move_speed
+			player.sync_visual()
+		_report_transaction(equipped, "MARROW ARM EQUIPPED · N to begin the next duel")
+	if Input.is_action_just_pressed("next_duel"):
+		_start_duel(true)
 	if Input.is_action_just_pressed("reset"):
 		reset_encounter()
 	if Input.is_action_just_pressed("debug"):
@@ -73,21 +89,65 @@ func _physics_process(delta: float) -> void:
 		enemy.debug_hitboxes = player.debug_hitboxes
 
 func _resolve_duel() -> void:
-	for fighter in [player, enemy]:
-		var result: String = fighter.resolve_attack()
-		if result not in ["invalid", "out_of_range"]:
+	if progression.stage != Progression.Stage.DUEL:
+		return
+	for fighter: Fighter in [player, enemy]:
+		var result := fighter.resolve_attack()
+		if result not in [Rules.INVALID, Rules.OUT_OF_RANGE]:
 			event_text = "%s · %s" % [fighter.opponent.name, fighter.opponent.combat.last_event]
 			event_time = 1.3
+		if fighter == player and progression.record_contact(result):
+			player.combat.set_guard(false)
+			return
+	progression.record_loss()
 
 func reset_encounter() -> void:
+	_start_duel(false)
+
+func _start_duel(next_duel: bool) -> void:
+	var prepared := progression.begin(next_duel)
+	if not prepared.ok:
+		_report_transaction(prepared, "")
+		return
+	resolved_builds = prepared.resolved
+	player.combat = prepared.states.player
+	enemy.combat = prepared.states.enemy
+	player.move_speed = prepared.configs.player.move_speed
+	enemy.move_speed = prepared.configs.enemy.move_speed
+	_reset_positions()
+
+func _reset_positions() -> void:
 	player.reset_at(Vector3(0.0, 0.02, 4.0))
 	enemy.reset_at(Vector3(0.0, 0.02, -3.0))
 	encounter_time = 0.0
 	event_text = "Enter the circle. Face the corrupted soul."
 	event_time = 3.0
+	player.sync_visual()
+	enemy.sync_visual()
+
+func _report_transaction(result: Dictionary, success: String) -> void:
+	event_text = success if result.ok else "Action unavailable · finish the duel and follow the prompt"
+	event_time = 3.0
+
+func progression_prompt() -> String:
+	if progression.stage == Progression.Stage.FALLEN:
+		return "YOU FELL · R to retry with your current equipment"
+	if progression.stage != Progression.Stage.VICTORY:
+		if player.combat.is_signature() and player.combat.phase in [Rules.Phase.WINDUP, Rules.Phase.ACTIVE]:
+			return "YOUR MARROW LUNGE · The power you claimed is yours."
+		if not enemy.combat.signature.is_empty() and enemy.combat.is_signature() and enemy.combat.phase == Rules.Phase.WINDUP:
+			return "MARROW LUNGE · Bone draws back. Deflect the thrust or dodge."
+		return ""
+	if not progression.available_rewards().is_empty():
+		return "SOUL RELEASED · F to salvage Marrow Arm"
+	if progression.owns("item.marrow_arm") and not progression.equipped():
+		return "MARROW ARM ACQUIRED · E to equip"
+	if progression.equipped():
+		return "MARROW ARM EQUIPPED · N for next duel · Q to use Marrow Lunge"
+	return "SOUL RELEASED · R to face it again"
 
 func _setup_input() -> void:
-	var keys := {"move_forward": KEY_W, "move_back": KEY_S, "move_left": KEY_A, "move_right": KEY_D, "dodge": KEY_SPACE, "lock_on": KEY_TAB, "reset": KEY_R, "release_mouse": KEY_ESCAPE, "debug": KEY_F3}
+	var keys := {"move_forward": KEY_W, "move_back": KEY_S, "move_left": KEY_A, "move_right": KEY_D, "dodge": KEY_SPACE, "lock_on": KEY_TAB, "reset": KEY_R, "release_mouse": KEY_ESCAPE, "debug": KEY_F3, "salvage": KEY_F, "equip": KEY_E, "next_duel": KEY_N, "signature": KEY_Q, "heavy_attack": KEY_C}
 	for action in keys:
 		if not InputMap.has_action(action):
 			InputMap.add_action(action)
@@ -106,7 +166,7 @@ func _block(point: Vector3, size: Vector3, color: Color, collision := true) -> v
 	if collision:
 		var body := StaticBody3D.new()
 		body.position = point
-		body.collision_layer = 1
+		body.collision_layer = AttackModules.ENVIRONMENT_LAYER
 		body.collision_mask = 0
 		var shape := CollisionShape3D.new()
 		var box := BoxShape3D.new()

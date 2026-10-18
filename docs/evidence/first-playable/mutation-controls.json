@@ -1,0 +1,22 @@
+[
+  {
+    "mutation": "result != Rules.DEFEATED -> false",
+    "caught_by": "debug_death_without_lethal_contact_grants_nothing",
+    "exit": 1
+  },
+  {
+    "mutation": "not owns(ref.item) -> true",
+    "caught_by": "duplicate_claim_rejected",
+    "exit": 1
+  },
+  {
+    "mutation": "attacker.signature.health_damage -> 0.0",
+    "caught_by": "lunge_damage_posture_Pilgrimhit",
+    "exit": 1
+  },
+  {
+    "mutation": "attacker.hit_consumed = true -> attacker.hit_consumed = false",
+    "caught_by": "one_contact_per_lunge_Pilgrimhit",
+    "exit": 1
+  }
+]

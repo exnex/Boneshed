@@ -21,7 +21,7 @@ func _ready() -> void:
 	spring = SpringArm3D.new()
 	spring.spring_length = camera_distance
 	spring.margin = 0.25
-	spring.collision_mask = 1
+	spring.collision_mask = AttackModules.ENVIRONMENT_LAYER
 	var camera_shape := SphereShape3D.new()
 	camera_shape.radius = 0.2
 	spring.shape = camera_shape
@@ -60,6 +60,10 @@ func _physics_process(delta: float) -> void:
 		elif desired_move.length_squared() > 0.01 and combat.phase in [Rules.Phase.IDLE, Rules.Phase.WINDUP, Rules.Phase.ACTIVE, Rules.Phase.RECOVERY]:
 			turn_toward(desired_move, delta)
 		combat.set_guard(Input.is_action_pressed("guard"))
+		if Input.is_action_just_pressed("signature"):
+			combat.attack_special()
+		if Input.is_action_just_pressed("heavy_attack"):
+			combat.attack(true)
 		if Input.is_action_just_pressed("attack"):
 			combat.attack()
 		if Input.is_action_just_pressed("dodge"):
@@ -68,8 +72,8 @@ func _physics_process(delta: float) -> void:
 	camera_pivot.position = Vector3(shoulder_offset, 1.6, 0.0).rotated(Vector3.UP, yaw)
 	super._physics_process(delta)
 
-func reset_at(point: Vector3) -> void:
-	super.reset_at(point)
+func reset_at(point: Vector3, guard_held := false) -> void:
+	super.reset_at(point, Input.is_action_pressed("guard"))
 	yaw = 0.0
 	pitch = -0.28
 	locked = false

@@ -1,14 +1,18 @@
 class_name Fighter
 extends CharacterBody3D
 
+const Visual = preload("res://scripts/characters/fighter_visual.gd")
+const AttackModules = preload("res://scripts/combat/attack_modules.gd")
 const Rules = preload("res://scripts/combat/combat_state.gd")
 var combat := Rules.new()
 var move_speed := 0.0 # Set from the prepared build before entering the scene tree.
 @export var acceleration := 32.0
 @export var deceleration := 70.0
 @export var dodge_speed := 11.0
-@export var attack_range := 2.35
-@export var attack_width := 1.6
+var attack_range: float:
+	get: return float(combat.signature.reach) if combat.is_signature() else AttackModules.SWORD_REACH
+var attack_width: float:
+	get: return float(combat.signature.width) if combat.is_signature() else AttackModules.SWORD_WIDTH
 @export var attack_turn_speed := 270.0 # Degrees/second; provisional, shared steering limit.
 var desired_move := Vector3.ZERO
 var facing := Vector3.FORWARD
@@ -16,6 +20,9 @@ var dodge_direction := Vector3.FORWARD
 var opponent: Fighter
 var is_player := false
 var body_color := Color("b4c9ba")
+var marrow_pivot: Node3D
+var marrow_bone: MeshInstance3D
+var marrow_tip: Marker3D
 var visual: Node3D
 var sword_pivot: Node3D
 var sword_arm: MeshInstance3D
@@ -30,8 +37,8 @@ var last_result := ""
 var debug_hitboxes := true
 
 func _ready() -> void:
-	collision_layer = 2
-	collision_mask = 3
+	collision_layer = AttackModules.FIGHTER_LAYER
+	collision_mask = AttackModules.ENVIRONMENT_LAYER | AttackModules.FIGHTER_LAYER
 	var collider := CollisionShape3D.new()
 	var capsule := CapsuleShape3D.new()
 	capsule.radius = 0.35
@@ -39,34 +46,7 @@ func _ready() -> void:
 	collider.shape = capsule
 	collider.position.y = 0.9
 	add_child(collider)
-	visual = Node3D.new()
-	add_child(visual)
-	body_material = material(body_color)
-	torso = mesh_part(visual, CapsuleMesh.new(), Vector3(0.0, 1.0, 0.0), Vector3(0.62, 0.7, 0.48), body_material)
-	mesh_part(visual, SphereMesh.new(), Vector3(0.0, 1.75, 0.0), Vector3(0.38, 0.38, 0.38), material(Color("c9c4ae")))
-	for side in [-1.0, 1.0]:
-		mesh_part(visual, BoxMesh.new(), Vector3(side * 0.18, 0.35, 0.0), Vector3(0.22, 0.65, 0.25), body_material)
-		if side < 0.0:
-			mesh_part(visual, BoxMesh.new(), Vector3(side * 0.43, 1.05, 0.0), Vector3(0.18, 0.6, 0.2), body_material)
-	sword_arm = mesh_part(visual, BoxMesh.new(), Vector3.ZERO, Vector3.ONE, body_material)
-	sword_pivot = Node3D.new()
-	sword_pivot.position = Vector3(0.48, 1.1, 0.0)
-	visual.add_child(sword_pivot)
-	mesh_part(sword_pivot, BoxMesh.new(), Vector3(0.0, 0.0, -0.85), Vector3(0.07, 0.12, 1.8), material(Color("d7dfdb")))
-	mesh_part(sword_pivot, BoxMesh.new(), Vector3(0.0, 0.0, -0.15), Vector3(0.38, 0.1, 0.1), material(Color("ad9568")))
-	indicator = mesh_part(self, BoxMesh.new(), Vector3.ZERO, Vector3(attack_width, 0.035, attack_range), material(Color(1.0, 0.35, 0.1, 0.30), true))
-	indicator.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	impact = Node3D.new()
-	add_child(impact)
-	for i in range(8):
-		var spark := mesh_part(impact, BoxMesh.new(), Vector3.ZERO, Vector3(0.05, 0.32, 0.05), material(Color("76e6e5"), true))
-		var angle := i * TAU / 8.0
-		spark.position = Vector3(sin(angle), cos(angle), 0.0) * 0.4
-		spark.rotation.z = -angle
-	var halo_mesh := TorusMesh.new()
-	halo_mesh.inner_radius = 0.27
-	halo_mesh.outer_radius = 0.31
-	broken_halo = mesh_part(self, halo_mesh, Vector3(0.0, 2.1, 0.0), Vector3.ONE, material(Color("ecbb51"), true))
+	Visual.build(self)
 
 func _physics_process(delta: float) -> void:
 	combat.tick(delta)
@@ -90,7 +70,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if facing.length_squared() > 0.01:
 		visual.rotation.y = atan2(-facing.x, -facing.z)
-	_update_visual(delta)
+	sync_visual(delta)
 
 func try_dodge(direction: Vector3) -> bool:
 	if combat.dodge():
@@ -121,14 +101,14 @@ func valid_attack_target(target: Fighter) -> bool:
 	var lateral := absf(offset.dot(facing.cross(Vector3.UP)))
 	if forward < 0.0 or forward > attack_range or lateral > attack_width * 0.5 + 0.35 or absf(offset.y) > 1.5:
 		return false
-	var ray := PhysicsRayQueryParameters3D.create(global_position + Vector3.UP, target.global_position + Vector3.UP, 1)
+	var ray := PhysicsRayQueryParameters3D.create(global_position + Vector3.UP, target.global_position + Vector3.UP, AttackModules.ENVIRONMENT_LAYER)
 	return get_world_3d().direct_space_state.intersect_ray(ray).is_empty()
 
 func resolve_attack() -> String:
 	if not is_instance_valid(opponent) or combat.phase != Rules.Phase.ACTIVE or combat.hit_consumed:
-		return "invalid"
+		return Rules.INVALID
 	if not valid_attack_target(opponent):
-		return "out_of_range"
+		return Rules.OUT_OF_RANGE
 	var incoming := global_position - opponent.global_position
 	incoming.y = 0.0
 	var result := opponent.combat.receive(combat, opponent.facing.dot(incoming.normalized()))
@@ -137,12 +117,12 @@ func resolve_attack() -> String:
 	opponent.event_serial += 1
 	# Hit resolution runs after actor physics; refresh both poses immediately so
 	# the first rendered frame agrees with death, deflection, and break state.
-	opponent._update_visual(0.0)
-	_update_visual(0.0)
+	opponent.sync_visual()
+	sync_visual()
 	return result
 
-func reset_at(point: Vector3) -> void:
-	combat.reset(Input.is_action_pressed("guard") if is_player else false)
+func reset_at(point: Vector3, guard_held := false) -> void:
+	combat.reset(guard_held)
 	position = point
 	velocity = Vector3.ZERO
 	desired_move = Vector3.ZERO
@@ -151,75 +131,12 @@ func reset_at(point: Vector3) -> void:
 	event_serial = 0
 	flash_time = 0.0
 
+func sync_visual(delta := 0.0) -> void:
+	Visual.sync(self, delta)
+
+# Compatibility for historical pose instrumentation; runtime callers use sync_visual.
 func _update_visual(delta: float) -> void:
-	flash_time = maxf(0.0, flash_time - delta)
-	var phase: int = combat.phase
-	visual.rotation.z = 0.0
-	visual.position.y = 0.0
-	torso.rotation = Vector3.ZERO
-	sword_pivot.position = Vector3(0.48, 1.1, 0.0)
-	sword_pivot.rotation = Vector3.ZERO
-	var tint := body_color
-	if phase == Rules.Phase.WINDUP:
-		var duration := combat.heavy_windup if combat.heavy else combat.attack_windup
-		var preparation := clampf((duration - combat.remaining) / (duration - combat.commitment_duration), 0.0, 1.0)
-		# The blade rises above the silhouette, then settles in a distinct loaded pose.
-		var loaded := Vector3(0.42, 2.05 if combat.heavy else 1.8, 0.15)
-		var loaded_rotation := Vector3(0.95 if combat.heavy else 0.65, -0.85, -0.15)
-		sword_pivot.position = Vector3(0.48, 1.1, 0.0).lerp(loaded, preparation)
-		sword_pivot.rotation = Vector3.ZERO.lerp(loaded_rotation, preparation)
-		torso.rotation = Vector3(-0.12, -0.25 * preparation, 0.08 * preparation)
-		if combat.attack_stage() == "release":
-			var release := 1.0 - combat.remaining / combat.release_duration
-			sword_pivot.position = loaded.lerp(Vector3(0.15, 1.35, -0.60), release)
-			sword_pivot.rotation = loaded_rotation.lerp(Vector3(0.0, -0.12, 0.0), release)
-			torso.rotation = torso.rotation.lerp(Vector3(0.12, 0.12, 0.0), release)
-	elif phase == Rules.Phase.ACTIVE:
-		# First damaging tick already has the blade extended into the forward volume.
-		var swing := 1.0 - combat.remaining / combat.active_duration
-		sword_pivot.position = Vector3(0.15, 1.35, -0.60)
-		sword_pivot.rotation.y = lerpf(-0.12, 0.65, swing)
-		torso.rotation = Vector3(0.12, lerpf(0.12, 0.30, swing), 0.0)
-	elif phase == Rules.Phase.RECOVERY:
-		var recover := clampf(combat.remaining / combat.recovery_duration, 0.0, 1.0)
-		sword_pivot.position = Vector3(0.48, 1.1, 0.0).lerp(Vector3(0.15, 1.35, -0.60), recover)
-		sword_pivot.rotation.y = 0.65 * recover
-		torso.rotation = Vector3(0.12, 0.30, 0.0) * recover
-	elif phase == Rules.Phase.BROKEN:
-		tint = Color("e3bd51")
-		visual.rotation.z = 0.3
-	elif phase == Rules.Phase.DEAD:
-		visual.rotation.z = PI / 2.0
-		visual.position.y = 0.28
-	elif phase == Rules.Phase.STAGGER:
-		visual.rotation.z = -0.2
-	elif phase == Rules.Phase.DODGE:
-		visual.rotation.z = 0.35
-	else:
-		sword_pivot.rotation = Vector3(0.0, -0.4 if combat.guarding else 0.0, -0.8 if combat.guarding else 0.0)
-		if combat.guarding:
-			sword_pivot.position = Vector3(0.15, 1.6, -0.35)
-			sword_pivot.rotation.x = 0.55
-			# A re-pressed guard still protects, but the wrists settle before a new tap.
-			if combat.guard_age > combat.deflect_window and combat.deflect_ready_in > 0.0:
-				sword_pivot.position.y -= 0.12
-	var shoulder := Vector3(0.35, 1.35, 0.0)
-	var arm_vector := sword_pivot.position - shoulder
-	sword_arm.position = (shoulder + sword_pivot.position) * 0.5
-	sword_arm.scale = Vector3(0.18, maxf(0.18, arm_vector.length()), 0.2)
-	sword_arm.quaternion = Quaternion(Vector3.UP, arm_vector.normalized())
-	if flash_time > 0.0:
-		tint = Color("8ff4ee") if last_result == "deflected" else Color("e57968")
-	body_material.albedo_color = tint
-	impact.visible = flash_time > 0.0 and last_result == "deflected"
-	impact.position = facing * 0.9 + Vector3.UP * 1.25
-	impact.rotation.y = atan2(-facing.x, -facing.z)
-	impact.scale = Vector3.ONE * (1.0 + (0.32 - flash_time) * 2.0)
-	broken_halo.visible = phase == Rules.Phase.BROKEN
-	indicator.visible = debug_hitboxes and phase in [Rules.Phase.WINDUP, Rules.Phase.ACTIVE]
-	indicator.position = facing * attack_range * 0.5 + Vector3.UP * 0.055
-	indicator.rotation.y = atan2(-facing.x, -facing.z)
-	indicator.material_override.albedo_color = Color(1.0, 0.22, 0.08, 0.48) if phase == Rules.Phase.ACTIVE else Color(1.0, 0.65, 0.18, 0.2)
+	sync_visual(delta)
 
 static func material(color: Color, glow := false) -> StandardMaterial3D:
 	var mat := StandardMaterial3D.new()

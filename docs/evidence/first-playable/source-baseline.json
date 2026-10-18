@@ -1,0 +1,9 @@
+{
+  "repository": "https://github.com/exnex/Boneshed",
+  "main": "ab525526a8c7971d5fac89a136e7a3ea7887b0d1",
+  "merged_pr": 15,
+  "tree": "8dfcfe4af4b0244cb09334ec63e95a4b2b0e870e",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "initial_shell_fetch": "blocked by sandbox socket restriction; exact GitHub connector tree and commit reconstructed/verified, then normal git fetch completed with socket access",
+  "execution": "Linux x86_64, GL Compatibility, llvmpipe"
+}

@@ -3,7 +3,7 @@ config_version=5
 
 [application]
 config/name="Boneshed — Courtyard Duel"
-run/main_scene="res://scenes/courtyard.tscn"
+run/main_scene="res://scenes/salvage_courtyard.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [display]
@@ -24,3 +24,11 @@ environment/defaults/default_clear_color=Color(0.055, 0.07, 0.085, 1)
 
 [physics]
 common/physics_ticks_per_second=60
+
+[layer_names]
+3d_physics/layer_1="Environment"
+3d_physics/layer_2="Fighters"
+
+[layer_names]
+3d_physics/layer_1="Environment"
+3d_physics/layer_2="Fighters"

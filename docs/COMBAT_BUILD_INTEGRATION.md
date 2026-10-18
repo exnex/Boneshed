@@ -1,5 +1,13 @@
 # Gate 2 — courtyard combat from shared builds
 
+**Current playable milestone:** [First playable guide](FIRST_PLAYABLE.md). Catalog
+0.3.0 integrates Marrow Lunge and victory → salvage → equip → next duel into the normal
+entry scene. Marrow Arm preserves the 0.16 s deflection window; its former −0.05 s
+fixture penalty is removed. The sections below record this foundation's original
+scope/proposals. The anatomy graph remains isolated; only its build-version pin and
+regenerated examples change.
+
+
 **Confirmed task:** integrate PR #8's shared build foundation without changing the
 Combat Iteration 2 duel. Baseline: `4c651e3` on `main`, fetched before implementation;
 PR #8 and Combat Iteration 2 are merged, and no open PRs were returned at preparation.
