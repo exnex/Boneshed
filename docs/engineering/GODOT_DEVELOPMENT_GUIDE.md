@@ -5,7 +5,7 @@
 **[Boneshed]**, **[Opinion]**) are defined in [GDSCRIPT_GUIDE.md](GDSCRIPT_GUIDE.md); sources are in
 [SOURCES.md](SOURCES.md).
 
-This guide is an engineering standard. Where it mentions combat behavior (input buffers,
+This guide is a proposed engineering standard until PR #14 is merged. Where it mentions combat behavior (input buffers,
 tick resolution, Tower snapshots), it describes **how to build** such a feature if one is
 approved. It doesn't approve the mechanic; [DECISIONS.md](../DECISIONS.md) does that.
 
@@ -131,7 +131,8 @@ past-tense notifications with no state, and never route combat resolution throug
   **[Boneshed]** rule for combat.
 - Today `Swordsman` reacts to being hit by polling `event_serial` and `last_result`. That's
   deterministic and explicit within the tick. A signal (`hit_received(result)`) would be
-  equally deterministic, because emission is synchronous, and more conventional. Convert when
+  equally deterministic with an explicitly ordered, synchronous connection (the default),
+  and more conventional. Convert when
   a second listener (audio, VFX) appears, not before. **[Boneshed]**
 - Result codes that cross modules (`"guard"`, `"deflected"`, `"evaded"`) should become an
   `enum` or `StringName` constants before more consumers compare them. See the audit.
@@ -139,7 +140,8 @@ past-tense notifications with no state, and never route combat resolution throug
 ## 6. Deterministic combat simulation
 
 **What exists [Boneshed]:** `CombatState` is pure and typed. It advances by `delta` with
-overshoot carried across phase boundaries (timing independent of frame rate). Hits are
+overshoot carried across phase boundaries. This preserves phase durations; it does not
+make hit sampling independent of step size (a large step can skip the active window). Hits are
 resolved once per swing in a fixed player-first order, and the tests drive it at a fixed 60 Hz.
 Encounter traces are compared byte for byte.
 
@@ -153,9 +155,11 @@ Encounter traces are compared byte for byte.
    with an explicit `step(delta)` called by the encounter, or set
    `process_physics_priority`. **[Official]** mechanisms; **[Boneshed]** recommendation.
 2. **Fixed tick for rules.** Keep rule time in `_physics_process` at
-   `physics_ticks_per_second = 60`. If Tower replays or server validation are approved, move
-   rule timing to **integer ticks** (frames) rather than accumulated float seconds, so a replay
-   is bit-exact across machines. **[Consensus]**
+   `physics_ticks_per_second = 60`. If Tower replays or server validation are approved,
+   consider **integer ticks** for rule timers. They remove timer accumulation drift, but do
+   **not** make `move_and_slide`, physics queries, floating-point positions, AI or a whole
+   replay bit-exact across machines. Verify supported-platform replays and design authoritative
+   validation/correction before promising lockstep behavior. **[Boneshed]** proposed approach.
 3. **No engine RNG in rules.** Any future randomness in combat (AI choice, crit) takes a
    seeded stream passed in, recorded with the encounter. **[Boneshed]**
 4. **Tie rules are rules.** Simultaneous hits, same-tick inputs (dodge > guard > attack) and
@@ -164,23 +168,24 @@ Encounter traces are compared byte for byte.
 
 ## 7. Physics ticks, input and responsiveness
 
-- **Input.** Continuous input (movement vector, held guard) can be polled in
-  `_physics_process`. One-shot presses (attack, dodge) are polled with
-  `is_action_just_pressed` today. Community reports describe dropped or duplicated presses
-  when polling in physics on older 4.x versions, reportedly fixed in mid-2023 (not
-  verified against the 4.7.2 source here). Boneshed's input tests inject events through
-  `Input.parse_input_event` at 60 Hz, so they don't exercise high-refresh or low-FPS
-  edges. **[Consensus]**, unverified for 4.7.2.
-  If buffering is approved (proposed in [COMBAT_REVIEW.md §6.6](../COMBAT_REVIEW.md)),
-  capture presses in `_unhandled_input` into a timestamped buffer that the rules consume per
-  tick. That is the robust form whatever the polling semantics.
+- **Input.** Polling `is_action_just_pressed()` in `_physics_process` is supported: the
+  4.7.2 reference and source track the press for the current physics tick independently of
+  the render frame. Old forum reports do not establish a current polling bug. **[Official]**
+  A press can still be rejected by gameplay state; an input buffer would change that behavior
+  and needs approval. Existing 60 Hz injected-event tests don't cover physical devices or
+  high-refresh/low-FPS edges.
+  `Input` polling ignores whether UI marked an event handled. Gate controller polling while
+  a menu owns input; `_unhandled_input` is useful for gameplay events routed past the UI.
+  If buffering is approved ([COMBAT_REVIEW.md §6.6](../COMBAT_REVIEW.md)), consume each queued
+  press once and clear stale input on reset, focus loss and menu transitions.
 - **Camera / mouse** stays event-driven (`_unhandled_input`), as in `Player`. **[Official]** pattern.
 - **Physics interpolation is off** (`physics/common/physics_interpolation = false`, the default),
   and `physics_jitter_fix = 0.5`. With 60 Hz ticks on a 144 Hz display, actor and camera
   motion update in 60 Hz steps. The official docs describe the resulting jitter, and also that
   interpolation adds input delay "in fast twitch games". **[Official]** Whether to enable it,
   and whether the camera should update in `_process`, is a **feel decision for a human
-  playtest on a high-refresh monitor**. It's contested, so don't flip it in passing.
+  playtest on a high-refresh monitor**. It's contested, so don't flip it in passing. If enabled,
+  call `reset_physics_interpolation()` after teleports/resets to avoid streaking. **[Official]**
 - **Physics engine is implicit.** `project.godot` doesn't set `physics/3d/physics_engine`, so it
   runs `DEFAULT`, which in 4.7 "is currently equivalent to GodotPhysics3D, but may change in
   future releases". New 4.6+ projects default to Jolt. **[Official]** Pin one explicitly before
@@ -204,14 +209,19 @@ move timing out of the build data, so it needs an owner decision here.
   `callback_mode_process = PHYSICS` (or `MANUAL` + `advance(delta)` from the tick owner). The
   4.7.2 default is `IDLE`, which advances animation on render frames and drifts from ticks.
   **[Official]** property and default.
-- **Don't use method-call tracks to open or close hit windows.** Their timing depends on
-  `callback_mode_method` (deferred by default) and frame rate. Community reports describe
-  one-frame-late hitbox toggles. **[Official]** setting; **[Consensus]** reports.
+- **Boneshed default:** keep hit windows in rule state. Method-call tracks are not inherently
+  nondeterministic: physics/manual advancement and immediate method callbacks can be ordered
+  explicitly. Deferred callbacks (the default) and physics overlap refresh can add latency.
+  Test the actual sequence before changing an animation-driven design. **[Official]** settings;
+  **[Boneshed]** default. Historical forum reports do not prove a 4.7.2 defect.
 - **Hit queries.** Today: an analytic oriented box plus one environment ray, evaluated on
   active ticks only. That's deterministic, cheap and tested; keep it until shapes must follow
   anatomy. Then prefer **direct space queries** (`PhysicsDirectSpaceState3D.intersect_shape`,
   `ShapeCast3D` forced updates) during active ticks over `Area3D` enter/exit signals, which
-  report overlaps after the physics step and are harder to order. **[Consensus]**
+  use cached overlaps refreshed on physics steps. A direct query sees the current physics
+  world, not an automatically refreshed Area overlap list. Query during physics processing;
+  arbitrary deferred callbacks may run outside the safe access window, especially with threaded
+  physics. **[Official]** semantics; **[Boneshed]** preference, no measured speed comparison.
 - **Telegraph readability** is a test target. The timing suite captures rendered poses at
   windup, commit, release, active and recovery and checks the blade pose against the rule
   phase. Every new attack module gets the same captures and a human readability review.
@@ -220,9 +230,10 @@ move timing out of the build data, so it needs an owner decision here.
 
 ## 9. Character controllers and state machines
 
-- `CharacterBody3D` + `move_and_slide()` in `_physics_process`. Horizontal velocity is
-  integrated as one vector (a review fix), gravity applies off-floor, and dodge keeps only the
-  aligned momentum. Preserve these fixes when refactoring.
+- `CharacterBody3D` + `move_and_slide()` in `_physics_process`. `velocity` is units/second;
+  don't multiply it by `delta` before `move_and_slide()` (the method integrates time).
+  Horizontal velocity is integrated as one vector (a review fix), gravity applies off-floor,
+  and dodge keeps only the aligned momentum. Preserve these fixes when refactoring.
 - **State machines:** a typed `enum` + `match` in the owning class (as in `CombatState.Phase`)
   is the right size for one actor. A node-per-state framework adds lifecycle and indirection;
   consider it only when states need their own scene data (e.g. per-state VFX nodes) **and**
@@ -237,10 +248,11 @@ move timing out of the build data, so it needs an owner decision here.
   "shared builds" honest: an enemy can't do what the rules don't allow.
 - Determinism: AI decisions that use randomness take a seeded stream (§6). Current AI is fully
   deterministic, which the adversarial probe depends on.
-- Navigation: the courtyard needs none. For worldgen spaces, use `NavigationRegion3D` +
-  `NavigationAgent3D`, with baked navmeshes per generated chunk, and give the agent's
-  avoidance and path updates a fixed cadence. Treat the navmesh as a generated asset, keyed
-  by the world seed. **[Official]** components; the plan is **[Boneshed]**, unvalidated.
+- Navigation: the courtyard needs none. When traversal needs it, evaluate a minimal
+  `NavigationRegion3D` / `NavigationAgent3D` prototype before choosing chunk baking or
+  avoidance. Navigation maps synchronize on physics frames; an immediate path query after
+  adding a region can be empty. Cache keys would need geometry, generator version and bake
+  settings as well as seed. **[Official]** lifecycle; **[Opinion]** future design.
 - Fairness constraints belong in tests: the probe measures exploit strategies. Every new
   behavior gets a probe scenario, not just a positive test.
 
@@ -309,21 +321,27 @@ already follow from the architecture:
 - The server re-resolves snapshots with the same rules to validate them; the client's
   computed values are never trusted.
 - If results must be verified, record **inputs per tick + seeds**, and replay them on a
-  trusted host with integer-tick rules (§6).
+  trusted host. Integer rule timers alone do not guarantee replay agreement (§6); a server
+  simulation or validated correction scheme still needs a concrete design.
 - Old snapshots need **catalog migration or retirement rules** before the first public test.
 
 **Security boundaries for online systems.** Never trust client-submitted rewards, inventory,
 trades or Tower results (AGENTS.md). Parse network and save payloads only as JSON or primitive
 `Variant`s. Never use `bytes_to_var_with_objects` or load `.tres`/`.res`/`.tscn` from player
 data. Validate exact keys, types, ranges and catalog versions, as the existing strict loaders do.
-Treat the web export as inspectable: no secrets in the client.
+JSON prevents object-code deserialization, not denial of service or cheating: bound payload
+size/depth/collection counts, reject non-finite/out-of-range numbers before conversion, and
+verify authorization server-side. These are requirements for future untrusted ingress, not a
+claim that the prototype loaders implement a complete network boundary. Treat the web export
+as inspectable: no secrets in the client.
 
 ## 13. 3D production
 
 **Rendering and profiling.** GL Compatibility is pinned for the cloud prototype; the desktop
 GPU renderer is a pending decision. Measure on real desktop hardware with the Godot
 profiler and monitors (`Performance.get_monitor` for draw calls, objects, physics time). The
-cloud's llvmpipe numbers measure correctness only, never performance. **[Official]**,
+cloud's llvmpipe frame times do not predict desktop GPU performance. Headless CPU experiments
+can measure a scoped CPU cost if the hardware and limitations are recorded. **[Official]**,
 **[Measured]**. Record budgets once art exists. Inventing them now would be guesswork.
 
 **Collision architecture.** Name the physics layers in Project Settings
@@ -331,9 +349,10 @@ cloud's llvmpipe numbers measure correctness only, never performance. **[Officia
 `2 = fighters` appear as literals in three scripts. Hurt and hit volumes should get their own
 layers when shape-based hit queries arrive, so queries can't hit the environment by accident.
 
-**AnimationTree / AnimationPlayer / Skeleton3D.** Use one `AnimationTree` per character,
-driven from rule phase (§8). Keep animation libraries as `.res`/`.tres` resources shared by all
-users (read-only at runtime). Use `SkeletonModifier3D` subclasses for procedural layers, with
+**AnimationTree / AnimationPlayer / Skeleton3D.** Use `AnimationTree` when blending or
+transitions need it; simple clips can use `AnimationPlayer`, and procedural poses remain
+valid. Drive presentation from rule phase (§8). Keep animation libraries as `.res`/`.tres`
+resources shared by all users (read-only at runtime). Use `SkeletonModifier3D` subclasses for procedural layers, with
 `_process_modification_with_delta()` (4.5+ signature). Write explicit values for modifier
 properties instead of relying on defaults: AI Game Dev Lab found a `LookAtModifier3D.relative`
 default change in a *patch* release. **[Official]** class references; **[Measured]** in the lab
@@ -357,7 +376,7 @@ That's harmless at prototype scale; replace it when real assets land. **[Officia
 
 ## 14. Quality assurance
 
-Boneshed's QA practice is already stronger than most Godot projects': pinned engine with checksum
+Boneshed's existing QA includes a pinned engine with checksum
 verification, external timeouts, fresh evidence directories, JSON-line results, **negative
 controls that must fail**, source-mutation controls, byte-compared regenerated examples, rendered
 captures under Xvfb, and an adversarial probe. **[Measured]** Keep all of it. The rules below
@@ -372,8 +391,9 @@ fill gaps.
 | Adversarial | `adversarial_probe.gd` | Exploit strategies with legal inputs | Fun |
 | Human | Desktop playtest | Readability, fairness, responsiveness | Regression safety |
 
-- **Positive and negative controls.** Every new check should have a known-bad variant that fails
-  it (the existing `--negative=` flags). When a check can't fail, it isn't a check.
+- **Positive and negative controls.** Prefer tests that distinguish a plausible defect. Add
+  a targeted negative control or mutation for important wiring/validation invariants and
+  regressions; not every small behavior or assertion needs its own mutation harness.
 - **Make values observable.** A test that changes catalog data must *also* change the runtime
   value under test. A default that equals the data hides a dropped field
   ([evidence](../evidence/engineering-audit/README.md#3-adapter-field-name-mutation-does-any-test-notice-a-dropped-field)).
@@ -382,7 +402,8 @@ fill gaps.
 - **Screenshots** prove a frame rendered with some content. They don't prove readability or feel,
   and llvmpipe output isn't a GPU reference. Use them for pose/phase agreement and gross
   regressions; don't pixel-diff across renderers or drivers.
-- **Headless vs rendered.** Headless has no frames: `RenderingServer.frame_post_draw` never fires
+- **Headless vs rendered.** Headless still runs process and physics frames, but has no rendered
+  output: `RenderingServer.frame_post_draw` does not fire in this configuration
   and screenshots are impossible. Keep rendered checks in their own runs. **[Measured]**
 - **Human playtesting** is the only gate for feel. Reports must say what was played, on what
   hardware and refresh rate, and which build.
@@ -406,6 +427,9 @@ fill gaps.
 - Directory layout stays by domain (`scripts/combat`, `scripts/builds`, …). Put a scene and
   its script side by side once scenes exist (`characters/fighter.tscn` + `fighter.gd`).
   **[Official]** project organization suggests grouping by feature.
+- Commit Godot `.uid` sidecars (and source `.import` settings); do not commit the generated
+  `.godot/` cache. Moving assets in the editor preserves UID references; raw path references
+  still need updating. **[Official]**
 - Input actions belong in `project.godot`'s `[input]` section once rebinding or settings are
   in scope. Today they are registered in code (`courtyard._setup_input`), which the tests rely on.
 
@@ -421,21 +445,8 @@ fill gaps.
 | Scene inheritance depth | Variant reuse vs fragile overrides | Shallow; prefer exported properties |
 | Test framework (GUT, GdUnit4) vs custom harness | Features vs zero dependencies | Custom harness; propose a framework only with a concrete need |
 
-## 17. Self-review notes (2026-10-18)
+## 17. Independent review
 
-The guides were reviewed against the questions in the task brief before merging:
-
-- **Godot-specific evidence** backs typing, autoload caution, scene dependency injection,
-  resource sharing and copying, `assert` stripping, JSON number types, RNG notes, physics engine
-  defaults, interpolation trade-offs, animation callback modes and import formats.
-- **General engineering preference, not Godot evidence:** composition over deep inheritance,
-  "abstraction after the second use", the module-registration contract, and integer ticks for
-  replays. They're tagged **[Consensus]** or **[Boneshed]**.
-- **Complexity risks deliberately avoided:** no recommendation to type the JSON layers through
-  wrapper classes, no mandatory test framework, no preemptive scene migration, no blanket
-  warnings-as-errors, no performance work without a profile.
-- **Possible misreadings by agents:** "prefer `extends Fighter`" and "use enums for results"
-  are *when touched* items, not a license to sweep the codebase. AGENTS.md says so explicitly.
-- **Conflicts with existing architecture:** none intended. Where the guide differs from current
-  code (explicit tick owner, presentation extraction), it names a trigger instead of
-  demanding a refactor.
+[The independent PR #14 review](../evidence/engineering-review/README.md) records corrected
+claims, reproducible experiments, remaining uncertainties and merge readiness. Historical
+community/lab reports are context, not proof of a defect in the pinned engine.

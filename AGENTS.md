@@ -20,7 +20,7 @@ Deliver a focused, testable third-person precision-combat game. Prove one excell
 - Avoid inventing the exact Godot version: check and pin an approved installed stable version in `project.godot` and tooling when the engine project begins.
 
 ## Engineering standards
-These are approved engineering standards, not gameplay decisions. They govern how code is built; `docs/DECISIONS.md` governs what is built.
+The guides in PR #14 are proposed until that PR is merged. Once merged, they govern how code is built; `docs/DECISIONS.md` governs what is built.
 - Before a substantive code change, consult the relevant sections of [`docs/engineering/`](docs/engineering/README.md) and work through [`AGENT_CHECKLIST.md`](docs/engineering/AGENT_CHECKLIST.md).
 - Guide items marked **MUST** are required. If you deviate from one, say why in the PR. Other guidance is a default; use judgment.
 - Check [`CODE_AUDIT.md`](docs/engineering/CODE_AUDIT.md) for known findings in files you touch. Fix them only when the backlog trigger applies and the fix is small and in scope. Don't refactor speculatively or fold unrelated cleanup into a feature PR.

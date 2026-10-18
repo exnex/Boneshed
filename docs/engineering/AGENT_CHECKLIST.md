@@ -2,7 +2,8 @@
 
 Use this before opening a PR that changes code. It condenses the [GDScript guide](GDSCRIPT_GUIDE.md),
 the [development guide](GODOT_DEVELOPMENT_GUIDE.md) and the [audit](CODE_AUDIT.md). It isn't a
-substitute for them, and not every line applies to every change.
+substitute for relevant sections. Skip inapplicable items; within these guides only **MUST**
+rules become mandatory after PR #14 merges. Existing `AGENTS.md` requirements still apply.
 
 ## Before editing
 
@@ -15,9 +16,12 @@ substitute for them, and not every line applies to every change.
 
 ## While editing
 
-- [ ] Runtime code is statically typed. `Variant` data is converted at a marked boundary.
-- [ ] No new autoload, global mutable state, plugin, asset or dependency without explicit approval.
-- [ ] No new string-keyed `set()`/`get()`/`call()`/event codes without validation or an enum.
+- [ ] Added/modified runtime declarations are typed (inference counts); deliberate dynamic
+      boundaries use `Variant`/validation or a documented duck-typing reason.
+- [ ] Explain ownership/reset for new global state or autoloads in the PR. Obtain approval
+      for third-party assets/dependencies as required by `AGENTS.md`.
+- [ ] Dynamic names at module boundaries are validated or use named constants/enums;
+      ordinary local dictionary access does not need a separate framework.
 - [ ] No duplicated state: derive it instead of storing it twice.
 - [ ] Shared or loaded data isn't mutated; copy at the point of mutation.
 - [ ] Rules don't read input, AI or visuals. Presentation reads rule state and never decides hit timing.
@@ -30,8 +34,10 @@ substitute for them, and not every line applies to every change.
 
 - [ ] Run the relevant runners (`test.sh`, `test_builds.sh`, `test_worldgen.sh`, `test_anatomy.sh`;
       `test_web.sh` for export or input changes). Report exactly what ran and what didn't.
-- [ ] New behavior has a check **and** a negative control or mutation that makes the check fail.
+- [ ] Test meaningful new behavior; use negative controls/mutations where they guard an
+      important invariant or regression, rather than requiring one for every assertion.
 - [ ] A test that changes data asserts a runtime value that differs from its default.
-- [ ] Performance claims come with a measurement on representative hardware (not llvmpipe).
+- [ ] Performance claims have scoped measurements; llvmpipe frame times do not predict
+      desktop GPU performance. Routine simplifications do not require a benchmark.
 - [ ] Deviations from a guide **MUST** rule are stated and justified in the PR.
 - [ ] Don't claim feel, readability or fun from automated runs.

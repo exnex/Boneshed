@@ -1,7 +1,7 @@
 # GDScript Engineering Guide — Boneshed
 
 **Engine:** Godot 4.7.2 stable (`4.7.2.stable.official.ed1daf0bf`). **Written:** 2026-10-18.
-**Status:** approved engineering *standard* once merged. It governs how code is written,
+**Status:** proposed engineering *standard* until PR #14 is merged. It governs how code is written,
 not which mechanics exist; gameplay rules stay in [DECISIONS.md](../DECISIONS.md).
 
 Each recommendation carries an evidence tag. Sources and their quality are listed in
@@ -10,7 +10,7 @@ Each recommendation carries an evidence tag. Sources and their quality are liste
 | Tag | Meaning |
 | --- | --- |
 | **[Official]** | Godot 4.7 documentation or the class reference at tag `4.7.2-stable` |
-| **[Measured]** | Reproduced in this repository or in AI Game Dev Lab, with a recorded experiment |
+| **[Measured]** | Reproduced with a recorded experiment; external lab reports are identified separately and are not independent verification |
 | **[Consensus]** | Broad engineering or Godot-community practice from several independent sources |
 | **[Boneshed]** | A project-specific choice, justified by Boneshed's architecture or goals |
 | **[Opinion]** | Reasonable but contested. Use judgment and don't enforce it |
@@ -24,12 +24,14 @@ default: deviate when you have a reason, and write the reason in the PR.
 
 **MUST: type every member variable, parameter and return value you add or modify in runtime
 gameplay code** (`scripts/combat`, `scripts/characters`, `scripts/ai`, future controllers and
-modules). This doesn't require retrofitting untouched lines.
+modules). Inference (`:=`, including default parameter values) counts. Explicit `Variant`
+is appropriate at validated dynamic boundaries; explain deliberate duck typing rather than
+adding wrappers or suppressions just to satisfy this rule. Don't retrofit untouched lines.
 **[Official]** Typed code catches errors at parse time, improves autocompletion, and "improves
 performance by using optimized opcodes when operand/argument types are known at compile
-time." **[Measured]** In AI Game Dev Lab's Signal Yard fixture, resetting an untyped `Variant`
-from `0.0` to `0` turned it into an `int`, and a tween then quantized a door animation to
-0→1 in one frame. A `: float` declaration would have stopped that.
+time." A historical external lab report describes a tween quantized after an untyped
+`Variant` changed from `0.0` to `0`. That tween fixture was not independently reproduced
+here; the language-level type change is enough reason to prefer an explicit float type.
 
 ```gdscript
 # Preferred
@@ -43,8 +45,10 @@ remaining = 0                        # now an int
 
 - `:=` inference is fine when the right-hand side's type is obvious from the line
   (`var speed := 5.5`, `var state := CombatState.new()`). Write the type out when the value
-  comes from a `Variant` source (`Dictionary` access, `get()`, JSON, `get_node()`): there
-  `:=` infers `Variant` or fails. **[Official]**
+  comes from a `Variant` source (untyped `Dictionary` access, `Object.get()`, JSON): there
+  inference can produce `Variant` and a warning/error. `get_node()` returns `Node`, so
+  `var child := get_node("Child")` is valid; use a checked cast when a subtype is needed.
+  Typed dictionary access can also infer its declared value type. **[Official]**
 - Mark the typed boundary where `Variant` data enters, and convert there:
   `var damage: float = float(attack.health_damage)`.
 - Typed arrays and dictionaries (`Array[Fighter]`, `Dictionary[StringName, float]`) are
@@ -56,15 +60,17 @@ remaining = 0                        # now an int
   There, type the *function signatures* and locals you create, and leave dictionary field
   access dynamic. Validation functions, not the type system, own correctness in those
   layers. **[Boneshed]**
-- Performance is a secondary reason for typing. Typed opcodes are measurably faster in
-  microbenchmarks (an engine PR reported >40% on synthetic loops), but nobody has measured
-  a frame-time gain in Boneshed. Don't cite speed as the reason for a typing PR. **[Official]
-  mechanism, [Opinion] magnitude.**
+- Performance is a secondary reason for typing. Optimized opcodes exist, but nobody has
+  measured a frame-time gain in Boneshed. Engine PR #70838 compares VM revisions; its
+  typed/untyped examples also change container types. Its >40% figure is not an isolated
+  benefit of adding annotations. Don't promise a speedup from a typing PR. **[Official]**
+  mechanism; maintainer-source historical benchmark (quality C), not a Boneshed measurement.
 
 **Warnings.** Godot 4.7 can warn on `UNTYPED_DECLARATION`, `INFERRED_DECLARATION` and
 `UNSAFE_*`, scoped per directory by `debug/gdscript/warnings/directory_rules`. **[Official]**
 They are off today. A census found 844 reports in production scripts, almost all in the
-JSON rules layers; the combat path has 12. See the
+JSON rules layers. The four actor/rule scripts have 12, and `build_adapter.gd` adds 28
+(40 across the current combat/characters/AI directories). See the
 [evidence](../evidence/engineering-audit/README.md#4-static-typing-warning-census). Enabling
 `UNTYPED_DECLARATION = Warn` for the runtime directories is a proposed backlog item
 ([CODE_AUDIT.md](CODE_AUDIT.md)), not something to switch on as a side effect of an
@@ -78,10 +84,11 @@ unrelated PR.
   `CombatState` and a `Rules` alias for the same script in one function. **[Official]
   mechanism, [Boneshed] convention.**
 - **Prefer `extends Fighter` over `extends "res://…/fighter.gd"`** when a `class_name`
-  exists. Path strings break silently when a file moves. **[Consensus]**
+  exists. Both forms are valid: a stale path produces a load/parse error, not a silent
+  failure. A private `preload` alias is also reasonable. **[Boneshed]** preference.
 - **Composition over deep inheritance.** One level of `extends` from a shared base
-  (`Fighter` → `Player` / `Swordsman`) is fine. A third level, or a base class that grows
-  `if is_player` branches, is the signal to extract a component or pass a strategy object.
+  (`Fighter` → `Player` / `Swordsman`) is fine. Depth alone is not an extraction trigger;
+  extract when independently varying behavior or unrelated edits make the base hard to maintain.
   **[Consensus]** Godot's docs frame this as small, loosely coupled scenes. **[Official]**
 - **Duck typing across module boundaries is a deliberate tool, not a default.**
   `build_projection.gd` reads the build catalog duck-typed so the anatomy core has no
@@ -136,15 +143,18 @@ listens. Signals "respond to behavior", they don't start it.
 | Outcome must be resolved in a defined order within one tick | Explicit call from one orchestrator, **not** signals |
 | Many unrelated systems react to rare global events (achievement, save) | Possibly an autoload event bus. See §4 of the Development Guide |
 
-- Signal emission is synchronous. Handlers run in connection order, inside the emitter's
-  call. Don't put combat-resolution order inside signal handlers; it hides ordering in
+- Signal connections run synchronously by default; `CONNECT_DEFERRED` schedules the
+  handler for idle time. A synchronous handler can also re-enter or mutate the emitter.
+  Don't put combat-resolution order inside signal handlers; it hides ordering in
   `connect()` calls. **[Official]** semantics, **[Boneshed]** rule.
 - Lambdas capture local variables **by value, once**. Reassigning the outer variable later
-  doesn't affect the lambda. Godot 4.7 warns (`CONFUSABLE_CAPTURE_REASSIGNMENT`).
+  doesn't affect the lambda. Captured arrays, dictionaries and objects still share their
+  contents; capture-by-value does not deep-copy them. Godot 4.7 warns on reassignment
+  (`CONFUSABLE_CAPTURE_REASSIGNMENT`).
   **[Official]**
 - "If the callable's object is freed, the connection will be lost." **[Official]** A lambda's
-  object is the instance that created it, so a lambda can still fire after the *captured*
-  nodes it uses have been freed. Guard captured references with `is_instance_valid()`, or
+  object for an instance-method lambda is the instance that created it. The lambda can
+  still fire after the *captured* nodes it uses have been freed. Guard captured references with `is_instance_valid()`, or
   connect a method on the real receiver instead. **[Official]** behavior; **[Consensus]** practice.
 
 ## 5. Errors, validation and nullability
@@ -178,22 +188,31 @@ Language rules:
   this for `opponent`.
 - `queue_free()` deletes at the end of the frame, so the node is still accessible until
   then. Check `is_queued_for_deletion()` where that matters. **[Official]**
-- `await` on a node that may be freed mid-wait resumes against invalid state. Re-check
-  `is_instance_valid(self)` after awaits in long coroutines. **[Consensus]**
+- **Coroutines and lifetime.** A coroutine whose owning node is freed cannot execute a
+  post-`await` self-check. A surviving owner must re-check *other* node references after
+  an await, and handle reset/cancellation (for example, an encounter generation token).
+  Don't depend on a freed signal emitter completing a wait or on a coroutine for cleanup.
+  **[Measured]** [independent probe](../evidence/engineering-review/README.md#lifetime-and-api-probe).
+- `as SomeNode` returns `null` on a failed object cast; a type annotation is not payload
+  validation. Use a checked cast or `is` test at optional/dynamic boundaries. **[Official]**
 
 ## 6. Copying versus sharing mutable data
 
 **[Official]** `Array`, `Dictionary`, packed arrays and all `Object`s (including `Resource`)
 are passed **by reference**. Everything else is passed by value.
 
-- **Loaded resources are shared.** `load()`/`preload()` return the *same* cached instance
-  every time, and scene instances share sub-resources (meshes, materials). Mutating a
+- **Loaded resources are shared by default.** `load()`/`preload()` normally reuse the cached
+  instance while it remains referenced; loader cache modes can change this. Scene instances
+  share sub-resources (meshes, materials) unless configured for local copies. Mutating a
   loaded resource at runtime mutates it for every user. Use `duplicate()` (or
   `resource_local_to_scene`) for per-instance state. **[Official]**
 - `Resource.duplicate()` is **shallow** by default. Nested arrays, dictionaries and
   sub-resources stay shared. `duplicate(true)` deep-copies arrays and dictionaries, but in
-  4.7 only *local* sub-resources. Use `duplicate_deep()` with an explicit mode when you need
-  more. **[Official]**
+  4.7 only *internal* sub-resources (no path or a scene-local path; not the same as
+  `resource_local_to_scene`). `duplicate_deep(Resource.DEEP_DUPLICATE_ALL)` also copies
+  external resources. Only exported/storage properties are copied; required `_init`
+  arguments can make duplication fail. `Array.duplicate(true)` / `Dictionary.duplicate(true)`
+  recurse through containers but do not clone contained `Resource` objects. **[Official]**
 - **Freeze shared definitions.** The catalogs call `make_read_only()` recursively on loaded
   definitions, so a consumer that tries to mutate a shared ability fails instead of
   corrupting every wielder. Keep this pattern for any shared definition table. **[Boneshed]**
@@ -205,15 +224,18 @@ are passed **by reference**. Everything else is passed by value.
 
 ## 7. Allocation, per-frame code and performance
 
-**MUST: profile before optimizing, and state the measurement in the PR.** **[Official]**: "the
+**MUST: support performance claims with measurements, and profile before substantial
+performance-driven rewrites.** A routine simplification or obvious removal of redundant work
+doesn't require a benchmark; don't claim a speedup without one. **[Official]**: "the
 most important tool for optimization is the ability to measure performance." Use the Godot
 profiler and monitors on representative scenes. The cloud runs on llvmpipe, so software-
 rendered frame times **are not representative** of desktop GPUs. **[Measured]**
 
-Defaults that cost nothing and avoid known traps:
+Practical defaults (not measured speedups in Boneshed):
 
-- Cache node references in `@onready` or `_ready`. Don't call `get_node()` / `$Path`
-  inside `_physics_process` loops. **[Consensus]**
+- Cache repeatedly used node references in `@onready` or `_ready` when their lifetime is
+  stable. An occasional `$Path`/`get_node()` is fine; handle replacement before caching a
+  dynamic target. **[Consensus]**
 - Do game rules in `_physics_process` (fixed 60 Hz here), and visuals that only need to look
   smooth in `_process`. **[Official]**
 - Don't build strings for HUD or logging every frame in hot paths without need. Heavy
@@ -221,7 +243,8 @@ Defaults that cost nothing and avoid known traps:
 - `RefCounted` frees deterministically when its count reaches zero; there is no tracing GC.
   **Reference cycles leak.** Break them with `weakref()` or by making one side a plain
   `Object`/`Node` with explicit ownership. **[Official]**
-- Allocation in GDScript means `Variant` construction plus ref-count traffic, not GC pauses.
+- Allocation can include heap allocation, container growth and ref-count traffic. RefCounted
+  destruction can also cause a spike; absence of tracing GC does not make allocation free.
   A small array literal in a per-tick check (`phase in [A, B, C]`) is fine at Boneshed's
   scale. Don't rewrite it without a profile showing it matters. **[Opinion]** (unmeasured either way)
 
@@ -240,7 +263,8 @@ is an architecture decision for the human owner. **[Official]** options; order *
   **[Official]**
 - **Exported builds don't contain arbitrary files.** Non-resource data such as JSON has to
   be listed in the export preset `include_filter`, as `data/builds/*.json` is today. Adding a
-  new runtime JSON file means updating `export_presets.cfg` and re-running the web test.
+  new runtime JSON file means checking it matches an existing include pattern (and updating
+  the preset if needed), then validating the export with the web test.
   **[Measured]** in this repo's existing export configuration.
 
 ## 9. Determinism and randomness
@@ -274,6 +298,9 @@ is an architecture decision for the human owner. **[Official]** options; order *
   Boneshed builds and bodies are strict JSON. **[Boneshed]**
 - **JSON turns every number into `float`** **[Official]**, **[Measured]**. Cast explicitly
   (`int(x)`) when a field is semantically an integer. Validate that it was integral.
+- `JSON.parse_string()` returns `null` both for malformed input and valid JSON `null`. Use
+  `JSON.new().parse()` when the error matters. Godot also accepts some nonstandard syntax
+  (such as trailing commas); strict schema validation is not strict RFC parsing. **[Official]**
 - Every persisted document carries `schema` and a catalog version, as builds, bodies and
   salvage refs already do. A loader rejects unknown versions instead of guessing.
   **[Boneshed]**
@@ -293,7 +320,7 @@ is an architecture decision for the human owner. **[Official]** options; order *
 | Untyped variable changes type on reassignment | Integer math, quantized tweens | Static types (§1) |
 | `Object.set("typo", v)` | Silently ignored | Typed assignment, or check `name in obj` |
 | Mutating a loaded `Resource` | Change appears on every instance | `duplicate()` at the mutation point |
-| Shallow `duplicate()` | Nested dictionary still shared | `duplicate(true)` / `duplicate_deep()` |
+| Shallow `duplicate()` | Nested dictionary still shared | Choose the correct container/Resource copy policy (§6) |
 | `assert()` with side effects | Behavior differs in release | Asserts only check, never act |
 | `_ready()` order | Children are ready *before* parents. An autoload's `_ready` runs before the main scene exists | Parents configure children after the children are ready. Don't reach for the main scene from an autoload's `_ready` |
 | `_ready()` runs once | A node removed and re-added doesn't re-run it | `request_ready()` or explicit `reset()` |

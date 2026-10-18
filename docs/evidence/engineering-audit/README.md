@@ -80,8 +80,8 @@ not printed by `--check-only`, so promoting them to errors is how they were coun
 | `anatomy_rules.gd` / `blueprint_generator.gd` / `build_rules.gd` / `anatomy_catalog.gd` / `build_catalog.gd` | 235 / 152 / 97 / 96 / 70 |
 
 Of the production reports: 323 untyped declarations, 231 unsafe call arguments, 221 unsafe
-method accesses, 60 untyped lambda returns, 9 unsafe property accesses. The real-time combat
-path is almost fully typed. Nearly all reports come from the JSON-shaped `Dictionary` rules
+method accesses, 60 untyped lambda returns, 9 unsafe property accesses. The four actor/rule scripts are almost fully typed; `build_adapter.gd` adds 28 reports
+(40 across combat/characters/AI). These diagnostics are not counts of unique defects. Nearly all reports come from the JSON-shaped `Dictionary` rules
 layers, where values are `Variant` by construction. Counts are indicative: a parse error can
 stop reporting within a file, so treat them as lower bounds.
 
@@ -91,3 +91,10 @@ stop reporting within a file, so treat them as lower bounds.
 class reference ("converting a Variant to JSON text will convert all numerical values to
 float"). Default `JSON.stringify` also emits `0.1 + 0.2` as `0.3` (reliable digits only). The
 catalogs' canonical-JSON fingerprints therefore depend on the engine's float-to-text output.
+
+## 6. Independent verification
+
+[The independent review](../engineering-review/README.md) reproduced all 20 mutations,
+including the same eight undetected fields, and the 2,558/844 warning counts. It also
+corrects the API/lifetime advice and adds a reproducible anatomy-catalog reload finding.
+F1 is a regression and coverage risk in a validated adapter, not a demonstrated exploit.

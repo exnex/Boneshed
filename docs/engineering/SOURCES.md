@@ -5,13 +5,15 @@ environment's network policy. Official documentation was therefore read from its
 repository, [godotengine/godot-docs](https://github.com/godotengine/godot-docs), branch `4.7`
 at commit `9adca4c1c729` (2026-09-21). The class reference was read from
 [godotengine/godot](https://github.com/godotengine/godot) at tag **`4.7.2-stable`**, the pinned
-build. Page links use the expected published 4.7 URLs, which couldn't be opened from this
-environment; the source paths are authoritative.
+build. That access limitation describes the original audit. The independent review on the
+same date could reach the published Resource reference, and re-fetched the pinned source
+files and release checksum. See [independent evidence](../evidence/engineering-review/README.md).
+Version-pinned source links below are preferred for checking API claims.
 
 | Quality | Meaning |
 | --- | --- |
 | **A** | Official documentation or class reference for the pinned version |
-| **B** | Reproduced by an experiment in this repo or AI Game Dev Lab |
+| **B** | Reproduced by an experiment with an inspectable fixture/result; external lab reports alone are not independent verification |
 | **C** | Engine maintainer writing or engine PR (authoritative for mechanism; numbers are microbenchmarks) |
 | **D** | Community reports, forum threads, third-party guides: useful signals, not verified here |
 
@@ -41,13 +43,15 @@ environment; the source paths are authoritative.
 | `ProjectSettings.physics/3d/physics_engine` | DEFAULT = GodotPhysics3D "but may change"; Jolt default for 4.6+ projects |
 | `ProjectSettings.physics/common/physics_interpolation`, `physics_jitter_fix`, `max_physics_steps_per_frame` | Interpolation default off; jitter fix; spiral of death |
 | `ProjectSettings.debug/gdscript/warnings/*` incl. `directory_rules` | Typing warnings and per-directory scoping |
-| `Resource.duplicate`, `duplicate_deep`, `resource_local_to_scene` | Shallow vs deep copy rules |
+| [`Resource.duplicate`, `duplicate_deep`, `resource_local_to_scene`](https://github.com/godotengine/godot/blob/4.7.2-stable/doc/classes/Resource.xml) | Container copies, internal/external subresources, storage properties and constructor limits |
 | `RandomNumberGenerator.seed`, `.state` | Reproducibility, no avalanche, state restore rules |
 | `@GlobalScope.bytes_to_var_with_objects` | "Deserialized object can contain code which gets executed" |
 | `@GDScript.assert` | Not executed in release builds |
 | `JSON`, `JSON.stringify` | All numbers become floats; non-finite handling; lax parsing |
 | `Dictionary` | Insertion order preserved |
-| `Node._ready`, `Node.queue_free`, `Object.free`, `Object.connect`, `@GlobalScope.is_instance_valid` | Lifecycle, deletion and connection semantics |
+| [`Node`](https://github.com/godotengine/godot/blob/4.7.2-stable/doc/classes/Node.xml), [`Object`](https://github.com/godotengine/godot/blob/4.7.2-stable/doc/classes/Object.xml) | Lifecycle, deletion, typed `get_node`, interpolation reset, deferred connections |
+| [`Input`](https://github.com/godotengine/godot/blob/4.7.2-stable/doc/classes/Input.xml), [`input.cpp`](https://github.com/godotengine/godot/blob/4.7.2-stable/core/input/input.cpp) | `is_action_just_pressed` explicitly supports physics ticks; global polling ignores handled UI events |
+| [`NavigationAgent3D`](https://github.com/godotengine/godot/blob/4.7.2-stable/doc/classes/NavigationAgent3D.xml), [physics-query tutorial source](https://github.com/godotengine/godot-docs/blob/9adca4c1c729/tutorials/physics/ray-casting.rst) | Navigation synchronization; safe physics query window |
 | `Node.process_priority`, `process_physics_priority` | Explicit processing order |
 | `AnimationMixer.callback_mode_process` (default IDLE), `callback_mode_method` | Animation/tick synchronization |
 
@@ -55,8 +59,15 @@ environment; the source paths are authoritative.
 
 | Experiment | Location |
 | --- | --- |
+| Independent API/lifetime probes, all 20 adapter mutations, warning census and catalog reload (4.7.2) | [engineering-review](../evidence/engineering-review/README.md) |
 | Silent `Object.set`, adapter field mutation, typing-warning census, JSON number types (4.7.2) | [evidence/engineering-audit](../evidence/engineering-audit/README.md) |
 | Baseline suites on `main` (builds 137, worldgen 80, anatomy 190, combat 118, integration 76, graphical 111, all negative controls) | same |
+
+External lab reports below are historical context, **not independently reproduced evidence
+in this repository**. Do not use them alone to enforce a rule.
+
+| Report | External location |
+| --- | --- |
 | Untyped `Variant` reassigned `0.0 → 0` quantizes a tween (Signal Yard) | AI Game Dev Lab `11-research-watch/cloud-godot-3d-prototype-2026-10-15.md` |
 | `frame_post_draw` hangs headless; `--script` runtime errors don't exit | AI Game Dev Lab `11-research-watch/cloud-godot-evaluation-2026-10-15.md` |
 | `SkeletonIK3D` deprecation timeline; `LookAtModifier3D.relative` patch-release default change; agents generate outdated IK APIs | AI Game Dev Lab `13-technology-index/godot-procedural-animation.md` (class-reference diff across tags, not a game test) |
@@ -64,14 +75,14 @@ environment; the source paths are authoritative.
 ## Maintainer / engine sources (C)
 
 - [GDScript progress report: typed instructions](https://godotengine.org/article/gdscript-progress-report-typed-instructions) — mechanism for typed opcodes.
-- [godotengine/godot PR #70838](https://github.com/godotengine/godot/pull/70838) (Jan 2023) — reported >40% speed-up on typed synthetic loops in release builds. Microbenchmark; not a game measurement.
+- [godotengine/godot PR #70838](https://github.com/godotengine/godot/pull/70838) (Jan 2023), "Optimizations for GDScript VM" — reported >40% improvement for typed code **between VM revisions**, not the isolated benefit of typing. The typed/untyped examples also use different containers. Historical microbenchmark; not a game measurement.
 - [Design of the Skeleton Modifier 3D](https://godotengine.org/article/design-of-the-skeleton-modifier-3d/) (2024) — via the lab's procedural-animation index.
 
 ## Community and third-party (D) — not verified here
 
 | Claim | Source | Status |
 | --- | --- | --- |
-| `is_action_just_pressed` in `_physics_process` could drop presses in early 4.x, fixed ~June 2023 | [GameDev.tv thread](https://community.gamedev.tv/t/dropped-inputs-with-is-action-just-pressed-in-physics-process-in-old-godot/231462), [Godot forum: true for two frames](https://forum.godotengine.org/t/input-is-action-just-pressed-report-true-for-two-frames/84942) | **Unverified** against the 4.7.2 source; the guide recommends a buffer for robustness either way |
+| `is_action_just_pressed` in `_physics_process` could drop presses in early 4.x, fixed ~June 2023 | [GameDev.tv thread](https://community.gamedev.tv/t/dropped-inputs-with-is-action-just-pressed-in-physics-process-in-old-godot/231462), [Godot forum: true for two frames](https://forum.godotengine.org/t/input-is-action-just-pressed-report-true-for-two-frames/84942) | Historical reports only. Independent review checked the 4.7.2 reference/source and synthetic 30/240 FPS runs: physics polling is supported. A gameplay buffer is a separate design choice |
 | Area3D / AnimationPlayer hitbox toggles can be one frame late | [Godot forum: collisions 1 frame late](https://forum.godotengine.org/t/why-are-collisions-happening-1-frame-late/67044), [hack-and-slash thread](https://forum.godotengine.org/t/hack-and-slash-game-physics-and-collisions/133554) | Unresolved threads; consistent with the documented deferred method-call mode |
 | Scene-inheritance / editable-children overrides lost or drifting | [forum 142133](https://forum.godotengine.org/t/how-to-save-changes-done-to-an-instanced-scene-with-editable-children/142133), [godotforums 41510](https://godotforums.org/d/41510-scene-changes-saving-resets-after-restarting-godot-to-old-values), [rename breaks inheritance](https://forum.godotengine.org/t/how-to-update-inheritance-after-renaming-parent-scene/46211) | Version-specific reports (4.0–4.7.1); not reproduced |
 | Event-bus autoloads hurt traceability; others find them convenient | [Godot forum: Resources vs Autoloads](https://forum.godotengine.org/t/resources-vs-autoloads-for-coupling-systems/141573), [gdscript.com signals](https://gdscript.com/solutions/signals-godot/) | Contested opinion |
@@ -82,7 +93,8 @@ environment; the source paths are authoritative.
 
 ## Could not be verified
 
-- Published `docs.godotengine.org` pages (network-blocked; the source repository was used instead).
-- Whether the early-4.x input-polling fix covers every platform in 4.7.2.
+- Original author could not open published pages; independent review reached the Resource
+  page and otherwise used pinned official source, rather than checking every published URL.
+- Physical-device input edge cases on every supported platform (synthetic input is narrower).
 - Jolt-specific `CharacterBody3D` behavior differences relevant to Boneshed's controller.
 - Any frame-time effect of typing, allocation patterns or draw-call counts in Boneshed itself.

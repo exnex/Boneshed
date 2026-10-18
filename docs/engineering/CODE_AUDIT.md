@@ -13,7 +13,8 @@ a real defect in planned work. *Medium:* a structural risk that will cost time o
 Boneshed grows. *Low:* hygiene and consistency.
 
 **Overall assessment.** The codebase is small (~3,300 production lines), coherent and
-unusually well tested for a prototype. **No Critical or High findings.** The main risks are
+well tested for a prototype. **No Critical or High findings in the reviewed startup path.**
+The main risks are
 silent string-keyed plumbing at module boundaries, implicit engine and ordering
 choices, and a presentation layer that will have to move when real assets arrive. Earlier
 agent-written code shouldn't be assumed correct, but most of this code's architectural
@@ -26,13 +27,13 @@ choices hold up against official Godot guidance.
 | Pattern | Where | Why it's right |
 | --- | --- | --- |
 | Rules separated from nodes, input, AI and visuals | `combat/combat_state.gd` (typed `RefCounted`, no scene access) | Testable headless; both actors share one rule set; presentation reads phase and doesn't drive timing |
-| Frame-rate-independent phase timing | `CombatState.tick` carries overshoot across phases | Timing doesn't depend on step size (tested) |
+| Phase-duration accounting | `CombatState.tick` carries overshoot across phases | Preserves elapsed phase time; a large step can still skip the active hit sample |
 | Hit invariants in the rules | `hit_consumed`, cancel-before-resolve in `_cancel_attack` | One hit per swing; a cancelled swing can't land late |
 | Transactional preparation, fail-fast startup | `build_adapter.prepare_encounter`, `courtyard._ready` | Invalid data can't create a half-configured fight (tested via expected-failure subprocess) |
 | All-or-nothing pure operations | `build_rules.equip/unequip/carry`, `anatomy_rules.transform` | The input is never mutated; errors return the original value |
 | Strict JSON, ids only, no object deserialization | build, body and salvage loaders | Matches the official RCE warning for object decoding; server-checkable; the right base for the Tower |
 | Frozen shared definitions | `_freeze` + `make_read_only()` in both catalogs | No consumer can corrupt a definition shared by player and enemy |
-| Content fingerprints, separate gameplay/visual fingerprints | catalogs, `anatomy_rules.resolve` | Detect stale or tampered refs; cosmetic changes can't alter combat identity |
+| Content fingerprints, separate gameplay/visual fingerprints | catalogs, `anatomy_rules.resolve` | Detect content mismatch, not authenticity; cosmetic changes can't alter combat identity |
 | Engine-independent seeded streams, one per consumer | `worldgen/seed_stream.gd`, `blueprint_generator` | Reproducible across engine upgrades; adding a domain doesn't shift others (tested) |
 | Deterministic output ordering | `catalog.slot_order`, `_sorted(...)` everywhere hashing or comparison happens | Doesn't depend on dictionary insertion order |
 | No autoloads; parent wires dependencies | `courtyard.gd` sets `opponent`, configs, HUD `arena` | The official "call down" / dependency-injection pattern |
@@ -52,14 +53,21 @@ choices hold up against official Godot guidance.
   and **zero** engine errors. `CombatState`'s defaults equal today's data, so the runtime
   trace still matches.
 - **Evidence:** [experiments §2–3](../evidence/engineering-audit/README.md#3-adapter-field-name-mutation-does-any-test-notice-a-dropped-field).
+- **Security scope:** reproduced as a regression/coverage gap, not an exploitable adapter
+  vulnerability. Current encounter input is strictly resolved and mapped to a fixed field
+  set; no player-supplied property names reach `create_state` through this path. The known
+  `deflect_window` field does accept a changed value.
 - **If ignored:** the recommended next PR wires the Marrow Arm, whose tradeoff is
   `deflect_window 0.16 → 0.11`. A key rename or typo would silently drop the penalty while
-  every suite passes. The same goes for any future `CombatState` field rename.
+  the 76-check integration suite passes. The mutation experiment did not run every suite
+  for every field. The same risk applies to future `CombatState` field renames.
 - **Remediation:** in `create_state`, reject unknown fields (`if not field in state:` →
   fail preparation with an error code). Add one adapter test per untested field that changes
   the catalog value and asserts the runtime value differs from the default. Optionally, replace
   the dictionary with typed assignments.
-- **Scope / risk:** ~10 lines plus ~8 checks; low regression risk (no value changes).
+- **Scope / risk:** a focused follow-up, but error propagation needs design: `create_state`
+  currently returns `CombatState`, not a result dictionary, and callers do not handle failure.
+  A property-existence check alone does not verify the value type/range or missing fields.
 - **When:** **in the next PR that touches the adapter** (expected: the Marrow Lunge module).
 
 ### F2 — 3D physics engine is implicit — **Medium**
@@ -89,7 +97,7 @@ choices hold up against official Godot guidance.
   `controller intent → combat.tick → move → resolve` explicitly (or set
   `process_physics_priority`), and keep the trace test.
 - **Scope / risk:** moderate (touches the actor tick); the existing trace fixture makes it safe.
-- **When:** deferred, until a second combatant or projectile type is added.
+- **When:** deferred, until a third combatant or first projectile is added.
 
 ### F4 — 60 Hz rule and camera updates without physics interpolation on high-refresh displays — **Medium (unmeasured)**
 
@@ -175,7 +183,8 @@ choices hold up against official Godot guidance.
   (97), `anatomy_catalog.gd` (96), `build_catalog.gd` (70). Member references such as
   `var catalog`, `var resolver` and `var library` are untyped.
 - **Observed:** this is largely inherent to validated JSON `Dictionary` data, and the rules have
-  strong validation tests. The real-time combat path has 12 reports in total.
+  strong validation tests. The four actor/rule scripts have 12 reports; the adapter has
+  another 28 (40 across combat/characters/AI). Reports are not distinct bugs.
 - **Remediation:** type member references where duck typing isn't deliberate
   (`build_projection.gd` is deliberately duck-typed), and type locals created from `Variant`
   at the boundary. Optionally enable `UNTYPED_DECLARATION = Warn` for
@@ -200,9 +209,22 @@ choices hold up against official Godot guidance.
 - **Where:** `CombatState.tick(delta)`.
 - **Observed:** deterministic on one binary at a fixed tick; not guaranteed bit-identical
   across platforms or compilers.
-- **Remediation:** if server-validated Tower replays are approved, convert rule timing to
-  integer ticks.
+- **Remediation:** if server-validated Tower replays are approved, evaluate integer rule
+  timers together with authoritative simulation and cross-platform replay tests. Integer
+  timers alone cannot make floating-point movement or engine physics deterministic.
 - **When:** defer until Tower validation is designed.
+
+### F14 — Anatomy catalog cannot be loaded twice on one instance — **Low (reproduced)**
+
+- **Where:** `anatomy_catalog.gd:67–73` clears tables previously frozen by `_freeze`.
+- **Observed:** `var c = Catalog.new(); c.load_file(); c.load_file()` returns `true`, then
+  `false`, with four read-only dictionary errors and duplicate-id validation errors. Existing
+  fixtures create fresh catalogs, so their passing tests do not cover reload.
+- **Remediation:** when reload is needed, replace the tables with fresh containers and test
+  valid → valid and valid → invalid loads with explicit invalidation. For now use a fresh
+  catalog per load. This does not block current one-shot startup or this documentation PR.
+- **Evidence:** [independent review](../evidence/engineering-review/README.md#additional-source-probes).
+- **When:** before reusing an instance for reload; no gameplay change in PR #14.
 
 ### Considered and not raised
 
@@ -230,14 +252,17 @@ Only items supported by findings above. Each is a separate, small PR unless note
 | 4 | High-refresh playtest: interpolation and camera update mode | F4 | Medium | Next human playtest; **human decision** | — |
 | 5 | Result enum for combat outcomes | F5 | Low | Before audio/VFX listeners | S |
 | 6 | Extract fighter presentation node | F8, (F9) | Medium | First real character asset or second attack pose | M |
-| 7 | Explicit per-tick encounter step | F3 | Medium | Second combatant or first projectile | M |
+| 7 | Explicit per-tick encounter step | F3 | Medium | Third combatant or first projectile | M |
 | 8 | Type rule-layer member references; optional scoped typing warnings | F11 | Low | When touched / optional | S |
-| 9 | Quantized fingerprints, integer ticks, migrations | F12, F13 | Low | When persistence or the Tower is approved | M |
+| 9 | Stable fingerprints, replay-validation design, migrations | F12, F13 | Low | When persistence or the Tower is approved | M |
+| 10 | Fresh anatomy catalog tables on reload; reload regression tests | F14 | Low | Before reusing a catalog instance for reload | S |
 
 ## 4. Limitations of this audit
 
-- Rendering and performance were not profiled; llvmpipe can't support performance claims.
+- Rendering and performance were not profiled. llvmpipe frame times do not predict desktop
+  GPU performance; a scoped CPU experiment would need its own measurements and limitations.
 - Desktop feel, high-refresh behavior and browser input were not tested by a human.
 - `test_web.sh` was not run.
-- Community-sourced claims (input polling history, `Area3D` timing, scene-inheritance
-  bugs) were not reproduced against 4.7.2. They are labeled as such in the guides.
+- Historical input and scene-inheritance reports do not establish a current engine bug.
+  The independent review checked 4.7.2 input semantics; physical devices and human feel
+  remain untested. See the [independent evidence](../evidence/engineering-review/README.md).
