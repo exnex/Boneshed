@@ -1,0 +1,205 @@
+{
+	"schema": "boneshed.anatomy_catalog.v0",
+	"catalog_version": "0.1.0",
+	"build_catalog_version": "0.1.0",
+	"provisional": "Architectural fixture data. Every part, socket, capability, class, limit and requirement here is a placeholder awaiting human approval. No stat bonuses, costs, hitbox sizes or body limits are decided. Not wired into the courtyard or combat.",
+	"limits": {"max_nodes": 24, "max_depth": 6},
+	"required_anchors": ["camera_focus", "core_hurtbox", "facing", "movement_root"],
+	"classes": {
+		"hurt": ["small", "standard", "large"],
+		"reach": ["none", "short", "standard", "long"]
+	},
+	"readability": {
+		"locomotion_prefix": "locomotion.",
+		"offense_prefix": "strike.",
+		"baseline_locomotion": "locomotion.biped",
+		"review_reach": ["long"],
+		"review_hurt": ["large"],
+		"baseline_kind_counts": {"arm": 2, "head": 1, "legs": 1}
+	},
+	"socket_types": ["great_shoulder", "hips", "neck", "shoulder", "tail"],
+	"mount_types": ["grip", "light_grip"],
+	"capabilities": [
+		"balance.counterweight", "grasp", "grasp.light", "grip.two_handed", "guard.buckler", "guard.heavy", "guard.parry",
+		"limb.marrow", "locomotion.biped", "locomotion.digitigrade", "sense.sight", "strike.crush", "strike.thrust", "wield.blade"
+	],
+	"animation_modules": [
+		{"id": "anim.arm_auxiliary", "kind": "limb", "notes": "Short-range auxiliary arm: parry and light-grip layers only; never drives the main attack timeline."},
+		{"id": "anim.arm_carapace", "kind": "limb", "notes": "Oversized right limb: slow guard raise and one curated crush strike."},
+		{"id": "anim.arm_marrow", "kind": "limb", "notes": "Curated module for module.marrow_lunge: split, long draw-back, straight thrust."},
+		{"id": "anim.arm_standard", "kind": "limb", "notes": "Standard arm; drives sword slash modules."},
+		{"id": "anim.core_lopsided", "kind": "core", "notes": "Upright core with offset head and heavy right shoulder; same facing and camera anchors."},
+		{"id": "anim.core_upright", "kind": "core", "notes": "Upright humanoid core; also used by the spined torso."},
+		{"id": "anim.head_standard", "kind": "head", "notes": "Head tracking toward the lock target."},
+		{"id": "anim.locomotion_biped", "kind": "locomotion", "notes": "Current courtyard locomotion."},
+		{"id": "anim.locomotion_digitigrade", "kind": "locomotion", "notes": "Alternative curated gait; same root motion contract."},
+		{"id": "anim.tail_counterweight", "kind": "appendage", "notes": "Secondary motion only; no hit volume of its own."}
+	],
+	"parts": [
+		{
+			"id": "part.humanoid_torso", "name": "Humanoid Torso", "kind": "core", "attaches_to": [],
+			"sockets": [
+				{"id": "hips", "type": "hips", "side": "center", "pair": ""},
+				{"id": "neck", "type": "neck", "side": "center", "pair": ""},
+				{"id": "shoulder_l", "type": "shoulder", "side": "left", "pair": "upper"},
+				{"id": "shoulder_r", "type": "shoulder", "side": "right", "pair": "upper"}
+			],
+			"mounts": [], "anchors": ["camera_focus", "core_hurtbox", "facing", "movement_root"],
+			"provides": [], "tags": ["frame.standard"], "requires_tags": [], "excludes_tags": [],
+			"proportions": [
+				{"id": "bulk", "min": 0.8, "max": 1.3, "default": 1.0, "domain": "visual"},
+				{"id": "height", "min": 0.9, "max": 1.1, "default": 1.0, "domain": "gameplay"}
+			],
+			"animation_module": "anim.core_upright", "build_item": "",
+			"gameplay": {"hurt_class": "standard", "reach_class": "none", "attack_origin": "", "guard": "none"},
+			"visual": {"silhouette": "upright", "material_hint": "flesh", "notes": "Primitive capsule in a future scene."}
+		},
+		{
+			"id": "part.spined_torso", "name": "Spined Torso", "kind": "core", "attaches_to": [],
+			"sockets": [
+				{"id": "hips", "type": "hips", "side": "center", "pair": ""},
+				{"id": "lower_shoulder_l", "type": "shoulder", "side": "left", "pair": "lower"},
+				{"id": "lower_shoulder_r", "type": "shoulder", "side": "right", "pair": "lower"},
+				{"id": "neck", "type": "neck", "side": "center", "pair": ""},
+				{"id": "shoulder_l", "type": "shoulder", "side": "left", "pair": "upper"},
+				{"id": "shoulder_r", "type": "shoulder", "side": "right", "pair": "upper"}
+			],
+			"mounts": [], "anchors": ["camera_focus", "core_hurtbox", "facing", "movement_root"],
+			"provides": [], "tags": ["frame.augmented_spine", "frame.standard"], "requires_tags": [], "excludes_tags": [],
+			"proportions": [
+				{"id": "height", "min": 0.9, "max": 1.15, "default": 1.0, "domain": "gameplay"}
+			],
+			"animation_module": "anim.core_upright", "build_item": "",
+			"gameplay": {"hurt_class": "standard", "reach_class": "none", "attack_origin": "", "guard": "none"},
+			"visual": {"silhouette": "upright_ridged", "material_hint": "bone_ridge", "notes": "Second shoulder girdle below the first."}
+		},
+		{
+			"id": "part.lopsided_torso", "name": "Lopsided Torso", "kind": "core", "attaches_to": [],
+			"sockets": [
+				{"id": "great_shoulder_r", "type": "great_shoulder", "side": "right", "pair": ""},
+				{"id": "hips", "type": "hips", "side": "center", "pair": ""},
+				{"id": "neck", "type": "neck", "side": "center", "pair": ""},
+				{"id": "shoulder_l", "type": "shoulder", "side": "left", "pair": ""},
+				{"id": "tail", "type": "tail", "side": "center", "pair": ""}
+			],
+			"mounts": [], "anchors": ["camera_focus", "core_hurtbox", "facing", "movement_root"],
+			"provides": [], "tags": ["frame.lopsided"], "requires_tags": [], "excludes_tags": [],
+			"proportions": [
+				{"id": "height", "min": 0.9, "max": 1.25, "default": 1.0, "domain": "gameplay"},
+				{"id": "lean", "min": 0.0, "max": 0.4, "default": 0.15, "domain": "visual"}
+			],
+			"animation_module": "anim.core_lopsided", "build_item": "",
+			"gameplay": {"hurt_class": "large", "reach_class": "none", "attack_origin": "", "guard": "none"},
+			"visual": {"silhouette": "hunched_right_heavy", "material_hint": "carapace", "notes": "Head sits left of centre; the camera anchor does not move with it."}
+		},
+		{
+			"id": "part.human_head", "name": "Head", "kind": "head", "attaches_to": ["neck"],
+			"sockets": [], "mounts": [], "anchors": [],
+			"provides": ["sense.sight"], "tags": [], "requires_tags": [], "excludes_tags": [],
+			"proportions": [], "animation_module": "anim.head_standard", "build_item": "",
+			"gameplay": {"hurt_class": "small", "reach_class": "none", "attack_origin": "", "guard": "none"},
+			"visual": {"silhouette": "round", "material_hint": "flesh", "notes": ""}
+		},
+		{
+			"id": "part.human_arm", "name": "Arm", "kind": "arm", "attaches_to": ["shoulder"],
+			"sockets": [], "mounts": [{"id": "grip", "type": "grip"}], "anchors": [],
+			"provides": ["grasp", "guard.parry"], "tags": [], "requires_tags": [], "excludes_tags": [],
+			"proportions": [
+				{"id": "bulk", "min": 0.8, "max": 1.4, "default": 1.0, "domain": "visual"},
+				{"id": "length", "min": 0.9, "max": 1.15, "default": 1.0, "domain": "gameplay"}
+			],
+			"animation_module": "anim.arm_standard", "build_item": "",
+			"gameplay": {"hurt_class": "small", "reach_class": "standard", "attack_origin": "grip", "guard": "front"},
+			"visual": {"silhouette": "arm", "material_hint": "flesh", "notes": ""}
+		},
+		{
+			"id": "part.marrow_arm", "name": "Marrow Arm", "kind": "arm", "attaches_to": ["shoulder"],
+			"sockets": [], "mounts": [], "anchors": [],
+			"provides": ["guard.parry", "limb.marrow", "strike.thrust"], "tags": ["corruption.marrow", "limb.replacement"],
+			"requires_tags": [], "excludes_tags": ["corruption.hollow"],
+			"proportions": [
+				{"id": "length", "min": 1.0, "max": 1.3, "default": 1.1, "domain": "gameplay"}
+			],
+			"animation_module": "anim.arm_marrow", "build_item": "item.marrow_arm",
+			"gameplay": {"hurt_class": "small", "reach_class": "long", "attack_origin": "bone_tip", "guard": "front"},
+			"visual": {"silhouette": "split_bone_spear", "material_hint": "marrow", "notes": "Has no hand: cannot hold equipment."}
+		},
+		{
+			"id": "part.auxiliary_arm", "name": "Auxiliary Arm", "kind": "arm", "attaches_to": ["shoulder"],
+			"sockets": [], "mounts": [{"id": "light_grip", "type": "light_grip"}], "anchors": [],
+			"provides": ["grasp.light", "guard.parry"], "tags": ["limb.auxiliary"],
+			"requires_tags": ["frame.augmented_spine"], "excludes_tags": [],
+			"proportions": [
+				{"id": "length", "min": 0.7, "max": 1.0, "default": 0.85, "domain": "gameplay"}
+			],
+			"animation_module": "anim.arm_auxiliary", "build_item": "",
+			"gameplay": {"hurt_class": "small", "reach_class": "short", "attack_origin": "light_grip", "guard": "front"},
+			"visual": {"silhouette": "thin_arm", "material_hint": "sinew", "notes": ""}
+		},
+		{
+			"id": "part.carapace_arm", "name": "Carapace Arm", "kind": "arm", "attaches_to": ["great_shoulder"],
+			"sockets": [], "mounts": [], "anchors": [],
+			"provides": ["guard.heavy", "guard.parry", "strike.crush"], "tags": ["corruption.carapace", "limb.oversized"],
+			"requires_tags": ["frame.lopsided"], "excludes_tags": ["limb.auxiliary"],
+			"proportions": [
+				{"id": "length", "min": 1.0, "max": 1.4, "default": 1.2, "domain": "gameplay"},
+				{"id": "plating", "min": 0.5, "max": 1.5, "default": 1.0, "domain": "visual"}
+			],
+			"animation_module": "anim.arm_carapace", "build_item": "",
+			"gameplay": {"hurt_class": "large", "reach_class": "long", "attack_origin": "knuckle_plate", "guard": "front"},
+			"visual": {"silhouette": "slab_arm", "material_hint": "carapace", "notes": "Dominates the right side of the silhouette."}
+		},
+		{
+			"id": "part.biped_legs", "name": "Legs", "kind": "legs", "attaches_to": ["hips"],
+			"sockets": [], "mounts": [], "anchors": [],
+			"provides": ["locomotion.biped"], "tags": [], "requires_tags": [], "excludes_tags": [],
+			"proportions": [], "animation_module": "anim.locomotion_biped", "build_item": "",
+			"gameplay": {"hurt_class": "standard", "reach_class": "none", "attack_origin": "", "guard": "none"},
+			"visual": {"silhouette": "legs", "material_hint": "flesh", "notes": ""}
+		},
+		{
+			"id": "part.digitigrade_legs", "name": "Digitigrade Legs", "kind": "legs", "attaches_to": ["hips"],
+			"sockets": [], "mounts": [], "anchors": [],
+			"provides": ["locomotion.digitigrade"], "tags": ["limb.transformed"], "requires_tags": [], "excludes_tags": [],
+			"proportions": [], "animation_module": "anim.locomotion_digitigrade", "build_item": "",
+			"gameplay": {"hurt_class": "standard", "reach_class": "none", "attack_origin": "", "guard": "none"},
+			"visual": {"silhouette": "reverse_knee", "material_hint": "sinew", "notes": ""}
+		},
+		{
+			"id": "part.counterweight_tail", "name": "Counterweight Tail", "kind": "tail", "attaches_to": ["tail"],
+			"sockets": [], "mounts": [], "anchors": [],
+			"provides": ["balance.counterweight"], "tags": ["limb.transformed"], "requires_tags": [], "excludes_tags": [],
+			"proportions": [
+				{"id": "length", "min": 0.6, "max": 1.2, "default": 1.0, "domain": "visual"}
+			],
+			"animation_module": "anim.tail_counterweight", "build_item": "",
+			"gameplay": {"hurt_class": "small", "reach_class": "none", "attack_origin": "", "guard": "none"},
+			"visual": {"silhouette": "tail", "material_hint": "carapace", "notes": "Balances the carapace arm; never attacks in v0."}
+		}
+	],
+	"equipment": [
+		{
+			"id": "equip.notched_sword", "name": "Notched Sword", "build_item": "item.notched_sword", "fixture": false,
+			"mounts_on": ["grip"], "mount_count": 1, "paired": false,
+			"provides": ["wield.blade"], "requires_capabilities": [], "excludes_part_tags": []
+		},
+		{
+			"id": "equip.fixture_greatsword", "name": "Fixture Greatsword", "build_item": "", "fixture": true,
+			"mounts_on": ["grip"], "mount_count": 2, "paired": true,
+			"provides": ["grip.two_handed", "wield.blade"], "requires_capabilities": [], "excludes_part_tags": []
+		},
+		{
+			"id": "equip.fixture_buckler", "name": "Fixture Buckler", "build_item": "", "fixture": true,
+			"mounts_on": ["grip", "light_grip"], "mount_count": 1, "paired": false,
+			"provides": ["guard.buckler"], "requires_capabilities": [], "excludes_part_tags": []
+		}
+	],
+	"requirements": [
+		{"id": "ability.marrow_lunge", "fixture": false, "all": [{"capability": "limb.marrow", "count": 1}], "none": []},
+		{"id": "attack.heavy_slash", "fixture": false, "all": [{"capability": "wield.blade", "count": 1}], "none": []},
+		{"id": "attack.slash", "fixture": false, "all": [{"capability": "wield.blade", "count": 1}], "none": []},
+		{"id": "probe.anchored_crush", "fixture": true, "all": [{"capability": "strike.crush", "count": 1}, {"capability": "balance.counterweight", "count": 1}], "none": []},
+		{"id": "probe.multi_parry", "fixture": true, "all": [{"capability": "guard.parry", "count": 3}], "none": []},
+		{"id": "probe.two_handed_grip", "fixture": true, "all": [{"capability": "grip.two_handed", "count": 1}], "none": ["limb.marrow"]}
+	]
+}
