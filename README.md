@@ -12,10 +12,11 @@ The priority is one truly enjoyable duel, not an expansive feature list.
 
 ## Project status
 
-**Milestone 1 combat prototype.** A primitive third-person courtyard duel implements
-movement, orbit camera, lock-on, light attacks, guard, timed deflection, dodge,
-health/posture, a corrupted swordsman, and encounter reset. These combat details
-are provisional tuning for evaluation; salvage is a later milestone.
+**First playable salvage loop.** Fight the corrupted swordsman, learn its Marrow
+Lunge, defeat it, salvage and equip Marrow Arm, then use the inherited power in a
+second duel. Geometry and balance remain provisional; human feel validation is pending.
+See [the first-playable guide](docs/FIRST_PLAYABLE.md) for exact controls, tuning,
+architecture, tests and limitations.
 
 The project requires **Godot 4.7.2 stable** (`4.7.2.stable.official.ed1daf0bf`) and
 defaults to GL Compatibility. On the Linux x86_64 cloud image:
@@ -28,11 +29,12 @@ bash scripts/tooling/play.sh
 ```
 
 Use WASD to move, mouse to orbit, Tab to lock, left mouse to attack, right mouse to
-guard/tap-deflect, Space to dodge, and R to reset. See
+guard/tap-deflect, Space to dodge, C for heavy, and R to retry. After victory: F to
+salvage, E to equip, N for the next duel, Q for Marrow Lunge. See
 [the prototype guide](docs/COMBAT_PROTOTYPE.md) for setup details, architecture,
 timing values, reproducible tests, evidence, and human playtesting limitations.
 
-**[Play the browser preview](https://exnex.github.io/Boneshed/)** or see [the web preview guide](docs/WEB_PREVIEW.md). The hosted single-threaded HTML5 export preserves desktop keyboard/mouse input for desktop keyboard-and-mouse testing only. **Boneshed targets desktop; touchscreen gameplay is not supported**. Human browser feedback highlights promising lock-on/dodge but unresolved parry-spam and swing-impact readability; those are separate combat tasks. The web preview was initially published before combat PR #3; regenerate the hosted export to include the latest main changes.
+**[Older hosted browser preview](https://exnex.github.io/Boneshed/)** — this task does not publish it; use the local Godot entry point above for the new loop. See [the web preview guide](docs/WEB_PREVIEW.md). The hosted single-threaded HTML5 export preserves desktop keyboard/mouse input for desktop keyboard-and-mouse testing only. **Boneshed targets desktop; touchscreen gameplay is not supported**. Human browser feedback highlights promising lock-on/dodge but unresolved parry-spam and swing-impact readability; those are separate combat tasks. The web preview was initially published before combat PR #3; regenerate the hosted export to include the latest main changes.
 
 ## Start here
 
@@ -46,7 +48,8 @@ timing values, reproducible tests, evidence, and human playtesting limitations.
 | [Combat iteration 2](docs/COMBAT_ITERATION_2.md) | Attack readability, deflection discipline, enemy defense and provisional tuning |
 | [Keyword world blueprints](docs/WORLDGEN_KEYWORDS.md) | Isolated, provisional three-keyword → WorldBlueprint prototype |
 | [Combat build integration](docs/COMBAT_BUILD_INTEGRATION.md) | Live courtyard adapter, exact parity and validation |
-| [Shared builds and salvage](docs/SHARED_BUILDS.md) | Shared player/enemy build contract; salvage → equip remains a fixture |
+| [First playable loop](docs/FIRST_PLAYABLE.md) | Human controls, inherited attack, salvage/equip progression and evidence |
+| [Shared builds and salvage](docs/SHARED_BUILDS.md) | Shared player/enemy build contract and its historical foundation |
 | [Anatomy and transformation](docs/ANATOMY.md) | Isolated, provisional body-graph prototype: extra limbs, replacements, equipment mounts, capability requirements, transformations and a proposed combat contract |
 | [Engineering standards](docs/engineering/README.md) | GDScript and Godot architecture guides, agent checklist, code audit and debt backlog |
 | [AGENTS.md](AGENTS.md) | Shared instructions for AI development agents |

@@ -1,0 +1,358 @@
+{
+  "baseline": {
+    "native": {
+      "path": "/workspace/Boneshed/artifacts/marrow-baseline-native-4",
+      "runs": [
+        {
+          "run": "import",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "run": "combat_builds",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "run": "adapter_mutations",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "run": "invalid_build_startup",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "invalid_state_startup",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "combat",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "run": "negative_guard",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "negative_deflect",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "negative_phase",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "negative_toggle",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "negative_rear",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "negative_poise",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "encounters",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "run": "negative_defense",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "timing_headless",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "run": "negative_visual",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "graphical",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "run": "timing_rendered",
+          "exit": 0,
+          "expected_exit": 0
+        }
+      ],
+      "adapter_mutation_controls": 63
+    },
+    "suites": {
+      "combat": {
+        "failed": 0,
+        "negative": "",
+        "passed": 118,
+        "suite": "combat",
+        "summary": true
+      },
+      "adapter": {
+        "failed": 0,
+        "passed": 532,
+        "suite": "combat_builds",
+        "summary": true
+      },
+      "graphical": {
+        "combat_bot_frames": 418,
+        "engine": "4.7.2-stable (official)",
+        "failed": 0,
+        "passed": 111,
+        "renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+        "suite": "graphical",
+        "summary": true
+      },
+      "sword_timing_headless": {
+        "engine": "4.7.2-stable (official)",
+        "failed": 0,
+        "passed": 159,
+        "rendered": false,
+        "summary": true
+      },
+      "sword_timing_rendered": {
+        "engine": "4.7.2-stable (official)",
+        "failed": 0,
+        "passed": 209,
+        "rendered": true,
+        "summary": true
+      },
+      "builds": {
+        "path": "/workspace/Boneshed/artifacts/marrow-baseline-builds-4",
+        "summary": {
+          "failed": 0,
+          "passed": 137,
+          "suite": "builds",
+          "summary": true
+        }
+      },
+      "anatomy": {
+        "path": "/workspace/Boneshed/artifacts/marrow-baseline-anatomy-4",
+        "summary": {
+          "failed": 0,
+          "passed": 190,
+          "suite": "anatomy",
+          "summary": true
+        }
+      },
+      "worldgen": {
+        "path": "/workspace/Boneshed/artifacts/marrow-baseline-worldgen-4",
+        "summary": {
+          "failed": 0,
+          "passed": 80,
+          "suite": "worldgen",
+          "summary": true
+        }
+      },
+      "web": {
+        "path": "/workspace/Boneshed/artifacts/marrow-baseline-web-4",
+        "checks": 18,
+        "all_passed": true,
+        "page_errors": [],
+        "release_export": true,
+        "qa_export": true
+      }
+    }
+  },
+  "after": {
+    "native": {
+      "path": "artifacts/marrow-final-native-1",
+      "runs": [
+        {
+          "run": "import",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "run": "combat_builds",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "run": "adapter_mutations",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "run": "invalid_build_startup",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "invalid_state_startup",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "combat",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "run": "negative_guard",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "negative_deflect",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "negative_phase",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "negative_toggle",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "negative_rear",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "negative_poise",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "encounters",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "run": "negative_defense",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "timing_headless",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "run": "negative_visual",
+          "exit": 1,
+          "expected_exit": 1
+        },
+        {
+          "run": "graphical",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "run": "timing_rendered",
+          "exit": 0,
+          "expected_exit": 0
+        }
+      ],
+      "adapter_mutation_controls": 63
+    },
+    "suites": {
+      "combat": {
+        "failed": 0,
+        "negative": "",
+        "passed": 118,
+        "suite": "combat",
+        "summary": true
+      },
+      "adapter": {
+        "failed": 0,
+        "passed": 532,
+        "suite": "combat_builds",
+        "summary": true
+      },
+      "graphical": {
+        "combat_bot_frames": 418,
+        "engine": "4.7.2-stable (official)",
+        "failed": 0,
+        "passed": 111,
+        "renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+        "suite": "graphical",
+        "summary": true
+      },
+      "sword_timing_headless": {
+        "engine": "4.7.2-stable (official)",
+        "failed": 0,
+        "passed": 159,
+        "rendered": false,
+        "summary": true
+      },
+      "sword_timing_rendered": {
+        "engine": "4.7.2-stable (official)",
+        "failed": 0,
+        "passed": 209,
+        "rendered": true,
+        "summary": true
+      },
+      "builds": {
+        "path": "artifacts/marrow-final-builds-1",
+        "summary": {
+          "failed": 0,
+          "passed": 137,
+          "suite": "builds",
+          "summary": true
+        }
+      },
+      "anatomy": {
+        "path": "artifacts/marrow-final-anatomy-1",
+        "summary": {
+          "failed": 0,
+          "passed": 190,
+          "suite": "anatomy",
+          "summary": true
+        }
+      },
+      "worldgen": {
+        "path": "artifacts/marrow-final-worldgen-1",
+        "summary": {
+          "failed": 0,
+          "passed": 80,
+          "suite": "worldgen",
+          "summary": true
+        }
+      },
+      "web": {
+        "path": "artifacts/marrow-final-web-1",
+        "checks": 18,
+        "all_passed": true,
+        "page_errors": [],
+        "release_export": true,
+        "qa_export": true
+      }
+    }
+  },
+  "final_boundary_checks": {
+    "adapter": 532,
+    "adapter_mutation_controls": 63,
+    "scope": "incoming-defense binding validation and public visual sync API",
+    "module_progression": 193
+  },
+  "progression": {
+    "path": "artifacts/marrow-final-loop-3",
+    "rules_progression": 193,
+    "mutation_controls": 4,
+    "broken_mesh_control": "expected failure",
+    "rendered_input": "success; trace identical to headless",
+    "physics_ticks": 857
+  }
+}

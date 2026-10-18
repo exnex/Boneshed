@@ -43,7 +43,8 @@ func run() -> void:
 		invalid_arena.builds_path = "user://gate2-invalid-builds.json"
 		if "--invalid-state-startup" in OS.get_cmdline_user_args():
 			var data := raw.duplicate(true)
-			data.profiles[1].guard_posture_overrides.special = 1
+			data.bindings.append("unimplemented")
+			data.profiles[1].guard_posture_overrides["unimplemented"] = 1
 			write_json("user://adapter-invalid-state-catalog.json", data)
 			invalid_arena.catalog_path = "user://adapter-invalid-state-catalog.json"
 			invalid_arena.builds_path = Adapter.BUILDS_PATH
@@ -162,7 +163,9 @@ func test_rejection(adapter) -> void:
 	rejected(adapter.prepare_encounter(bad_builds), "stale_build_rejected")
 	bad_builds = builds.duplicate(true)
 	bad_builds.enemy.equipped["right_arm"] = "item.marrow_arm"
-	rejected(adapter.prepare_encounter(bad_builds), "unimplemented_lunge_cannot_start_gameplay")
+	var unsupported_data := raw.duplicate(true)
+	unsupported_data.abilities[2].module = "module.unimplemented_lunge"
+	rejected(Adapter.new(catalog_for(unsupported_data)).prepare_encounter(bad_builds), "unimplemented_lunge_cannot_start_gameplay")
 	bad_builds = builds.duplicate(true)
 	bad_builds.enemy.equipped = {}
 	rejected(adapter.prepare_encounter(bad_builds), "missing_attacks_rejected")
@@ -346,7 +349,7 @@ func test_config_rejection(adapter) -> void:
 		var changed := config.duplicate(true)
 		changed.combat.guard_posture_overrides = invalid
 		check(construction_rejected(changed, "invalid_guard_posture_overrides"), "invalid_override_shape_" + str(invalid))
-	for invalid in [{"special": 1}, {"ligth": 1}, {"light": -1}, {"heavy": INF}, {"light": NAN}, {"heavy": true}, {"light": "1"}]:
+	for invalid in [{"unimplemented": 1}, {"ligth": 1}, {"light": -1}, {"heavy": INF}, {"light": NAN}, {"heavy": true}, {"light": "1"}]:
 		var changed := config.duplicate(true)
 		changed.combat.guard_posture_overrides = invalid
 		check(construction_rejected(changed, "invalid_guard_posture_override"), "invalid_override_" + str(invalid))
@@ -375,7 +378,8 @@ func test_config_rejection(adapter) -> void:
 	# A catalog can define a binding the courtyard cannot execute. State-validation
 	# errors on the second actor must discard the already constructed first actor.
 	var data := raw.duplicate(true)
-	data.profiles[1].guard_posture_overrides.special = 1
+	data.bindings.append("unimplemented")
+	data.profiles[1].guard_posture_overrides["unimplemented"] = 1
 	var catalog = catalog_for(data)
 	check(catalog.errors.is_empty(), "catalog_valid_with_non_courtyard_defense_binding")
 	var rejected_encounter: Dictionary = Adapter.new(catalog).prepare_encounter(builds)

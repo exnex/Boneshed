@@ -74,7 +74,7 @@ def visual_negative(records):
 run('negative_visual', base + timing_args + ['--negative=visual', f'--evidence-dir={output}/negative-visual'], expected=1, required=visual_negative)
 run('graphical', ['xvfb-run', '-a', '-s', '-screen 0 1280x720x24 -nolisten tcp', engine,
     '--path', repo, '--rendering-method', 'gl_compatibility', '--audio-driver', 'Dummy',
-    '--fixed-fps', '60', '--', '--qa', f'--evidence-dir={output}'], seconds=int(os.environ.get("BONESHED_GRAPHICAL_TIMEOUT", "180")))
+    '--fixed-fps', '60', 'res://scenes/courtyard.tscn', '--', '--qa', f'--evidence-dir={output}'], seconds=int(os.environ.get("BONESHED_GRAPHICAL_TIMEOUT", "180")))
 records = json.loads((output/'graphical.json').read_text())
 summary = next(r for r in records if r.get('summary'))
 assert summary['passed'] == 111 and summary['failed'] == 0

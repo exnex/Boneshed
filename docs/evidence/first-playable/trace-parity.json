@@ -1,0 +1,7 @@
+{
+  "identical": true,
+  "sha256": "cfe809acfb9514014689ae21bc9c960aad03d9171723803ddc4b9d3545c1fee2",
+  "physics_samples": 856,
+  "headless": "artifacts/marrow-final-loop-3/headless/trace.json",
+  "rendered": "artifacts/marrow-final-loop-3/rendered/trace.json"
+}

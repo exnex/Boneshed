@@ -8,7 +8,8 @@ const CombatRules = preload("res://scripts/combat/combat_state.gd")
 const BUILDS_PATH := "res://data/builds/courtyard.json"
 const ACTOR_STATS := ["max_health", "max_posture", "deflect_window", "guard_chip",
 	"posture_recovery_rate", "posture_recovery_delay", "deflect_posture"]
-const MODULES := {"light": "module.slash_basic", "heavy": "module.slash_heavy"}
+const AttackModules = preload("res://scripts/combat/attack_modules.gd")
+const MODULES := AttackModules.MODULES
 const COMBAT_FIELDS := ACTOR_STATS + ["guard_posture_overrides", "attack_windup", "heavy_windup",
 	"light_active_duration", "heavy_active_duration", "light_recovery_duration", "heavy_recovery_duration",
 	"light_damage", "heavy_damage", "light_hit_posture", "heavy_hit_posture",
@@ -32,7 +33,12 @@ static func load_encounter(catalog_path := Catalog.CATALOG_PATH, builds_path := 
 	var parser := JSON.new()
 	if parser.parse(FileAccess.get_file_as_string(builds_path)) != OK:
 		return failure(["invalid encounter builds JSON: " + builds_path])
-	return new(source).prepare_encounter(parser.data)
+	var adapter := new(source)
+	var prepared := adapter.prepare_encounter(parser.data)
+	if prepared.ok:
+		prepared.adapter = adapter
+		prepared.builds = parser.data
+	return prepared
 
 ## Transaction boundary: both actors must resolve and be executable before either
 ## fighter can be created. Never return the first actor's partial configuration.
@@ -79,12 +85,12 @@ func _from_resolved(resolved: Dictionary) -> Dictionary:
 		for key in attack:
 			if not _nonnegative_number(attack[key]):
 				return {"ok": false, "errors": ["invalid resolved attack value: " + ability.id + "." + key]}
-		# The curated sword presentation and physics volume still own their shape.
-		# A future module must integrate its own geometry before it can run here.
-		if attack.reach != 2.35 or attack.width != 1.6:
-			return {"ok": false, "errors": ["unsupported sword hit shape: " + ability.id]}
+		# Curated modules own supported shape bounds; both the runtime query and
+		# presentation consume the validated signature dimensions.
+		if not AttackModules.shape_supported(ability.binding, attack.reach, attack.width):
+			return {"ok": false, "errors": ["unsupported module hit shape: " + ability.id]}
 		if attack.windup <= 0.24 or attack.active <= 0.0 or attack.recovery <= 0.0:
-			return {"ok": false, "errors": ["unsupported sword timing: " + ability.id]}
+			return {"ok": false, "errors": ["unsupported module timing: " + ability.id]}
 		attacks[ability.binding] = attack
 	if not attacks.has_all(["light", "heavy"]):
 		return {"ok": false, "errors": ["courtyard requires light and heavy sword modules"]}
@@ -100,7 +106,10 @@ func _from_resolved(resolved: Dictionary) -> Dictionary:
 		state[binding + "_damage"] = attack.health_damage
 		state[binding + "_hit_posture"] = attack.posture_damage
 		state[binding + "_guard_posture"] = attack.guard_posture
-	return {"ok": true, "errors": [], "config": {"combat": state, "move_speed": resolved.stats.move_speed}}
+	var config := {"combat": state, "move_speed": resolved.stats.move_speed}
+	if attacks.has("special"):
+		config.signature = attacks.special.duplicate(true)
+	return {"ok": true, "errors": [], "config": config}
 
 ## Validate configuration before allocating a state, then check every target before
 ## assignment. No error result owns a partial state. Godot can defer checking typed
@@ -137,6 +146,9 @@ static func create_state(config: Variant) -> Dictionary:
 	state.heavy_guard_posture = values.heavy_guard_posture
 	# Binding-keyed defense costs remain data, never Object property names.
 	state.guard_posture_overrides = values.guard_posture_overrides.duplicate(true)
+	if config.has("signature"):
+		state.signature = config.signature.duplicate(true)
+		state.signature.make_read_only()
 	state.reset()
 	return {"ok": true, "errors": [], "state": state}
 
@@ -147,12 +159,16 @@ static func _config_errors(config: Variant) -> Array:
 	if not config is Dictionary:
 		return [{"code": "invalid_state_config"}]
 	for field: Variant in config:
-		if field not in ["combat", "move_speed"]:
+		if field not in ["combat", "move_speed", "signature"]:
 			return [{"code": "unknown_config_field", "field": str(field)}]
 	if not config.has_all(["combat", "move_speed"]) or not config.combat is Dictionary:
 		return [{"code": "invalid_state_config"}]
 	if not _nonnegative_number(config.move_speed):
 		return [{"code": "invalid_parameter_value", "field": "move_speed"}]
+	if config.has("signature"):
+		var signature_errors := AttackModules.signature_errors(config.signature)
+		if not signature_errors.is_empty():
+			return signature_errors
 	var values: Dictionary = config.combat
 	for field: Variant in values:
 		if field not in COMBAT_FIELDS:

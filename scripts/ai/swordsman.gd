@@ -1,5 +1,6 @@
 extends "res://scripts/characters/fighter.gd"
-## Deterministic cycle: two basic attacks, then one slower heavy attack.
+## Deterministic ordinary cycle plus an opening lunge, repeated every four attacks
+## when equipped. Block counters keep the heavy; all attacks use shared rules.
 
 @export var detection_range := 18.0
 @export var preferred_distance := 1.85
@@ -20,7 +21,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	desired_move = Vector3.ZERO
 	if event_serial != observed_event:
-		if defense_enabled and last_result == "guard":
+		if defense_enabled and last_result == Rules.GUARD:
 			counter_pending = true
 			cooldown = 0.0
 		observed_event = event_serial
@@ -34,16 +35,19 @@ func _physics_process(delta: float) -> void:
 				facing = toward.normalized()
 				# Raise early, hold through contact, then answer with the existing heavy.
 				# Never defend while recovering/staggered/broken: those remain punishable.
-				var threatened: bool = opponent.combat.phase in [Rules.Phase.WINDUP, Rules.Phase.ACTIVE] and not opponent.combat.hit_consumed and distance <= attack_range
+				var threatened: bool = opponent.combat.phase in [Rules.Phase.WINDUP, Rules.Phase.ACTIVE] and not opponent.combat.hit_consumed and distance <= opponent.attack_range
 				combat.set_guard(defense_enabled and threatened, false)
 				if defense_enabled and threatened:
 					ai_state = "GUARD"
-				elif distance > preferred_distance and not (counter_pending and distance <= attack_range):
+				elif distance > preferred_distance and not (counter_pending and distance <= AttackModules.SWORD_REACH):
 					ai_state = "APPROACH"
 					desired_move = facing
 				elif cooldown <= 0.0:
 					attack_number += 1
-					combat.attack(counter_pending or attack_number % 3 == 0)
+					if not combat.signature.is_empty() and not counter_pending and attack_number % 4 == 1:
+						combat.attack_special()
+					else:
+						combat.attack(counter_pending or attack_number % 3 == 0)
 					counter_pending = false
 					cooldown = attack_interval
 					ai_state = "ATTACK"
@@ -66,7 +70,7 @@ func _physics_process(delta: float) -> void:
 		combat.set_guard(false)
 	super._physics_process(delta)
 
-func reset_at(point: Vector3) -> void:
+func reset_at(point: Vector3, guard_held := false) -> void:
 	super.reset_at(point)
 	cooldown = 0.8
 	attack_number = 0

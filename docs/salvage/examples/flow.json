@@ -1,7 +1,7 @@
 {
 	"catalog": {
-		"fingerprint": "f31a3cb9c5e6b731",
-		"version": "0.2.0"
+		"fingerprint": "60bccc6041358946",
+		"version": "0.3.0"
 	},
 	"identity": {
 		"ability": "ability.marrow_lunge",
@@ -34,7 +34,7 @@
 		"build": {
 			"build_id": "player.fixture",
 			"carried": [],
-			"catalog_version": "0.2.0",
+			"catalog_version": "0.3.0",
 			"equipped": {
 				"main_hand": "item.notched_sword"
 			},
@@ -85,7 +85,7 @@
 				}
 			],
 			"build_id": "player.fixture",
-			"catalog_version": "0.2.0",
+			"catalog_version": "0.3.0",
 			"equipped": [
 				{
 					"item": "item.notched_sword",
@@ -93,7 +93,7 @@
 					"slot": "main_hand"
 				}
 			],
-			"fingerprint": "52081ce7fb819353",
+			"fingerprint": "ab0e13ec3148c950",
 			"guard_posture_overrides": {},
 			"profile": "profile.duelist",
 			"schema": "boneshed.resolved_build.v0",
@@ -135,7 +135,7 @@
 		"build": {
 			"build_id": "soul.marrow_swordsman",
 			"carried": [],
-			"catalog_version": "0.2.0",
+			"catalog_version": "0.3.0",
 			"equipped": {
 				"main_hand": "item.notched_sword",
 				"right_arm": "item.marrow_arm"
@@ -207,7 +207,7 @@
 				}
 			],
 			"build_id": "soul.marrow_swordsman",
-			"catalog_version": "0.2.0",
+			"catalog_version": "0.3.0",
 			"equipped": [
 				{
 					"item": "item.notched_sword",
@@ -216,29 +216,21 @@
 				},
 				{
 					"item": "item.marrow_arm",
-					"item_fingerprint": "218ece00e33f4202",
+					"item_fingerprint": "019c67b092c08c07",
 					"slot": "right_arm"
 				}
 			],
-			"fingerprint": "3bcb8eb07daae913",
+			"fingerprint": "8bea4de587d53043",
 			"guard_posture_overrides": {
 				"heavy": 15.0,
 				"light": 10.0
 			},
 			"profile": "profile.corrupted_swordsman",
 			"schema": "boneshed.resolved_build.v0",
-			"stat_sources": {
-				"deflect_window": [
-					{
-						"item": "item.marrow_arm",
-						"op": "add",
-						"value": -0.05
-					}
-				]
-			},
+			"stat_sources": {},
 			"stats": {
 				"deflect_posture": 42.0,
-				"deflect_window": 0.11,
+				"deflect_window": 0.16,
 				"guard_chip": 0.12,
 				"max_health": 100.0,
 				"max_posture": 100.0,
@@ -277,12 +269,6 @@
 					],
 					"disadvantages": [
 						{
-							"kind": "stat",
-							"op": "add",
-							"stat": "deflect_window",
-							"value": -0.05
-						},
-						{
 							"kind": "excludes_tag",
 							"tag": "grip.two_handed"
 						}
@@ -296,7 +282,7 @@
 		"defeated": {
 			"build_id": "soul.marrow_swordsman",
 			"carried": [],
-			"catalog_version": "0.2.0",
+			"catalog_version": "0.3.0",
 			"equipped": {
 				"main_hand": "item.notched_sword",
 				"right_arm": "item.marrow_arm"
@@ -317,9 +303,9 @@
 					"id": "ability.marrow_lunge"
 				}
 			],
-			"catalog_version": "0.2.0",
+			"catalog_version": "0.3.0",
 			"item": "item.marrow_arm",
-			"item_fingerprint": "218ece00e33f4202",
+			"item_fingerprint": "019c67b092c08c07",
 			"ref_id": "6eda82130f2845a3",
 			"schema": "boneshed.salvage_ref.v0",
 			"source": {
@@ -335,7 +321,7 @@
 			"carried": [
 				"item.marrow_arm"
 			],
-			"catalog_version": "0.2.0",
+			"catalog_version": "0.3.0",
 			"equipped": {
 				"main_hand": "item.notched_sword"
 			},
@@ -345,7 +331,7 @@
 		"after_equip": {
 			"build_id": "player.fixture",
 			"carried": [],
-			"catalog_version": "0.2.0",
+			"catalog_version": "0.3.0",
 			"equipped": {
 				"main_hand": "item.notched_sword",
 				"right_arm": "item.marrow_arm"
@@ -418,7 +404,7 @@
 			}
 		],
 		"build_id": "player.fixture",
-		"catalog_version": "0.2.0",
+		"catalog_version": "0.3.0",
 		"equipped": [
 			{
 				"item": "item.notched_sword",
@@ -427,26 +413,18 @@
 			},
 			{
 				"item": "item.marrow_arm",
-				"item_fingerprint": "218ece00e33f4202",
+				"item_fingerprint": "019c67b092c08c07",
 				"slot": "right_arm"
 			}
 		],
-		"fingerprint": "492f49bd1de9d595",
+		"fingerprint": "d160ad60ea2b76aa",
 		"guard_posture_overrides": {},
 		"profile": "profile.duelist",
 		"schema": "boneshed.resolved_build.v0",
-		"stat_sources": {
-			"deflect_window": [
-				{
-					"item": "item.marrow_arm",
-					"op": "add",
-					"value": -0.05
-				}
-			]
-		},
+		"stat_sources": {},
 		"stats": {
 			"deflect_posture": 42.0,
-			"deflect_window": 0.11,
+			"deflect_window": 0.16,
 			"guard_chip": 0.12,
 			"max_health": 100.0,
 			"max_posture": 100.0,
@@ -485,12 +463,6 @@
 				],
 				"disadvantages": [
 					{
-						"kind": "stat",
-						"op": "add",
-						"stat": "deflect_window",
-						"value": -0.05
-					},
-					{
 						"kind": "excludes_tag",
 						"tag": "grip.two_handed"
 					}
@@ -514,12 +486,6 @@
 				],
 				"disadvantages": [
 					{
-						"kind": "stat",
-						"op": "add",
-						"stat": "deflect_window",
-						"value": -0.05
-					},
-					{
 						"kind": "excludes_tag",
 						"tag": "grip.two_handed"
 					}
@@ -527,13 +493,7 @@
 				"item": "item.marrow_arm"
 			}
 		],
-		"stats": {
-			"deflect_window": {
-				"after": 0.11,
-				"before": 0.16,
-				"delta": -0.05
-			}
-		},
+		"stats": {},
 		"tags_added": [
 			"body.augmented",
 			"body.marrow_arm"

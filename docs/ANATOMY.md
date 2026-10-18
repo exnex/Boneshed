@@ -1,5 +1,13 @@
 # Extensible Anatomy and Transformation — Design and Prototype
 
+**Current playable milestone:** [First playable guide](FIRST_PLAYABLE.md). Catalog
+0.3.0 integrates Marrow Lunge and victory → salvage → equip → next duel into the normal
+entry scene. Marrow Arm preserves the 0.16 s deflection window; its former −0.05 s
+fixture penalty is removed. The sections below record this foundation's original
+scope/proposals. The anatomy graph remains isolated; only its build-version pin and
+regenerated examples change.
+
+
 **Status: isolated foundation. Nothing here is a confirmed game mechanic.**
 The confirmed direction ([DECISIONS.md](DECISIONS.md), 2026-10-17) is only that extreme
 bodily transformations are allowed **provided** attacks and hitboxes stay readable,

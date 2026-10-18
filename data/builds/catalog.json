@@ -1,7 +1,7 @@
 {
 	"schema": "boneshed.build_catalog.v0",
-	"catalog_version": "0.2.0",
-	"provisional": "Provisional combat tuning; non-combat values remain placeholders. Duelist and corrupted swordsman reproduce Combat Iteration 2 through the shared resolver. Slots, bindings and augment penalties remain fixtures, not permanent design restrictions.",
+	"catalog_version": "0.3.0",
+	"provisional": "Provisional first-playable tuning. Marrow Lunge: long narrow reach, 0.7s windup, 0.2s active, 0.8s recovery. Marrow Arm excludes two-handed grips; it does not reduce deflection responsiveness. Slots and bindings remain provisional.",
 	"stats": [
 		{"id": "max_health", "min": 1, "max": 999, "better": "higher"},
 		{"id": "max_posture", "min": 1, "max": 999, "better": "higher"},
@@ -94,9 +94,9 @@
 			"requires_tags": [],
 			"excludes_tags": ["grip.two_handed"],
 			"grants": ["ability.marrow_lunge"],
-			"modifiers": [{"stat": "deflect_window", "op": "add", "value": -0.05}],
+			"modifiers": [],
 			"salvageable": true,
-			"notes": "Signature augment of the corrupted swordsman. The heavy bone arm raises guard late (shorter deflection window) and cannot share a two-handed grip."
+			"notes": "Grants Marrow Lunge: a long, narrow bone thrust with committed recovery. Incompatible with two-handed grips. Standard deflection window is preserved."
 		}
 	]
 }

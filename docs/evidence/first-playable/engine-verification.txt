@@ -1,0 +1,2 @@
+Verified 4.7.2.stable.official.ed1daf0bf: cached official manifest matches pinned SHA-512; archive checksum valid; installed executable equals archive member.
+Fresh official SHA512-SUMS.txt fetched through the configured proxy and verified against the cached manifest/pinned archive checksum.

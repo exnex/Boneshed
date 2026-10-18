@@ -1,8 +1,8 @@
 {
 	"catalog": {
-		"build_catalog_fingerprint": "f31a3cb9c5e6b731",
-		"build_catalog_version": "0.2.0",
-		"fingerprint": "a40dd4eaa8097cea",
+		"build_catalog_fingerprint": "60bccc6041358946",
+		"build_catalog_version": "0.3.0",
+		"fingerprint": "2fd4fc6b9b6d206b",
 		"version": "0.1.0"
 	},
 	"examples": [

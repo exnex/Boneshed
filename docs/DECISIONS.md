@@ -49,6 +49,17 @@ Keep approved direction separate from brainstorms. Amend this document only when
   guard press must also cancel into defense during windup, swing or recovery.
   Invulnerability duration, cooldown and defense tuning remain provisional.
 
+## Confirmed first-playable task scope — 2026-10-18
+- Implement the shared Marrow Lunge module for the corrupted swordsman and player,
+  then legitimate victory → salvage Marrow Arm → inspect/equip → use it in a second duel.
+- Provide ordinary desktop controls and a minimal HUD/equipment interaction; use the
+  existing build/salvage validation. No full inventory, arbitrary anatomy integration,
+  resource economy, new world/enemy content, or preview publication.
+- Preserve core defense responsiveness: the earlier fixture's reduced deflection
+  window is not approved and is removed from the playable augment.
+- Exact attack numbers, input choices, compatibility restrictions and visual projection
+  remain provisional; automated validation does not settle human game feel.
+
 ## Pending decisions
 - Final platform targets and later desktop GPU rendering configuration.
 - Exactly how skill/posture/deflection mechanics differ from inspiration.

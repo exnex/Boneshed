@@ -3,6 +3,14 @@ extends RefCounted
 ## Shared, presentation-independent rules. All durations are seconds.
 ## Every mechanic here is provisional tuning for the first duel.
 
+const INVALID := "invalid"
+const OUT_OF_RANGE := "out_of_range"
+const HIT := "hit"
+const GUARD := "guard"
+const DEFLECTED := "deflected"
+const EVADED := "evaded"
+const DEFEATED := "defeated"
+
 enum Phase { IDLE, WINDUP, ACTIVE, RECOVERY, STAGGER, BROKEN, DODGE, DEAD }
 
 var max_health := 100.0
@@ -16,7 +24,14 @@ var guard_age := 99.0
 var guard_input_held := false
 var deflect_ready_in := 0.0
 var hit_consumed := false
-var heavy := false
+var attack_binding := "light"
+# Legacy fixtures may set heavy directly; derive it from the selected attack so
+# there is still only one mutable attack selection.
+var heavy: bool:
+	get: return attack_binding == "heavy"
+	set(value): attack_binding = "heavy" if value else "light"
+# Installed only by the validated build adapter, never by a controller.
+var signature: Dictionary = {}
 var attack_windup := 0.34
 var heavy_windup := 0.85
 var light_active_duration := 0.16
@@ -25,12 +40,12 @@ var light_recovery_duration := 0.45
 var heavy_recovery_duration := 0.45
 # Preserve the phase-facing interface used by animation and existing rule fixtures.
 var active_duration: float:
-	get: return heavy_active_duration if heavy else light_active_duration
+	get: return float(signature.active) if is_signature() else (heavy_active_duration if heavy else light_active_duration)
 	set(value):
 		light_active_duration = value
 		heavy_active_duration = value
 var recovery_duration: float:
-	get: return heavy_recovery_duration if heavy else light_recovery_duration
+	get: return float(signature.recovery) if is_signature() else (heavy_recovery_duration if heavy else light_recovery_duration)
 	set(value):
 		light_recovery_duration = value
 		heavy_recovery_duration = value
@@ -110,6 +125,22 @@ func attack(is_heavy := false) -> bool:
 	remaining = heavy_windup if heavy else attack_windup
 	return true
 
+func is_signature() -> bool:
+	return attack_binding == "special" and not signature.is_empty()
+
+func windup_duration() -> float:
+	return float(signature.windup) if is_signature() else (heavy_windup if heavy else attack_windup)
+
+func attack_special() -> bool:
+	if signature.is_empty() or phase != Phase.IDLE or guarding:
+		return false
+	heavy = false
+	attack_binding = "special"
+	hit_consumed = false
+	phase = Phase.WINDUP
+	remaining = windup_duration()
+	return true
+
 func dodge() -> bool:
 	if phase not in [Phase.IDLE, Phase.WINDUP, Phase.ACTIVE, Phase.RECOVERY] or dodge_ready_in > 0.0:
 		return false
@@ -169,12 +200,12 @@ func add_posture(amount: float) -> void:
 
 func receive(attacker: CombatState, incoming_facing_dot := 1.0) -> String:
 	if attacker.phase != Phase.ACTIVE or attacker.hit_consumed or phase == Phase.DEAD:
-		return "invalid"
+		return INVALID
 	attacker.hit_consumed = true
 	if phase == Phase.DODGE:
 		last_event = "EVADED"
-		return "evaded"
-	var damage := attacker.heavy_damage if attacker.heavy else attacker.light_damage
+		return EVADED
+	var damage: float = attacker.signature.health_damage if attacker.is_signature() else (attacker.heavy_damage if attacker.heavy else attacker.light_damage)
 	var protected := guarding and incoming_facing_dot >= guard_arc_cos
 	if protected and guard_age <= deflect_window:
 		attacker.add_posture(deflect_posture)
@@ -185,11 +216,11 @@ func receive(attacker: CombatState, incoming_facing_dot := 1.0) -> String:
 		deflect_ready_in = 0.0 # A successful read earns the next attempt immediately.
 		guard_age = 99.0 # One deflection per raise, even against multiple attackers.
 		last_event = "DEFLECTION"
-		return "deflected"
+		return DEFLECTED
 	if protected:
 		health = maxf(0.0, health - damage * guard_chip)
-		var incoming_binding := "heavy" if attacker.heavy else "light"
-		var incoming_pressure := attacker.heavy_guard_posture if attacker.heavy else attacker.light_guard_posture
+		var incoming_binding := "special" if attacker.is_signature() else ("heavy" if attacker.heavy else "light")
+		var incoming_pressure: float = attacker.signature.guard_posture if attacker.is_signature() else (attacker.heavy_guard_posture if attacker.heavy else attacker.light_guard_posture)
 		add_posture(guard_posture_overrides.get(incoming_binding, incoming_pressure))
 		# A block consumes this hit but preserves the attack's normal follow-through.
 		last_event = "GUARD"
@@ -203,7 +234,7 @@ func receive(attacker: CombatState, incoming_facing_dot := 1.0) -> String:
 			phase = Phase.STAGGER
 			remaining = maxf(0.24, lockout)
 		guarding = false
-		add_posture(attacker.heavy_hit_posture if attacker.heavy else attacker.light_hit_posture)
+		add_posture(attacker.signature.posture_damage if attacker.is_signature() else (attacker.heavy_hit_posture if attacker.heavy else attacker.light_hit_posture))
 		last_event = "PUNISH" if vulnerable else "HIT"
 	if health <= 0.0:
 		phase = Phase.DEAD

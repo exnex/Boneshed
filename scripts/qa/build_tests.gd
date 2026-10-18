@@ -123,9 +123,9 @@ func _raw_equipped(equipped: Dictionary) -> Dictionary:
 	return build
 
 func test_catalog() -> void:
-	check(catalog.version == "0.2.0" and catalog.fingerprint.length() == 16, "catalog_version_and_fingerprint")
+	check(catalog.version == "0.3.0" and catalog.fingerprint.length() == 16, "catalog_version_and_fingerprint")
 	check(catalog.abilities.size() == 3 and catalog.items.size() == 2 and catalog.profiles.size() == 2, "catalog_is_small_curated_sample")
-	check(catalog.items["item.marrow_arm"].is_read_only() and catalog.items["item.marrow_arm"].modifiers[0].is_read_only()
+	check(catalog.items["item.marrow_arm"].is_read_only() and catalog.items["item.marrow_arm"].modifiers.is_read_only()
 		and catalog.abilities["ability.marrow_lunge"].timing.is_read_only(), "definitions_frozen_deeply")
 	var other = Catalog.new()
 	other.load_file()
@@ -148,7 +148,7 @@ func test_catalog_validation() -> void:
 		"duplicate ability id": func(d): d.abilities.append(d.abilities[0].duplicate(true)),
 		"grants unknown ability": func(d): d.items[0].grants.append("ability.missing"),
 		"modifies unknown stat": func(d): d.items[1].modifiers.append({"stat": "luck", "op": "add", "value": 1}),
-		"op must be add or mul": func(d): d.items[1].modifiers[0].op = "set",
+		"op must be add or mul": func(d): d.items[1].modifiers = [{"stat": "deflect_window", "op": "set", "value": -0.05}],
 		"fits unknown slot": func(d): d.items[1].fits_slots = ["tail"],
 		"cannot fit weapon slot": func(d): d.items[1].fits_slots = ["main_hand"],
 		"without an explicit disadvantage": func(d): d.items[1].modifiers = []; d.items[1].excludes_tags = [],
@@ -159,7 +159,7 @@ func test_catalog_validation() -> void:
 		"unknown binding": func(d): d.abilities[0].binding = "kick",
 		"that no item provides": func(d): d.abilities[0].requires_tags = ["wield.whip"],
 		"must be a positive number": func(d): d.abilities[0].timing.windup = 0,
-		"must be non-neutral": func(d): d.items[1].modifiers[0].value = 0,
+		"must be non-neutral": func(d): d.items[1].modifiers = [{"stat": "deflect_window", "op": "add", "value": 0}],
 		"unsupported catalog schema": func(d): d.schema = "other",
 	}
 	for fragment in cases:
@@ -289,14 +289,14 @@ func test_stats_and_tradeoffs() -> void:
 	var flow: Dictionary = Flow.run(catalog).flow
 	var change: Dictionary = flow.step_7_change
 	check(change.abilities_added == ["ability.marrow_lunge"] and change.abilities_removed.is_empty(), "augment_adds_signature_capability")
-	check(change.stats.keys() == ["deflect_window"] and change.stats.deflect_window.after == 0.11 and change.stats.deflect_window.delta == -0.05,
-		"augment_costs_deflection_window", change.stats)
+	check(change.stats.is_empty() and flow.step_6_resolved_player.stats.deflect_window == 0.16,
+		"augment_preserves_deflection_window", change.stats)
 	check(_ability(flow.step_6_resolved_player, "ability.marrow_lunge").effective.reach > slash.reach, "signature_reach_exceeds_slash")
 	var tradeoff: Dictionary = change.new_tradeoffs[0]
-	check(tradeoff.item == "item.marrow_arm" and tradeoff.advantages.size() == 1 and tradeoff.disadvantages.size() == 2, "tradeoff_explicit_both_sides", tradeoff)
+	check(tradeoff.item == "item.marrow_arm" and tradeoff.advantages.size() == 1 and tradeoff.disadvantages.size() == 1, "tradeoff_explicit_both_sides", tradeoff)
 	check(catalog.tradeoffs("item.notched_sword").disadvantages.is_empty(), "ordinary_weapon_has_no_forced_drawback")
 	var braced := _resolved(_fixture_build(["item.marrow_arm", "item.test_brace"], [["right_arm", "item.marrow_arm"], ["left_arm", "item.test_brace"]]), fixture_rules)
-	check(braced.stats.max_posture == 130.0 and braced.stats.move_speed == 4.4 and braced.stats.deflect_window == 0.11, "add_then_mul_modifiers", braced.stats)
+	check(braced.stats.max_posture == 130.0 and braced.stats.move_speed == 4.4 and braced.stats.deflect_window == 0.16, "add_then_mul_modifiers", braced.stats)
 	check(braced.stat_sources.move_speed == [{"item": "item.test_brace", "op": "mul", "value": 0.8}], "stat_sources_traceable")
 	var crushed := _resolved(_raw_equipped({"left_arm": "item.test_crush_arm"}), fixture_rules)
 	check(crushed.stats.max_posture == 1.0, "stats_clamped_to_catalog_range", crushed.stats)
@@ -357,7 +357,7 @@ func test_serialization() -> void:
 		var loaded: Dictionary = rules.from_json(text)
 		check(loaded.ok and rules.to_json(loaded.build) == text, "json_round_trip:" + build.build_id)
 		check(_resolved(loaded.build).fingerprint == _resolved(build).fingerprint, "round_trip_resolves_identically:" + build.build_id)
-	check(rules.to_json(_soul()) == '{"build_id":"soul.marrow_swordsman","carried":[],"catalog_version":"0.2.0","equipped":{"main_hand":"item.notched_sword","right_arm":"item.marrow_arm"},"profile":"profile.corrupted_swordsman","schema":"boneshed.build.v0"}',
+	check(rules.to_json(_soul()) == '{"build_id":"soul.marrow_swordsman","carried":[],"catalog_version":"0.3.0","equipped":{"main_hand":"item.notched_sword","right_arm":"item.marrow_arm"},"profile":"profile.corrupted_swordsman","schema":"boneshed.build.v0"}',
 		"canonical_build_json_exact")
 	check("malformed_json" in _codes(rules.from_json("{not json").errors), "malformed_json_rejected")
 	check("not_an_object" in _codes(rules.from_json("[1, 2]").errors), "non_object_json_rejected")
@@ -389,4 +389,4 @@ func test_isolation() -> void:
 		for forbidden in ["res://scripts/combat", "res://scripts/characters", "res://scripts/ai", "res://scenes", "courtyard", "worldgen", "CombatState", "Node"]:
 			clean = clean and not source.contains(forbidden)
 		check(clean, "library_isolated:" + path.get_file())
-	check(ProjectSettings.get_setting("application/run/main_scene") == "res://scenes/courtyard.tscn", "main_scene_unchanged")
+	check(ProjectSettings.get_setting("application/run/main_scene") == "res://scenes/salvage_courtyard.tscn", "playable_entrypoint_selected")
