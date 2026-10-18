@@ -1,0 +1,140 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+{"check":"catalog_valid","passed":true,"suite":"builds"}
+{"check":"fixture_catalog_valid","passed":true,"suite":"builds"}
+{"check":"catalog_version_and_fingerprint","passed":true,"suite":"builds"}
+{"check":"catalog_is_small_curated_sample","passed":true,"suite":"builds"}
+{"check":"definitions_frozen_deeply","passed":true,"suite":"builds"}
+{"check":"fingerprints_stable_across_instances","passed":true,"suite":"builds"}
+{"check":"catalog_marked_provisional","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:duplicate ability id","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:grants unknown ability","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:modifies unknown stat","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:op must be add or mul","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:fits unknown slot","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:cannot fit weapon slot","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:without an explicit disadvantage","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:names an owner","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:unknown key","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:invalid ability id","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:must define exactly the catalog stats","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:unknown binding","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:that no item provides","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:must be a positive number","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:must be non-neutral","passed":true,"suite":"builds"}
+{"check":"catalog_rejects:unsupported catalog schema","passed":true,"suite":"builds"}
+{"check":"player_and_enemy_builds_valid","passed":true,"suite":"builds"}
+{"check":"player_and_enemy_share_build_schema","passed":true,"suite":"builds"}
+{"check":"player_and_enemy_share_resolved_schema","passed":true,"suite":"builds"}
+{"check":"shared_weapon_same_ability_definition","passed":true,"suite":"builds"}
+{"check":"enemy_form_matches_courtyard_posture_and_movement","passed":true,"suite":"builds"}
+{"check":"builds_store_no_ability_copies","passed":true,"suite":"builds"}
+{"check":"enemy_augment_fits_player_profile","passed":true,"suite":"builds"}
+{"check":"flow_runs","passed":true,"suite":"builds"}
+{"check":"signature_fingerprint_preserved_enemy_ref_player","passed":true,"suite":"builds"}
+{"check":"flow_does_not_mutate_definition","passed":true,"suite":"builds"}
+{"check":"wielder_changes_effective_not_definition","passed":true,"suite":"builds"}
+{"check":"no_owner_field:owner","passed":true,"suite":"builds"}
+{"check":"no_owner_field:controller","passed":true,"suite":"builds"}
+{"check":"no_owner_field:faction","passed":true,"suite":"builds"}
+{"check":"no_owner_field:player_only","passed":true,"suite":"builds"}
+{"check":"no_owner_field:enemy_only","passed":true,"suite":"builds"}
+{"check":"build_rejects:not_an_object","passed":true,"suite":"builds"}
+{"check":"invalid_build_never_resolves:not_an_object","passed":true,"suite":"builds"}
+{"check":"build_rejects:unknown_key","passed":true,"suite":"builds"}
+{"check":"invalid_build_never_resolves:unknown_key","passed":true,"suite":"builds"}
+{"check":"build_rejects:missing_key","passed":true,"suite":"builds"}
+{"check":"invalid_build_never_resolves:missing_key","passed":true,"suite":"builds"}
+{"check":"build_rejects:unsupported_schema","passed":true,"suite":"builds"}
+{"check":"invalid_build_never_resolves:unsupported_schema","passed":true,"suite":"builds"}
+{"check":"build_rejects:invalid_build_id","passed":true,"suite":"builds"}
+{"check":"invalid_build_never_resolves:invalid_build_id","passed":true,"suite":"builds"}
+{"check":"build_rejects:catalog_version_mismatch","passed":true,"suite":"builds"}
+{"check":"invalid_build_never_resolves:catalog_version_mismatch","passed":true,"suite":"builds"}
+{"check":"build_rejects:unknown_profile","passed":true,"suite":"builds"}
+{"check":"invalid_build_never_resolves:unknown_profile","passed":true,"suite":"builds"}
+{"check":"build_rejects:unknown_slot","passed":true,"suite":"builds"}
+{"check":"invalid_build_never_resolves:unknown_slot","passed":true,"suite":"builds"}
+{"check":"build_rejects:invalid_item_id","passed":true,"suite":"builds"}
+{"check":"invalid_build_never_resolves:invalid_item_id","passed":true,"suite":"builds"}
+{"check":"build_rejects:invalid_carried","passed":true,"suite":"builds"}
+{"check":"invalid_build_never_resolves:invalid_carried","passed":true,"suite":"builds"}
+{"check":"build_rejects:unknown_item","passed":true,"suite":"builds"}
+{"check":"invalid_build_never_resolves:unknown_item","passed":true,"suite":"builds"}
+{"check":"augment_in_weapon_slot_rejected","passed":true,"suite":"builds"}
+{"check":"right_arm_augment_in_left_arm_rejected","passed":true,"suite":"builds"}
+{"check":"weapon_in_body_slot_rejected","passed":true,"suite":"builds"}
+{"check":"marrow_arm_rejects_two_handed_grip","passed":true,"suite":"builds"}
+{"check":"fixture_equip:item.test_greatsword","passed":true,"suite":"builds"}
+{"check":"equip_conflict_rejected_build_unchanged","passed":true,"suite":"builds"}
+{"check":"augment_requirement_enforced","passed":true,"suite":"builds"}
+{"check":"item_supplies_own_ability_requirement","passed":true,"suite":"builds"}
+{"check":"duplicate_signature_ability_rejected","passed":true,"suite":"builds"}
+{"check":"binding_conflict_rejected","passed":true,"suite":"builds"}
+{"check":"conflict_errors_independent_of_insertion_order","passed":true,"suite":"builds"}
+{"check":"empty_build_valid_without_abilities","passed":true,"suite":"builds"}
+{"check":"equip_requires_carried_item","passed":true,"suite":"builds"}
+{"check":"equip_moves_item_to_slot","passed":true,"suite":"builds"}
+{"check":"equip_does_not_mutate_input","passed":true,"suite":"builds"}
+{"check":"equip_unknown_slot_rejected","passed":true,"suite":"builds"}
+{"check":"equip_occupied_slot_rejected","passed":true,"suite":"builds"}
+{"check":"unequip_round_trip_restores_build","passed":true,"suite":"builds"}
+{"check":"unequip_empty_slot_rejected","passed":true,"suite":"builds"}
+{"check":"unequip_removes_granted_abilities","passed":true,"suite":"builds"}
+{"check":"fixture_equip:item.marrow_arm","passed":true,"suite":"builds"}
+{"check":"fixture_equip:item.test_brace","passed":true,"suite":"builds"}
+{"check":"unequip_blocked_by_dependent_item","passed":true,"suite":"builds"}
+{"check":"unequip_dependent_first_succeeds","passed":true,"suite":"builds"}
+{"check":"player_base_stats_match_courtyard","passed":true,"suite":"builds"}
+{"check":"slash_matches_courtyard_light_attack","passed":true,"suite":"builds"}
+{"check":"augment_adds_signature_capability","passed":true,"suite":"builds"}
+{"check":"augment_costs_deflection_window","passed":true,"suite":"builds"}
+{"check":"signature_reach_exceeds_slash","passed":true,"suite":"builds"}
+{"check":"tradeoff_explicit_both_sides","passed":true,"suite":"builds"}
+{"check":"ordinary_weapon_has_no_forced_drawback","passed":true,"suite":"builds"}
+{"check":"fixture_equip:item.marrow_arm","passed":true,"suite":"builds"}
+{"check":"fixture_equip:item.test_brace","passed":true,"suite":"builds"}
+{"check":"add_then_mul_modifiers","passed":true,"suite":"builds"}
+{"check":"stat_sources_traceable","passed":true,"suite":"builds"}
+{"check":"stats_clamped_to_catalog_range","passed":true,"suite":"builds"}
+{"check":"resolution_independent_of_slot_insertion_order","passed":true,"suite":"builds"}
+{"check":"victory_yields_signature_ref","passed":true,"suite":"builds"}
+{"check":"ref_is_reference_not_copy","passed":true,"suite":"builds"}
+{"check":"ref_points_at_catalog_definitions","passed":true,"suite":"builds"}
+{"check":"rewards_deterministic","passed":true,"suite":"builds"}
+{"check":"ref_id_scoped_to_encounter","passed":true,"suite":"builds"}
+{"check":"defeat_yields_nothing","passed":true,"suite":"builds"}
+{"check":"self_defeat_yields_nothing","passed":true,"suite":"builds"}
+{"check":"invalid_defeated_build_yields_nothing","passed":true,"suite":"builds"}
+{"check":"ordinary_gear_not_salvaged","passed":true,"suite":"builds"}
+{"check":"genuine_ref_verifies","passed":true,"suite":"builds"}
+{"check":"tampered_ref_rejected:fingerprint_mismatch","passed":true,"suite":"builds"}
+{"check":"tampered_ref_rejected:ability_mismatch","passed":true,"suite":"builds"}
+{"check":"tampered_ref_rejected:ref_id_mismatch","passed":true,"suite":"builds"}
+{"check":"tampered_ref_rejected:not_salvageable","passed":true,"suite":"builds"}
+{"check":"tampered_ref_rejected:unknown_item","passed":true,"suite":"builds"}
+{"check":"tampered_ref_rejected:catalog_version_mismatch","passed":true,"suite":"builds"}
+{"check":"tampered_ref_rejected:invalid_ref","passed":true,"suite":"builds"}
+{"check":"acquire_carries_item_only","passed":true,"suite":"builds"}
+{"check":"salvaged_item_equips_and_grants_ability","passed":true,"suite":"builds"}
+{"check":"ref_rejected_after_definition_changes","passed":true,"suite":"builds"}
+{"check":"json_round_trip:player.fixture","passed":true,"suite":"builds"}
+{"check":"round_trip_resolves_identically:player.fixture","passed":true,"suite":"builds"}
+{"check":"json_round_trip:soul.marrow_swordsman","passed":true,"suite":"builds"}
+{"check":"round_trip_resolves_identically:soul.marrow_swordsman","passed":true,"suite":"builds"}
+{"check":"json_round_trip:empty.build","passed":true,"suite":"builds"}
+{"check":"round_trip_resolves_identically:empty.build","passed":true,"suite":"builds"}
+{"check":"canonical_build_json_exact","passed":true,"suite":"builds"}
+{"check":"malformed_json_rejected","passed":true,"suite":"builds"}
+{"check":"non_object_json_rejected","passed":true,"suite":"builds"}
+{"check":"unexpected_fields_rejected","passed":true,"suite":"builds"}
+{"check":"object_shaped_values_rejected","passed":true,"suite":"builds"}
+{"check":"ref_survives_json_round_trip","passed":true,"suite":"builds"}
+{"check":"flow_identical_across_instances","passed":true,"suite":"builds"}
+{"check":"flow_matches_committed_example","passed":true,"suite":"builds"}
+{"check":"resolved_fingerprint_reproducible","passed":true,"suite":"builds"}
+{"check":"library_isolated:build_catalog.gd","passed":true,"suite":"builds"}
+{"check":"library_isolated:build_rules.gd","passed":true,"suite":"builds"}
+{"check":"library_isolated:salvage.gd","passed":true,"suite":"builds"}
+{"check":"main_scene_unchanged","passed":true,"suite":"builds"}
+{"failed":0,"passed":137,"suite":"builds","summary":true}

@@ -14,7 +14,7 @@ same Notched Sword and ability definitions in `data/builds/catalog.json`.
 adapter uses one `BuildRules` resolver instance to resolve both actors.
 
 The adapter translates only fresh successful resolutions into runtime parameters.
-It prepares **both** configurations before the courtyard creates input bindings,
+It prepares **both** configurations and constructs both validated combat states before the courtyard creates input bindings,
 world geometry or fighters. A catalog/build/compatibility failure reports
 `Courtyard build initialization failed` with actor/error context and exits 1.
 There is no fallback to a partly configured fighter. A newly configured combat
@@ -131,3 +131,26 @@ compatibility only for that integrated module and prove atomic rebuilds, the
 provisional tradeoff and ability identity end to end. Defer salvage prompts,
 inventory, customization and anatomy expansion. Human playtesting should assess
 its telegraph and controls before a general equipment flow is added.
+
+## Adapter correctness follow-up (F1)
+
+`create_state(config)` now returns `{ok, errors, state}`. It rejects unknown/missing
+configuration fields, invalid values and missing or mistyped runtime properties before
+applying the 20 supported parameters through explicit typed assignments. Failure returns
+`state: null`. `prepare_encounter()` constructs both states transactionally and returns
+`states.player` / `states.enemy`; any error returns empty configs, resolutions and states.
+The courtyard attaches these prepared states before each fighter enters the tree.
+
+The JSON-shaped resolved/configuration dictionaries stay at the build boundary. Their
+keys are validated before runtime use; none is passed to `Object.set()`. The one sparse
+runtime dictionary, `guard_posture_overrides`, describes costs by incoming binding and
+is validated and deep-copied per state. No combat tuning, rule, movement, AI, input or
+presentation change is intended.
+
+The integration suite now runs 532 checks, including a non-default value for every
+parameter on both profiles through direct construction and a live scene, plus missing
+and misspelled keys and invalid values. The native runner adds 63 source mutation
+controls and a state-validation startup failure subprocess. See the
+[hardening evidence](evidence/combat-adapter-hardening/README.md) for before/after suites,
+deterministic traces, controls and limitations. The earlier validation counts above
+record the original integration PR.

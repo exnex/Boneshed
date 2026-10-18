@@ -39,11 +39,14 @@ def positive(records):
 run('import', base + ['--editor', '--import'])
 def integration_checks(records):
     summary = next(r for r in records if r.get('summary'))
-    assert summary['passed'] >= 76 and summary['failed'] == 0
+    assert summary['passed'] == 532 and summary['failed'] == 0
 run('combat_builds', base + ['--script', 'res://scripts/qa/combat_build_tests.gd'], required=integration_checks)
+run('adapter_mutations', ['python3', str(pathlib.Path(repo)/'scripts/qa/adapter_mutations.py'), engine, repo, str(output/'adapter-mutations')], seconds=180)
 def invalid_startup(records):
     assert any(r.get('check') == 'invalid_startup_creates_no_fighters_or_world' and r['passed'] for r in records)
 run('invalid_build_startup', base + ['--script', 'res://scripts/qa/combat_build_tests.gd', '--', '--invalid-startup'],
+    expected=1, required=invalid_startup, expected_error='Courtyard build initialization failed:')
+run('invalid_state_startup', base + ['--script', 'res://scripts/qa/combat_build_tests.gd', '--', '--invalid-state-startup'],
     expected=1, required=invalid_startup, expected_error='Courtyard build initialization failed:')
 def combat_checks(records):
     summary = next(r for r in records if r.get('summary'))

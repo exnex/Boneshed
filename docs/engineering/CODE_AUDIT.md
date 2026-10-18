@@ -42,33 +42,42 @@ choices hold up against official Godot guidance.
 
 ## 2. Findings
 
-### F1 — Adapter applies combat parameters through silent string `set()`; 8 of 20 fields are untested — **Medium**
+### F1 — Silent adapter assignments and default-masked coverage — **Fixed (was Medium)**
 
-- **Where:** `scripts/combat/build_adapter.gd`, `create_state()` (line 101) and `_from_resolved()`.
-- **Observed:** every parameter reaches `CombatState` through `state.set(field, value)`. On 4.7.2,
-  `Object.set()` with an unknown name does nothing and logs nothing. A mutation experiment
-  that misspelled each field in turn found that `max_posture`, `deflect_window`,
-  `guard_chip`, `posture_recovery_delay`, `heavy_windup`, `heavy_active_duration`,
-  `heavy_hit_posture` and `heavy_guard_posture` can be dropped with **zero** failing checks
-  and **zero** engine errors. `CombatState`'s defaults equal today's data, so the runtime
-  trace still matches.
-- **Evidence:** [experiments §2–3](../evidence/engineering-audit/README.md#3-adapter-field-name-mutation-does-any-test-notice-a-dropped-field).
-- **Security scope:** reproduced as a regression/coverage gap, not an exploitable adapter
-  vulnerability. Current encounter input is strictly resolved and mapped to a fixed field
-  set; no player-supplied property names reach `create_state` through this path. The known
-  `deflect_window` field does accept a changed value.
-- **If ignored:** the recommended next PR wires the Marrow Arm, whose tradeoff is
-  `deflect_window 0.16 → 0.11`. A key rename or typo would silently drop the penalty while
-  the 76-check integration suite passes. The mutation experiment did not run every suite
-  for every field. The same risk applies to future `CombatState` field renames.
-- **Remediation:** in `create_state`, reject unknown fields (`if not field in state:` →
-  fail preparation with an error code). Add one adapter test per untested field that changes
-  the catalog value and asserts the runtime value differs from the default. Optionally, replace
-  the dictionary with typed assignments.
-- **Scope / risk:** a focused follow-up, but error propagation needs design: `create_state`
-  currently returns `CombatState`, not a result dictionary, and callers do not handle failure.
-  A property-existence check alone does not verify the value type/range or missing fields.
-- **When:** **in the next PR that touches the adapter** (expected: the Marrow Lunge module).
+- **Original finding:** `Object.set()` silently ignored misspelled combat property names;
+  8 of 20 source mutations passed the old integration suite because defaults matched data.
+  This was a regression/coverage gap, not a demonstrated player-controlled exploit.
+  [Original experiments](../evidence/engineering-audit/README.md#3-adapter-field-name-mutation-does-any-test-notice-a-dropped-field).
+- **Fix:** `create_state()` validates the complete configuration (exact names, presence,
+  numeric types, finiteness, supported ranges and incoming defense bindings), checks all
+  target properties and their runtime types, then uses 20 explicit assignments on a typed
+  `CombatState`. No dynamic `Object.set()` remains. Health resets after configuration.
+- **Atomic preparation:** state construction now returns `{ok, errors, state}`; failure has
+  `state: null`. `prepare_encounter()` constructs both actors before returning success and
+  includes actor-specific `state_errors` on failure, with empty configs, resolutions and
+  states. The courtyard attaches these prepared states only after preparation succeeds.
+  Invalid second-actor state data exits 1 before creating input bindings, world or fighters.
+- **Coverage:** 532 integration checks include changed, non-default inputs for all 20 fields
+  in both profiles, both direct resolved-build construction and the real catalog-to-scene
+  path, missing/renamed keys, invalid values, defense dictionary isolation and a behavioral
+  `deflect_window = 0.11` check. The native runner also executes 63 isolated source mutation
+  controls: 20 omitted assignments, 20 misspelled assignment targets, 20 renamed runtime
+  properties, a mistyped runtime property, a translation-key typo and omitted resolver
+  profile overrides.
+  [Fix evidence and remaining limits](../evidence/combat-adapter-hardening/README.md).
+- **Intentional dynamic data:** resolved JSON and the temporary configuration remain
+  dictionaries to preserve the shared-build boundary. Generated attack keys are checked
+  against the complete combat schema before use. `guard_posture_overrides` remains a
+  dictionary because it is a sparse map of incoming `light`/`heavy` bindings to costs,
+  rather than Object properties; its names and values are validated and it is deep-copied
+  for each state. No dynamic property assignment is needed.
+- **Remaining risks:** Godot 4.7.2 can defer even typed member-write checks until execution;
+  typed syntax alone is not a compile-time guarantee. Property/type preflight protects
+  runtime contract changes, while deliberate assignment typos are required to emit engine
+  errors in the mutation controls. New parameters must update the schema, explicit mapping
+  and value-changing matrix together. The adapter remains a startup boundary for freshly
+  resolved builds, not an untrusted snapshot loader or a live re-equipping API. Human feel
+  and cross-platform replay equivalence are not established by these automated checks.
 
 ### F2 — 3D physics engine is implicit — **Medium**
 
@@ -246,7 +255,7 @@ Only items supported by findings above. Each is a separate, small PR unless note
 
 | # | Item | Finding | Severity | Trigger / timing | Size |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Reject unknown adapter fields; add value-changing tests for the 8 uncovered fields | F1 | Medium | Next PR touching the adapter (Marrow Lunge) | S |
+| 1 | Adapter fields validated, explicitly assigned and covered by non-default/mutation checks | F1 | Fixed | Completed; retain coverage when adding parameters | S |
 | 2 | Pin the 3D physics engine explicitly; record it in DECISIONS.md | F2 | Medium | Soon; before any engine upgrade; **owner decision** | XS |
 | 3 | Single owner for curated module geometry; named collision layers | F6, F7 | Low | With the Marrow Lunge module PR | S |
 | 4 | High-refresh playtest: interpolation and camera update mode | F4 | Medium | Next human playtest; **human decision** | — |

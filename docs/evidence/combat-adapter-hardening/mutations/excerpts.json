@@ -1,0 +1,1417 @@
+[
+  {
+    "mutation": "omitted_max_health",
+    "exit": 1,
+    "detected_by": "parameter_applied_max_health_player",
+    "failed_checks": [
+      {
+        "check": "data_change_reaches_live_health_and_movement",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "per_actor_heavy_override_reaches_runtime",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_max_health_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_state_reset_max_health_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_max_health_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_max_health_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_state_reset_max_health_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_max_health_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "ab3ed06a5b3bea8384d44f32feb0d4e6c7c47c2675f8d812da0c994b66257df1"
+  },
+  {
+    "mutation": "misspelled_max_health",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'max_health_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "0d1ac48eb6294edcf287166306f77cdcaafb377b416f4971180030cf16e7685e"
+  },
+  {
+    "mutation": "renamed_state_max_health",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "361802bd493c60743823cebf0f835726bfd055437b10bd96f80229195f7408cc"
+  },
+  {
+    "mutation": "omitted_max_posture",
+    "exit": 1,
+    "detected_by": "parameter_applied_max_posture_player",
+    "failed_checks": [
+      {
+        "check": "parameter_applied_max_posture_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_max_posture_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_max_posture_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_max_posture_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "f98f94bd606358c9e73af0a7b5ffaa02389c99c380e0818f0a14f440230e9cc9"
+  },
+  {
+    "mutation": "misspelled_max_posture",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'max_posture_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "734bbfcc435b5b23aca4e09464859a1d317e715f0384c1856045dcb1db2c71f2"
+  },
+  {
+    "mutation": "renamed_state_max_posture",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "fd0856594bdd15469b76203e137047ae60ed75f04e74bbf395b102ee0f2fbfe8"
+  },
+  {
+    "mutation": "omitted_deflect_window",
+    "exit": 1,
+    "detected_by": "parameter_applied_deflect_window_player",
+    "failed_checks": [
+      {
+        "check": "parameter_applied_deflect_window_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_deflect_window_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_deflect_window_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_deflect_window_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "changed_deflect_window_affects_live_defense",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "dd4e142afd8827f39e6e8d5af19496f14c144f6691c5b09d2e69ad3f0467b4b8"
+  },
+  {
+    "mutation": "misspelled_deflect_window",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'deflect_window_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "80b155dbff96ad7e222745364d7704dd977fc8fe0fd01651f9461a5c26ba1674"
+  },
+  {
+    "mutation": "renamed_state_deflect_window",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "b24854415f7d5bb0724b51b7422dc9919646c40bb8b947981e3f909b71234a94"
+  },
+  {
+    "mutation": "omitted_guard_chip",
+    "exit": 1,
+    "detected_by": "parameter_applied_guard_chip_player",
+    "failed_checks": [
+      {
+        "check": "parameter_applied_guard_chip_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_guard_chip_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_guard_chip_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_guard_chip_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "bdda2532a909baafbb70a097e282037dcc9a78b0376efd922301c7232cdcaf54"
+  },
+  {
+    "mutation": "misspelled_guard_chip",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'guard_chip_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "f41da8f7007c7a9ae8bb49928d444c11db2f940105bd0c25e0e4fefa62a4f2b0"
+  },
+  {
+    "mutation": "renamed_state_guard_chip",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "922dd5531a8a43643e2215ae6c3658b177e77086721e8634d6d498e6cb1cd5d3"
+  },
+  {
+    "mutation": "omitted_posture_recovery_rate",
+    "exit": 1,
+    "detected_by": "parameter_applied_posture_recovery_rate_player",
+    "failed_checks": [
+      {
+        "check": "posture_recovery_data_is_consumed",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_posture_recovery_rate_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_posture_recovery_rate_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_posture_recovery_rate_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_posture_recovery_rate_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "cab6e7a488f52196637f13453d990eb182a5be760731f012bba554ebaa2b4a25"
+  },
+  {
+    "mutation": "misspelled_posture_recovery_rate",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'posture_recovery_rate_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "6995845055abc8bd92bc89a7109870c81402d2b47b40857302edb1ef093d3192"
+  },
+  {
+    "mutation": "renamed_state_posture_recovery_rate",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "7f45de371dc24a172399c1b0b13ab8ed71ef84a2eaef617cae23c809063e4cea"
+  },
+  {
+    "mutation": "omitted_posture_recovery_delay",
+    "exit": 1,
+    "detected_by": "parameter_applied_posture_recovery_delay_player",
+    "failed_checks": [
+      {
+        "check": "parameter_applied_posture_recovery_delay_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_posture_recovery_delay_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_posture_recovery_delay_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_posture_recovery_delay_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "52da05c63544aa2292e07ec48dba0adba695a3d99c1fae2e196822688ba50711"
+  },
+  {
+    "mutation": "misspelled_posture_recovery_delay",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'posture_recovery_delay_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "211d1b328bf253adbe31ae0e899660bf834159ccd0c3896df34d496e454af1b4"
+  },
+  {
+    "mutation": "renamed_state_posture_recovery_delay",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "8731ec3554b485dda6d15da55e5124c9a11beeff307cb8ff239411ec357dd46e"
+  },
+  {
+    "mutation": "omitted_deflect_posture",
+    "exit": 1,
+    "detected_by": "parameter_applied_deflect_posture_player",
+    "failed_checks": [
+      {
+        "check": "deflection_posture_data_is_consumed",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_deflect_posture_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_deflect_posture_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_deflect_posture_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_deflect_posture_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "df0095aa9327cd1c3c8dfdb81b7095fc29691443921e1c394c493a11de339dfd"
+  },
+  {
+    "mutation": "misspelled_deflect_posture",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'deflect_posture_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "7423554e274263f9c924f26f9dac235ba6fbad8af35c6147da211ffd90f311cc"
+  },
+  {
+    "mutation": "renamed_state_deflect_posture",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "2911d99936e8d1a2b3c9898489d6774e9a4cd4232bf52fbc6ed433dcc97a22f1"
+  },
+  {
+    "mutation": "omitted_attack_windup",
+    "exit": 1,
+    "detected_by": "parameter_applied_attack_windup_player",
+    "failed_checks": [
+      {
+        "check": "runtime_matches_pre_integration_trace",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "enemy_per_attack_timing_preserved",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "base_windup_changes_without_overwriting_form_override",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_attack_windup_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_attack_windup_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_attack_windup_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_attack_windup_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "f0e7d7990bc12cc6433bfc5b580588eb83dc2428fd63df6239384ec972bbf349"
+  },
+  {
+    "mutation": "misspelled_attack_windup",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'attack_windup_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "d2520d6d60fae482461a2da4fe3b806a396506177901f4429e70d256f5758e6c"
+  },
+  {
+    "mutation": "renamed_state_attack_windup",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "14cfa23c5275668182229670a99519015fc6baea5661e8444c59e3aaf81beabb"
+  },
+  {
+    "mutation": "omitted_heavy_windup",
+    "exit": 1,
+    "detected_by": "parameter_applied_heavy_windup_player",
+    "failed_checks": [
+      {
+        "check": "parameter_applied_heavy_windup_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_windup_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_heavy_windup_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_windup_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "d8c778b5db789efae05d777339f8de3d972e5b5d87f7ecd35ee9485c0f658cfc"
+  },
+  {
+    "mutation": "misspelled_heavy_windup",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'heavy_windup_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "de664ed9cde529738a3b52e6ba3ade3124543c7577ff9a4da8bdc9298e69a7b5"
+  },
+  {
+    "mutation": "renamed_state_heavy_windup",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "6942330dc047b27fbcf3ab87b851e9080eeeff58505cb89ace8a117cac9da457"
+  },
+  {
+    "mutation": "omitted_light_active_duration",
+    "exit": 1,
+    "detected_by": "parameter_applied_light_active_duration_player",
+    "failed_checks": [
+      {
+        "check": "light_active_data_is_consumed",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "changed_light_active_duration_changes_phase_transition",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_light_active_duration_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_active_duration_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_light_active_duration_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_active_duration_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "5162353dd19c73dbcc46dac74d48371aed296b029e3f57a9a2d4f94ca49cb94b"
+  },
+  {
+    "mutation": "misspelled_light_active_duration",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'light_active_duration_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "845893aab73d54994443381751beb12d8fd71ccc0a762fb6f6dfdb31883d4f9a"
+  },
+  {
+    "mutation": "renamed_state_light_active_duration",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "1f1bbd2b5dbfbfe80dd079b9afcb8ccc0d7779410391ab891f5ff6d6b8c4a518"
+  },
+  {
+    "mutation": "omitted_heavy_active_duration",
+    "exit": 1,
+    "detected_by": "parameter_applied_heavy_active_duration_player",
+    "failed_checks": [
+      {
+        "check": "parameter_applied_heavy_active_duration_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_active_duration_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_heavy_active_duration_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_active_duration_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "c7ea73cc41994f34b36effee2e48da203d1d5a3d5a8822fe3ceae1070597e553"
+  },
+  {
+    "mutation": "misspelled_heavy_active_duration",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'heavy_active_duration_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "7a8184c092e149bf7cea2b92ee2cfb0002539fd406904414ad1123fc0ed65db5"
+  },
+  {
+    "mutation": "renamed_state_heavy_active_duration",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "7ac24518dc88cb78b2b1bb94121b16f7cba1bfb893859cc4e6e98f08eaa37b38"
+  },
+  {
+    "mutation": "omitted_light_recovery_duration",
+    "exit": 1,
+    "detected_by": "parameter_applied_light_recovery_duration_player",
+    "failed_checks": [
+      {
+        "check": "runtime_matches_pre_integration_trace",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "profile_override_reaches_runtime_recovery",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "profile_recovery_override_changes_phase_transition",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_light_recovery_duration_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_recovery_duration_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_light_recovery_duration_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_recovery_duration_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "da4fbaeb90051b75ae3257ac7f9de9c2894759cb7b8ccbbeb6ba78d6d3920f9b"
+  },
+  {
+    "mutation": "misspelled_light_recovery_duration",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'light_recovery_duration_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "eb00623bc9a6e21ab3a174d7e6b025a66d3d2e9c68e5ec54f87b65e7bff798e5"
+  },
+  {
+    "mutation": "renamed_state_light_recovery_duration",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "bad52ed062f09ec49e80dd939be0fb46f5e95739c892a5565944404ced0ff0b4"
+  },
+  {
+    "mutation": "omitted_heavy_recovery_duration",
+    "exit": 1,
+    "detected_by": "parameter_applied_heavy_recovery_duration_player",
+    "failed_checks": [
+      {
+        "check": "runtime_matches_pre_integration_trace",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "per_actor_heavy_override_reaches_runtime",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_heavy_recovery_duration_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_recovery_duration_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_heavy_recovery_duration_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_recovery_duration_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "50c892241a472d01b25e737d536873ca359e597822f978e59bd4f93bfb6c56af"
+  },
+  {
+    "mutation": "misspelled_heavy_recovery_duration",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'heavy_recovery_duration_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "4dccab5a9294dce36239034633fc0fbadf4b7dfc2b20f0c870da737a895fad73"
+  },
+  {
+    "mutation": "renamed_state_heavy_recovery_duration",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "e78ef90a1c6c3be3030183b55dd21a56ae0bf9c8f072d55b701bf75e1efe1f3e"
+  },
+  {
+    "mutation": "omitted_light_damage",
+    "exit": 1,
+    "detected_by": "parameter_applied_light_damage_player",
+    "failed_checks": [
+      {
+        "check": "data_change_reaches_live_hit_damage_and_posture",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_light_damage_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_damage_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_light_damage_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_damage_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "1e6310382151ba84e61a912b3a8c0f8393ef4dd9491c33aea9589e3e4184a599"
+  },
+  {
+    "mutation": "misspelled_light_damage",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'light_damage_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "4afc5628377bbc94cada142a3b30612515d8c2d054ed27dbe2a43f7a43554ff8"
+  },
+  {
+    "mutation": "renamed_state_light_damage",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "7658c8ea631200f947aec26dd9a00c6f7c656e60aeae3a9965bf4ca4bd2f59a1"
+  },
+  {
+    "mutation": "omitted_heavy_damage",
+    "exit": 1,
+    "detected_by": "parameter_applied_heavy_damage_player",
+    "failed_checks": [
+      {
+        "check": "per_actor_heavy_override_reaches_runtime",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_heavy_damage_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_damage_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_heavy_damage_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_damage_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "37971c132955699202dad04857724736cb68409f5dd137690cf2dd67918ec344"
+  },
+  {
+    "mutation": "misspelled_heavy_damage",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'heavy_damage_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "c2e9c277683a1860b3589cfbcb8ff453e1dbab9b224bb4de40f88b8806d9f5c0"
+  },
+  {
+    "mutation": "renamed_state_heavy_damage",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "822c707b677ca8f7163b20f834f61e171424745085183e333cb48ee67eba179f"
+  },
+  {
+    "mutation": "omitted_light_hit_posture",
+    "exit": 1,
+    "detected_by": "parameter_applied_light_hit_posture_player",
+    "failed_checks": [
+      {
+        "check": "data_change_reaches_live_hit_damage_and_posture",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_light_hit_posture_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_hit_posture_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_light_hit_posture_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_hit_posture_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "4cf0d95dd168f59dd0298e70a02b1a63b3748f670e130403bea5aede59379c93"
+  },
+  {
+    "mutation": "misspelled_light_hit_posture",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'light_hit_posture_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "4f189fed1b73398da6adce44c6755f9e7f75c6252418985136a231ece8aece70"
+  },
+  {
+    "mutation": "renamed_state_light_hit_posture",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "f8549970b28b8ac89cd9b316041e5cbac48ccbcee4b1dcf498b0b2f28151c658"
+  },
+  {
+    "mutation": "omitted_heavy_hit_posture",
+    "exit": 1,
+    "detected_by": "parameter_applied_heavy_hit_posture_player",
+    "failed_checks": [
+      {
+        "check": "parameter_applied_heavy_hit_posture_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_hit_posture_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_heavy_hit_posture_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_hit_posture_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "7f1a319fdc76774eb2c0fe9d5f978b333407cc6fdd382855d8c9ba1941cce8be"
+  },
+  {
+    "mutation": "misspelled_heavy_hit_posture",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'heavy_hit_posture_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "302de1bf582beb0b325cfdc80c93c7b772c2fc13a39aed16050f734b20319c84"
+  },
+  {
+    "mutation": "renamed_state_heavy_hit_posture",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "f4714905cd7a010a352c4a07629b4cc7b1bb42507573c600c2ffff63cb148bfe"
+  },
+  {
+    "mutation": "omitted_light_guard_posture",
+    "exit": 1,
+    "detected_by": "parameter_applied_light_guard_posture_player",
+    "failed_checks": [
+      {
+        "check": "incoming_ability_guard_pressure_is_consumed",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_light_guard_posture_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_guard_posture_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_light_guard_posture_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_guard_posture_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "a6531e6e18e5fb7e3e3d0f5b34a499d12d80066f6d5d8b72929fee74a8ab01b5"
+  },
+  {
+    "mutation": "misspelled_light_guard_posture",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'light_guard_posture_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "f3873436fd25853be69ec8b5b50f9788b49077362fb94b18168294e5688609ab"
+  },
+  {
+    "mutation": "renamed_state_light_guard_posture",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "b41a50a4bfbf9d2cd8a45fc1888631efc2db0a83c1274adc05527ac9def58f2a"
+  },
+  {
+    "mutation": "omitted_heavy_guard_posture",
+    "exit": 1,
+    "detected_by": "parameter_applied_heavy_guard_posture_player",
+    "failed_checks": [
+      {
+        "check": "parameter_applied_heavy_guard_posture_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_guard_posture_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_heavy_guard_posture_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_guard_posture_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "2f852c29c1da315f41b77d4be8eae756667b1da427b876118006fc7c4124aa1c"
+  },
+  {
+    "mutation": "misspelled_heavy_guard_posture",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'heavy_guard_posture_typo' with value of type 'float' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "f1f42a75e50319c343f5915bcf3933fcd2f7928caa3cdabb8b71f1eedccd0441"
+  },
+  {
+    "mutation": "renamed_state_heavy_guard_posture",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "1b611e0ed00f1971200792c6b862469da241cd84d886dd187e29b2bae7b02bc8"
+  },
+  {
+    "mutation": "omitted_guard_posture_overrides",
+    "exit": 1,
+    "detected_by": "parameter_applied_guard_posture_overrides_player",
+    "failed_checks": [
+      {
+        "check": "runtime_matches_pre_integration_trace",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "form_block_cost_remains_explicit",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_guard_posture_overrides_player",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_guard_posture_overrides_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_applied_guard_posture_overrides_enemy",
+        "detail": [],
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_guard_posture_overrides_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "defense_overrides_are_owned_by_each_state",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "bb0ea81011b82f0aa81e3cb424cc5f65a4418b3b661ab4ebec7cf979098c3626"
+  },
+  {
+    "mutation": "misspelled_guard_posture_overrides",
+    "exit": 1,
+    "detected_by": "direct assignment engine error",
+    "failed_checks": [],
+    "engine_errors": [
+      "SCRIPT ERROR: Invalid assignment of property or key 'guard_posture_overrides_typo' with value of type 'Dictionary' on a base object of type 'RefCounted (CombatState)'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'.",
+      "SCRIPT ERROR: Invalid access to property or key 'ok' on a base object of type 'Dictionary'."
+    ],
+    "full_log_sha256": "2c808d48ad1ed0c120bff51639ec5de8f55ecf0dafafd03eae723e4ebadd85db"
+  },
+  {
+    "mutation": "renamed_state_guard_posture_overrides",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "59e99b0ed8a34907a7a781866b897aa3a3ce9a908dfb05638c7ce4fdf1caf4cf"
+  },
+  {
+    "mutation": "mistyped_state_max_health",
+    "exit": 1,
+    "detected_by": "invalid_state_property_type; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "83d19ae39f6a2921adce94b9831c063a25e9b2ae9f8a9d35e82d4cdce73c2ca6"
+  },
+  {
+    "mutation": "translation_typo",
+    "exit": 0,
+    "detected_by": "unknown_combat_parameter; no configs/resolved/states",
+    "failed_checks": [],
+    "engine_errors": [],
+    "full_log_sha256": "56ae8ac79b08b9230140a268e212c787cb1e3587009d6b434cb63ec21a963a32"
+  },
+  {
+    "mutation": "omitted_profile_overrides",
+    "exit": 1,
+    "detected_by": "enemy_per_attack_timing_preserved",
+    "failed_checks": [
+      {
+        "check": "runtime_matches_pre_integration_trace",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "enemy_per_attack_timing_preserved",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "base_windup_changes_without_overwriting_form_override",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "profile_override_reaches_runtime_recovery",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "profile_recovery_override_changes_phase_transition",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "per_actor_heavy_override_reaches_runtime",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "overrides_then_scales_share_one_resolution_order",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_attack_windup_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_windup_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_active_duration_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_active_duration_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_recovery_duration_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_recovery_duration_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_damage_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_damage_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_hit_posture_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_hit_posture_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_guard_posture_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_guard_posture_player",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_attack_windup_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_windup_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_active_duration_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_active_duration_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_recovery_duration_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_recovery_duration_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_damage_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_damage_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_hit_posture_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_hit_posture_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_light_guard_posture_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      },
+      {
+        "check": "parameter_live_heavy_guard_posture_enemy",
+        "detail": null,
+        "passed": false,
+        "suite": "combat_builds"
+      }
+    ],
+    "engine_errors": [],
+    "full_log_sha256": "d93d8a5d91adb0faa61c31dd1bbced3b57936d69ff9c7183ca25de04bd49ef48"
+  }
+]
