@@ -87,6 +87,8 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("debug"):
 		player.debug_hitboxes = not player.debug_hitboxes
 		enemy.debug_hitboxes = player.debug_hitboxes
+	if Input.is_action_just_pressed("help"):
+		hud.show_controls = not hud.show_controls
 
 func _resolve_duel() -> void:
 	if progression.stage != Progression.Stage.DUEL:
@@ -133,10 +135,6 @@ func progression_prompt() -> String:
 	if progression.stage == Progression.Stage.FALLEN:
 		return "YOU FELL · R to retry with your current equipment"
 	if progression.stage != Progression.Stage.VICTORY:
-		if player.combat.is_signature() and player.combat.phase in [Rules.Phase.WINDUP, Rules.Phase.ACTIVE]:
-			return "YOUR MARROW LUNGE · The power you claimed is yours."
-		if not enemy.combat.signature.is_empty() and enemy.combat.is_signature() and enemy.combat.phase == Rules.Phase.WINDUP:
-			return "MARROW LUNGE · Bone draws back. Deflect the thrust or dodge."
 		return ""
 	if not progression.available_rewards().is_empty():
 		return "SOUL RELEASED · F to salvage Marrow Arm"
@@ -147,7 +145,7 @@ func progression_prompt() -> String:
 	return "SOUL RELEASED · R to face it again"
 
 func _setup_input() -> void:
-	var keys := {"move_forward": KEY_W, "move_back": KEY_S, "move_left": KEY_A, "move_right": KEY_D, "dodge": KEY_SPACE, "lock_on": KEY_TAB, "reset": KEY_R, "release_mouse": KEY_ESCAPE, "debug": KEY_F3, "salvage": KEY_F, "equip": KEY_E, "next_duel": KEY_N, "signature": KEY_Q, "heavy_attack": KEY_C}
+	var keys := {"move_forward": KEY_W, "move_back": KEY_S, "move_left": KEY_A, "move_right": KEY_D, "dodge": KEY_SPACE, "lock_on": KEY_TAB, "reset": KEY_R, "release_mouse": KEY_ESCAPE, "debug": KEY_F3, "help": KEY_F1, "salvage": KEY_F, "equip": KEY_E, "next_duel": KEY_N, "signature": KEY_Q, "heavy_attack": KEY_C}
 	for action in keys:
 		if not InputMap.has_action(action):
 			InputMap.add_action(action)

@@ -27,6 +27,17 @@ var visual: Node3D
 var sword_pivot: Node3D
 var sword_arm: MeshInstance3D
 var torso: MeshInstance3D
+var head: MeshInstance3D
+var pelvis: MeshInstance3D
+var forearm: MeshInstance3D
+var free_arm: MeshInstance3D
+var free_forearm: MeshInstance3D
+var thighs: Array[MeshInstance3D] = []
+var shins: Array[MeshInstance3D] = []
+var feet: Array[MeshInstance3D] = []
+var gait := 0.0
+var reaction_kind := ""
+var reaction_time := 0.0
 var indicator: MeshInstance3D
 var body_material: StandardMaterial3D
 var impact: Node3D
@@ -34,7 +45,7 @@ var broken_halo: MeshInstance3D
 var flash_time := 0.0
 var event_serial := 0
 var last_result := ""
-var debug_hitboxes := true
+var debug_hitboxes := false
 
 func _ready() -> void:
 	collision_layer = AttackModules.FIGHTER_LAYER
@@ -115,6 +126,13 @@ func resolve_attack() -> String:
 	opponent.last_result = result
 	opponent.flash_time = 0.32
 	opponent.event_serial += 1
+	# Presentation gets the resolved outcome; it cannot affect damage or phase time.
+	opponent.reaction_kind = result
+	opponent.reaction_time = 0.32 if result != Rules.EVADED else 0.0
+	opponent.impact.global_position = (global_position + opponent.global_position) * 0.5 + Vector3.UP * 1.3
+	if result == Rules.DEFLECTED:
+		reaction_kind = Rules.DEFLECTED
+		reaction_time = 0.32
 	# Hit resolution runs after actor physics; refresh both poses immediately so
 	# the first rendered frame agrees with death, deflection, and break state.
 	opponent.sync_visual()
@@ -130,6 +148,9 @@ func reset_at(point: Vector3, guard_held := false) -> void:
 	last_result = ""
 	event_serial = 0
 	flash_time = 0.0
+	gait = 0.0
+	reaction_kind = ""
+	reaction_time = 0.0
 
 func sync_visual(delta := 0.0) -> void:
 	Visual.sync(self, delta)

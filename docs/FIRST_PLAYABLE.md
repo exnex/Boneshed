@@ -21,7 +21,7 @@ bash scripts/tooling/play.sh
    heavy attack, **RMB** guards (tap near contact to deflect), **Space** dodges.
 2. Watch for **Marrow Lunge**: the ivory right arm draws back horizontally, its
    amber bone forks frame the shoulder, then the bone extends in a straight thrust.
-   This differs from the sword heavy's overhead raise. The HUD names the windup.
+   This differs from the sword heavy's overhead raise. The body and weapon carry the cue; the normal HUD has no phase narration.
    Deflect the contact or dodge; punish the recovery. The first attack is a lunge,
    and it returns every four initiated attacks unless the enemy is countering a block.
 3. Defeat the enemy. The prompt changes to **SOUL RELEASED · F to salvage Marrow
@@ -33,7 +33,8 @@ bash scripts/tooling/play.sh
 5. Press **N** to begin the next duel with your newly resolved equipment. Press
    **Tab** to lock again. **Q** executes Marrow Lunge; the HUD announces your
    inherited power. Light/heavy attacks, guard, deflection and dodge remain available.
-6. **R** retries the current duel with acquired inventory and equipped items retained.
+6. **F1** opens/closes the control reference; **F3** toggles developer volumes (off by default).
+   **R** retries the current duel with acquired inventory and equipped items retained.
    An unclaimed victory reward is discarded by R: win again to salvage it. N advances
    the duel number after an equipped victory. You can win or lose subsequent duels.
 7. **Esc** releases the mouse; click to capture it again. Closing/reopening the game
@@ -136,6 +137,13 @@ authority, duplicate ownership, lunge damage, hit consumption, and the actual bo
 See [executed evidence and limitations](evidence/first-playable/README.md). Automated
 success establishes the loop's reachability and specified rules. **No human has yet
 validated fun, readability, physical-device timing, high-refresh feel or balance.**
+
+## Combat presentation follow-up
+
+[Iteration 3](COMBAT_PRESENTATION_3.md) replaces the original poses and cleans up
+the HUD/camera. The evidence below records the first-playable implementation before
+that presentation slice; use the iteration 3 instructions and comparisons for current
+readability evaluation.
 
 ## Known limitations and next playtest
 
