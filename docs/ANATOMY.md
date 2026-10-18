@@ -6,8 +6,9 @@ bodily transformations are allowed **provided** attacks and hitboxes stay readab
 controls stay reliable, combat stays fair and equipment/animation stay compatible.
 Every part, socket, capability, class, limit, proportion range and requirement below is
 **Proposed**. Nothing is wired into the courtyard, combat rules, AI, input, scenes, the
-shared-build implementation or its catalog. The shared build catalog is read, never
-edited.
+shared-build implementation or its catalog. The shared build catalog (currently
+`0.2.0`, which since PR #13 also drives live courtyard combat through
+`scripts/combat/build_adapter.gd`) is read, never edited; live combat never reads anatomy.
 
 | | |
 | --- | --- |
@@ -17,7 +18,7 @@ edited.
 | Provisional parts, equipment, requirements | [`data/anatomy/catalog.json`](../data/anatomy/catalog.json) |
 | Four example bodies | [`data/anatomy/example_bodies.json`](../data/anatomy/example_bodies.json) |
 | Transformations and rejected cases | [`scripts/qa/anatomy_fixture.gd`](../scripts/qa/anatomy_fixture.gd) |
-| Tests (188 checks) | [`scripts/qa/anatomy_tests.gd`](../scripts/qa/anatomy_tests.gd) |
+| Tests (190 checks) | [`scripts/qa/anatomy_tests.gd`](../scripts/qa/anatomy_tests.gd) |
 | Generated example | [`docs/anatomy/examples/SUMMARY.md`](anatomy/examples/SUMMARY.md) and `flow.json` |
 
 ```sh
@@ -206,8 +207,12 @@ reads the build catalog (duck-typed, never preloaded, never written). Today's sl
 lossy projection of a body: `legacy_slots()` maps equipment with a `build_item` to its
 build slot and side-mounted parts with a `build_item` (the Marrow Arm) to
 `left_arm`/`right_arm`. Tests prove the humanoid and Marrow bodies project to exactly the
-current `player.fixture` and `soul.marrow_swordsman` loadouts and that every projection
-validates with the **unchanged** `build_rules.gd`. Four-armed and brute bodies report
+current `player.fixture` and `soul.marrow_swordsman` loadouts, that the humanoid body
+projects to the loadout of **both** live courtyard actors in `data/builds/courtyard.json`
+(read as data only), and that every projection validates with the **unchanged**
+`build_rules.gd`. `build_catalog_version` in the anatomy catalog pins the build catalog it
+was checked against; a mismatch makes every projection non-lossless and fails the tests,
+so build-catalog revisions cannot silently drift from anatomy. Four-armed and brute bodies report
 their anatomy-only nodes as lossy. Every shared-build ability (`attack.slash`,
 `attack.heavy_slash`, `ability.marrow_lunge`) already has a capability requirement.
 
@@ -215,15 +220,16 @@ Proposed later integration (each its own PR, coordinated with Codex's live-comba
 
 1. Approve or amend §7 decisions.
 2. Add an optional `anatomy` body (or body id) beside a build; stats and abilities still
-   resolve through shared builds, and abilities are additionally gated by
-   `check_requirement`. The legacy slots become derived.
+   resolve through shared builds (`build_rules.resolve`) and still reach combat only
+   through the existing `build_adapter.gd`, never a second resolver. Abilities are
+   additionally gated by `check_requirement`. The legacy slots become derived.
 3. Map hurt/reach classes to volumes in combat-owned data; apply `combat_view` attack
    origins to the existing hit volume code.
 4. Curated module for one non-baseline part (see the next step).
 
 ## 5. Tests and executed results
 
-`scripts/qa/anatomy_tests.gd`, 188 checks, deterministic (no randomness):
+`scripts/qa/anatomy_tests.gd`, 190 checks, deterministic (no randomness):
 
 - **Catalog**: valid, small, deeply frozen, stable fingerprints; a visual-only catalog
   edit keeps gameplay fingerprints; cores carry all anchors; 18 malformed catalogs each

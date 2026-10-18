@@ -11,6 +11,7 @@ const BuildRules := preload("res://scripts/builds/build_rules.gd")
 const SalvageFlow := preload("res://scripts/qa/salvage_flow_fixture.gd")
 const Fixture := preload("res://scripts/qa/anatomy_fixture.gd")
 const EXAMPLE_FLOW := "res://docs/anatomy/examples/flow.json"
+const LIVE_BUILDS := "res://data/builds/courtyard.json"
 const CORE_SCRIPTS := ["res://scripts/anatomy/anatomy_catalog.gd", "res://scripts/anatomy/anatomy_rules.gd"]
 const LEGACY_SLOTS := ["main_hand", "left_arm", "right_arm"]
 
@@ -431,6 +432,13 @@ func test_build_contract() -> void:
 	check(human.lossless and human.equipped == player.equipped, "humanoid_projects_to_current_player_build", human)
 	var marrow: Dictionary = projection.legacy_slots(_resolved(examples["body.marrow_replacement"]))
 	check(marrow.lossless and marrow.equipped == soul.equipped, "marrow_body_projects_to_current_soul_build", marrow)
+	# The live courtyard actors (read as data only) are both humanoid sword wielders.
+	var live: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(LIVE_BUILDS))
+	for actor in ["player", "enemy"]:
+		var projected: Dictionary = live[actor].duplicate(true)
+		projected.equipped = human.equipped
+		check(build_rules.validate(live[actor]).is_empty() and human.equipped == live[actor].equipped
+			and build_rules.resolve(projected).ok, "humanoid_projects_to_live_build:" + actor, live[actor])
 	for id in examples:
 		var view: Dictionary = projection.legacy_slots(_resolved(examples[id]))
 		var build: Dictionary = build_rules.new_build("projection.check", "profile.duelist")
