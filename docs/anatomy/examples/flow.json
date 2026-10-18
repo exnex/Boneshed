@@ -1,0 +1,2592 @@
+{
+	"catalog": {
+		"build_catalog_fingerprint": "f31a3cb9c5e6b731",
+		"build_catalog_version": "0.2.0",
+		"fingerprint": "a40dd4eaa8097cea",
+		"version": "0.1.0"
+	},
+	"examples": [
+		{
+			"anchors": {
+				"camera_focus": "torso",
+				"core_hurtbox": "torso",
+				"facing": "torso",
+				"movement_root": "torso"
+			},
+			"body": {
+				"body_id": "body.humanoid_fighter",
+				"catalog_version": "0.1.0",
+				"equipment": [
+					{
+						"item": "equip.notched_sword",
+						"mounts": [
+							"arm_r/grip"
+						]
+					}
+				],
+				"nodes": [
+					{
+						"id": "arm_l",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_l"
+					},
+					{
+						"id": "arm_r",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_r"
+					},
+					{
+						"id": "head",
+						"parent": "torso",
+						"part": "part.human_head",
+						"proportions": {},
+						"socket": "neck"
+					},
+					{
+						"id": "legs",
+						"parent": "torso",
+						"part": "part.biped_legs",
+						"proportions": {},
+						"socket": "hips"
+					},
+					{
+						"id": "torso",
+						"parent": "",
+						"part": "part.humanoid_torso",
+						"proportions": {},
+						"socket": ""
+					}
+				],
+				"schema": "boneshed.anatomy.v0"
+			},
+			"capabilities": {
+				"grasp": [
+					"arm_l",
+					"arm_r"
+				],
+				"guard.parry": [
+					"arm_l",
+					"arm_r"
+				],
+				"locomotion.biped": [
+					"legs"
+				],
+				"sense.sight": [
+					"head"
+				],
+				"wield.blade": [
+					"arm_r"
+				]
+			},
+			"combat_view": {
+				"anchors": {
+					"camera_focus": "torso",
+					"core_hurtbox": "torso",
+					"facing": "torso",
+					"movement_root": "torso"
+				},
+				"animation_modules": [
+					"anim.arm_standard",
+					"anim.core_upright",
+					"anim.head_standard",
+					"anim.locomotion_biped"
+				],
+				"attacks": [
+					{
+						"ability": "attack.slash",
+						"attack_module": "module.slash_basic",
+						"binding": "light",
+						"excluded": [],
+						"met": true,
+						"missing": [],
+						"origin": {
+							"animation_module": "anim.arm_standard",
+							"node": "arm_r",
+							"point": "grip"
+						}
+					},
+					{
+						"ability": "attack.heavy_slash",
+						"attack_module": "module.slash_heavy",
+						"binding": "heavy",
+						"excluded": [],
+						"met": true,
+						"missing": [],
+						"origin": {
+							"animation_module": "anim.arm_standard",
+							"node": "arm_r",
+							"point": "grip"
+						}
+					},
+					{
+						"ability": "ability.marrow_lunge",
+						"attack_module": "module.marrow_lunge",
+						"binding": "special",
+						"excluded": [],
+						"met": false,
+						"missing": [
+							{
+								"capability": "limb.marrow",
+								"have": 0,
+								"need": 1
+							}
+						],
+						"origin": {}
+					}
+				],
+				"body_id": "body.humanoid_fighter",
+				"gameplay_fingerprint": "e1d4dd5d6d533597",
+				"guard": {
+					"facing_node": "torso",
+					"guarding_nodes": [
+						"arm_l",
+						"arm_r"
+					]
+				},
+				"hurt_volumes": [
+					{
+						"class": "small",
+						"node": "arm_l"
+					},
+					{
+						"class": "small",
+						"node": "arm_r"
+					},
+					{
+						"class": "small",
+						"node": "head"
+					},
+					{
+						"class": "standard",
+						"node": "legs"
+					},
+					{
+						"class": "standard",
+						"node": "torso"
+					}
+				],
+				"locomotion": {
+					"capability": "locomotion.biped",
+					"module": "anim.locomotion_biped",
+					"node": "legs"
+				},
+				"review_flags": [],
+				"schema": "boneshed.anatomy_combat_view.v0"
+			},
+			"fingerprint": "b54507bf4fc52810",
+			"gameplay_fingerprint": "e1d4dd5d6d533597",
+			"legacy_slots": {
+				"anatomy_only_nodes": [],
+				"equipped": {
+					"main_hand": "item.notched_sword"
+				},
+				"lossless": true,
+				"ok": true,
+				"unrepresented": []
+			},
+			"mounts": [
+				{
+					"mount": "arm_l/grip",
+					"occupied_by": "",
+					"type": "grip"
+				},
+				{
+					"mount": "arm_r/grip",
+					"occupied_by": "equip.notched_sword",
+					"type": "grip"
+				}
+			],
+			"requirements": [
+				{
+					"excluded": [],
+					"id": "ability.marrow_lunge",
+					"met": false,
+					"missing": [
+						{
+							"capability": "limb.marrow",
+							"have": 0,
+							"need": 1
+						}
+					],
+					"origin": {},
+					"sources": {
+						"limb.marrow": []
+					}
+				},
+				{
+					"excluded": [],
+					"id": "attack.heavy_slash",
+					"met": true,
+					"missing": [],
+					"origin": {
+						"animation_module": "anim.arm_standard",
+						"node": "arm_r",
+						"point": "grip"
+					},
+					"sources": {
+						"wield.blade": [
+							"arm_r"
+						]
+					}
+				},
+				{
+					"excluded": [],
+					"id": "attack.slash",
+					"met": true,
+					"missing": [],
+					"origin": {
+						"animation_module": "anim.arm_standard",
+						"node": "arm_r",
+						"point": "grip"
+					},
+					"sources": {
+						"wield.blade": [
+							"arm_r"
+						]
+					}
+				},
+				{
+					"excluded": [],
+					"id": "probe.anchored_crush",
+					"met": false,
+					"missing": [
+						{
+							"capability": "strike.crush",
+							"have": 0,
+							"need": 1
+						},
+						{
+							"capability": "balance.counterweight",
+							"have": 0,
+							"need": 1
+						}
+					],
+					"origin": {},
+					"sources": {
+						"balance.counterweight": [],
+						"strike.crush": []
+					}
+				},
+				{
+					"excluded": [],
+					"id": "probe.multi_parry",
+					"met": false,
+					"missing": [
+						{
+							"capability": "guard.parry",
+							"have": 2,
+							"need": 3
+						}
+					],
+					"origin": {},
+					"sources": {
+						"guard.parry": [
+							"arm_l",
+							"arm_r"
+						]
+					}
+				},
+				{
+					"excluded": [],
+					"id": "probe.two_handed_grip",
+					"met": false,
+					"missing": [
+						{
+							"capability": "grip.two_handed",
+							"have": 0,
+							"need": 1
+						}
+					],
+					"origin": {},
+					"sources": {
+						"grip.two_handed": []
+					}
+				}
+			],
+			"silhouette": {
+				"asymmetric": false,
+				"kind_counts": {
+					"arm": 2,
+					"core": 1,
+					"head": 1,
+					"legs": 1
+				}
+			}
+		},
+		{
+			"anchors": {
+				"camera_focus": "torso",
+				"core_hurtbox": "torso",
+				"facing": "torso",
+				"movement_root": "torso"
+			},
+			"body": {
+				"body_id": "body.marrow_replacement",
+				"catalog_version": "0.1.0",
+				"equipment": [
+					{
+						"item": "equip.notched_sword",
+						"mounts": [
+							"arm_l/grip"
+						]
+					}
+				],
+				"nodes": [
+					{
+						"id": "arm_l",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_l"
+					},
+					{
+						"id": "arm_r",
+						"parent": "torso",
+						"part": "part.marrow_arm",
+						"proportions": {},
+						"socket": "shoulder_r"
+					},
+					{
+						"id": "head",
+						"parent": "torso",
+						"part": "part.human_head",
+						"proportions": {},
+						"socket": "neck"
+					},
+					{
+						"id": "legs",
+						"parent": "torso",
+						"part": "part.biped_legs",
+						"proportions": {},
+						"socket": "hips"
+					},
+					{
+						"id": "torso",
+						"parent": "",
+						"part": "part.humanoid_torso",
+						"proportions": {},
+						"socket": ""
+					}
+				],
+				"schema": "boneshed.anatomy.v0"
+			},
+			"capabilities": {
+				"grasp": [
+					"arm_l"
+				],
+				"guard.parry": [
+					"arm_l",
+					"arm_r"
+				],
+				"limb.marrow": [
+					"arm_r"
+				],
+				"locomotion.biped": [
+					"legs"
+				],
+				"sense.sight": [
+					"head"
+				],
+				"strike.thrust": [
+					"arm_r"
+				],
+				"wield.blade": [
+					"arm_l"
+				]
+			},
+			"combat_view": {
+				"anchors": {
+					"camera_focus": "torso",
+					"core_hurtbox": "torso",
+					"facing": "torso",
+					"movement_root": "torso"
+				},
+				"animation_modules": [
+					"anim.arm_marrow",
+					"anim.arm_standard",
+					"anim.core_upright",
+					"anim.head_standard",
+					"anim.locomotion_biped"
+				],
+				"attacks": [
+					{
+						"ability": "attack.slash",
+						"attack_module": "module.slash_basic",
+						"binding": "light",
+						"excluded": [],
+						"met": true,
+						"missing": [],
+						"origin": {
+							"animation_module": "anim.arm_standard",
+							"node": "arm_l",
+							"point": "grip"
+						}
+					},
+					{
+						"ability": "attack.heavy_slash",
+						"attack_module": "module.slash_heavy",
+						"binding": "heavy",
+						"excluded": [],
+						"met": true,
+						"missing": [],
+						"origin": {
+							"animation_module": "anim.arm_standard",
+							"node": "arm_l",
+							"point": "grip"
+						}
+					},
+					{
+						"ability": "ability.marrow_lunge",
+						"attack_module": "module.marrow_lunge",
+						"binding": "special",
+						"excluded": [],
+						"met": true,
+						"missing": [],
+						"origin": {
+							"animation_module": "anim.arm_marrow",
+							"node": "arm_r",
+							"point": "bone_tip"
+						}
+					}
+				],
+				"body_id": "body.marrow_replacement",
+				"gameplay_fingerprint": "05174b27e71ee280",
+				"guard": {
+					"facing_node": "torso",
+					"guarding_nodes": [
+						"arm_l",
+						"arm_r"
+					]
+				},
+				"hurt_volumes": [
+					{
+						"class": "small",
+						"node": "arm_l"
+					},
+					{
+						"class": "small",
+						"node": "arm_r"
+					},
+					{
+						"class": "small",
+						"node": "head"
+					},
+					{
+						"class": "standard",
+						"node": "legs"
+					},
+					{
+						"class": "standard",
+						"node": "torso"
+					}
+				],
+				"locomotion": {
+					"capability": "locomotion.biped",
+					"module": "anim.locomotion_biped",
+					"node": "legs"
+				},
+				"review_flags": [
+					{
+						"class": "long",
+						"flag": "review_reach",
+						"node": "arm_r"
+					},
+					{
+						"flag": "asymmetric_silhouette",
+						"left": [
+							"part.human_arm"
+						],
+						"right": [
+							"part.marrow_arm"
+						]
+					}
+				],
+				"schema": "boneshed.anatomy_combat_view.v0"
+			},
+			"fingerprint": "63b6500888b6dddc",
+			"gameplay_fingerprint": "05174b27e71ee280",
+			"legacy_slots": {
+				"anatomy_only_nodes": [],
+				"equipped": {
+					"main_hand": "item.notched_sword",
+					"right_arm": "item.marrow_arm"
+				},
+				"lossless": true,
+				"ok": true,
+				"unrepresented": []
+			},
+			"mounts": [
+				{
+					"mount": "arm_l/grip",
+					"occupied_by": "equip.notched_sword",
+					"type": "grip"
+				}
+			],
+			"requirements": [
+				{
+					"excluded": [],
+					"id": "ability.marrow_lunge",
+					"met": true,
+					"missing": [],
+					"origin": {
+						"animation_module": "anim.arm_marrow",
+						"node": "arm_r",
+						"point": "bone_tip"
+					},
+					"sources": {
+						"limb.marrow": [
+							"arm_r"
+						]
+					}
+				},
+				{
+					"excluded": [],
+					"id": "attack.heavy_slash",
+					"met": true,
+					"missing": [],
+					"origin": {
+						"animation_module": "anim.arm_standard",
+						"node": "arm_l",
+						"point": "grip"
+					},
+					"sources": {
+						"wield.blade": [
+							"arm_l"
+						]
+					}
+				},
+				{
+					"excluded": [],
+					"id": "attack.slash",
+					"met": true,
+					"missing": [],
+					"origin": {
+						"animation_module": "anim.arm_standard",
+						"node": "arm_l",
+						"point": "grip"
+					},
+					"sources": {
+						"wield.blade": [
+							"arm_l"
+						]
+					}
+				},
+				{
+					"excluded": [],
+					"id": "probe.anchored_crush",
+					"met": false,
+					"missing": [
+						{
+							"capability": "strike.crush",
+							"have": 0,
+							"need": 1
+						},
+						{
+							"capability": "balance.counterweight",
+							"have": 0,
+							"need": 1
+						}
+					],
+					"origin": {},
+					"sources": {
+						"balance.counterweight": [],
+						"strike.crush": []
+					}
+				},
+				{
+					"excluded": [],
+					"id": "probe.multi_parry",
+					"met": false,
+					"missing": [
+						{
+							"capability": "guard.parry",
+							"have": 2,
+							"need": 3
+						}
+					],
+					"origin": {},
+					"sources": {
+						"guard.parry": [
+							"arm_l",
+							"arm_r"
+						]
+					}
+				},
+				{
+					"excluded": [
+						{
+							"capability": "limb.marrow",
+							"nodes": [
+								"arm_r"
+							]
+						}
+					],
+					"id": "probe.two_handed_grip",
+					"met": false,
+					"missing": [
+						{
+							"capability": "grip.two_handed",
+							"have": 0,
+							"need": 1
+						}
+					],
+					"origin": {},
+					"sources": {
+						"grip.two_handed": []
+					}
+				}
+			],
+			"silhouette": {
+				"asymmetric": true,
+				"kind_counts": {
+					"arm": 2,
+					"core": 1,
+					"head": 1,
+					"legs": 1
+				}
+			}
+		},
+		{
+			"anchors": {
+				"camera_focus": "torso",
+				"core_hurtbox": "torso",
+				"facing": "torso",
+				"movement_root": "torso"
+			},
+			"body": {
+				"body_id": "body.four_armed",
+				"catalog_version": "0.1.0",
+				"equipment": [
+					{
+						"item": "equip.fixture_buckler",
+						"mounts": [
+							"arm_lower_l/light_grip"
+						]
+					},
+					{
+						"item": "equip.notched_sword",
+						"mounts": [
+							"arm_r/grip"
+						]
+					}
+				],
+				"nodes": [
+					{
+						"id": "arm_l",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_l"
+					},
+					{
+						"id": "arm_lower_l",
+						"parent": "torso",
+						"part": "part.auxiliary_arm",
+						"proportions": {},
+						"socket": "lower_shoulder_l"
+					},
+					{
+						"id": "arm_lower_r",
+						"parent": "torso",
+						"part": "part.auxiliary_arm",
+						"proportions": {},
+						"socket": "lower_shoulder_r"
+					},
+					{
+						"id": "arm_r",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_r"
+					},
+					{
+						"id": "head",
+						"parent": "torso",
+						"part": "part.human_head",
+						"proportions": {},
+						"socket": "neck"
+					},
+					{
+						"id": "legs",
+						"parent": "torso",
+						"part": "part.biped_legs",
+						"proportions": {},
+						"socket": "hips"
+					},
+					{
+						"id": "torso",
+						"parent": "",
+						"part": "part.spined_torso",
+						"proportions": {},
+						"socket": ""
+					}
+				],
+				"schema": "boneshed.anatomy.v0"
+			},
+			"capabilities": {
+				"grasp": [
+					"arm_l",
+					"arm_r"
+				],
+				"grasp.light": [
+					"arm_lower_l",
+					"arm_lower_r"
+				],
+				"guard.buckler": [
+					"arm_lower_l"
+				],
+				"guard.parry": [
+					"arm_l",
+					"arm_lower_l",
+					"arm_lower_r",
+					"arm_r"
+				],
+				"locomotion.biped": [
+					"legs"
+				],
+				"sense.sight": [
+					"head"
+				],
+				"wield.blade": [
+					"arm_r"
+				]
+			},
+			"combat_view": {
+				"anchors": {
+					"camera_focus": "torso",
+					"core_hurtbox": "torso",
+					"facing": "torso",
+					"movement_root": "torso"
+				},
+				"animation_modules": [
+					"anim.arm_auxiliary",
+					"anim.arm_standard",
+					"anim.core_upright",
+					"anim.head_standard",
+					"anim.locomotion_biped"
+				],
+				"attacks": [
+					{
+						"ability": "attack.slash",
+						"attack_module": "module.slash_basic",
+						"binding": "light",
+						"excluded": [],
+						"met": true,
+						"missing": [],
+						"origin": {
+							"animation_module": "anim.arm_standard",
+							"node": "arm_r",
+							"point": "grip"
+						}
+					},
+					{
+						"ability": "attack.heavy_slash",
+						"attack_module": "module.slash_heavy",
+						"binding": "heavy",
+						"excluded": [],
+						"met": true,
+						"missing": [],
+						"origin": {
+							"animation_module": "anim.arm_standard",
+							"node": "arm_r",
+							"point": "grip"
+						}
+					},
+					{
+						"ability": "ability.marrow_lunge",
+						"attack_module": "module.marrow_lunge",
+						"binding": "special",
+						"excluded": [],
+						"met": false,
+						"missing": [
+							{
+								"capability": "limb.marrow",
+								"have": 0,
+								"need": 1
+							}
+						],
+						"origin": {}
+					}
+				],
+				"body_id": "body.four_armed",
+				"gameplay_fingerprint": "637ff2095c2479a9",
+				"guard": {
+					"facing_node": "torso",
+					"guarding_nodes": [
+						"arm_l",
+						"arm_lower_l",
+						"arm_lower_r",
+						"arm_r"
+					]
+				},
+				"hurt_volumes": [
+					{
+						"class": "small",
+						"node": "arm_l"
+					},
+					{
+						"class": "small",
+						"node": "arm_lower_l"
+					},
+					{
+						"class": "small",
+						"node": "arm_lower_r"
+					},
+					{
+						"class": "small",
+						"node": "arm_r"
+					},
+					{
+						"class": "small",
+						"node": "head"
+					},
+					{
+						"class": "standard",
+						"node": "legs"
+					},
+					{
+						"class": "standard",
+						"node": "torso"
+					}
+				],
+				"locomotion": {
+					"capability": "locomotion.biped",
+					"module": "anim.locomotion_biped",
+					"node": "legs"
+				},
+				"review_flags": [
+					{
+						"baseline": 2,
+						"count": 4,
+						"flag": "non_baseline_count",
+						"kind": "arm"
+					}
+				],
+				"schema": "boneshed.anatomy_combat_view.v0"
+			},
+			"fingerprint": "6f47f380f8a2ad87",
+			"gameplay_fingerprint": "637ff2095c2479a9",
+			"legacy_slots": {
+				"anatomy_only_nodes": [
+					"arm_lower_l",
+					"arm_lower_r",
+					"torso"
+				],
+				"equipped": {
+					"main_hand": "item.notched_sword"
+				},
+				"lossless": false,
+				"ok": false,
+				"unrepresented": [
+					{
+						"item": "equip.fixture_buckler",
+						"reason": "no_build_item"
+					}
+				]
+			},
+			"mounts": [
+				{
+					"mount": "arm_l/grip",
+					"occupied_by": "",
+					"type": "grip"
+				},
+				{
+					"mount": "arm_lower_l/light_grip",
+					"occupied_by": "equip.fixture_buckler",
+					"type": "light_grip"
+				},
+				{
+					"mount": "arm_lower_r/light_grip",
+					"occupied_by": "",
+					"type": "light_grip"
+				},
+				{
+					"mount": "arm_r/grip",
+					"occupied_by": "equip.notched_sword",
+					"type": "grip"
+				}
+			],
+			"requirements": [
+				{
+					"excluded": [],
+					"id": "ability.marrow_lunge",
+					"met": false,
+					"missing": [
+						{
+							"capability": "limb.marrow",
+							"have": 0,
+							"need": 1
+						}
+					],
+					"origin": {},
+					"sources": {
+						"limb.marrow": []
+					}
+				},
+				{
+					"excluded": [],
+					"id": "attack.heavy_slash",
+					"met": true,
+					"missing": [],
+					"origin": {
+						"animation_module": "anim.arm_standard",
+						"node": "arm_r",
+						"point": "grip"
+					},
+					"sources": {
+						"wield.blade": [
+							"arm_r"
+						]
+					}
+				},
+				{
+					"excluded": [],
+					"id": "attack.slash",
+					"met": true,
+					"missing": [],
+					"origin": {
+						"animation_module": "anim.arm_standard",
+						"node": "arm_r",
+						"point": "grip"
+					},
+					"sources": {
+						"wield.blade": [
+							"arm_r"
+						]
+					}
+				},
+				{
+					"excluded": [],
+					"id": "probe.anchored_crush",
+					"met": false,
+					"missing": [
+						{
+							"capability": "strike.crush",
+							"have": 0,
+							"need": 1
+						},
+						{
+							"capability": "balance.counterweight",
+							"have": 0,
+							"need": 1
+						}
+					],
+					"origin": {},
+					"sources": {
+						"balance.counterweight": [],
+						"strike.crush": []
+					}
+				},
+				{
+					"excluded": [],
+					"id": "probe.multi_parry",
+					"met": true,
+					"missing": [],
+					"origin": {
+						"animation_module": "anim.arm_standard",
+						"node": "arm_l",
+						"point": "grip"
+					},
+					"sources": {
+						"guard.parry": [
+							"arm_l",
+							"arm_lower_l",
+							"arm_lower_r",
+							"arm_r"
+						]
+					}
+				},
+				{
+					"excluded": [],
+					"id": "probe.two_handed_grip",
+					"met": false,
+					"missing": [
+						{
+							"capability": "grip.two_handed",
+							"have": 0,
+							"need": 1
+						}
+					],
+					"origin": {},
+					"sources": {
+						"grip.two_handed": []
+					}
+				}
+			],
+			"silhouette": {
+				"asymmetric": false,
+				"kind_counts": {
+					"arm": 4,
+					"core": 1,
+					"head": 1,
+					"legs": 1
+				}
+			}
+		},
+		{
+			"anchors": {
+				"camera_focus": "torso",
+				"core_hurtbox": "torso",
+				"facing": "torso",
+				"movement_root": "torso"
+			},
+			"body": {
+				"body_id": "body.carapace_brute",
+				"catalog_version": "0.1.0",
+				"equipment": [
+					{
+						"item": "equip.notched_sword",
+						"mounts": [
+							"arm_l/grip"
+						]
+					}
+				],
+				"nodes": [
+					{
+						"id": "arm_great",
+						"parent": "torso",
+						"part": "part.carapace_arm",
+						"proportions": {
+							"length": 1.3
+						},
+						"socket": "great_shoulder_r"
+					},
+					{
+						"id": "arm_l",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_l"
+					},
+					{
+						"id": "head",
+						"parent": "torso",
+						"part": "part.human_head",
+						"proportions": {},
+						"socket": "neck"
+					},
+					{
+						"id": "legs",
+						"parent": "torso",
+						"part": "part.digitigrade_legs",
+						"proportions": {},
+						"socket": "hips"
+					},
+					{
+						"id": "tail",
+						"parent": "torso",
+						"part": "part.counterweight_tail",
+						"proportions": {},
+						"socket": "tail"
+					},
+					{
+						"id": "torso",
+						"parent": "",
+						"part": "part.lopsided_torso",
+						"proportions": {
+							"height": 1.15
+						},
+						"socket": ""
+					}
+				],
+				"schema": "boneshed.anatomy.v0"
+			},
+			"capabilities": {
+				"balance.counterweight": [
+					"tail"
+				],
+				"grasp": [
+					"arm_l"
+				],
+				"guard.heavy": [
+					"arm_great"
+				],
+				"guard.parry": [
+					"arm_great",
+					"arm_l"
+				],
+				"locomotion.digitigrade": [
+					"legs"
+				],
+				"sense.sight": [
+					"head"
+				],
+				"strike.crush": [
+					"arm_great"
+				],
+				"wield.blade": [
+					"arm_l"
+				]
+			},
+			"combat_view": {
+				"anchors": {
+					"camera_focus": "torso",
+					"core_hurtbox": "torso",
+					"facing": "torso",
+					"movement_root": "torso"
+				},
+				"animation_modules": [
+					"anim.arm_carapace",
+					"anim.arm_standard",
+					"anim.core_lopsided",
+					"anim.head_standard",
+					"anim.locomotion_digitigrade",
+					"anim.tail_counterweight"
+				],
+				"attacks": [
+					{
+						"ability": "attack.slash",
+						"attack_module": "module.slash_basic",
+						"binding": "light",
+						"excluded": [],
+						"met": true,
+						"missing": [],
+						"origin": {
+							"animation_module": "anim.arm_standard",
+							"node": "arm_l",
+							"point": "grip"
+						}
+					},
+					{
+						"ability": "attack.heavy_slash",
+						"attack_module": "module.slash_heavy",
+						"binding": "heavy",
+						"excluded": [],
+						"met": true,
+						"missing": [],
+						"origin": {
+							"animation_module": "anim.arm_standard",
+							"node": "arm_l",
+							"point": "grip"
+						}
+					},
+					{
+						"ability": "ability.marrow_lunge",
+						"attack_module": "module.marrow_lunge",
+						"binding": "special",
+						"excluded": [],
+						"met": false,
+						"missing": [
+							{
+								"capability": "limb.marrow",
+								"have": 0,
+								"need": 1
+							}
+						],
+						"origin": {}
+					}
+				],
+				"body_id": "body.carapace_brute",
+				"gameplay_fingerprint": "5e0dae546816e207",
+				"guard": {
+					"facing_node": "torso",
+					"guarding_nodes": [
+						"arm_great",
+						"arm_l"
+					]
+				},
+				"hurt_volumes": [
+					{
+						"class": "large",
+						"node": "arm_great"
+					},
+					{
+						"class": "small",
+						"node": "arm_l"
+					},
+					{
+						"class": "small",
+						"node": "head"
+					},
+					{
+						"class": "standard",
+						"node": "legs"
+					},
+					{
+						"class": "small",
+						"node": "tail"
+					},
+					{
+						"class": "large",
+						"node": "torso"
+					}
+				],
+				"locomotion": {
+					"capability": "locomotion.digitigrade",
+					"module": "anim.locomotion_digitigrade",
+					"node": "legs"
+				},
+				"review_flags": [
+					{
+						"class": "long",
+						"flag": "review_reach",
+						"node": "arm_great"
+					},
+					{
+						"class": "large",
+						"flag": "review_hurtbox",
+						"node": "arm_great"
+					},
+					{
+						"class": "large",
+						"flag": "review_hurtbox",
+						"node": "torso"
+					},
+					{
+						"capability": "locomotion.digitigrade",
+						"flag": "non_baseline_locomotion"
+					},
+					{
+						"baseline": 0,
+						"count": 1,
+						"flag": "non_baseline_count",
+						"kind": "tail"
+					},
+					{
+						"flag": "asymmetric_silhouette",
+						"left": [
+							"part.human_arm"
+						],
+						"right": [
+							"part.carapace_arm"
+						]
+					}
+				],
+				"schema": "boneshed.anatomy_combat_view.v0"
+			},
+			"fingerprint": "248c39263753be11",
+			"gameplay_fingerprint": "5e0dae546816e207",
+			"legacy_slots": {
+				"anatomy_only_nodes": [
+					"arm_great",
+					"legs",
+					"tail",
+					"torso"
+				],
+				"equipped": {
+					"main_hand": "item.notched_sword"
+				},
+				"lossless": false,
+				"ok": true,
+				"unrepresented": []
+			},
+			"mounts": [
+				{
+					"mount": "arm_l/grip",
+					"occupied_by": "equip.notched_sword",
+					"type": "grip"
+				}
+			],
+			"requirements": [
+				{
+					"excluded": [],
+					"id": "ability.marrow_lunge",
+					"met": false,
+					"missing": [
+						{
+							"capability": "limb.marrow",
+							"have": 0,
+							"need": 1
+						}
+					],
+					"origin": {},
+					"sources": {
+						"limb.marrow": []
+					}
+				},
+				{
+					"excluded": [],
+					"id": "attack.heavy_slash",
+					"met": true,
+					"missing": [],
+					"origin": {
+						"animation_module": "anim.arm_standard",
+						"node": "arm_l",
+						"point": "grip"
+					},
+					"sources": {
+						"wield.blade": [
+							"arm_l"
+						]
+					}
+				},
+				{
+					"excluded": [],
+					"id": "attack.slash",
+					"met": true,
+					"missing": [],
+					"origin": {
+						"animation_module": "anim.arm_standard",
+						"node": "arm_l",
+						"point": "grip"
+					},
+					"sources": {
+						"wield.blade": [
+							"arm_l"
+						]
+					}
+				},
+				{
+					"excluded": [],
+					"id": "probe.anchored_crush",
+					"met": true,
+					"missing": [],
+					"origin": {
+						"animation_module": "anim.arm_carapace",
+						"node": "arm_great",
+						"point": "knuckle_plate"
+					},
+					"sources": {
+						"balance.counterweight": [
+							"tail"
+						],
+						"strike.crush": [
+							"arm_great"
+						]
+					}
+				},
+				{
+					"excluded": [],
+					"id": "probe.multi_parry",
+					"met": false,
+					"missing": [
+						{
+							"capability": "guard.parry",
+							"have": 2,
+							"need": 3
+						}
+					],
+					"origin": {},
+					"sources": {
+						"guard.parry": [
+							"arm_great",
+							"arm_l"
+						]
+					}
+				},
+				{
+					"excluded": [],
+					"id": "probe.two_handed_grip",
+					"met": false,
+					"missing": [
+						{
+							"capability": "grip.two_handed",
+							"have": 0,
+							"need": 1
+						}
+					],
+					"origin": {},
+					"sources": {
+						"grip.two_handed": []
+					}
+				}
+			],
+			"silhouette": {
+				"asymmetric": true,
+				"kind_counts": {
+					"arm": 2,
+					"core": 1,
+					"head": 1,
+					"legs": 1,
+					"tail": 1
+				}
+			}
+		}
+	],
+	"rejected": [
+		{
+			"body_unchanged": true,
+			"codes": [
+				"incompatible_socket",
+				"locomotion_count",
+				"socket_occupied"
+			],
+			"errors": [
+				{
+					"code": "incompatible_socket",
+					"node": "legs_extra",
+					"part": "part.biped_legs",
+					"socket": "tail",
+					"stage": "result",
+					"type": "tail"
+				},
+				{
+					"code": "socket_occupied",
+					"nodes": [
+						"legs_extra",
+						"tail"
+					],
+					"socket": "torso/tail",
+					"stage": "result"
+				},
+				{
+					"code": "locomotion_count",
+					"count": 2,
+					"stage": "result"
+				}
+			],
+			"from": "body.carapace_brute",
+			"id": "r.second_locomotion_on_tail",
+			"ops": [
+				{
+					"node": "legs_extra",
+					"op": "attach",
+					"parent": "torso",
+					"part": "part.biped_legs",
+					"socket": "tail"
+				}
+			]
+		},
+		{
+			"body_unchanged": true,
+			"codes": [
+				"missing_required_tag"
+			],
+			"errors": [
+				{
+					"code": "missing_required_tag",
+					"node": "arm_aux",
+					"stage": "result",
+					"tag": "frame.augmented_spine"
+				}
+			],
+			"from": "body.humanoid_fighter",
+			"id": "r.auxiliary_arm_on_standard_frame",
+			"ops": [
+				{
+					"node": "arm_l",
+					"op": "detach"
+				},
+				{
+					"node": "arm_aux",
+					"op": "attach",
+					"parent": "torso",
+					"part": "part.auxiliary_arm",
+					"socket": "shoulder_l"
+				}
+			]
+		},
+		{
+			"body_unchanged": true,
+			"codes": [
+				"unknown_mount"
+			],
+			"errors": [
+				{
+					"code": "unknown_mount",
+					"item": "equip.notched_sword",
+					"mount": "arm_r/grip",
+					"op_index": 1
+				}
+			],
+			"from": "body.marrow_replacement",
+			"id": "r.sword_in_handless_marrow_arm",
+			"ops": [
+				{
+					"mount": "arm_l/grip",
+					"op": "unmount"
+				},
+				{
+					"item": "equip.notched_sword",
+					"mounts": [
+						"arm_r/grip"
+					],
+					"op": "mount"
+				}
+			]
+		},
+		{
+			"body_unchanged": true,
+			"codes": [
+				"unpaired_mounts",
+				"wrong_mount_type"
+			],
+			"errors": [
+				{
+					"code": "wrong_mount_type",
+					"item": "equip.fixture_greatsword",
+					"mount": "arm_lower_r/light_grip",
+					"op_index": 1,
+					"type": "light_grip"
+				},
+				{
+					"code": "unpaired_mounts",
+					"item": "equip.fixture_greatsword",
+					"mounts": [
+						"arm_lower_r/light_grip",
+						"arm_r/grip"
+					],
+					"op_index": 1
+				}
+			],
+			"from": "body.four_armed",
+			"id": "r.two_handed_across_unpaired_arms",
+			"ops": [
+				{
+					"mount": "arm_r/grip",
+					"op": "unmount"
+				},
+				{
+					"item": "equip.fixture_greatsword",
+					"mounts": [
+						"arm_lower_r/light_grip",
+						"arm_r/grip"
+					],
+					"op": "mount"
+				}
+			]
+		},
+		{
+			"body_unchanged": true,
+			"codes": [
+				"mount_in_use"
+			],
+			"errors": [
+				{
+					"code": "mount_in_use",
+					"item": "equip.fixture_buckler",
+					"mount": "arm_r/grip",
+					"occupied_by": "equip.notched_sword",
+					"op_index": 0
+				}
+			],
+			"from": "body.four_armed",
+			"id": "r.mount_already_in_use",
+			"ops": [
+				{
+					"item": "equip.fixture_buckler",
+					"mounts": [
+						"arm_r/grip"
+					],
+					"op": "mount"
+				}
+			]
+		},
+		{
+			"body_unchanged": true,
+			"codes": [
+				"locomotion_count"
+			],
+			"errors": [
+				{
+					"code": "locomotion_count",
+					"count": 0,
+					"stage": "result"
+				}
+			],
+			"from": "body.humanoid_fighter",
+			"id": "r.remove_only_legs",
+			"ops": [
+				{
+					"node": "legs",
+					"op": "detach"
+				}
+			]
+		},
+		{
+			"body_unchanged": true,
+			"codes": [
+				"proportion_out_of_range"
+			],
+			"errors": [
+				{
+					"code": "proportion_out_of_range",
+					"key": "length",
+					"max": 1.15,
+					"min": 0.9,
+					"node": "arm_r",
+					"stage": "result",
+					"value": 3.0
+				}
+			],
+			"from": "body.humanoid_fighter",
+			"id": "r.arm_beyond_proportion_range",
+			"ops": [
+				{
+					"key": "length",
+					"node": "arm_r",
+					"op": "set_proportion",
+					"value": 3.0
+				}
+			]
+		},
+		{
+			"body_unchanged": true,
+			"codes": [
+				"cannot_detach_root"
+			],
+			"errors": [
+				{
+					"code": "cannot_detach_root",
+					"node": "torso",
+					"op_index": 0
+				}
+			],
+			"from": "body.humanoid_fighter",
+			"id": "r.detach_core",
+			"ops": [
+				{
+					"node": "torso",
+					"op": "detach"
+				}
+			]
+		}
+	],
+	"transformations": [
+		{
+			"body": {
+				"body_id": "body.humanoid_fighter",
+				"catalog_version": "0.1.0",
+				"equipment": [
+					{
+						"item": "equip.notched_sword",
+						"mounts": [
+							"arm_l/grip"
+						]
+					}
+				],
+				"nodes": [
+					{
+						"id": "arm_l",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_l"
+					},
+					{
+						"id": "arm_r",
+						"parent": "torso",
+						"part": "part.marrow_arm",
+						"proportions": {},
+						"socket": "shoulder_r"
+					},
+					{
+						"id": "head",
+						"parent": "torso",
+						"part": "part.human_head",
+						"proportions": {},
+						"socket": "neck"
+					},
+					{
+						"id": "legs",
+						"parent": "torso",
+						"part": "part.biped_legs",
+						"proportions": {},
+						"socket": "hips"
+					},
+					{
+						"id": "torso",
+						"parent": "",
+						"part": "part.humanoid_torso",
+						"proportions": {},
+						"socket": ""
+					}
+				],
+				"schema": "boneshed.anatomy.v0"
+			},
+			"build_items": {
+				"from_carried": [
+					"item.marrow_arm"
+				],
+				"to_carried": []
+			},
+			"diff": {
+				"anchors_unchanged": true,
+				"capabilities_added": [
+					"limb.marrow",
+					"strike.thrust"
+				],
+				"capabilities_removed": [],
+				"locomotion_changed": false,
+				"modules_added": [
+					"anim.arm_marrow"
+				],
+				"modules_removed": [],
+				"nodes_added": [
+					"arm_r:part.marrow_arm"
+				],
+				"nodes_removed": [
+					"arm_r:part.human_arm"
+				]
+			},
+			"expect": "body.marrow_replacement",
+			"from": "body.humanoid_fighter",
+			"id": "t.corrupt_right_arm",
+			"legacy_slots": {
+				"anatomy_only_nodes": [],
+				"equipped": {
+					"main_hand": "item.notched_sword",
+					"right_arm": "item.marrow_arm"
+				},
+				"lossless": true,
+				"ok": true,
+				"unrepresented": []
+			},
+			"matches_expected": true,
+			"ops": [
+				{
+					"node": "arm_r",
+					"op": "replace",
+					"part": "part.marrow_arm"
+				},
+				{
+					"item": "equip.notched_sword",
+					"mounts": [
+						"arm_l/grip"
+					],
+					"op": "mount"
+				}
+			],
+			"report": {
+				"displaced": [
+					{
+						"item": "equip.notched_sword",
+						"mounts": [
+							"arm_r/grip"
+						],
+						"reasons": [
+							"unknown_mount"
+						]
+					}
+				],
+				"equipment_released": [],
+				"equipment_required": [],
+				"parts_added": [
+					"part.marrow_arm"
+				],
+				"parts_released": [
+					"part.human_arm"
+				],
+				"removed_nodes": [],
+				"replaced": [
+					{
+						"from": "part.human_arm",
+						"node": "arm_r",
+						"to": "part.marrow_arm"
+					}
+				]
+			},
+			"requirements_met": [
+				"ability.marrow_lunge",
+				"attack.heavy_slash",
+				"attack.slash"
+			]
+		},
+		{
+			"body": {
+				"body_id": "body.marrow_replacement",
+				"catalog_version": "0.1.0",
+				"equipment": [
+					{
+						"item": "equip.notched_sword",
+						"mounts": [
+							"arm_r/grip"
+						]
+					}
+				],
+				"nodes": [
+					{
+						"id": "arm_l",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_l"
+					},
+					{
+						"id": "arm_r",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_r"
+					},
+					{
+						"id": "head",
+						"parent": "torso",
+						"part": "part.human_head",
+						"proportions": {},
+						"socket": "neck"
+					},
+					{
+						"id": "legs",
+						"parent": "torso",
+						"part": "part.biped_legs",
+						"proportions": {},
+						"socket": "hips"
+					},
+					{
+						"id": "torso",
+						"parent": "",
+						"part": "part.humanoid_torso",
+						"proportions": {},
+						"socket": ""
+					}
+				],
+				"schema": "boneshed.anatomy.v0"
+			},
+			"build_items": {
+				"from_carried": [],
+				"to_carried": [
+					"item.marrow_arm"
+				]
+			},
+			"diff": {
+				"anchors_unchanged": true,
+				"capabilities_added": [],
+				"capabilities_removed": [
+					"limb.marrow",
+					"strike.thrust"
+				],
+				"locomotion_changed": false,
+				"modules_added": [],
+				"modules_removed": [
+					"anim.arm_marrow"
+				],
+				"nodes_added": [
+					"arm_r:part.human_arm"
+				],
+				"nodes_removed": [
+					"arm_r:part.marrow_arm"
+				]
+			},
+			"expect": "body.humanoid_fighter",
+			"from": "body.marrow_replacement",
+			"id": "t.revert_marrow_arm",
+			"legacy_slots": {
+				"anatomy_only_nodes": [],
+				"equipped": {
+					"main_hand": "item.notched_sword"
+				},
+				"lossless": true,
+				"ok": true,
+				"unrepresented": []
+			},
+			"matches_expected": true,
+			"ops": [
+				{
+					"node": "arm_r",
+					"op": "replace",
+					"part": "part.human_arm"
+				},
+				{
+					"mount": "arm_l/grip",
+					"op": "unmount"
+				},
+				{
+					"item": "equip.notched_sword",
+					"mounts": [
+						"arm_r/grip"
+					],
+					"op": "mount"
+				}
+			],
+			"report": {
+				"displaced": [
+					{
+						"item": "equip.notched_sword",
+						"mounts": [
+							"arm_l/grip"
+						],
+						"reasons": [
+							"unmounted"
+						]
+					}
+				],
+				"equipment_released": [],
+				"equipment_required": [],
+				"parts_added": [
+					"part.human_arm"
+				],
+				"parts_released": [
+					"part.marrow_arm"
+				],
+				"removed_nodes": [],
+				"replaced": [
+					{
+						"from": "part.marrow_arm",
+						"node": "arm_r",
+						"to": "part.human_arm"
+					}
+				]
+			},
+			"requirements_met": [
+				"attack.heavy_slash",
+				"attack.slash"
+			]
+		},
+		{
+			"body": {
+				"body_id": "body.humanoid_fighter",
+				"catalog_version": "0.1.0",
+				"equipment": [
+					{
+						"item": "equip.fixture_greatsword",
+						"mounts": [
+							"arm_l/grip",
+							"arm_r/grip"
+						]
+					}
+				],
+				"nodes": [
+					{
+						"id": "arm_l",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_l"
+					},
+					{
+						"id": "arm_r",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_r"
+					},
+					{
+						"id": "head",
+						"parent": "torso",
+						"part": "part.human_head",
+						"proportions": {},
+						"socket": "neck"
+					},
+					{
+						"id": "legs",
+						"parent": "torso",
+						"part": "part.biped_legs",
+						"proportions": {},
+						"socket": "hips"
+					},
+					{
+						"id": "torso",
+						"parent": "",
+						"part": "part.humanoid_torso",
+						"proportions": {},
+						"socket": ""
+					}
+				],
+				"schema": "boneshed.anatomy.v0"
+			},
+			"build_items": {
+				"from_carried": [],
+				"to_carried": [
+					"item.notched_sword"
+				]
+			},
+			"diff": {
+				"anchors_unchanged": true,
+				"capabilities_added": [
+					"grip.two_handed"
+				],
+				"capabilities_removed": [],
+				"locomotion_changed": false,
+				"modules_added": [],
+				"modules_removed": [],
+				"nodes_added": [],
+				"nodes_removed": []
+			},
+			"expect": "",
+			"from": "body.humanoid_fighter",
+			"id": "t.take_two_handed_grip",
+			"legacy_slots": {
+				"anatomy_only_nodes": [],
+				"equipped": {},
+				"lossless": false,
+				"ok": false,
+				"unrepresented": [
+					{
+						"item": "equip.fixture_greatsword",
+						"reason": "no_build_item"
+					}
+				]
+			},
+			"matches_expected": true,
+			"ops": [
+				{
+					"mount": "arm_r/grip",
+					"op": "unmount"
+				},
+				{
+					"item": "equip.fixture_greatsword",
+					"mounts": [
+						"arm_l/grip",
+						"arm_r/grip"
+					],
+					"op": "mount"
+				}
+			],
+			"report": {
+				"displaced": [
+					{
+						"item": "equip.notched_sword",
+						"mounts": [
+							"arm_r/grip"
+						],
+						"reasons": [
+							"unmounted"
+						]
+					}
+				],
+				"equipment_released": [
+					"equip.notched_sword"
+				],
+				"equipment_required": [
+					"equip.fixture_greatsword"
+				],
+				"parts_added": [],
+				"parts_released": [],
+				"removed_nodes": [],
+				"replaced": []
+			},
+			"requirements_met": [
+				"attack.heavy_slash",
+				"attack.slash",
+				"probe.two_handed_grip"
+			]
+		},
+		{
+			"body": {
+				"body_id": "body.humanoid_fighter",
+				"catalog_version": "0.1.0",
+				"equipment": [],
+				"nodes": [
+					{
+						"id": "arm_l",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_l"
+					},
+					{
+						"id": "arm_r",
+						"parent": "torso",
+						"part": "part.marrow_arm",
+						"proportions": {},
+						"socket": "shoulder_r"
+					},
+					{
+						"id": "head",
+						"parent": "torso",
+						"part": "part.human_head",
+						"proportions": {},
+						"socket": "neck"
+					},
+					{
+						"id": "legs",
+						"parent": "torso",
+						"part": "part.biped_legs",
+						"proportions": {},
+						"socket": "hips"
+					},
+					{
+						"id": "torso",
+						"parent": "",
+						"part": "part.humanoid_torso",
+						"proportions": {},
+						"socket": ""
+					}
+				],
+				"schema": "boneshed.anatomy.v0"
+			},
+			"build_items": {
+				"from_carried": [
+					"item.marrow_arm"
+				],
+				"to_carried": []
+			},
+			"diff": {
+				"anchors_unchanged": true,
+				"capabilities_added": [
+					"limb.marrow",
+					"strike.thrust"
+				],
+				"capabilities_removed": [
+					"grip.two_handed",
+					"wield.blade"
+				],
+				"locomotion_changed": false,
+				"modules_added": [
+					"anim.arm_marrow"
+				],
+				"modules_removed": [],
+				"nodes_added": [
+					"arm_r:part.marrow_arm"
+				],
+				"nodes_removed": [
+					"arm_r:part.human_arm"
+				]
+			},
+			"expect": "",
+			"from": "t.take_two_handed_grip",
+			"id": "t.corrupt_two_handed_holder",
+			"legacy_slots": {
+				"anatomy_only_nodes": [],
+				"equipped": {
+					"right_arm": "item.marrow_arm"
+				},
+				"lossless": true,
+				"ok": true,
+				"unrepresented": []
+			},
+			"matches_expected": true,
+			"ops": [
+				{
+					"node": "arm_r",
+					"op": "replace",
+					"part": "part.marrow_arm"
+				}
+			],
+			"report": {
+				"displaced": [
+					{
+						"item": "equip.fixture_greatsword",
+						"mounts": [
+							"arm_l/grip",
+							"arm_r/grip"
+						],
+						"reasons": [
+							"unknown_mount"
+						]
+					}
+				],
+				"equipment_released": [
+					"equip.fixture_greatsword"
+				],
+				"equipment_required": [],
+				"parts_added": [
+					"part.marrow_arm"
+				],
+				"parts_released": [
+					"part.human_arm"
+				],
+				"removed_nodes": [],
+				"replaced": [
+					{
+						"from": "part.human_arm",
+						"node": "arm_r",
+						"to": "part.marrow_arm"
+					}
+				]
+			},
+			"requirements_met": [
+				"ability.marrow_lunge"
+			]
+		},
+		{
+			"body": {
+				"body_id": "body.humanoid_fighter",
+				"catalog_version": "0.1.0",
+				"equipment": [
+					{
+						"item": "equip.fixture_buckler",
+						"mounts": [
+							"arm_lower_l/light_grip"
+						]
+					},
+					{
+						"item": "equip.notched_sword",
+						"mounts": [
+							"arm_r/grip"
+						]
+					}
+				],
+				"nodes": [
+					{
+						"id": "arm_l",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_l"
+					},
+					{
+						"id": "arm_lower_l",
+						"parent": "torso",
+						"part": "part.auxiliary_arm",
+						"proportions": {},
+						"socket": "lower_shoulder_l"
+					},
+					{
+						"id": "arm_lower_r",
+						"parent": "torso",
+						"part": "part.auxiliary_arm",
+						"proportions": {},
+						"socket": "lower_shoulder_r"
+					},
+					{
+						"id": "arm_r",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_r"
+					},
+					{
+						"id": "head",
+						"parent": "torso",
+						"part": "part.human_head",
+						"proportions": {},
+						"socket": "neck"
+					},
+					{
+						"id": "legs",
+						"parent": "torso",
+						"part": "part.biped_legs",
+						"proportions": {},
+						"socket": "hips"
+					},
+					{
+						"id": "torso",
+						"parent": "",
+						"part": "part.spined_torso",
+						"proportions": {},
+						"socket": ""
+					}
+				],
+				"schema": "boneshed.anatomy.v0"
+			},
+			"build_items": {
+				"from_carried": [],
+				"to_carried": []
+			},
+			"diff": {
+				"anchors_unchanged": true,
+				"capabilities_added": [
+					"grasp.light",
+					"guard.buckler"
+				],
+				"capabilities_removed": [],
+				"locomotion_changed": false,
+				"modules_added": [
+					"anim.arm_auxiliary"
+				],
+				"modules_removed": [],
+				"nodes_added": [
+					"arm_lower_l:part.auxiliary_arm",
+					"arm_lower_r:part.auxiliary_arm",
+					"torso:part.spined_torso"
+				],
+				"nodes_removed": [
+					"torso:part.humanoid_torso"
+				]
+			},
+			"expect": "body.four_armed",
+			"from": "body.humanoid_fighter",
+			"id": "t.grow_second_arm_pair",
+			"legacy_slots": {
+				"anatomy_only_nodes": [
+					"arm_lower_l",
+					"arm_lower_r",
+					"torso"
+				],
+				"equipped": {
+					"main_hand": "item.notched_sword"
+				},
+				"lossless": false,
+				"ok": false,
+				"unrepresented": [
+					{
+						"item": "equip.fixture_buckler",
+						"reason": "no_build_item"
+					}
+				]
+			},
+			"matches_expected": true,
+			"ops": [
+				{
+					"node": "torso",
+					"op": "replace",
+					"part": "part.spined_torso"
+				},
+				{
+					"node": "arm_lower_l",
+					"op": "attach",
+					"parent": "torso",
+					"part": "part.auxiliary_arm",
+					"socket": "lower_shoulder_l"
+				},
+				{
+					"node": "arm_lower_r",
+					"op": "attach",
+					"parent": "torso",
+					"part": "part.auxiliary_arm",
+					"socket": "lower_shoulder_r"
+				},
+				{
+					"item": "equip.fixture_buckler",
+					"mounts": [
+						"arm_lower_l/light_grip"
+					],
+					"op": "mount"
+				}
+			],
+			"report": {
+				"displaced": [],
+				"equipment_released": [],
+				"equipment_required": [
+					"equip.fixture_buckler"
+				],
+				"parts_added": [
+					"part.auxiliary_arm",
+					"part.auxiliary_arm",
+					"part.spined_torso"
+				],
+				"parts_released": [
+					"part.humanoid_torso"
+				],
+				"removed_nodes": [],
+				"replaced": [
+					{
+						"from": "part.humanoid_torso",
+						"node": "torso",
+						"to": "part.spined_torso"
+					}
+				]
+			},
+			"requirements_met": [
+				"attack.heavy_slash",
+				"attack.slash",
+				"probe.multi_parry"
+			]
+		},
+		{
+			"body": {
+				"body_id": "body.four_armed",
+				"catalog_version": "0.1.0",
+				"equipment": [
+					{
+						"item": "equip.notched_sword",
+						"mounts": [
+							"arm_l/grip"
+						]
+					}
+				],
+				"nodes": [
+					{
+						"id": "arm_great",
+						"parent": "torso",
+						"part": "part.carapace_arm",
+						"proportions": {
+							"length": 1.3
+						},
+						"socket": "great_shoulder_r"
+					},
+					{
+						"id": "arm_l",
+						"parent": "torso",
+						"part": "part.human_arm",
+						"proportions": {},
+						"socket": "shoulder_l"
+					},
+					{
+						"id": "head",
+						"parent": "torso",
+						"part": "part.human_head",
+						"proportions": {},
+						"socket": "neck"
+					},
+					{
+						"id": "legs",
+						"parent": "torso",
+						"part": "part.digitigrade_legs",
+						"proportions": {},
+						"socket": "hips"
+					},
+					{
+						"id": "tail",
+						"parent": "torso",
+						"part": "part.counterweight_tail",
+						"proportions": {},
+						"socket": "tail"
+					},
+					{
+						"id": "torso",
+						"parent": "",
+						"part": "part.lopsided_torso",
+						"proportions": {
+							"height": 1.15
+						},
+						"socket": ""
+					}
+				],
+				"schema": "boneshed.anatomy.v0"
+			},
+			"build_items": {
+				"from_carried": [],
+				"to_carried": []
+			},
+			"diff": {
+				"anchors_unchanged": true,
+				"capabilities_added": [
+					"balance.counterweight",
+					"guard.heavy",
+					"locomotion.digitigrade",
+					"strike.crush"
+				],
+				"capabilities_removed": [
+					"grasp.light",
+					"guard.buckler",
+					"locomotion.biped"
+				],
+				"locomotion_changed": true,
+				"modules_added": [
+					"anim.arm_carapace",
+					"anim.core_lopsided",
+					"anim.locomotion_digitigrade",
+					"anim.tail_counterweight"
+				],
+				"modules_removed": [
+					"anim.arm_auxiliary",
+					"anim.core_upright",
+					"anim.locomotion_biped"
+				],
+				"nodes_added": [
+					"arm_great:part.carapace_arm",
+					"legs:part.digitigrade_legs",
+					"tail:part.counterweight_tail",
+					"torso:part.lopsided_torso"
+				],
+				"nodes_removed": [
+					"arm_lower_l:part.auxiliary_arm",
+					"arm_lower_r:part.auxiliary_arm",
+					"arm_r:part.human_arm",
+					"legs:part.biped_legs",
+					"torso:part.spined_torso"
+				]
+			},
+			"expect": "body.carapace_brute",
+			"from": "body.four_armed",
+			"id": "t.become_carapace_brute",
+			"legacy_slots": {
+				"anatomy_only_nodes": [
+					"arm_great",
+					"legs",
+					"tail",
+					"torso"
+				],
+				"equipped": {
+					"main_hand": "item.notched_sword"
+				},
+				"lossless": false,
+				"ok": true,
+				"unrepresented": []
+			},
+			"matches_expected": true,
+			"ops": [
+				{
+					"node": "torso",
+					"op": "replace",
+					"part": "part.lopsided_torso"
+				},
+				{
+					"key": "height",
+					"node": "torso",
+					"op": "set_proportion",
+					"value": 1.15
+				},
+				{
+					"node": "arm_great",
+					"op": "attach",
+					"parent": "torso",
+					"part": "part.carapace_arm",
+					"socket": "great_shoulder_r"
+				},
+				{
+					"key": "length",
+					"node": "arm_great",
+					"op": "set_proportion",
+					"value": 1.3
+				},
+				{
+					"node": "tail",
+					"op": "attach",
+					"parent": "torso",
+					"part": "part.counterweight_tail",
+					"socket": "tail"
+				},
+				{
+					"node": "legs",
+					"op": "replace",
+					"part": "part.digitigrade_legs"
+				},
+				{
+					"item": "equip.notched_sword",
+					"mounts": [
+						"arm_l/grip"
+					],
+					"op": "mount"
+				}
+			],
+			"report": {
+				"displaced": [
+					{
+						"item": "equip.fixture_buckler",
+						"mounts": [
+							"arm_lower_l/light_grip"
+						],
+						"reasons": [
+							"unknown_mount"
+						]
+					},
+					{
+						"item": "equip.notched_sword",
+						"mounts": [
+							"arm_r/grip"
+						],
+						"reasons": [
+							"unknown_mount"
+						]
+					}
+				],
+				"equipment_released": [
+					"equip.fixture_buckler"
+				],
+				"equipment_required": [],
+				"parts_added": [
+					"part.carapace_arm",
+					"part.counterweight_tail",
+					"part.digitigrade_legs",
+					"part.lopsided_torso"
+				],
+				"parts_released": [
+					"part.auxiliary_arm",
+					"part.auxiliary_arm",
+					"part.biped_legs",
+					"part.human_arm",
+					"part.spined_torso"
+				],
+				"removed_nodes": [
+					{
+						"node": "arm_lower_l",
+						"part": "part.auxiliary_arm"
+					},
+					{
+						"node": "arm_lower_r",
+						"part": "part.auxiliary_arm"
+					},
+					{
+						"node": "arm_r",
+						"part": "part.human_arm"
+					}
+				],
+				"replaced": [
+					{
+						"from": "part.spined_torso",
+						"node": "torso",
+						"to": "part.lopsided_torso"
+					},
+					{
+						"from": "part.biped_legs",
+						"node": "legs",
+						"to": "part.digitigrade_legs"
+					}
+				]
+			},
+			"requirements_met": [
+				"attack.heavy_slash",
+				"attack.slash",
+				"probe.anchored_crush"
+			]
+		}
+	]
+}
