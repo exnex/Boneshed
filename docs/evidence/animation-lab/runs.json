@@ -1,0 +1,42 @@
+[
+  {
+    "run": "import",
+    "exit": 0,
+    "expected_exit": 0
+  },
+  {
+    "run": "animation_lab_tests",
+    "exit": 0,
+    "expected_exit": 0
+  },
+  {
+    "run": "negative_warp",
+    "exit": 1,
+    "expected_exit": 1
+  },
+  {
+    "run": "render_overview",
+    "exit": 0,
+    "expected_exit": 0
+  },
+  {
+    "run": "render_timing",
+    "exit": 0,
+    "expected_exit": 0
+  },
+  {
+    "run": "render_move_attack",
+    "exit": 0,
+    "expected_exit": 0
+  },
+  {
+    "run": "render_four_arm",
+    "exit": 0,
+    "expected_exit": 0
+  },
+  {
+    "run": "render_closeup",
+    "exit": 0,
+    "expected_exit": 0
+  }
+]

@@ -51,6 +51,7 @@ timing values, reproducible tests, evidence, and human playtesting limitations.
 | [First playable loop](docs/FIRST_PLAYABLE.md) | Human controls, inherited attack, salvage/equip progression and evidence |
 | [Shared builds and salvage](docs/SHARED_BUILDS.md) | Shared player/enemy build contract and its historical foundation |
 | [Anatomy and transformation](docs/ANATOMY.md) | Isolated, provisional body-graph prototype: extra limbs, replacements, equipment mounts, capability requirements, transformations and a proposed combat contract |
+| [Animation pipeline](docs/ANIMATION_PIPELINE.md) | Isolated research prototype: recommended Blender → glTF → AnimationTree pipeline, rule-timed clips, collision contract, transformations, rendered evidence |
 | [Engineering standards](docs/engineering/README.md) | GDScript and Godot architecture guides, agent checklist, code audit and debt backlog |
 | [AGENTS.md](AGENTS.md) | Shared instructions for AI development agents |
 | [CLAUDE.md](CLAUDE.md) | Claude-specific handoff |
