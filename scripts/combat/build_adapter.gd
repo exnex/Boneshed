@@ -10,7 +10,9 @@ const ACTOR_STATS := ["max_health", "max_posture", "deflect_window", "guard_chip
 	"posture_recovery_rate", "posture_recovery_delay", "deflect_posture"]
 const AttackModules = preload("res://scripts/combat/attack_modules.gd")
 const MODULES := AttackModules.MODULES
-const COMBAT_FIELDS := ACTOR_STATS + ["guard_posture_overrides", "attack_windup", "heavy_windup",
+const COMBAT_FIELDS := ["max_health", "max_posture", "deflect_window", "guard_chip",
+	"posture_recovery_rate", "posture_recovery_delay", "deflect_posture",
+	"guard_posture_overrides", "attack_windup", "heavy_windup",
 	"light_active_duration", "heavy_active_duration", "light_recovery_duration", "heavy_recovery_duration",
 	"light_damage", "heavy_damage", "light_hit_posture", "heavy_hit_posture",
 	"light_guard_posture", "heavy_guard_posture"]
