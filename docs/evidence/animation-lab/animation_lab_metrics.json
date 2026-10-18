@@ -1,0 +1,75 @@
+{
+	"baked_slash_trace_samples": 56,
+	"contact_marker_alignment_s": 0.0094,
+	"dodge_root_motion": {
+		"applied_local_z": 1.156,
+		"applied_m": 1.156,
+		"authored_m": 1.156
+	},
+	"flinch_hand_deflection_m": 0.0808,
+	"flinch_pelvis_height_change_m": 0.0094,
+	"loop_seam_max_bone_gap_m": {
+		"idle": 0.0,
+		"strafe_left": 0.0666,
+		"strafe_right": 0.0666,
+		"walk_backward": 0.0148,
+		"walk_forward": 0.0001
+	},
+	"lower_arm_ik_error_m": 0.0,
+	"observed_mixer_root_motion_with_timeseek": [
+		0.006,
+		0.0,
+		1.156
+	],
+	"planted_foot_slip_mps": {
+		"attack_while_moving_full_body": 1.411,
+		"attack_while_moving_split": 0.091,
+		"matched_walk_0.9": 0.085,
+		"matched_walk_1.5_rate_2": 0.129,
+		"unmatched_walk_1.5_rate_1": 0.774
+	},
+	"raw_base_clips_with_non_bone_tracks": {
+		"clips": [
+			"Hit_Chest"
+		],
+		"count": 1,
+		"of": 87
+	},
+	"slash_lowest_tip_height_m": 0.162,
+	"slash_peak_tip_speed_mps": 47.28,
+	"stride_speeds_mps": {
+		"strafe_left": 0.805219989269972,
+		"strafe_right": 0.564860701560974,
+		"walk_backward": 0.960575938224792,
+		"walk_forward": 0.784546893168614
+	},
+	"thin_pole_trials": {
+		"linear_sweep_30hz": 9,
+		"linear_sweep_baked_60hz": 10,
+		"placements": 10,
+		"point_30hz": 0
+	},
+	"warp_ratios": {
+		"courtyard_slash": {
+			"active": 0.9375,
+			"committed": 0.4375,
+			"early": 3.8,
+			"recovery": 2.37111111111111,
+			"release": 0.4125
+		},
+		"source_pacing": {
+			"active": 1.0,
+			"committed": 1.0,
+			"early": 1.0,
+			"recovery": 1.0,
+			"release": 0.999999999999999
+		},
+		"swordsman_slash": {
+			"active": 0.9375,
+			"committed": 0.4375,
+			"early": 1.0,
+			"recovery": 1.64153846153846,
+			"release": 0.4125
+		}
+	}
+}
