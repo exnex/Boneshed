@@ -1,7 +1,7 @@
 {
 	"schema": "boneshed.build_catalog.v0",
-	"catalog_version": "0.1.0",
-	"provisional": "Every stat, slot, value, restriction and effect in this file is a prototype placeholder awaiting human approval. Not balanced. Not wired into the courtyard.",
+	"catalog_version": "0.2.0",
+	"provisional": "Provisional combat tuning; non-combat values remain placeholders. Duelist and corrupted swordsman reproduce Combat Iteration 2 through the shared resolver. Slots, bindings and augment penalties remain fixtures, not permanent design restrictions.",
 	"stats": [
 		{"id": "max_health", "min": 1, "max": 999, "better": "higher"},
 		{"id": "max_posture", "min": 1, "max": 999, "better": "higher"},
@@ -10,7 +10,9 @@
 		{"id": "guard_chip", "min": 0, "max": 1, "better": "lower"},
 		{"id": "posture_recovery_rate", "min": 0, "max": 100, "better": "higher"},
 		{"id": "windup_scale", "min": 0.25, "max": 4, "better": "lower"},
-		{"id": "recovery_scale", "min": 0.25, "max": 4, "better": "lower"}
+		{"id": "recovery_scale", "min": 0.25, "max": 4, "better": "lower"},
+		{"id": "deflect_posture", "min": 0, "max": 999, "better": "higher"},
+		{"id": "posture_recovery_delay", "min": 0, "max": 10, "better": "lower"}
 	],
 	"slots": [
 		{"id": "main_hand", "accepts": "weapon"},
@@ -23,13 +25,15 @@
 			"id": "profile.duelist",
 			"name": "Duelist",
 			"notes": "Mirrors the current courtyard player values.",
-			"stats": {"max_health": 100, "max_posture": 100, "move_speed": 5.5, "deflect_window": 0.16, "guard_chip": 0.12, "posture_recovery_rate": 12, "windup_scale": 1.0, "recovery_scale": 1.0}
+			"stats": {"max_health": 100, "max_posture": 100, "move_speed": 5.5, "deflect_window": 0.16, "guard_chip": 0.12, "posture_recovery_rate": 12, "windup_scale": 1.0, "recovery_scale": 1.0, "deflect_posture": 42, "posture_recovery_delay": 1.5}
 		},
 		{
 			"id": "profile.corrupted_swordsman",
 			"name": "Corrupted Swordsman",
-			"notes": "Example enemy form: exceptional posture paired with slow movement and slow, readable attacks. Approximates, but does not exactly reproduce, the courtyard enemy.",
-			"stats": {"max_health": 100, "max_posture": 120, "move_speed": 2.7, "deflect_window": 0.16, "guard_chip": 0.12, "posture_recovery_rate": 12, "windup_scale": 1.5, "recovery_scale": 1.4}
+			"notes": "Exact courtyard form: slower movement, longer basic preparation and recovery, and braced block costs. No new balance tuning.",
+			"stats": {"max_health": 100, "max_posture": 100, "move_speed": 2.7, "deflect_window": 0.16, "guard_chip": 0.12, "posture_recovery_rate": 12, "windup_scale": 1.0, "recovery_scale": 1.0, "deflect_posture": 42, "posture_recovery_delay": 1.5},
+			"ability_overrides": {"attack.slash": {"windup": 0.62, "recovery": 0.65}, "attack.heavy_slash": {"recovery": 0.65}},
+			"guard_posture_overrides": {"light": 10, "heavy": 15}
 		}
 	],
 	"abilities": [
@@ -42,7 +46,7 @@
 			"module": "module.slash_basic",
 			"telegraph": "Short shoulder draw-back.",
 			"timing": {"windup": 0.34, "active": 0.16, "recovery": 0.45},
-			"hit": {"health_damage": 18, "guard_posture": 28, "reach": 2.35, "width": 1.6}
+			"hit": {"health_damage": 18, "guard_posture": 28, "reach": 2.35, "width": 1.6, "posture_damage": 18}
 		},
 		{
 			"id": "attack.heavy_slash",
@@ -53,7 +57,7 @@
 			"module": "module.slash_heavy",
 			"telegraph": "Long overhead raise.",
 			"timing": {"windup": 0.85, "active": 0.16, "recovery": 0.45},
-			"hit": {"health_damage": 32, "guard_posture": 42, "reach": 2.35, "width": 1.6}
+			"hit": {"health_damage": 32, "guard_posture": 42, "reach": 2.35, "width": 1.6, "posture_damage": 18}
 		},
 		{
 			"id": "ability.marrow_lunge",
@@ -64,7 +68,7 @@
 			"module": "module.marrow_lunge",
 			"telegraph": "The bone arm splits open and draws far back before a straight, long thrust.",
 			"timing": {"windup": 0.7, "active": 0.2, "recovery": 0.8},
-			"hit": {"health_damage": 26, "guard_posture": 45, "reach": 3.4, "width": 0.9}
+			"hit": {"health_damage": 26, "guard_posture": 45, "reach": 3.4, "width": 0.9, "posture_damage": 18}
 		}
 	],
 	"items": [

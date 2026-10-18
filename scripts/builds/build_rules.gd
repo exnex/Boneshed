@@ -34,7 +34,7 @@ func validate(build: Variant) -> Array:
 
 ## Returns {"ok", "errors", "resolved"}. Invalid builds never resolve partially.
 func resolve(build: Variant) -> Dictionary:
-	var errors := validate(build)
+	var errors := validate(build) if catalog.errors.is_empty() and not catalog.fingerprint.is_empty() else [{"code": "invalid_catalog"}]
 	if not errors.is_empty():
 		return {"ok": false, "errors": errors, "resolved": {}}
 	var profile: Dictionary = catalog.profiles[build.profile]
@@ -74,6 +74,7 @@ func resolve(build: Variant) -> Dictionary:
 		"abilities": _resolve_abilities(build, final_stats),
 		"tradeoffs": _tradeoffs(build),
 	}
+	resolved["guard_posture_overrides"] = profile.get("guard_posture_overrides", {}).duplicate(true)
 	resolved["fingerprint"] = Catalog.digest(resolved)
 	return {"ok": true, "errors": [], "resolved": resolved}
 
@@ -239,21 +240,20 @@ func _resolve_abilities(build: Dictionary, final_stats: Dictionary) -> Array:
 		var item_id: String = build.equipped[slot]
 		for ability_id in catalog.items[item_id].grants:
 			var ability: Dictionary = catalog.abilities[ability_id]
+			var effective: Dictionary = ability.timing.duplicate(true)
+			effective.merge(ability.hit, true)
+			effective.merge(catalog.profiles[build.profile].get("ability_overrides", {}).get(ability_id, {}), true)
+			effective.windup *= final_stats.windup_scale
+			effective.recovery *= final_stats.recovery_scale
+			for key in effective:
+				effective[key] = _round(effective[key])
 			by_binding[ability.binding] = {
 				"id": ability_id,
 				"fingerprint": catalog.ability_fingerprint(ability_id),
 				"binding": ability.binding,
 				"module": ability.module,
 				"source": {"slot": slot, "item": item_id},
-				"effective": {
-					"windup": _round(ability.timing.windup * final_stats.windup_scale),
-					"active": _round(ability.timing.active),
-					"recovery": _round(ability.timing.recovery * final_stats.recovery_scale),
-					"health_damage": _round(ability.hit.health_damage),
-					"guard_posture": _round(ability.hit.guard_posture),
-					"reach": _round(ability.hit.reach),
-					"width": _round(ability.hit.width),
-				},
+				"effective": effective,
 			}
 	var ordered := []
 	for binding in catalog.bindings:

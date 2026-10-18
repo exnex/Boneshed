@@ -1,0 +1,738 @@
+{
+	"enemy": {
+		"attacks": {
+			"heavy": {
+				"active": 0.16,
+				"contacts": {
+					"broken": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "PUNISH",
+							"guarding": false,
+							"health": 36.0,
+							"hit_consumed": false,
+							"phase": 5,
+							"posture": 100.0,
+							"remaining": 2.2
+						},
+						"result": "punish"
+					},
+					"deflect": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 4,
+							"posture": 42.0,
+							"remaining": 0.809
+						},
+						"defender": {
+							"event": "DEFLECTION",
+							"guarding": true,
+							"health": 100.0,
+							"hit_consumed": false,
+							"phase": 0,
+							"posture": 0.0,
+							"remaining": 0.0
+						},
+						"result": "deflected"
+					},
+					"dodge": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "EVADED",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": false,
+							"phase": 6,
+							"posture": 0.0,
+							"remaining": 0.3
+						},
+						"result": "evaded"
+					},
+					"guard": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "GUARD",
+							"guarding": true,
+							"health": 96.16,
+							"hit_consumed": false,
+							"phase": 0,
+							"posture": 42.0,
+							"remaining": 0.0
+						},
+						"result": "guard"
+					},
+					"hit": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "HIT",
+							"guarding": false,
+							"health": 68.0,
+							"hit_consumed": false,
+							"phase": 4,
+							"posture": 18.0,
+							"remaining": 0.24
+						},
+						"result": "hit"
+					},
+					"rear": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "HIT",
+							"guarding": false,
+							"health": 68.0,
+							"hit_consumed": false,
+							"phase": 4,
+							"posture": 18.0,
+							"remaining": 0.24
+						},
+						"result": "hit"
+					}
+				},
+				"recovery": 0.65,
+				"transitions": [
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 1,
+						"posture": 0.0,
+						"remaining": 0.85
+					},
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 2,
+						"posture": 0.0,
+						"remaining": 0.16,
+						"tick": 51
+					},
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 3,
+						"posture": 0.0,
+						"remaining": 0.6433,
+						"tick": 61
+					},
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 0,
+						"posture": 0.0,
+						"remaining": 0.0,
+						"tick": 100
+					}
+				],
+				"windup": 0.85
+			},
+			"light": {
+				"active": 0.16,
+				"contacts": {
+					"broken": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "PUNISH",
+							"guarding": false,
+							"health": 64.0,
+							"hit_consumed": false,
+							"phase": 5,
+							"posture": 100.0,
+							"remaining": 2.2
+						},
+						"result": "punish"
+					},
+					"deflect": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 4,
+							"posture": 42.0,
+							"remaining": 0.809
+						},
+						"defender": {
+							"event": "DEFLECTION",
+							"guarding": true,
+							"health": 100.0,
+							"hit_consumed": false,
+							"phase": 0,
+							"posture": 0.0,
+							"remaining": 0.0
+						},
+						"result": "deflected"
+					},
+					"dodge": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "EVADED",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": false,
+							"phase": 6,
+							"posture": 0.0,
+							"remaining": 0.3
+						},
+						"result": "evaded"
+					},
+					"guard": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "GUARD",
+							"guarding": true,
+							"health": 97.84,
+							"hit_consumed": false,
+							"phase": 0,
+							"posture": 28.0,
+							"remaining": 0.0
+						},
+						"result": "guard"
+					},
+					"hit": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "HIT",
+							"guarding": false,
+							"health": 82.0,
+							"hit_consumed": false,
+							"phase": 4,
+							"posture": 18.0,
+							"remaining": 0.24
+						},
+						"result": "hit"
+					},
+					"rear": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "HIT",
+							"guarding": false,
+							"health": 82.0,
+							"hit_consumed": false,
+							"phase": 4,
+							"posture": 18.0,
+							"remaining": 0.24
+						},
+						"result": "hit"
+					}
+				},
+				"recovery": 0.65,
+				"transitions": [
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 1,
+						"posture": 0.0,
+						"remaining": 0.62
+					},
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 2,
+						"posture": 0.0,
+						"remaining": 0.1467,
+						"tick": 38
+					},
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 3,
+						"posture": 0.0,
+						"remaining": 0.6467,
+						"tick": 47
+					},
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 0,
+						"posture": 0.0,
+						"remaining": 0.0,
+						"tick": 86
+					}
+				],
+				"windup": 0.62
+			}
+		},
+		"config": {
+			"break_duration": 2.2,
+			"commitment_duration": 0.24,
+			"deflect_posture": 42.0,
+			"deflect_rearm": 0.32,
+			"deflect_window": 0.16,
+			"dodge_cooldown": 0.65,
+			"dodge_duration": 0.3,
+			"guard_chip": 0.12,
+			"max_health": 100.0,
+			"max_posture": 100.0,
+			"move_speed": 2.7,
+			"posture_recovery_delay": 1.5,
+			"release_duration": 0.08
+		},
+		"posture_after_2s": 36.0
+	},
+	"player": {
+		"attacks": {
+			"heavy": {
+				"active": 0.16,
+				"contacts": {
+					"broken": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "PUNISH",
+							"guarding": false,
+							"health": 36.0,
+							"hit_consumed": false,
+							"phase": 5,
+							"posture": 100.0,
+							"remaining": 2.2
+						},
+						"result": "punish"
+					},
+					"deflect": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 4,
+							"posture": 42.0,
+							"remaining": 0.609
+						},
+						"defender": {
+							"event": "DEFLECTION",
+							"guarding": true,
+							"health": 100.0,
+							"hit_consumed": false,
+							"phase": 0,
+							"posture": 0.0,
+							"remaining": 0.0
+						},
+						"result": "deflected"
+					},
+					"dodge": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "EVADED",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": false,
+							"phase": 6,
+							"posture": 0.0,
+							"remaining": 0.3
+						},
+						"result": "evaded"
+					},
+					"guard": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "GUARD",
+							"guarding": true,
+							"health": 96.16,
+							"hit_consumed": false,
+							"phase": 0,
+							"posture": 15.0,
+							"remaining": 0.0
+						},
+						"result": "guard"
+					},
+					"hit": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "HIT",
+							"guarding": false,
+							"health": 68.0,
+							"hit_consumed": false,
+							"phase": 4,
+							"posture": 18.0,
+							"remaining": 0.24
+						},
+						"result": "hit"
+					},
+					"rear": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "HIT",
+							"guarding": false,
+							"health": 68.0,
+							"hit_consumed": false,
+							"phase": 4,
+							"posture": 18.0,
+							"remaining": 0.24
+						},
+						"result": "hit"
+					}
+				},
+				"recovery": 0.45,
+				"transitions": [
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 1,
+						"posture": 0.0,
+						"remaining": 0.85
+					},
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 2,
+						"posture": 0.0,
+						"remaining": 0.16,
+						"tick": 51
+					},
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 3,
+						"posture": 0.0,
+						"remaining": 0.4433,
+						"tick": 61
+					},
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 0,
+						"posture": 0.0,
+						"remaining": 0.0,
+						"tick": 88
+					}
+				],
+				"windup": 0.85
+			},
+			"light": {
+				"active": 0.16,
+				"contacts": {
+					"broken": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "PUNISH",
+							"guarding": false,
+							"health": 64.0,
+							"hit_consumed": false,
+							"phase": 5,
+							"posture": 100.0,
+							"remaining": 2.2
+						},
+						"result": "punish"
+					},
+					"deflect": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 4,
+							"posture": 42.0,
+							"remaining": 0.609
+						},
+						"defender": {
+							"event": "DEFLECTION",
+							"guarding": true,
+							"health": 100.0,
+							"hit_consumed": false,
+							"phase": 0,
+							"posture": 0.0,
+							"remaining": 0.0
+						},
+						"result": "deflected"
+					},
+					"dodge": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "EVADED",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": false,
+							"phase": 6,
+							"posture": 0.0,
+							"remaining": 0.3
+						},
+						"result": "evaded"
+					},
+					"guard": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "GUARD",
+							"guarding": true,
+							"health": 97.84,
+							"hit_consumed": false,
+							"phase": 0,
+							"posture": 10.0,
+							"remaining": 0.0
+						},
+						"result": "guard"
+					},
+					"hit": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "HIT",
+							"guarding": false,
+							"health": 82.0,
+							"hit_consumed": false,
+							"phase": 4,
+							"posture": 18.0,
+							"remaining": 0.24
+						},
+						"result": "hit"
+					},
+					"rear": {
+						"attacker": {
+							"event": "",
+							"guarding": false,
+							"health": 100.0,
+							"hit_consumed": true,
+							"phase": 2,
+							"posture": 0.0,
+							"remaining": 0.159
+						},
+						"defender": {
+							"event": "HIT",
+							"guarding": false,
+							"health": 82.0,
+							"hit_consumed": false,
+							"phase": 4,
+							"posture": 18.0,
+							"remaining": 0.24
+						},
+						"result": "hit"
+					}
+				},
+				"recovery": 0.45,
+				"transitions": [
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 1,
+						"posture": 0.0,
+						"remaining": 0.34
+					},
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 2,
+						"posture": 0.0,
+						"remaining": 0.15,
+						"tick": 21
+					},
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 3,
+						"posture": 0.0,
+						"remaining": 0.4333,
+						"tick": 31
+					},
+					{
+						"event": "",
+						"guarding": false,
+						"health": 100.0,
+						"hit_consumed": false,
+						"phase": 0,
+						"posture": 0.0,
+						"remaining": 0.0,
+						"tick": 58
+					}
+				],
+				"windup": 0.34
+			}
+		},
+		"config": {
+			"break_duration": 2.2,
+			"commitment_duration": 0.24,
+			"deflect_posture": 42.0,
+			"deflect_rearm": 0.32,
+			"deflect_window": 0.16,
+			"dodge_cooldown": 0.65,
+			"dodge_duration": 0.3,
+			"guard_chip": 0.12,
+			"max_health": 100.0,
+			"max_posture": 100.0,
+			"move_speed": 5.5,
+			"posture_recovery_delay": 1.5,
+			"release_duration": 0.08
+		},
+		"posture_after_2s": 36.0
+	}
+}

@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 const Rules = preload("res://scripts/combat/combat_state.gd")
 var combat := Rules.new()
-@export var move_speed := 5.5
+var move_speed := 0.0 # Set from the prepared build before entering the scene tree.
 @export var acceleration := 32.0
 @export var deceleration := 70.0
 @export var dodge_speed := 11.0
