@@ -1,0 +1,337 @@
+{
+  "baseline_commit": "f722317a03d2dc9b0e0720573f0b44ef34161e95",
+  "renderer": "llvmpipe; GL Compatibility; 1280x720; 60 Hz physics",
+  "tests": {
+    "native_runs": [
+      {
+        "run": "import",
+        "exit": 0,
+        "expected_exit": 0
+      },
+      {
+        "run": "combat_builds",
+        "exit": 0,
+        "expected_exit": 0
+      },
+      {
+        "run": "adapter_mutations",
+        "exit": 0,
+        "expected_exit": 0
+      },
+      {
+        "run": "invalid_build_startup",
+        "exit": 1,
+        "expected_exit": 1
+      },
+      {
+        "run": "invalid_state_startup",
+        "exit": 1,
+        "expected_exit": 1
+      },
+      {
+        "run": "combat",
+        "exit": 0,
+        "expected_exit": 0
+      },
+      {
+        "run": "negative_guard",
+        "exit": 1,
+        "expected_exit": 1
+      },
+      {
+        "run": "negative_deflect",
+        "exit": 1,
+        "expected_exit": 1
+      },
+      {
+        "run": "negative_phase",
+        "exit": 1,
+        "expected_exit": 1
+      },
+      {
+        "run": "negative_toggle",
+        "exit": 1,
+        "expected_exit": 1
+      },
+      {
+        "run": "negative_rear",
+        "exit": 1,
+        "expected_exit": 1
+      },
+      {
+        "run": "negative_poise",
+        "exit": 1,
+        "expected_exit": 1
+      },
+      {
+        "run": "encounters",
+        "exit": 0,
+        "expected_exit": 0
+      },
+      {
+        "run": "negative_defense",
+        "exit": 1,
+        "expected_exit": 1
+      },
+      {
+        "run": "timing_headless",
+        "exit": 0,
+        "expected_exit": 0
+      },
+      {
+        "run": "negative_visual",
+        "exit": 1,
+        "expected_exit": 1
+      },
+      {
+        "run": "graphical",
+        "exit": 0,
+        "expected_exit": 0
+      },
+      {
+        "run": "timing_rendered",
+        "exit": 0,
+        "expected_exit": 0
+      }
+    ],
+    "native-final/combat_builds.log": {
+      "failed": 0,
+      "passed": 532,
+      "suite": "combat_builds",
+      "summary": true
+    },
+    "native-final/combat.log": {
+      "failed": 0,
+      "negative": "",
+      "passed": 118,
+      "suite": "combat",
+      "summary": true
+    },
+    "native-final/timing_headless.log": {
+      "engine": "4.7.2-stable (official)",
+      "failed": 0,
+      "passed": 159,
+      "rendered": false,
+      "summary": true
+    },
+    "native-final/timing_rendered.log": {
+      "engine": "4.7.2-stable (official)",
+      "failed": 0,
+      "passed": 209,
+      "rendered": true,
+      "summary": true
+    },
+    "native-final/graphical.json": {
+      "combat_bot_frames": 418,
+      "engine": "4.7.2-stable (official)",
+      "failed": 0,
+      "passed": 111,
+      "renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "suite": "graphical",
+      "summary": true
+    },
+    "marrow-final/rules_progression.log": {
+      "failed": 0,
+      "passed": 193,
+      "suite": "marrow",
+      "summary": true
+    },
+    "marrow-final/rendered/summary.json": {
+      "captures": {
+        "01_initial_duel": 1,
+        "02_enemy_lunge_telegraph": 58,
+        "03_player_defends_lunge": 88,
+        "04_enemy_defeat": 467,
+        "05_salvage_acquired": 468,
+        "06_augmentation_equipped": 469,
+        "07_first_inherited_lunge": 545,
+        "08_second_duel_continues": 601,
+        "enemy-lunge/frame_000": 48,
+        "enemy-lunge/frame_001": 50,
+        "enemy-lunge/frame_002": 52,
+        "enemy-lunge/frame_003": 54,
+        "enemy-lunge/frame_004": 56,
+        "enemy-lunge/frame_005": 58,
+        "enemy-lunge/frame_006": 60,
+        "enemy-lunge/frame_007": 62,
+        "enemy-lunge/frame_008": 64,
+        "enemy-lunge/frame_009": 66,
+        "enemy-lunge/frame_010": 68,
+        "enemy-lunge/frame_011": 70,
+        "enemy-lunge/frame_012": 72,
+        "enemy-lunge/frame_013": 74,
+        "enemy-lunge/frame_014": 76,
+        "enemy-lunge/frame_015": 78,
+        "enemy-lunge/frame_016": 80,
+        "enemy-lunge/frame_017": 82,
+        "enemy-lunge/frame_018": 84,
+        "enemy-lunge/frame_019": 86,
+        "player-lunge/frame_000": 504,
+        "player-lunge/frame_001": 506,
+        "player-lunge/frame_002": 508,
+        "player-lunge/frame_003": 510,
+        "player-lunge/frame_004": 512,
+        "player-lunge/frame_005": 514,
+        "player-lunge/frame_006": 516,
+        "player-lunge/frame_007": 518,
+        "player-lunge/frame_008": 520,
+        "player-lunge/frame_009": 522,
+        "player-lunge/frame_010": 524,
+        "player-lunge/frame_011": 526,
+        "player-lunge/frame_012": 528,
+        "player-lunge/frame_013": 530,
+        "player-lunge/frame_014": 532,
+        "player-lunge/frame_015": 534,
+        "player-lunge/frame_016": 536,
+        "player-lunge/frame_017": 538,
+        "player-lunge/frame_018": 540,
+        "player-lunge/frame_019": 542,
+        "player-lunge/frame_020": 544,
+        "player-lunge/frame_021": 546,
+        "player-lunge/frame_022": 548,
+        "player-lunge/frame_023": 550,
+        "player-lunge/frame_024": 552,
+        "player-lunge/frame_025": 554,
+        "player-lunge/frame_026": 556,
+        "player-lunge/frame_027": 558,
+        "player-lunge/frame_028": 560,
+        "player-lunge/frame_029": 562,
+        "player-lunge/frame_030": 564,
+        "player-lunge/frame_031": 566,
+        "player-lunge/frame_032": 568,
+        "player-lunge/frame_033": 570,
+        "player-lunge/frame_034": 572,
+        "player-lunge/frame_035": 574,
+        "player-lunge/frame_036": 576,
+        "player-lunge/frame_037": 578,
+        "player-lunge/frame_038": 580,
+        "player-lunge/frame_039": 582,
+        "player-lunge/frame_040": 584,
+        "player-lunge/frame_041": 586
+      },
+      "engine": "4.7.2-stable (official)",
+      "failed": 0,
+      "input": "physical keyboard and mouse InputEvents; no combat/progression writes",
+      "rendered": true,
+      "summary": true,
+      "ticks": 857
+    },
+    "presentation-v2/headless/checks.json": {
+      "failed": 0,
+      "passed": 319,
+      "rendered": false,
+      "summary": true
+    },
+    "presentation-v2/rendered/checks.json": {
+      "failed": 0,
+      "passed": 326,
+      "rendered": true,
+      "summary": true
+    },
+    "builds/build_tests.log": {
+      "failed": 0,
+      "passed": 137,
+      "suite": "builds",
+      "summary": true
+    },
+    "anatomy/anatomy_tests.log": {
+      "failed": 0,
+      "passed": 190,
+      "suite": "anatomy",
+      "summary": true
+    },
+    "worldgen/worldgen_tests.log": {
+      "failed": 0,
+      "passed": 80,
+      "suite": "worldgen",
+      "summary": true
+    },
+    "presentation-v2/negative_pose/checks.json": {
+      "expected_exit": 1,
+      "failures": [
+        "heavy_prepares_above_head"
+      ]
+    },
+    "presentation-v2/negative_reaction/checks.json": {
+      "expected_exit": 1,
+      "failures": [
+        "deflection_has_visible_recoil_and_contact",
+        "hit_has_body_recoil"
+      ]
+    },
+    "desktop_browser": {
+      "passed": 18,
+      "failed": 0
+    }
+  },
+  "before-marrow-ready": {
+    "headless_rendered_trace_equal": true,
+    "samples": 856,
+    "trace_sha256": "cfe809acfb9514014689ae21bc9c960aad03d9171723803ddc4b9d3545c1fee2"
+  },
+  "marrow-final": {
+    "headless_rendered_trace_equal": true,
+    "samples": 856,
+    "trace_sha256": "b02c2496317907aa26182215361fdc1820772e27e19d7973f804abf5ef2377e5"
+  },
+  "baseline_final_authoritative_trace_equal": {
+    "samples": 856,
+    "fields": [
+      "health",
+      "posture",
+      "phase",
+      "binding",
+      "remaining",
+      "event"
+    ],
+    "equal": true
+  },
+  "tested_files_sha256": {
+    "scripts/characters/fighter.gd": "01b77c9f1d055114d08c9f443ed34740b77f88c865687a89ef90132fa75ad11d",
+    "scripts/characters/fighter_visual.gd": "36eba4bdd907879164f2720714a7edb41e7a87e385f097cd7f14a26064436485",
+    "scripts/characters/player.gd": "042c28894d41aa58e8e87732f7699d8c709e12e9ab261bca3b13c04cec7eab1f",
+    "scripts/courtyard.gd": "8ffd17ca869543a72f56b700fc10b401d33b961526e1c5a9648bb17398d9a81b",
+    "scripts/hud.gd": "86b34b37664817e6eea73aab31a150200d69b3b6fb5773a146bce71844c08566",
+    "scripts/qa/presentation_test.gd": "9033376d2245361ec8172c89c0bb00825810012bff1bbf50443563daf653781a",
+    "scripts/qa/presentation_capture.gd": "e13021cdee5f6a0d435dbdd073e1b69c1f558fc787920ba58cf0b1253c881e29",
+    "scripts/tooling/test_presentation.sh": "112a70737950d28fdcda4b7de1b87706955b8c849643eb0c7d1fafc3346fde0a"
+  },
+  "artifacts_sha256": {
+    "after/break.png": "158bb8be4fb3b0e41f8959b4d11f5cb28389b1d8dcc22aac5f330658dc030908",
+    "after/deflect.png": "51d278a8402970cd19aa887a5bbdf5d9df5a9311b2d3ccdebdcb298a5d0bedbe",
+    "after/heavy-preparation.png": "4798403bac894ae5a0293c218ec497662db1396036b8e10fe9e56a38d6203317",
+    "after/hit.png": "b8fe679e0fb110f3c3d2f45eabac3a3c546f59cf462c81d8d1406c097b282994",
+    "after/light-preparation.png": "9155eabc9ec2c6748165c701fe3e34af59ba5d02b5e080fed4fdd0c1e90bd30c",
+    "after/special-preparation.png": "56b0e1b664ff68eb8b5f91f30fb1046d777aa4b19ccd0862d54c9a92e738ff1b",
+    "before/break.png": "8b5468c2e8fd1bac2636e539941e1d0f318440588290a3282e31019292872b3c",
+    "before/deflect.png": "fad4bb244c72713af2f6ea6d5ef2b68736cff339d60f40720549a06b7dc2e6ca",
+    "before/heavy-preparation.png": "bffc7f296309286b25216b616ee9b0995ff5fab8965fffb88f9121d03a05c8e2",
+    "before/hit.png": "be0a12006cd6b54ae31e0376f042cefc39ca169a5dbef28a0e1d495c6603ed4a",
+    "before/light-preparation.png": "0d10b85a7a779d093fafef3cf673cebcadfd7901830a990386f8ce93f333e5e0",
+    "before/special-preparation.png": "577c854e70ebd062ab57098ca5895cd509080f9232e19e2007e482fe646b7d6f",
+    "break-comparison.png": "23c07d3a6b7a229f63c6cf4507e6803bf7b3aebb9840b038c7f318258cf64040",
+    "deflect-comparison.png": "af8c8cca07b12900ed8e3099bd31fd86e1e0bcb47b4d3481b3bde98fa4ec176a",
+    "enemy-input-comparison.mp4": "5c175a9ee44f1c0c9b79b02bde8dcaa5f95231011b1805d44caa7f0e9565cc2f",
+    "gameplay-comparison.png": "1a583f5876fba83f7404726c108014afae97a145491ca003cd0185bb6cfc13f0",
+    "heavy-comparison.gif": "219eaa20a7e0151a5275b4e8aff586947e7e9d7c80f64cf436900f8fbd64ecf7",
+    "heavy-comparison.mp4": "71b64e091a705bbe9fc2e5bed7c033a62b23296d056fd84bf428acca9227ec7e",
+    "heavy-preparation.png": "e8a313495501f427c1e6fd86cf9c7a60987f799ce6723d155cdde1cb64861c3c",
+    "hit-comparison.png": "af17d1389cfbf36fd1fa1283ea294a50f29cbaa0324db6371837b63b9c99a8fe",
+    "light-comparison.mp4": "bdf0c6be2b39502c8cd1ab141c36a8dc33a4e3e24f6db5c4666bd4fde2991347",
+    "light-preparation.png": "baa2f9bdd78bd2a6424043d35ca8a25e2635f1f4f1130c366b4d5f1b056a7199",
+    "locked.png": "c09f7dfd8f100f699233f9805e55d446ea38192cc7e59eec67216f459531121c",
+    "player-input-comparison.mp4": "b15b29ea1605d9afd6399028cd04ead443d90e7ad9364e565137487060e5d5c1",
+    "playthrough/01_initial_duel.png": "d3aab96201980515c511eda0d4e72d9e6ad2a911cdeb683e3c56d34f0c0e87a1",
+    "playthrough/02_enemy_lunge_telegraph.png": "d7c7a995d0553c7dcefebd2954fa7a63443e19432bcaa58f6fbab35711691897",
+    "playthrough/03_player_defends_lunge.png": "b11a6b8d26a4235b19cf0d9a28668616eee29e06e00612b1ce2b816ba3c281b7",
+    "playthrough/04_enemy_defeat.png": "3e44cbda615b4089d0c146df350a4d38961881ce315159ef2604f2b9eb978da1",
+    "playthrough/05_salvage_acquired.png": "c6ba89e9aa0295e05d350a690f4d591fff2cccf9874c055417d63443479605a6",
+    "playthrough/06_augmentation_equipped.png": "b2a542ae3e4296a0ca0c9fe0426d5574b0d3f953ebc9a458f74b743c17096438",
+    "playthrough/07_first_inherited_lunge.png": "99f44bc54032657c4b378b34b068c12dec5364720d576cc637f7039230239973",
+    "playthrough/08_second_duel_continues.png": "9a28dc26667203fbf4fd2454139ee13d47361a231e3e582348341b59b0578ce8",
+    "rear_wall.png": "1ab383c5982deed6d6bce14e3a64c855849466b060b4658eb849c7064463d3cc",
+    "side_wall.png": "1c7d9f0ca6285fb72536cca2993ed8a9b813eea19cd67c254ca8b9c1120fd25f",
+    "special-comparison.mp4": "930d43e6aee2de89e0c0368d79b667613b890f9da1c67a22658e490dad8b9d9b",
+    "special-preparation.png": "cccb47260fbbd800e442aa4b201d84e4e438e37179e0061b9277aa60c81fa2f2"
+  }
+}
