@@ -45,7 +45,8 @@ timing values, reproducible tests, evidence, and human playtesting limitations.
 | [Combat review](docs/COMBAT_REVIEW.md) | Independent review, exploits, fixes and priorities |
 | [Combat iteration 2](docs/COMBAT_ITERATION_2.md) | Attack readability, deflection discipline, enemy defense and provisional tuning |
 | [Keyword world blueprints](docs/WORLDGEN_KEYWORDS.md) | Isolated, provisional three-keyword → WorldBlueprint prototype |
-| [Shared builds and salvage](docs/SHARED_BUILDS.md) | Isolated, provisional player/enemy build contract and salvage → equip prototype |
+| [Combat build integration](docs/COMBAT_BUILD_INTEGRATION.md) | Live courtyard adapter, exact parity and validation |
+| [Shared builds and salvage](docs/SHARED_BUILDS.md) | Shared player/enemy build contract; salvage → equip remains a fixture |
 | [Anatomy and transformation](docs/ANATOMY.md) | Isolated, provisional body-graph prototype: extra limbs, replacements, equipment mounts, capability requirements, transformations and a proposed combat contract |
 | [AGENTS.md](AGENTS.md) | Shared instructions for AI development agents |
 | [CLAUDE.md](CLAUDE.md) | Claude-specific handoff |
