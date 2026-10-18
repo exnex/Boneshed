@@ -14,7 +14,7 @@ const LIBRARY_SCRIPTS := ["res://scripts/builds/build_catalog.gd", "res://script
 const FIXTURE_ABILITIES := [
 	{"id": "ability.test_hook", "name": "Test Hook", "binding": "special", "tags": ["melee"], "requires_tags": ["body.hook"],
 		"module": "module.test", "telegraph": "test", "timing": {"windup": 0.5, "active": 0.1, "recovery": 0.5},
-		"hit": {"health_damage": 10, "guard_posture": 10, "reach": 2.0, "width": 1.0}},
+		"hit": {"health_damage": 10, "guard_posture": 10, "posture_damage": 18, "reach": 2.0, "width": 1.0}},
 ]
 const FIXTURE_ITEMS := [
 	{"id": "item.test_greatsword", "name": "Test Greatsword", "category": "weapon", "fits_slots": ["main_hand"],
@@ -123,7 +123,7 @@ func _raw_equipped(equipped: Dictionary) -> Dictionary:
 	return build
 
 func test_catalog() -> void:
-	check(catalog.version == "0.1.0" and catalog.fingerprint.length() == 16, "catalog_version_and_fingerprint")
+	check(catalog.version == "0.2.0" and catalog.fingerprint.length() == 16, "catalog_version_and_fingerprint")
 	check(catalog.abilities.size() == 3 and catalog.items.size() == 2 and catalog.profiles.size() == 2, "catalog_is_small_curated_sample")
 	check(catalog.items["item.marrow_arm"].is_read_only() and catalog.items["item.marrow_arm"].modifiers[0].is_read_only()
 		and catalog.abilities["ability.marrow_lunge"].timing.is_read_only(), "definitions_frozen_deeply")
@@ -176,7 +176,7 @@ func test_shared_compatibility() -> void:
 	var b := _resolved(soul)
 	check(a.keys() == b.keys() and a.stats.keys() == b.stats.keys(), "player_and_enemy_share_resolved_schema")
 	check(_ability(a, "attack.slash").fingerprint == _ability(b, "attack.slash").fingerprint, "shared_weapon_same_ability_definition")
-	check(b.stats.max_posture == 120.0 and b.stats.move_speed == 2.7, "enemy_form_exceptional_stat_with_weakness")
+	check(b.stats.max_posture == 100.0 and b.stats.move_speed == 2.7, "enemy_form_matches_courtyard_posture_and_movement")
 	check(not player.has("abilities") and not soul.has("abilities"), "builds_store_no_ability_copies")
 	# An enemy-only body part fits a player profile and vice versa: nothing is owner-gated.
 	var swapped: Dictionary = rules.new_build("soul.as.duelist", "profile.duelist")
@@ -193,7 +193,8 @@ func test_identity() -> void:
 	check(identity.enemy_fingerprint == fp and identity.ref_fingerprint == fp and identity.player_fingerprint == fp,
 		"signature_fingerprint_preserved_enemy_ref_player", identity)
 	check(Catalog.digest(catalog.abilities[lunge]) == before, "flow_does_not_mutate_definition")
-	check(identity.enemy_effective.windup == 1.05 and identity.player_effective.windup == 0.7
+	check(_ability(result.flow.step_2_corrupted_soul_build.resolved, "attack.slash").effective.windup == 0.62
+		and _ability(result.flow.step_1_player_build.resolved, "attack.slash").effective.windup == 0.34
 		and identity.enemy_effective.reach == identity.player_effective.reach, "wielder_changes_effective_not_definition")
 	for key in Catalog.OWNER_KEYS:
 		check(not catalog.abilities[lunge].has(key) and not catalog.items["item.marrow_arm"].has(key), "no_owner_field:" + key)
@@ -282,7 +283,7 @@ func test_equip_unequip() -> void:
 func test_stats_and_tradeoffs() -> void:
 	var player := _resolved(_player())
 	check(player.stats == {"max_health": 100.0, "max_posture": 100.0, "move_speed": 5.5, "deflect_window": 0.16,
-		"guard_chip": 0.12, "posture_recovery_rate": 12.0, "windup_scale": 1.0, "recovery_scale": 1.0}, "player_base_stats_match_courtyard", player.stats)
+		"guard_chip": 0.12, "posture_recovery_rate": 12.0, "posture_recovery_delay": 1.5, "deflect_posture": 42.0, "windup_scale": 1.0, "recovery_scale": 1.0}, "player_base_stats_match_courtyard", player.stats)
 	var slash: Dictionary = _ability(player, "attack.slash").effective
 	check(slash.windup == 0.34 and slash.active == 0.16 and slash.recovery == 0.45 and slash.health_damage == 18.0, "slash_matches_courtyard_light_attack")
 	var flow: Dictionary = Flow.run(catalog).flow
@@ -356,7 +357,7 @@ func test_serialization() -> void:
 		var loaded: Dictionary = rules.from_json(text)
 		check(loaded.ok and rules.to_json(loaded.build) == text, "json_round_trip:" + build.build_id)
 		check(_resolved(loaded.build).fingerprint == _resolved(build).fingerprint, "round_trip_resolves_identically:" + build.build_id)
-	check(rules.to_json(_soul()) == '{"build_id":"soul.marrow_swordsman","carried":[],"catalog_version":"0.1.0","equipped":{"main_hand":"item.notched_sword","right_arm":"item.marrow_arm"},"profile":"profile.corrupted_swordsman","schema":"boneshed.build.v0"}',
+	check(rules.to_json(_soul()) == '{"build_id":"soul.marrow_swordsman","carried":[],"catalog_version":"0.2.0","equipped":{"main_hand":"item.notched_sword","right_arm":"item.marrow_arm"},"profile":"profile.corrupted_swordsman","schema":"boneshed.build.v0"}',
 		"canonical_build_json_exact")
 	check("malformed_json" in _codes(rules.from_json("{not json").errors), "malformed_json_rejected")
 	check("not_an_object" in _codes(rules.from_json("[1, 2]").errors), "non_object_json_rejected")

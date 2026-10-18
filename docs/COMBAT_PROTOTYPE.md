@@ -73,9 +73,9 @@ rule for simultaneous active attacks. This priority is provisional.
 
 ## Tuning
 
-All durations below are seconds. Public rule parameters live in `CombatState`; the
-enemy configures its own windup/recovery in `_ready`. Movement and camera settings
-are exported on the actor scripts for inspector iteration.
+All durations below are seconds. Both actors now receive combat parameters and
+walk speed through the [shared build adapter](COMBAT_BUILD_INTEGRATION.md).
+Movement algorithms and camera settings remain in the actor scripts.
 
 | Parameter | Current value |
 | --- | --- |

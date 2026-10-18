@@ -1,0 +1,22 @@
+{
+	"player": {
+		"schema": "boneshed.build.v0",
+		"build_id": "courtyard.player",
+		"catalog_version": "0.2.0",
+		"profile": "profile.duelist",
+		"equipped": {
+			"main_hand": "item.notched_sword"
+		},
+		"carried": []
+	},
+	"enemy": {
+		"schema": "boneshed.build.v0",
+		"build_id": "courtyard.enemy",
+		"catalog_version": "0.2.0",
+		"profile": "profile.corrupted_swordsman",
+		"equipped": {
+			"main_hand": "item.notched_sword"
+		},
+		"carried": []
+	}
+}

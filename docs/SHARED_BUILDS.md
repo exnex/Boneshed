@@ -1,11 +1,13 @@
 # Shared Builds and Salvage — Design and Prototype
 
-**Status: isolated Gate 2 foundation. Nothing here is a confirmed game mechanic.**
+**Status: Gate 2 foundation with live courtyard integration. Exact tuning remains provisional.**
 The confirmed direction ([DECISIONS.md](DECISIONS.md)) is only that player and enemy
 forms share core build mechanics, that enemy forms may pair extreme stats with
 disadvantages, and that defeated enemies may yield their signature augments/abilities.
 Every stat, slot, value, restriction, rule and schema below is **Proposed**. Nothing
-is wired into the courtyard, combat rules, AI, input, scene or browser export.
+was wired into the courtyard in PR #8. The subsequent
+[combat build integration](COMBAT_BUILD_INTEGRATION.md) now feeds both live fighters
+through this catalog and resolver; salvage and Marrow Lunge remain isolated fixtures.
 
 The success criterion is narrow: show that an enemy-owned signature ability becomes
 part of a player build **through the same underlying definition**, with a visible
@@ -42,7 +44,7 @@ Three layers, each with one job:
      exclude, abilities they grant, stat modifiers, `salvageable`.
 2. **Build** (save data). Only ids:
    ```json
-   {"schema": "boneshed.build.v0", "build_id": "...", "catalog_version": "0.1.0",
+   {"schema": "boneshed.build.v0", "build_id": "...", "catalog_version": "0.2.0",
     "profile": "profile.duelist", "equipped": {"main_hand": "item.notched_sword"}, "carried": []}
    ```
    The player and every enemy use this identical shape. `carried` is the minimum
@@ -59,7 +61,8 @@ Three layers, each with one job:
   there is only one place an ability can come from.
 - An ability's **identity** is its id plus a fingerprint (SHA-256 prefix of its
   canonical JSON). The wielder changes only `effective` values: the corrupted soul's
-  `windup_scale` 1.5 makes its Marrow Lunge windup 1.05 s; the player's is 0.7 s.
+  basic-slash override makes its windup 0.62 s; the player's is 0.34 s.
+  The experimental lunge is 0.7 s for either profile in catalog 0.2.0.
   The definition and fingerprint are the same object in both builds.
 
 ### Validation (all deterministic, errors in catalog slot order)
@@ -88,7 +91,8 @@ harmful modifiers and excluded tags are disadvantages), so they cannot drift fro
 what the item does.
 
 `profile.duelist` and the sword's two attacks reproduce the current courtyard player
-values. `profile.corrupted_swordsman` only approximates the courtyard enemy (see §6).
+values. `profile.corrupted_swordsman` now reproduces the courtyard enemy exactly through
+per-ability overrides; see [the integration document](COMBAT_BUILD_INTEGRATION.md).
 
 ## 2. Architectures compared
 
@@ -141,8 +145,8 @@ prototype cannot prevent claiming a valid reference twice.
 - **Catalog**: valid, small, deeply read-only, fingerprints stable across instances;
   16 malformed catalogs each rejected with the specific error.
 - **Player/enemy compatibility**: same build and resolved schema; shared weapon gives
-  the same ability fingerprint; enemy form shows exceptional posture with slow
-  movement; an enemy augment fits a player profile.
+  the same ability fingerprint; enemy form matches courtyard posture with slow
+  movement and explicit braced block costs; an enemy augment fits a player profile.
 - **Identity**: signature fingerprint equal in catalog, enemy, reference and player;
   the flow does not mutate the definition; wielder changes effective values only;
   no owner field.
@@ -167,19 +171,21 @@ prototype cannot prevent claiming a valid reference twice.
 Test-only definitions (a two-handed greatsword, a left-arm marrow copy, a hook arm, a
 brace, a crush arm) live inside the test script, not in the shipped catalog.
 
-## 5. Gate 2 integration plan (not started; each step its own PR)
+## 5. Gate 2 integration plan (adapter implemented; later steps deferred)
 
-Coordinate with the combat-readability/deflection work first; steps 2–4 touch combat.
+Combat Iteration 2 is merged. Later steps remain separate focused PRs.
 
-1. **Approve or amend** the decisions in §7 and the catalog values.
-2. **Adapter, read-only**: a small function `apply_resolved(resolved, CombatState)`
+1. **Final design decisions remain open.** The current adapter integration preserves
+   courtyard tuning without approving permanent stats, slots, penalties or bindings
+   from §7.
+2. **Adapter, read-only — implemented by [combat build integration](COMBAT_BUILD_INTEGRATION.md)**.
+   Historical plan: a small function `apply_resolved(resolved, CombatState)`
    that copies `max_health`, `max_posture`, `deflect_window`, `guard_chip`, posture
    recovery and per-binding attack timing/damage onto a `CombatState`. Prove with a
    test that the duelist profile reproduces current combat values exactly, so the
-   adapter changes nothing until data does. `CombatState` currently hardcodes damage
+   adapter changes nothing until data does. Before integration, `CombatState` hardcoded damage
    (18/32), the 12/s posture recovery, the 18 posture on hit and the 1.5× heavy guard
-   multiplier; these must become per-attack/per-actor fields first — a combat-file change to
-   schedule with the combat owner.
+   multiplier; these are now configurable per attack/form through the adapter.
 3. **Curated attack module** for `module.marrow_lunge`: a primitive procedural pose
    and a longer, narrower hit volume (reach 3.4, width 0.9) using the existing
    windup/active/recovery phases and amber/red previews. No generated attacks.
@@ -197,15 +203,15 @@ Coordinate with the combat-readability/deflection work first; steps 2–4 touch 
 
 - Values are placeholders; nothing is balanced or playtested. No assertion is made
   that the lunge or the tradeoff feels good.
-- The corrupted swordsman profile approximates the courtyard enemy with
-  `windup_scale` 1.5 / `recovery_scale` 1.4 (courtyard: basic 0.62 s windup, 0.65 s
-  recovery, heavy windup unchanged at 0.85 s). Scales cannot express "basic slower,
-  heavy unchanged"; see decision 5.
+- The integration replaces the approximate enemy scales with explicit ability
+  overrides matching the live duel. Global scales remain available; final wielder
+  tuning design remains open (decision 5).
 - Items have no instance state (durability, damage, repair). Two copies of an item
   are the same id.
 - `carried` has no limit, stash, extraction or loss rules.
 - No skill that exists without a carrier item; see decision 1.
-- Stats affect timing only through two global scales; damage is per ability only.
+- Effective attacks resolve definition values, then optional per-ability profile
+  overrides, then global timing scales. This is provisional integration support.
 
 ## Confirmed direction for future anatomy design (2026-10-17)
 

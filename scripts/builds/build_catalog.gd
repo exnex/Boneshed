@@ -19,7 +19,7 @@ const SLOT_KEYS := ["accepts", "id"]
 const PROFILE_KEYS := ["id", "name", "notes", "stats"]
 const ABILITY_KEYS := ["binding", "hit", "id", "module", "name", "requires_tags", "tags", "telegraph", "timing"]
 const TIMING_KEYS := ["active", "recovery", "windup"]
-const HIT_KEYS := ["guard_posture", "health_damage", "reach", "width"]
+const HIT_KEYS := ["guard_posture", "health_damage", "posture_damage", "reach", "width"]
 const ITEM_KEYS := ["category", "excludes_tags", "fits_slots", "grants", "id", "modifiers", "name", "notes", "provides_tags", "requires_tags", "salvageable"]
 const MODIFIER_KEYS := ["op", "stat", "value"]
 
@@ -53,15 +53,18 @@ func load_file(path := CATALOG_PATH) -> bool:
 ## Accepts raw parsed data (tests pass fixture catalogs built in memory).
 func load_data(data: Dictionary) -> bool:
 	errors.clear()
-	stats.clear()
-	stat_order.clear()
-	slots.clear()
-	slot_order.clear()
-	bindings.clear()
-	profiles.clear()
-	abilities.clear()
-	items.clear()
+	stats = {}
+	stat_order = []
+	slots = {}
+	slot_order = []
+	bindings = []
+	profiles = {}
+	abilities = {}
+	items = {}
+	fingerprint = ""
+	version = ""
 	var source: Dictionary = data.duplicate(true)
+	_reject_owner_keys(source, "catalog")
 	_keys(source, CATALOG_KEYS, "catalog")
 	if source.get("schema") != SCHEMA:
 		errors.append("unsupported catalog schema '%s'" % str(source.get("schema")))
@@ -74,13 +77,16 @@ func load_data(data: Dictionary) -> bool:
 	_index(source.get("profiles", []), profiles, [], "profile", _def_id)
 	_index(source.get("abilities", []), abilities, [], "ability", _def_id)
 	_index(source.get("items", []), items, [], "item", _def_id)
-	bindings = source.get("bindings", []) if source.get("bindings") is Array else []
-	_validate_stats()
-	_validate_slots()
-	_validate_profiles()
-	_validate_abilities()
-	_validate_items()
-	_reject_owner_keys(source, "catalog")
+	if not source.get("bindings") is Array:
+		errors.append("bindings must be an array")
+	else:
+		bindings = source.bindings
+	# Downstream validation uses earlier tables. Stop on malformed prerequisites
+	# rather than indexing invalid values while reporting a later definition.
+	for validate_table in [_validate_stats, _validate_slots, _validate_profiles, _validate_abilities, _validate_items]:
+		if not errors.is_empty():
+			return false
+		validate_table.call()
 	for table in [stats, slots, profiles, abilities, items]:
 		_freeze(table)
 	_freeze(bindings)
@@ -154,14 +160,18 @@ func _validate_slots() -> void:
 		_keys(slots[id], SLOT_KEYS, "slot " + id)
 		if not slots[id].get("accepts") in CATEGORIES:
 			errors.append("slot %s accepts unknown category" % id)
+	var seen := {}
 	for binding in bindings:
+		if seen.has(binding):
+			errors.append("duplicate binding '%s'" % str(binding))
+		seen[binding] = true
 		if not binding is String or _plain_id.search(binding) == null:
 			errors.append("invalid binding '%s'" % str(binding))
 
 func _validate_profiles() -> void:
 	for id in profiles:
 		var profile: Dictionary = profiles[id]
-		_keys(profile, PROFILE_KEYS, "profile " + id)
+		_keys(profile, PROFILE_KEYS, "profile " + id, ["ability_overrides", "guard_posture_overrides"])
 		var values = profile.get("stats", {})
 		if not values is Dictionary or _sorted(values.keys()) != _sorted(stat_order):
 			errors.append("profile %s must define exactly the catalog stats" % id)
@@ -170,10 +180,36 @@ func _validate_profiles() -> void:
 			if not _number(values[stat_id]) or values[stat_id] < stats[stat_id].min or values[stat_id] > stats[stat_id].max:
 				errors.append("profile %s stat %s out of range" % [id, stat_id])
 
+		var overrides = profile.get("ability_overrides", {})
+		if not overrides is Dictionary:
+			errors.append("profile %s ability_overrides must be an object" % id)
+		else:
+			for ability_id in overrides:
+				if not abilities.has(ability_id):
+					errors.append("profile %s overrides unknown ability %s" % [id, ability_id])
+				var values_override = overrides[ability_id]
+				if not values_override is Dictionary or values_override.is_empty():
+					errors.append("profile %s ability override must be a nonempty object" % id)
+					continue
+				for key in values_override:
+					var value = values_override[key]
+					if not key in TIMING_KEYS + HIT_KEYS or not _number(value) or value < 0.0 or (key in TIMING_KEYS and value == 0.0):
+						errors.append("profile %s invalid ability override %s.%s" % [id, ability_id, key])
+		var defense = profile.get("guard_posture_overrides", {})
+		if not defense is Dictionary:
+			errors.append("profile %s guard_posture_overrides must be an object" % id)
+		else:
+			for binding in defense:
+				if not binding in bindings or not _number(defense[binding]) or defense[binding] < 0.0:
+					errors.append("profile %s invalid guard posture override %s" % [id, binding])
+
 func _validate_abilities() -> void:
 	var provided := {}
 	for item in items.values():
-		for tag in item.get("provides_tags", []):
+		if not item.get("provides_tags") is Array:
+			errors.append("item provides_tags must be an array")
+			continue
+		for tag in item.provides_tags:
 			provided[tag] = true
 	for id in abilities:
 		var ability: Dictionary = abilities[id]
@@ -181,9 +217,13 @@ func _validate_abilities() -> void:
 		_keys(ability, ABILITY_KEYS, where)
 		if not ability.get("binding") in bindings:
 			errors.append("%s has unknown binding" % where)
+		if not ability.get("module") is String or _def_id.search(ability.module) == null:
+			errors.append("%s needs a valid module id" % where)
 		_tag_list(ability, "tags", where)
 		_tag_list(ability, "requires_tags", where)
-		for tag in ability.get("requires_tags", []):
+		if not ability.get("requires_tags") is Array:
+			continue
+		for tag in ability.requires_tags:
 			if not provided.has(tag):
 				errors.append("%s requires tag '%s' that no item provides" % [where, tag])
 		_numbers(ability.get("timing"), TIMING_KEYS, where + " timing", true)
@@ -198,8 +238,11 @@ func _validate_items() -> void:
 			errors.append("%s has unknown category" % where)
 		if not item.get("salvageable") is bool:
 			errors.append("%s salvageable must be true or false" % where)
+		var before_lists := errors.size()
 		for field in ["fits_slots", "provides_tags", "requires_tags", "excludes_tags", "grants"]:
 			_tag_list(item, field, where)
+		if errors.size() != before_lists:
+			continue
 		if item.get("fits_slots", []).is_empty():
 			errors.append("%s fits no slot" % where)
 		for slot_id in item.get("fits_slots", []):
@@ -264,9 +307,9 @@ func _tag_list(entry: Dictionary, field: String, where: String) -> void:
 			errors.append("%s.%s repeats '%s'" % [where, field, value])
 		seen[value] = true
 
-func _keys(entry: Dictionary, expected: Array, where: String) -> void:
+func _keys(entry: Dictionary, expected: Array, where: String, optional: Array = []) -> void:
 	for key in entry:
-		if not key in expected:
+		if not key in expected and not key in optional:
 			errors.append("%s has unknown key '%s'" % [where, str(key)])
 	for key in expected:
 		if not entry.has(key):
@@ -283,7 +326,7 @@ func _reject_owner_keys(value: Variant, where: String) -> void:
 			_reject_owner_keys(entry, where)
 
 static func _number(value: Variant) -> bool:
-	return typeof(value) in [TYPE_INT, TYPE_FLOAT]
+	return typeof(value) in [TYPE_INT, TYPE_FLOAT] and is_finite(float(value))
 
 static func _sorted(values: Array) -> Array:
 	var copy := values.duplicate()

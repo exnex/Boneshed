@@ -15,10 +15,6 @@ var observed_event := 0
 
 func _ready() -> void:
 	body_color = Color("9b5265")
-	move_speed = 2.7
-	combat.attack_windup = 0.62
-	combat.recovery_duration = 0.65
-	combat.guard_posture = 10.0 # Provisional braced form; deflecting its attacks still costs it 42.
 	super._ready()
 
 func _physics_process(delta: float) -> void:

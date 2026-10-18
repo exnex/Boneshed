@@ -1,0 +1,12 @@
+[
+  {
+    "mutation": "skip_damage_adapter",
+    "exit": 1,
+    "expected_failure": "data_change_reaches_live_hit_damage_and_posture"
+  },
+  {
+    "mutation": "skip_profile_overrides",
+    "exit": 1,
+    "expected_failure": "enemy_per_attack_timing_preserved"
+  }
+]

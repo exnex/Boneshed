@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+{"enemy_attacks_interrupted_in_windup":5,"enemy_attacks_started":5,"enemy_health":0.0,"events":{"enemy_defeated":1,"enemy_hit":5},"frames":311,"player_health":100.0,"scenario":"live_strategy","seconds":5.18,"strategy":"attack_only_1.20_period_2","winner":"player"}
+{"check":"attack_only_loses_1.20_period_2","negative":"defense","passed":false,"scenario":"iteration2_regression"}
+{"enemy_attacks_interrupted_in_windup":5,"enemy_attacks_started":5,"enemy_health":0.0,"events":{"enemy_defeated":1,"enemy_hit":5},"frames":321,"player_health":100.0,"scenario":"live_strategy","seconds":5.35,"strategy":"attack_only_1.20_period_5","winner":"player"}
+{"check":"attack_only_loses_1.20_period_5","negative":"defense","passed":false,"scenario":"iteration2_regression"}
+{"enemy_attacks_interrupted_in_windup":5,"enemy_attacks_started":5,"enemy_health":0.0,"events":{"enemy_defeated":1,"enemy_hit":5},"frames":311,"player_health":100.0,"scenario":"live_strategy","seconds":5.18,"strategy":"attack_only_1.85_period_2","winner":"player"}
+{"check":"attack_only_loses_1.85_period_2","negative":"defense","passed":false,"scenario":"iteration2_regression"}
+{"enemy_attacks_interrupted_in_windup":5,"enemy_attacks_started":5,"enemy_health":0.0,"events":{"enemy_defeated":1,"enemy_hit":5},"frames":321,"player_health":100.0,"scenario":"live_strategy","seconds":5.35,"strategy":"attack_only_1.85_period_5","winner":"player"}
+{"check":"attack_only_loses_1.85_period_5","negative":"defense","passed":false,"scenario":"iteration2_regression"}
+{"enemy_attacks_interrupted_in_windup":5,"enemy_attacks_started":5,"enemy_health":0.0,"events":{"enemy_defeated":1,"enemy_hit":5},"frames":311,"player_health":100.0,"scenario":"live_strategy","seconds":5.18,"strategy":"attack_only_2.20_period_2","winner":"player"}
+{"check":"attack_only_loses_2.20_period_2","negative":"defense","passed":false,"scenario":"iteration2_regression"}
+{"enemy_attacks_interrupted_in_windup":5,"enemy_attacks_started":5,"enemy_health":0.0,"events":{"enemy_defeated":1,"enemy_hit":5},"frames":321,"player_health":100.0,"scenario":"live_strategy","seconds":5.35,"strategy":"attack_only_2.20_period_5","winner":"player"}
+{"check":"attack_only_loses_2.20_period_5","negative":"defense","passed":false,"scenario":"iteration2_regression"}
+{"enemy_attacks_interrupted_in_windup":0,"enemy_attacks_started":12,"enemy_health":100.0,"events":{"player_broken_frames":266,"player_defeated":1,"player_guard":9,"player_punish":2},"frames":1574,"player_health":0.0,"scenario":"live_strategy","seconds":26.23,"strategy":"blind_toggle_and_break_punish","winner":"enemy"}
+{"check":"blind_toggle_loses_without_repeated_deflections","negative":"defense","passed":true,"scenario":"iteration2_regression"}
+{"enemy_attacks_interrupted_in_windup":0,"enemy_attacks_started":2,"enemy_health":0.0,"events":{"enemy_broken_frames":133,"enemy_defeated":1,"enemy_hit":1,"enemy_punish":2,"player_deflected":2},"frames":346,"player_health":100.0,"scenario":"live_strategy","seconds":5.77,"strategy":"skilled_deflect_punish","winner":"player"}
+{"check":"skilled_deflect_punish_wins_untouched","negative":"defense","passed":true,"scenario":"iteration2_regression"}
+{"engine":"4.7.2-stable (official)","failed":6,"probe_summary":true,"records":16}

@@ -3,6 +3,10 @@ extends Node3D
 const Player = preload("res://scripts/characters/player.gd")
 const Swordsman = preload("res://scripts/ai/swordsman.gd")
 const Rules = preload("res://scripts/combat/combat_state.gd")
+const BuildAdapter = preload("res://scripts/combat/build_adapter.gd")
+@export var catalog_path := "res://data/builds/catalog.json"
+@export var builds_path := BuildAdapter.BUILDS_PATH
+var resolved_builds: Dictionary = {}
 var player: Fighter
 var enemy: Fighter
 var hud: Control
@@ -11,13 +15,27 @@ var event_time := 0.0
 var encounter_time := 0.0
 var qa_mode := false
 
+func prepare_builds() -> Dictionary:
+	return BuildAdapter.load_encounter(catalog_path, builds_path)
+
 func _ready() -> void:
+	var prepared := prepare_builds()
+	if not prepared.ok:
+		push_error("Courtyard build initialization failed: " + JSON.stringify(prepared.errors))
+		set_physics_process(false)
+		get_tree().quit(1)
+		return
+	resolved_builds = prepared.resolved
 	_setup_input()
 	_build_courtyard()
 	player = Player.new()
+	player.combat = BuildAdapter.create_state(prepared.configs.player)
+	player.move_speed = prepared.configs.player.move_speed
 	player.name = "Pilgrim"
 	add_child(player)
 	enemy = Swordsman.new()
+	enemy.combat = BuildAdapter.create_state(prepared.configs.enemy)
+	enemy.move_speed = prepared.configs.enemy.move_speed
 	enemy.name = "CorruptedSwordsman"
 	add_child(enemy)
 	player.opponent = enemy
