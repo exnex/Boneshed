@@ -1,6 +1,6 @@
 # Boneshed — Agent Instructions
 
-Read this file, `README.md`, `docs/GAME_VISION.md`, and `docs/DECISIONS.md` before making substantive changes. These repo files are the source of truth for Boneshed; do not substitute guidance from other projects.
+Read this file, `README.md`, `docs/ROADMAP.md`, `docs/GAME_VISION.md`, and `docs/DECISIONS.md` before making substantive changes. These repo files are the source of truth for Boneshed; do not substitute guidance from other projects.
 
 ## Mission
 Deliver a focused, testable third-person precision-combat game. Prove one excellent duel before implementing procedural worlds, online systems, or economies.
@@ -25,6 +25,12 @@ The guides in PR #14 are proposed until that PR is merged. Once merged, they gov
 - Guide items marked **MUST** are required. If you deviate from one, say why in the PR. Other guidance is a default; use judgment.
 - Check [`CODE_AUDIT.md`](docs/engineering/CODE_AUDIT.md) for known findings in files you touch. Fix them only when the backlog trigger applies and the fix is small and in scope. Don't refactor speculatively or fold unrelated cleanup into a feature PR.
 - Never present an engineering pattern (a module contract, Tower snapshot constraints) as approval of the mechanic it would serve.
+
+## Living roadmap and desync recovery
+- `docs/ROADMAP.md` is the project handoff and current coordination state; recheck latest `main` and PR status each session because snapshots become stale.
+- ChatGPT (the coordinator) should persist each substantive plan, review, decision, work assignment and outcome to the roadmap during the same exchange; do not rely on chat history alone.
+- Implementing agents should include a concise roadmap/status delta in their PR handoff. The coordinator reconciles that delta after the PR changes state; avoid simultaneous competing roadmap edits.
+- Preserve unresolved items, including why an item is blocked or deferred. Do not report "saved" without a verified GitHub update.
 
 ## Validation and PR handoff
 - Run available checks/tests, or say clearly what could not be run.
