@@ -1,6 +1,8 @@
 # First playable: claim the Marrow Arm
 
-The normal project entry point is `scenes/salvage_courtyard.tscn`. It uses the same
+The isolated salvage entry point is `scenes/salvage_courtyard.tscn`. The desktop
+project now opens [First Expedition](FIRST_EXPEDITION.md), which reuses this loop.
+The isolated scene uses the same
 courtyard, fighters, build resolver and combat rules as the ordinary duel. Its enemy
 build equips Marrow Arm. `scenes/courtyard.tscn` remains the ordinary, unaugmented
 duel and the historical regression fixture.
@@ -8,12 +10,14 @@ duel and the historical regression fixture.
 ## Human playtest
 
 Open `project.godot` in Godot **4.7.2.stable.official.ed1daf0bf** and press **F5**
-(Run Project). On the configured Linux x86_64 environment, the checksum-verified
+(Run Project) for the expedition, or F6 with the salvage courtyard open for this
+isolated duel. On the configured Linux x86_64 environment, the checksum-verified
 tooling also launches it with:
 
 ```sh
 bash scripts/tooling/setup.sh
-bash scripts/tooling/play.sh
+source scripts/tooling/env.sh
+"$GODOT_BIN" --path "$REPO_ROOT" res://scenes/salvage_courtyard.tscn
 ```
 
 1. The encounter starts immediately. Move into the circle with **WASD**; **mouse**

@@ -513,4 +513,4 @@ func test_isolation() -> void:
 	var adapter := FileAccess.get_file_as_string("res://scripts/anatomy/build_projection.gd")
 	check(forbidden.all(func(f): return not adapter.contains(f)) and not adapter.contains("preload"), "projection_reads_builds_without_combat_or_preload")
 	check(catalog.build_catalog_version == builds.version, "anatomy_targets_current_build_catalog")
-	check(ProjectSettings.get_setting("application/run/main_scene") == "res://scenes/salvage_courtyard.tscn", "playable_entrypoint_selected")
+	check(ProjectSettings.get_setting("application/run/main_scene") == "res://scenes/first_expedition.tscn", "playable_entrypoint_selected")

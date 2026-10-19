@@ -144,7 +144,7 @@ func test_isolation() -> void:
 				clean = false
 				offenders.append("%s -> %s" % [path, needle])
 	check(clean, "lab_references_no_combat_actor_ai_hud_build_or_anatomy_code", offenders)
-	check(str(ProjectSettings.get_setting("application/run/main_scene")) == "res://scenes/salvage_courtyard.tscn", "main_scene_unchanged")
+	check(str(ProjectSettings.get_setting("application/run/main_scene")) == "res://scenes/first_expedition.tscn", "playable_entrypoint_selected")
 
 # --- Character checks ---------------------------------------------------------------
 

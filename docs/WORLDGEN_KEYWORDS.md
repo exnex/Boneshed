@@ -1,12 +1,13 @@
 # Three-Keyword World Blueprints — Design and Prototype
 
-**Status: isolated prototype.** The high-level keyword identity-versus-seed-variation principle is confirmed in [DECISIONS.md](DECISIONS.md); individual algorithms, weights and content remain provisional.
+**Status: provisional blueprint prototype, now consumed by [First Expedition](FIRST_EXPEDITION.md).** The high-level keyword identity-versus-seed-variation principle is confirmed in [DECISIONS.md](DECISIONS.md); individual algorithms, weights and content remain provisional.
 The confirmed direction (see [DECISIONS.md](DECISIONS.md)) is only that three poetic,
 .hack-inspired keywords and a fresh seed influence a world's resources, elemental
 conditions, landforms, enemies and difficulty. Everything below — the vocabulary, the
 axes, the weights, the rules and the formulas — is **Proposed** prototype work that
-needs human review. No terrain, dungeon, enemy or loot is generated, and nothing here
-touches combat, the courtyard scene or the browser export.
+needs human review. The blueprint itself generates no terrain, dungeon, enemy or loot.
+The expedition separately consumes it for bounded modules and atmosphere and reuses
+the existing duel. The original courtyard and blueprint algorithms remain unchanged.
 
 **Confirmed direction (2026-10-17):** The same three words should produce a recognizable world identity while allowing substantially different seeded maps, landmarks, encounters and discoveries. The present prototype deliberately varies only bounded parameters and featured themes; it does **not yet implement or demonstrate** that broader world realization. This gap is future work, not a failure of its deterministic blueprint contract.
 
@@ -190,7 +191,12 @@ Theme ids (`black_ice`, `bone_wardens`, `grave_goods`, …) are **labels for fut
 lookup tables**, not definitions of enemies or items. `encounter_density` is held to a
 provisional sparse band (0.15–0.55) to respect the desolate tone.
 
-## 7. How a blueprint could drive real generation (proposed, not implemented)
+## 7. How a blueprint could drive real generation
+
+The desktop [First Expedition slice](FIRST_EXPEDITION.md) now consumes this output
+through curated layout modules and primitive scenery. Its bounded route/arena,
+keyword presentation and seeded geography are provisional. The broader generators
+below remain proposals; the slice adds no hazards, discovery economy or difficulty system.
 
 Each future generator should read only the blueprint plus its own stream seed:
 
@@ -239,9 +245,8 @@ Each future generator should read only the blueprint plus its own stream seed:
    list, and how words are unlocked are open.
 8. **Encounter density band** 0.15–0.55, and every formula in `_generation_parameters`.
 9. **Data format**: JSON in `data/worldgen/` (diffable, editor-independent) vs Godot
-   `Resource` files (inspector editing, typed). Whether `data/worldgen/` and
-   `scripts/worldgen/` end up in the web export bundle was not checked; nothing in the
-   game loads them, and the export configuration was intentionally left untouched.
+   `Resource` files (inspector editing, typed). First Expedition retains the existing
+   JSON and explicitly includes it in export presets now that gameplay consumes it.
 
 ## 9. Known limitations
 
@@ -252,8 +257,8 @@ Each future generator should read only the blueprint plus its own stream seed:
   expresses the tag.
 - Senses with no resonance always fall back to the primary sense, so the second sense
   of *gilded* or *forgotten* only appears with specific company.
-- Generation parameters are placeholder formulas; they are bounded and monotonic, not
-  meaningful to play yet. Nothing has been seen in-engine as terrain.
+- Generation parameters remain placeholder formulas. First Expedition uses a bounded
+  subset for curated modules and atmosphere; it does not validate the formulas as final design.
 - Theme ids have no definitions behind them; two words may name overlapping themes
   (e.g. `carrion_flocks` in *tempest* and *barren*), which is intended to merge, but
   synonyms with different ids would not merge.

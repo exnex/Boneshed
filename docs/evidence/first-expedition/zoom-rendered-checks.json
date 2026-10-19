@@ -1,0 +1,508 @@
+[
+	{
+		"check": "existing_default_distance_preserved",
+		"passed": true
+	},
+	{
+		"actual": 6.0,
+		"camera": "(1.857621, 3.687673, 7.516065)",
+		"enemy": "(0.0, 0.02, 0.0)",
+		"frame": "01_default",
+		"locked": true,
+		"pitch": -0.32,
+		"player": "(0.0, 0.000273, 2.0)",
+		"preferred": 6.0,
+		"requested": 6.0,
+		"yaw": 0.117177870497279
+	},
+	{
+		"check": "capture_01_default",
+		"passed": true
+	},
+	{
+		"check": "configured_default_initializes_preference_and_arm",
+		"passed": true
+	},
+	{
+		"check": "configured_wheel_sensitivity_is_used",
+		"passed": true
+	},
+	{
+		"check": "configured_minimum_is_used",
+		"passed": true
+	},
+	{
+		"check": "configured_maximum_is_used",
+		"passed": true
+	},
+	{
+		"check": "scroll_up_selects_closer",
+		"passed": true
+	},
+	{
+		"check": "wheel_does_not_snap_arm",
+		"passed": true
+	},
+	{
+		"check": "first_tick_interpolates",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_0",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_1",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_2",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_3",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_4",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_5",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_6",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_7",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_8",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_9",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_10",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_11",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_12",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_13",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_14",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_15",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_16",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_17",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_18",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_19",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_20",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_21",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_22",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_23",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_24",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_25",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_26",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_27",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_28",
+		"passed": true
+	},
+	{
+		"check": "converges_without_overshoot_29",
+		"passed": true
+	},
+	{
+		"check": "responsive_convergence_within_half_second",
+		"passed": true
+	},
+	{
+		"check": "scroll_down_selects_farther",
+		"passed": true
+	},
+	{
+		"check": "fractional_wheel_factor",
+		"passed": true
+	},
+	{
+		"check": "releases_and_horizontal_wheel_ignored",
+		"passed": true
+	},
+	{
+		"check": "disabled_input_ignores_zoom",
+		"passed": true
+	},
+	{
+		"check": "minimum_clamp",
+		"passed": true
+	},
+	{
+		"check": "minimum_remains_third_person",
+		"passed": true
+	},
+	{
+		"check": "minimum_shows_player_across_pitch_-0.75",
+		"passed": true
+	},
+	{
+		"check": "minimum_shows_player_across_pitch_-0.32",
+		"passed": true
+	},
+	{
+		"check": "minimum_shows_player_across_pitch_-0.12",
+		"passed": true
+	},
+	{
+		"check": "minimum_shows_player_across_pitch_0.15",
+		"passed": true
+	},
+	{
+		"check": "minimum_frames_close_duel",
+		"passed": true
+	},
+	{
+		"actual": 3.25000047683716,
+		"camera": "(1.560684, 2.822615, 4.919176)",
+		"enemy": "(0.0, 0.02, 0.0)",
+		"frame": "02_close",
+		"locked": true,
+		"pitch": -0.32,
+		"player": "(0.0, 0.000273, 2.0)",
+		"preferred": 3.25,
+		"requested": 3.25000047683716,
+		"yaw": 0.119999882119787
+	},
+	{
+		"check": "capture_02_close",
+		"passed": true
+	},
+	{
+		"check": "close_strafe_orbit_while_zooming_keeps_both_in_frame",
+		"passed": true
+	},
+	{
+		"check": "maximum_clamp",
+		"passed": true
+	},
+	{
+		"check": "maximum_converges",
+		"passed": true
+	},
+	{
+		"check": "maximum_frames_both_fighters",
+		"passed": true
+	},
+	{
+		"actual": 7.49954652786255,
+		"camera": "(2.024034, 4.159379, 8.929727)",
+		"enemy": "(0.0, 0.02, 0.0)",
+		"frame": "03_far",
+		"locked": true,
+		"pitch": -0.32,
+		"player": "(0.0, 0.000273, 2.0)",
+		"preferred": 7.5,
+		"requested": 7.49954652786255,
+		"yaw": 0.117177870497279
+	},
+	{
+		"check": "capture_03_far",
+		"passed": true
+	},
+	{
+		"check": "rapid_input_does_not_snap",
+		"passed": true
+	},
+	{
+		"check": "reversal_responds_on_next_tick",
+		"passed": true
+	},
+	{
+		"check": "rapid_wheel_burst_keeps_latest_clamped_selection",
+		"passed": true
+	},
+	{
+		"check": "rear_wall_blocks_camera",
+		"passed": true
+	},
+	{
+		"check": "wall_does_not_overwrite_preference",
+		"passed": true
+	},
+	{
+		"actual": 0.864239573478699,
+		"camera": "(1.2, 1.903733, 11.35802)",
+		"enemy": "(0.0, 0.02, 8.5)",
+		"frame": "04_wall_obstructed",
+		"locked": false,
+		"pitch": -0.12,
+		"player": "(0.0, 0.000273, 10.5)",
+		"preferred": 7.5,
+		"requested": 7.49984169006348,
+		"yaw": 0.0
+	},
+	{
+		"check": "capture_04_wall_obstructed",
+		"passed": true
+	},
+	{
+		"check": "wheel_changes_preference_while_obstructed",
+		"passed": true
+	},
+	{
+		"check": "wall_recovery_restores_selected_distance",
+		"passed": true
+	},
+	{
+		"actual": 6.20000123977661,
+		"camera": "(1.879817, 3.750586, 7.704611)",
+		"enemy": "(0.0, 0.02, 0.0)",
+		"frame": "05_wall_recovered",
+		"locked": true,
+		"pitch": -0.32,
+		"player": "(0.0, 0.000273, 2.0)",
+		"preferred": 6.2,
+		"requested": 6.20000123977661,
+		"yaw": 0.117177870497279
+	},
+	{
+		"check": "capture_05_wall_recovered",
+		"passed": true
+	},
+	{
+		"check": "shoulder_anchor_wall_check_preserved",
+		"passed": true
+	},
+	{
+		"check": "pillar_blocks_zoomed_arm",
+		"passed": true
+	},
+	{
+		"check": "pillar_recovery_keeps_preference",
+		"passed": true
+	},
+	{
+		"check": "left_click_still_attacks",
+		"passed": true
+	},
+	{
+		"check": "zoom_preserves_locked_attack_1",
+		"passed": true
+	},
+	{
+		"check": "zoom_preserves_locked_attack_2",
+		"passed": true
+	},
+	{
+		"check": "close_attack_keeps_player_and_enemy_visible",
+		"passed": true
+	},
+	{
+		"actual": 3.2619092464447,
+		"camera": "(1.562004, 2.826361, 4.930417)",
+		"enemy": "(0.0, 0.02, 0.0)",
+		"frame": "09_close_attack",
+		"locked": true,
+		"pitch": -0.32,
+		"player": "(0.0, 0.000273, 2.0)",
+		"preferred": 3.9,
+		"requested": 3.2619092464447,
+		"yaw": 0.119988466601753
+	},
+	{
+		"check": "capture_09_close_attack",
+		"passed": true
+	},
+	{
+		"check": "zoom_preserves_locked_attack_3",
+		"passed": true
+	},
+	{
+		"check": "right_click_still_cancels_to_guard",
+		"passed": true
+	},
+	{
+		"check": "zoom_does_not_release_or_refresh_guard",
+		"passed": true
+	},
+	{
+		"actual": 3.79653406143188,
+		"camera": "(1.622778, 2.994536, 5.434239)",
+		"enemy": "(0.0, 0.02, 0.0)",
+		"frame": "06_locked_guard_zoom",
+		"locked": true,
+		"pitch": -0.32,
+		"player": "(0.0, 0.000273, 2.0)",
+		"preferred": 3.9,
+		"requested": 3.79653406143188,
+		"yaw": 0.119996408462603
+	},
+	{
+		"check": "capture_06_locked_guard_zoom",
+		"passed": true
+	},
+	{
+		"check": "zoom_during_locked_dodge",
+		"passed": true
+	},
+	{
+		"check": "wheel_alone_never_attacks_or_guards",
+		"passed": true
+	},
+	{
+		"check": "unlock_keeps_zoom",
+		"passed": true
+	},
+	{
+		"check": "lock_keeps_zoom",
+		"passed": true
+	},
+	{
+		"check": "zoom_preserves_mouse_orbit_and_lock_override",
+		"passed": true
+	},
+	{
+		"check": "backward_movement_while_locked_and_zooming",
+		"passed": true
+	},
+	{
+		"check": "enemy_behind_keeps_lock_turn_cap",
+		"passed": true
+	},
+	{
+		"check": "enemy_behind_reframes_at_selected_zoom",
+		"passed": true
+	},
+	{
+		"actual": 4.55000114440918,
+		"camera": "(-1.559023, 3.613946, 1.196526)",
+		"enemy": "(0.067043, 0.000273, 6.544539)",
+		"frame": "07_enemy_behind_reframed",
+		"locked": true,
+		"pitch": -0.41,
+		"player": "(0.083206, 0.000273, 5.216002)",
+		"preferred": 4.55,
+		"requested": 4.55000114440918,
+		"yaw": -3.0337361278023
+	},
+	{
+		"check": "capture_07_enemy_behind_reframed",
+		"passed": true
+	},
+	{
+		"check": "both_approaching_camera_remain_framed",
+		"passed": true
+	},
+	{
+		"check": "encounter_reset_preserves_zoom_and_smoothing",
+		"passed": true
+	},
+	{
+		"check": "defeat_keeps_zoom",
+		"passed": true
+	},
+	{
+		"check": "retry_input_keeps_zoom",
+		"passed": true
+	},
+	{
+		"check": "lethal_contact_opens_real_reward_transaction",
+		"passed": true
+	},
+	{
+		"check": "salvage_keeps_zoom",
+		"passed": true
+	},
+	{
+		"check": "equipment_state_replacement_keeps_zoom",
+		"passed": true
+	},
+	{
+		"check": "next_duel_keeps_zoom",
+		"passed": true
+	},
+	{
+		"check": "zoom_during_equipped_marrow_attack",
+		"passed": true
+	},
+	{
+		"check": "f1_and_f3_still_work",
+		"passed": true
+	},
+	{
+		"actual": 4.90793943405151,
+		"camera": "(1.2, 3.344147, 8.658791)",
+		"enemy": "(0.0, 0.02, -3.0)",
+		"frame": "08_controls",
+		"locked": false,
+		"pitch": -0.32,
+		"player": "(0.0, 0.000273, 4.0)",
+		"preferred": 5.2,
+		"requested": 4.90793943405151,
+		"yaw": 0.0
+	},
+	{
+		"check": "capture_08_controls",
+		"passed": true
+	},
+	{
+		"failed": 0,
+		"passed": 98,
+		"rendered": true,
+		"summary": true
+	}
+]

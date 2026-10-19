@@ -1,0 +1,16 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0 5524k    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 5524k  100 5524k    0     0  7312k      0 --:--:-- --:--:-- --:--:-- 7306k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  1 5168k    1 65536    0     0   130k      0  0:00:39 --:--:--  0:00:39  130k100 5168k  100 5168k    0     0  7415k      0 --:--:-- --:--:-- --:--:-- 7415k
+import: expected exit 0 confirmed
+animation_lab_tests: expected exit 0 confirmed
+negative_warp: expected exit 1 confirmed
+render_overview: expected exit 0 confirmed
+render_timing: expected exit 0 confirmed
+render_move_attack: expected exit 0 confirmed
+render_four_arm: expected exit 0 confirmed
+render_closeup: expected exit 0 confirmed
+ffmpeg: clips and contact sheets written
+76 checks passed; negative control confirmed; evidence: /workspace/Boneshed/artifacts/first-expedition-regression-v2/test_animation_lab

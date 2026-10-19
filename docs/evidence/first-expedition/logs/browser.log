@@ -1,0 +1,27 @@
+{"check": "release_boots_in_real_browser", "passed": true}
+{"check": "release_has_no_qa_bridge", "passed": true}
+{"check": "single_threaded_without_isolation_headers", "passed": true}
+{"check": "release_click_captures_mouse", "passed": true}
+{"check": "browser_keyboard_moves_player", "passed": true, "detail": {"start": [0, 9.11429524421692e-05, 4], "end": {"actions": {"attack": false, "guard": false, "move_forward": 0}, "attack_cancelled": false, "attack_distance": 0, "attack_turn": 0, "enemy": {"health": 100, "phase": 0, "posture": 0, "remaining": 0}, "player": {"event": "", "facing": [0, 0, -1], "guard_age": 99.0166666666667, "guarding": false, "health": 100, "locked": false, "phase": 0, "pitch": -0.32, "position": [0, 9.11429524421692e-05, 1.32222139835358], "posture": 0, "yaw": 0}, "tick": 168, "viewport": [1280, 720], "zoom": {"actual": 6, "maximum": 7.5, "minimum": 3.25, "preferred": 6, "requested": 6, "step": 0.65}}, "focus": "canvas"}}
+{"check": "browser_mouse_attack", "passed": true}
+{"check": "captured_mouse_rotates_camera", "passed": true}
+{"check": "browser_keyboard_lock", "passed": true}
+{"check": "browser_keyboard_reset", "passed": true}
+{"check": "browser_mouse_attack_damages_enemy", "passed": true}
+{"check": "mouse_held_guard_is_not_deflection", "passed": true}
+{"check": "mouse_timed_deflection", "passed": true}
+{"check": "browser_keyboard_dodge_moves_player", "passed": true}
+{"check": "browser_moves_while_swinging", "passed": true, "detail": {"distance_during_attack_phases": 4.08579680323601}}
+{"check": "browser_turns_while_moving_and_swinging", "passed": true, "detail": {"radians_turned_during_moving_attack_phases": 0.761460121721029}}
+{"check": "browser_attack_cancels_to_dodge", "passed": true, "detail": {"incoming_result": "evaded", "health": 100}}
+{"check": "browser_attack_cancels_to_guard", "passed": true, "detail": {"incoming_result": "deflected", "health": 100}}
+{"check": "browser_wheel_up_zooms_closer", "passed": true, "detail": {"before": 6, "after": {"actual": 5.35004425048828, "maximum": 7.5, "minimum": 3.25, "preferred": 5.35000003874302, "requested": 5.35004425048828, "step": 0.65}}}
+{"check": "browser_wheel_down_zooms_farther", "passed": true}
+{"check": "browser_zoom_minimum_clamp", "passed": true}
+{"check": "browser_zoom_maximum_clamp", "passed": true}
+{"check": "browser_wall_preserves_zoom", "passed": true}
+{"check": "browser_wall_recovers_selected_zoom", "passed": true}
+{"check": "browser_retry_keeps_zoom", "passed": true}
+{"check": "browser_zoom_during_locked_attack", "passed": true}
+{"check": "browser_wheel_preserves_held_guard", "passed": true}
+{"check": "no_fatal_browser_or_engine_errors", "passed": true, "detail": {"page_errors": [], "fatal_console": []}}
