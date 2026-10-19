@@ -6,7 +6,7 @@ Boneshed is a **desktop-first game**. The WebAssembly preview is an optional key
 
 ## Controls
 
-WASD move; mouse orbit; left click attack; right click hold guard/tap deflect; Space dodge; Tab lock target; R reset; Escape release pointer capture; F3 show attack volumes. Click the canvas to capture the mouse. Use a desktop browser with WebGL 2.
+WASD move; mouse orbit; wheel up/down zoom closer/farther; left click attack; right click hold guard/tap deflect; Space dodge; Tab lock target; R reset; Escape release pointer capture; F1 controls; F3 show attack volumes. Click the canvas to capture the mouse. Use a desktop browser with WebGL 2. These controls describe the current source; the older hosted preview is not updated by the zoom PR.
 
 ## Export and hosting
 

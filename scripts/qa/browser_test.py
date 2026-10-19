@@ -180,6 +180,61 @@ try:
                 page.mouse.up(button='right')
             check(cancelled['attack_cancelled'] and cancelled['player']['health'] == 100 and cancelled['enemy']['health'] == 100,
                   'browser_attack_cancels_to_' + defense, {'incoming_result': expected, 'health': cancelled['player']['health']})
+        # Real browser wheel events, including pointer lock and held combat input.
+        command(page, 'reset')
+        command(page, 'ai_off')
+        # Godot 4.7.2 Web scales DOM pixel deltas by 0.03; 100 px is three
+        # wheel units. Send one unit here so the exact sensitivity assertion
+        # matches native factor=1 events rather than assuming pixels are notches.
+        wheel_pixels = 1.0 / 0.03
+        zoom_start = state(page)['zoom']['preferred']
+        page.mouse.wheel(0, -wheel_pixels)
+        wait(page, f'window.boneshedState.zoom.preferred < {zoom_start}')
+        zoom_close = state(page)['zoom']['preferred']
+        check(abs(zoom_close - (zoom_start - state(page)['zoom']['step'])) < .001,
+              'browser_wheel_up_zooms_closer', {'before': zoom_start, 'after': state(page)['zoom']})
+        wait(page, 'Math.abs(window.boneshedState.zoom.requested - window.boneshedState.zoom.preferred) < .01')
+        page.mouse.wheel(0, wheel_pixels)
+        wait(page, f'window.boneshedState.zoom.preferred > {zoom_close}')
+        check(abs(state(page)['zoom']['preferred'] - zoom_start) < .001, 'browser_wheel_down_zooms_farther')
+        for _ in range(16):
+            page.mouse.wheel(0, -wheel_pixels)
+        wait(page, 'window.boneshedState.zoom.preferred === window.boneshedState.zoom.minimum')
+        wait(page, 'Math.abs(window.boneshedState.zoom.actual - window.boneshedState.zoom.minimum) < .01')
+        check(state(page)['zoom']['preferred'] == state(page)['zoom']['minimum'], 'browser_zoom_minimum_clamp')
+        page.screenshot(path=str(output/'05_zoom_close.png'))
+        for _ in range(16):
+            page.mouse.wheel(0, wheel_pixels)
+        wait(page, 'window.boneshedState.zoom.preferred === window.boneshedState.zoom.maximum')
+        wait(page, 'Math.abs(window.boneshedState.zoom.actual - window.boneshedState.zoom.maximum) < .01')
+        check(state(page)['zoom']['preferred'] == state(page)['zoom']['maximum'], 'browser_zoom_maximum_clamp')
+        page.screenshot(path=str(output/'06_zoom_far.png'))
+        command(page, 'zoom_wall')
+        wait(page, 'window.boneshedState.zoom.actual < 1.5')
+        check(state(page)['zoom']['preferred'] == state(page)['zoom']['maximum'], 'browser_wall_preserves_zoom')
+        page.screenshot(path=str(output/'07_zoom_wall.png'))
+        page.mouse.wheel(0, -wheel_pixels)
+        wait(page, 'window.boneshedState.zoom.preferred < window.boneshedState.zoom.maximum')
+        selected = state(page)['zoom']['preferred']
+        command(page, 'zoom_clear')
+        wait(page, f'Math.abs(window.boneshedState.zoom.actual - {selected}) < .01')
+        check(abs(state(page)['zoom']['preferred'] - selected) < .001, 'browser_wall_recovers_selected_zoom')
+        page.screenshot(path=str(output/'08_zoom_recovered.png'))
+        command(page, 'reset')
+        check(abs(state(page)['zoom']['preferred'] - selected) < .001, 'browser_retry_keeps_zoom')
+        command(page, 'cancel_fixture')
+        page.mouse.click(600, 400)
+        wait(page, 'window.boneshedState.player.phase === 1')
+        page.mouse.wheel(0, -wheel_pixels)
+        wait(page, f'window.boneshedState.zoom.preferred < {selected}')
+        check(state(page)['player']['phase'] == 1 and state(page)['player']['locked'], 'browser_zoom_during_locked_attack')
+        page.mouse.down(button='right')
+        wait(page, 'window.boneshedState.player.guarding')
+        guard_zoom = state(page)['zoom']['preferred']
+        page.mouse.wheel(0, wheel_pixels)
+        wait(page, f'window.boneshedState.zoom.preferred > {guard_zoom}')
+        check(state(page)['player']['guarding'] and state(page)['actions']['guard'], 'browser_wheel_preserves_held_guard')
+        page.mouse.up(button='right')
         page.close()
         desktop.close()
 

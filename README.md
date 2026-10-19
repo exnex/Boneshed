@@ -28,7 +28,7 @@ bash scripts/tooling/test.sh
 bash scripts/tooling/play.sh
 ```
 
-Use WASD to move, mouse to orbit, Tab to lock, left mouse to attack, right mouse to
+Use WASD to move, mouse to orbit, wheel to zoom, Tab to lock, left mouse to attack, right mouse to
 guard/tap-deflect, Space to dodge, C for heavy, and R to retry. After victory: F to
 salvage, E to equip, N for the next duel, Q for Marrow Lunge. See
 [the prototype guide](docs/COMBAT_PROTOTYPE.md) for setup details, architecture,
@@ -47,6 +47,7 @@ timing values, reproducible tests, evidence, and human playtesting limitations.
 | [Combat review](docs/COMBAT_REVIEW.md) | Independent review, exploits, fixes and priorities |
 | [Combat iteration 2](docs/COMBAT_ITERATION_2.md) | Attack readability, deflection discipline, enemy defense and provisional tuning |
 | [Combat presentation 3](docs/COMBAT_PRESENTATION_3.md) | Articulated placeholder poses, restrained reactions, camera/HUD cleanup and human playtest |
+| [Camera zoom](docs/CAMERA_ZOOM.md) | Smooth wheel zoom, tuning, collision/persistence contract, tests and human playtest |
 | [Keyword world blueprints](docs/WORLDGEN_KEYWORDS.md) | Isolated, provisional three-keyword → WorldBlueprint prototype |
 | [Combat build integration](docs/COMBAT_BUILD_INTEGRATION.md) | Live courtyard adapter, exact parity and validation |
 | [First playable loop](docs/FIRST_PLAYABLE.md) | Human controls, inherited attack, salvage/equip progression and evidence |
