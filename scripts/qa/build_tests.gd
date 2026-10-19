@@ -389,4 +389,4 @@ func test_isolation() -> void:
 		for forbidden in ["res://scripts/combat", "res://scripts/characters", "res://scripts/ai", "res://scenes", "courtyard", "worldgen", "CombatState", "Node"]:
 			clean = clean and not source.contains(forbidden)
 		check(clean, "library_isolated:" + path.get_file())
-	check(ProjectSettings.get_setting("application/run/main_scene") == "res://scenes/salvage_courtyard.tscn", "playable_entrypoint_selected")
+	check(ProjectSettings.get_setting("application/run/main_scene") == "res://scenes/first_expedition.tscn", "playable_entrypoint_selected")

@@ -1,0 +1,14 @@
+{
+  "expedition": {
+    "headless_sha256": "13d06ee45427ae5c9da88cd6cb2653154a0026fa1fc18ff8e1fe2c0ed1bc6c08",
+    "rendered_sha256": "13d06ee45427ae5c9da88cd6cb2653154a0026fa1fc18ff8e1fe2c0ed1bc6c08",
+    "json_identical": true,
+    "bytes_identical": true
+  },
+  "marrow": {
+    "headless_sha256": "b02c2496317907aa26182215361fdc1820772e27e19d7973f804abf5ef2377e5",
+    "rendered_sha256": "b02c2496317907aa26182215361fdc1820772e27e19d7973f804abf5ef2377e5",
+    "json_identical": true,
+    "bytes_identical": true
+  }
+}

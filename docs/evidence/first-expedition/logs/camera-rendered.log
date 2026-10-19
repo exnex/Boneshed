@@ -1,0 +1,18 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+{"check":"camera_fixture_activates_arena","passed":true}
+{"check":"open_arena_allows_selected_distance","passed":true}
+{"check":"capture_09_open_arena_camera","passed":true}
+{"check":"portcullis_retracts_camera","passed":true}
+{"check":"gate_does_not_rewrite_selection","passed":true}
+{"check":"capture_10_portcullis_camera","passed":true}
+{"check":"open_gate_restores_selected_distance","passed":true}
+{"check":"low_parapet_allows_clear_overlook","passed":true}
+{"check":"generated_column_retracts_camera","passed":true}
+{"check":"capture_11_column_camera","passed":true}
+{"check":"world_retry_retains_selected_zoom","passed":true}
+{"check":"world_retry_returns_to_clear_arena_spawn","passed":true}
+{"failed":0,"passed":12,"rendered":true,"summary":true}

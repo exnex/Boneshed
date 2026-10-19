@@ -1,0 +1,12 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+{"check":"camera_fixture_activates_arena","passed":true}
+{"check":"open_arena_allows_selected_distance","passed":true}
+{"check":"portcullis_retracts_camera","passed":true}
+{"check":"gate_does_not_rewrite_selection","passed":true}
+{"check":"open_gate_restores_selected_distance","passed":true}
+{"check":"low_parapet_allows_clear_overlook","passed":true}
+{"check":"generated_column_retracts_camera","passed":true}
+{"check":"world_retry_retains_selected_zoom","passed":true}
+{"check":"world_retry_returns_to_clear_arena_spawn","passed":true}
+{"failed":0,"passed":9,"rendered":false,"summary":true}

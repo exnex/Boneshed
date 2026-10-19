@@ -1,0 +1,4 @@
+import: expected exit 0 confirmed
+build_tests: expected exit 0 confirmed
+salvage_demo: expected exit 0 confirmed
+137 checks passed; 2 example files regenerate identically; evidence: /workspace/Boneshed/artifacts/first-expedition-builds

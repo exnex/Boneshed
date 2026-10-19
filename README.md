@@ -12,11 +12,12 @@ The priority is one truly enjoyable duel, not an expansive feature list.
 
 ## Project status
 
-**First playable salvage loop.** Fight the corrupted swordsman, learn its Marrow
-Lunge, defeat it, salvage and equip Marrow Arm, then use the inherited power in a
-second duel. Geometry and balance remain provisional; human feel validation is pending.
-See [the first-playable guide](docs/FIRST_PLAYABLE.md) for exact controls, tuning,
-architecture, tests and limitations.
+**First Expedition vertical slice.** Choose three keywords, enter a fresh seeded
+world, explore a bounded ruined causeway, and release the corrupted swordsman.
+Salvage/equip Marrow Arm and use its inherited power in a rematch. Use the address
+and seed to reproduce a world. Geometry, keyword algorithms and balance remain
+provisional. See [the expedition guide](docs/FIRST_EXPEDITION.md) for controls,
+architecture, tests and limitations. Human acceptance of this new slice is pending.
 
 The project requires **Godot 4.7.2 stable** (`4.7.2.stable.official.ed1daf0bf`) and
 defaults to GL Compatibility. On the Linux x86_64 cloud image:
@@ -29,7 +30,7 @@ bash scripts/tooling/play.sh
 ```
 
 Use WASD to move, mouse to orbit, wheel to zoom, Tab to lock, left mouse to attack, right mouse to
-guard/tap-deflect, Space to dodge, C for heavy, and R to retry. After victory: F to
+guard/tap-deflect, Space to dodge, C for heavy, R to retry, and Esc for the expedition menu. After victory: F to
 salvage, E to equip, N for the next duel, Q for Marrow Lunge. See
 [the prototype guide](docs/COMBAT_PROTOTYPE.md) for setup details, architecture,
 timing values, reproducible tests, evidence, and human playtesting limitations.
@@ -48,9 +49,10 @@ timing values, reproducible tests, evidence, and human playtesting limitations.
 | [Combat iteration 2](docs/COMBAT_ITERATION_2.md) | Attack readability, deflection discipline, enemy defense and provisional tuning |
 | [Combat presentation 3](docs/COMBAT_PRESENTATION_3.md) | Articulated placeholder poses, restrained reactions, camera/HUD cleanup and human playtest |
 | [Camera zoom](docs/CAMERA_ZOOM.md) | Smooth wheel zoom, tuning, collision/persistence contract, tests and human playtest |
-| [Keyword world blueprints](docs/WORLDGEN_KEYWORDS.md) | Isolated, provisional three-keyword → WorldBlueprint prototype |
+| [Keyword world blueprints](docs/WORLDGEN_KEYWORDS.md) | Provisional three-keyword → WorldBlueprint contract consumed by First Expedition |
 | [Combat build integration](docs/COMBAT_BUILD_INTEGRATION.md) | Live courtyard adapter, exact parity and validation |
 | [First playable loop](docs/FIRST_PLAYABLE.md) | Human controls, inherited attack, salvage/equip progression and evidence |
+| [First Expedition](docs/FIRST_EXPEDITION.md) | Desktop keyword selection, replayable generated world, exploration/duel integration and validation |
 | [Shared builds and salvage](docs/SHARED_BUILDS.md) | Shared player/enemy build contract and its historical foundation |
 | [Anatomy and transformation](docs/ANATOMY.md) | Isolated, provisional body-graph prototype: extra limbs, replacements, equipment mounts, capability requirements, transformations and a proposed combat contract |
 | [Animation pipeline](docs/ANIMATION_PIPELINE.md) | Isolated research prototype: recommended Blender → glTF → AnimationTree pipeline, rule-timed clips, collision contract, transformations, rendered evidence |

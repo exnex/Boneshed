@@ -2,13 +2,16 @@
 config_version=5
 
 [application]
-config/name="Boneshed — Courtyard Duel"
-run/main_scene="res://scenes/salvage_courtyard.tscn"
+config/name="Boneshed — First Expedition"
+run/main_scene="res://scenes/first_expedition.tscn"
+run/main_scene.web="res://scenes/salvage_courtyard.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [display]
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/min_width=1024
+window/size/min_height=640
 window/stretch/mode="canvas_items"
 window/stretch/aspect.web="expand"
 
