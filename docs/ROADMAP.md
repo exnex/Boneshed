@@ -1,6 +1,6 @@
 # Boneshed — Living Roadmap & Handoff
 
-> **Last reconciled:** 2026-10-19 | **Verified `main`:** `a4363d3` (merged PR #20).
+> **Last reconciled:** 2026-10-19 | **Verified `main` before this coordination update:** `0d500e9` (merged PR #21).
 > **Purpose:** one short, durable record of what is done, what remains open, who is doing what, and the next decision. This is a *dependency order*, not a delivery schedule. Git history preserves prior revisions.
 > **Authority:** `docs/DECISIONS.md` for approved design; merged code/PRs for implementation status; this page for current coordination. A passing automated test or merged PR is **not** proof that game feel is good.
 
@@ -37,7 +37,7 @@
 
 ## Review / delegation inbox
 
-- **Open PRs:** none as of the 2026-10-19 GitHub check (PRs #1–#20 merged). **Recheck each session.**
+- **Open PRs:** none as of the 2026-10-19 GitHub check (PRs #1–#21 merged). **Recheck each session.**
 - **Known delegated task currently awaiting outcome:** none verified. Write assignments here *before* sending prompts to agents: owner, task, expected PR, review requirement and the exact next action.
 - **Outstanding review:** human native-gameplay judgement of combat presentation and camera zoom on current `main`. Automated and rendered tests were reported by the implementing PRs; a physical high-refresh playtest remains open.
 - **Next handoff action:** run/collect current-build desktop playtest feedback, then propose one tightly scoped fix with acceptance criteria. Do **not** jump to worldgen integration solely because the combat PRs are merged.
@@ -49,6 +49,7 @@
 - **PR #16 (merged Oct 18):** playable Marrow Lunge salvage/equip/second-duel loop. **#17:** GDScript parser fix for combat fields.
 - **PR #18 (merged Oct 18):** isolated animation research/lab; recommendations are **not approved production assets/mechanics**.
 - **PR #19 (merged Oct 18):** articulated placeholder attack poses and reactions, restrained HUD, more readable camera. **Still needs human evaluation.**
+- **PR #21 (merged Oct 19):** Living roadmap and desync-resistant handoff rules.
 - **PR #20 (merged Oct 19):** smooth mouse-wheel camera zoom, 3.25–7.5 m selected range, 6 m initial, wall collision and per-session selection across encounters. **Still needs human evaluation.**
 
 ## Open design decisions / guardrails
@@ -60,3 +61,12 @@
 ## Recent handoff notes
 
 - **2026-10-19:** Reconciled old roadmap against `main` and PRs #1–#20 after chat desynchronization. No open PRs. Moved stale “PR #3 awaiting review” state to completed history; kept combat feel and PR #19/#20 physical testing open. Established the rule that coordination changes must be persisted here during the same substantive project exchange.
+
+## Command Center coordination — 2026-10-19
+
+- **Review:** no open Boneshed PRs at check time; main `0d500e9`. No fresh Godot execution performed by ChatGPT.
+- **Next Up (P0):** human desktop F5 playtest on current main, including parry-spam penalty, exact swing impact, dodge/lock/zoom and salvage/equip/rematch. Preserve findings before choosing fixes.
+- **In Progress:** none verified. **Awaiting Review:** this coordination documentation PR; human feel gate. **Blocked:** gameplay prioritization depends on current-build observations.
+- **Proposed Codex assignment (not dispatched):** focused reproducible combat-readability/parry-pressure diagnostic review; do not change balance before confirming defects; submit scoped PR only for independently justified fixes.
+- **Proposed Claude assignment (not dispatched):** independent review of combat timing, presentation alignment and existing animation lab integration boundaries; report prioritized findings without implementing broad animation changes.
+- **Decision:** no procedural-world or Tower expansion until excellent-duel and salvage-loop human acceptance. Research lab remains separate.
