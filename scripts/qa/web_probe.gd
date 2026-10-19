@@ -55,6 +55,16 @@ func _command(args: Array) -> void:
 		arena.enemy.enabled = false
 	elif command == "ai_on":
 		arena.enemy.enabled = true
+	elif command == "zoom_wall":
+		arena.player.position = Vector3(0.0, 0.02, 10.5)
+		arena.enemy.position = Vector3(0.0, 0.02, 8.5)
+		arena.player.yaw = 0.0
+		arena.player.pitch = -0.12
+		arena.player.locked = false
+	elif command == "zoom_clear":
+		arena.player.position = Vector3(0.0, 0.02, 2.0)
+		arena.enemy.position = Vector3(0.0, 0.02, 0.0)
+		arena.player.locked = true
 	elif command == "fresh_attack":
 		# The previously sampled tick is no longer active; arrange a fresh incoming
 		# attack near the deflection window for timing validation on slow CI renderers.
@@ -101,5 +111,9 @@ func _physics_process(_delta: float) -> void:
 	previous_position = p.position
 	previous_facing = p.facing
 	previous_phase = p.combat.phase
+	var zoom := {"preferred": p.preferred_camera_distance, "requested": p.spring.spring_length,
+		"actual": p.spring.get_hit_length(), "minimum": p.camera_min_distance,
+		"maximum": p.camera_max_distance, "step": p.camera_zoom_step}
 	var state := {"tick": ticks, "attack_cancelled": attack_cancelled, "attack_distance": attack_distance, "attack_turn": attack_turn, "viewport": [get_viewport().get_visible_rect().size.x, get_viewport().get_visible_rect().size.y], "player": {"facing": [p.facing.x, p.facing.y, p.facing.z], "position": [p.position.x, p.position.y, p.position.z], "health": p.combat.health, "posture": p.combat.posture, "phase": p.combat.phase, "guarding": p.combat.guarding, "guard_age": p.combat.guard_age, "event": p.last_result, "yaw": p.yaw, "pitch": p.pitch, "locked": p.locked}, "enemy": {"health": e.combat.health, "posture": e.combat.posture, "phase": e.combat.phase, "remaining": e.combat.remaining}, "actions": {"attack": Input.is_action_pressed("attack"), "guard": Input.is_action_pressed("guard"), "move_forward": Input.get_action_strength("move_forward")}}
+	state["zoom"] = zoom
 	JavaScriptBridge.eval("window.boneshedState = " + JSON.stringify(state))

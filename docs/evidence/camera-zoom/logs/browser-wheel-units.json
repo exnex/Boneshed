@@ -1,0 +1,116 @@
+[
+  {
+    "delta": -1,
+    "before": {
+      "actual": 6,
+      "maximum": 7.5,
+      "minimum": 3.25,
+      "preferred": 6,
+      "requested": 6,
+      "step": 0.65
+    },
+    "after": {
+      "actual": 5.98103284835815,
+      "maximum": 7.5,
+      "minimum": 3.25,
+      "preferred": 5.98050000043586,
+      "requested": 5.98103284835815,
+      "step": 0.65
+    }
+  },
+  {
+    "delta": 1,
+    "before": {
+      "actual": 5.98060750961304,
+      "maximum": 7.5,
+      "minimum": 3.25,
+      "preferred": 5.98050000043586,
+      "requested": 5.98060750961304,
+      "step": 0.65
+    },
+    "after": {
+      "actual": 5.99934959411621,
+      "maximum": 7.5,
+      "minimum": 3.25,
+      "preferred": 6,
+      "requested": 5.99934959411621,
+      "step": 0.65
+    }
+  },
+  {
+    "delta": -100,
+    "before": {
+      "actual": 5.99986886978149,
+      "maximum": 7.5,
+      "minimum": 3.25,
+      "preferred": 6,
+      "requested": 5.99986886978149,
+      "step": 0.65
+    },
+    "after": {
+      "actual": 4.06604814529419,
+      "maximum": 7.5,
+      "minimum": 3.25,
+      "preferred": 4.05,
+      "requested": 4.06604814529419,
+      "step": 0.65
+    }
+  },
+  {
+    "delta": 100,
+    "before": {
+      "actual": 4.05324029922485,
+      "maximum": 7.5,
+      "minimum": 3.25,
+      "preferred": 4.05,
+      "requested": 4.05324029922485,
+      "step": 0.65
+    },
+    "after": {
+      "actual": 5.98395204544067,
+      "maximum": 7.5,
+      "minimum": 3.25,
+      "preferred": 6,
+      "requested": 5.98395204544067,
+      "step": 0.65
+    }
+  },
+  {
+    "delta": -10,
+    "before": {
+      "actual": 5.99675989151001,
+      "maximum": 7.5,
+      "minimum": 3.25,
+      "preferred": 6,
+      "requested": 5.99675989151001,
+      "step": 0.65
+    },
+    "after": {
+      "actual": 5.80660343170166,
+      "maximum": 7.5,
+      "minimum": 3.25,
+      "preferred": 5.80500001162291,
+      "requested": 5.80660343170166,
+      "step": 0.65
+    }
+  },
+  {
+    "delta": 10,
+    "before": {
+      "actual": 5.80532360076904,
+      "maximum": 7.5,
+      "minimum": 3.25,
+      "preferred": 5.80500001162291,
+      "requested": 5.80532360076904,
+      "step": 0.65
+    },
+    "after": {
+      "actual": 5.99839544296265,
+      "maximum": 7.5,
+      "minimum": 3.25,
+      "preferred": 6,
+      "requested": 5.99839544296265,
+      "step": 0.65
+    }
+  }
+]

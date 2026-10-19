@@ -36,6 +36,7 @@ do not provide a streamed play session.
 | --- | --- |
 | WASD | Move relative to the orbit camera |
 | Mouse | Orbit; pitch is clamped |
+| Mouse wheel | Up: closer; down: farther. Smooth third-person zoom; see [zoom tuning and playtest](CAMERA_ZOOM.md) |
 | Tab | Toggle enemy lock and camera tracking |
 | Left mouse | Light attack; also capture the mouse after Escape |
 | Right mouse | Hold guard; newly raised guard has a timed deflection window |

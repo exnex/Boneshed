@@ -60,6 +60,17 @@ Keep approved direction separate from brainstorms. Amend this document only when
 - Exact attack numbers, input choices, compatibility restrictions and visual projection
   remain provisional; automated validation does not settle human game feel.
 
+## Confirmed camera zoom scope — 2026-10-19
+- Extend PR #19's third-person camera with smooth mouse-wheel zoom, preserving
+  orbit controls, lock-on framing/manual override and environmental obstruction.
+- Keep the player's selected distance separate from collision-constrained actual
+  distance; retain the selection through retry, defeat, salvage/equip and next duel.
+  Persistence across game restarts is deferred.
+- Keep third-person limits and one documented tuning owner. Exact limits,
+  sensitivity and smoothing remain provisional pending human playtesting.
+- Update F1 controls and provide automated/rendered evidence and playtest steps;
+  no combat balance changes, camera redesign or browser-preview publication.
+
 ## Pending decisions
 - Final platform targets and later desktop GPU rendering configuration.
 - Exactly how skill/posture/deflection mechanics differ from inspiration.

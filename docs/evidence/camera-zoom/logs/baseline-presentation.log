@@ -1,0 +1,6 @@
+import: expected exit 0 confirmed
+headless: expected exit 0 confirmed
+negative_pose: expected exit 1 confirmed
+negative_reaction: expected exit 1 confirmed
+rendered: expected exit 0 confirmed
+Presentation, rules isolation, reaction mutations and live camera/input checks passed.

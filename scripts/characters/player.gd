@@ -1,8 +1,19 @@
 extends "res://scripts/characters/fighter.gd"
 
 @export var mouse_sensitivity := 0.003
+@export_group("Camera Zoom (provisional)")
+## Arm lengths in metres, measured from the existing shoulder pivot. 3.25 keeps
+## the player in frame across the current pitch range; 6.0 preserves default framing.
 @export var camera_distance := 6.0
+@export var camera_min_distance := 3.25
+@export var camera_max_distance := 7.5
+@export var camera_zoom_step := 0.65 # Metres per wheel step (scaled by event.factor).
+@export var camera_zoom_speed := 12.0 # Exponential response in s^-1; ~95% in 0.25 s.
+@export_group("")
 @export var shoulder_offset := 1.2 # Provisional duel framing; leaves both weapons visible.
+## Player-owned session preference. Collision only changes spring.get_hit_length();
+## neither encounter reset nor combat/equipment state replacement clears zoom.
+var preferred_camera_distance := 6.0
 var yaw := 0.0
 var pitch := -0.32
 var locked := false
@@ -20,7 +31,8 @@ func _ready() -> void:
 	camera_pivot.position = Vector3(shoulder_offset, 1.6, 0.0)
 	add_child(camera_pivot)
 	spring = SpringArm3D.new()
-	spring.spring_length = camera_distance
+	preferred_camera_distance = clampf(camera_distance, camera_min_distance, camera_max_distance)
+	spring.spring_length = preferred_camera_distance
 	spring.margin = 0.25
 	spring.collision_mask = AttackModules.ENVIRONMENT_LAYER
 	var camera_shape := SphereShape3D.new()
@@ -36,6 +48,16 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not input_enabled:
 		return
+	if event is InputEventMouseButton and event.pressed:
+		var zoom_direction := 0.0
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			zoom_direction = -1.0
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			zoom_direction = 1.0
+		if zoom_direction != 0.0:
+			preferred_camera_distance = clampf(preferred_camera_distance + zoom_direction * camera_zoom_step * event.factor, camera_min_distance, camera_max_distance)
+			get_viewport().set_input_as_handled()
+			return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotate_camera(event.relative)
 	if event.is_action_pressed("lock_on"):
@@ -52,6 +74,9 @@ func rotate_camera(relative: Vector2) -> void:
 	manual_orbit_time = 0.7
 
 func _physics_process(delta: float) -> void:
+	# Smooth the requested arm length, never the collision-constrained hit length.
+	# The existing swept sphere can retract immediately to keep walls out of view.
+	spring.spring_length = lerpf(spring.spring_length, preferred_camera_distance, 1.0 - exp(-camera_zoom_speed * delta))
 	manual_orbit_time = maxf(0.0, manual_orbit_time - delta)
 	if locked:
 		pitch = move_toward(pitch, minf(pitch, -0.12), delta * 0.7)
@@ -93,6 +118,7 @@ func _physics_process(delta: float) -> void:
 
 func reset_at(point: Vector3, guard_held := false) -> void:
 	super.reset_at(point, Input.is_action_pressed("guard"))
+	# Keep preferred zoom and its interpolation through all session encounters.
 	yaw = 0.0
 	pitch = -0.32
 	manual_orbit_time = 0.0

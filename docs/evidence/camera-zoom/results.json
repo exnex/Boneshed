@@ -1,0 +1,254 @@
+{
+  "baseline_commit": "2fad81b",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "engine_archive_sha512": "9aa00f7a605200940bce3027a567b782f49bd8e940dd06ae9e987bd65aee1b1467edd56ed84fcdcbdd44354bf613bdbb4e5d2913e925850368e150c59ed54c65",
+  "native_renderer": "GL Compatibility / llvmpipe",
+  "focused": {
+    "headless": {
+      "failed": 0,
+      "passed": 89,
+      "rendered": false,
+      "summary": true
+    },
+    "rendered": {
+      "failed": 0,
+      "passed": 98,
+      "rendered": true,
+      "summary": true
+    }
+  },
+  "zoom_mutations": {
+    "snap": {
+      "required_failure": "first_tick_interpolates",
+      "summary": {
+        "failed": 32,
+        "passed": 57,
+        "rendered": false,
+        "summary": true
+      },
+      "failed_checks": [
+        "first_tick_interpolates",
+        "converges_without_overshoot_0",
+        "converges_without_overshoot_1",
+        "converges_without_overshoot_2",
+        "converges_without_overshoot_3",
+        "converges_without_overshoot_4",
+        "converges_without_overshoot_5",
+        "converges_without_overshoot_6",
+        "converges_without_overshoot_7",
+        "converges_without_overshoot_8",
+        "converges_without_overshoot_9",
+        "converges_without_overshoot_10",
+        "converges_without_overshoot_11",
+        "converges_without_overshoot_12",
+        "converges_without_overshoot_13",
+        "converges_without_overshoot_14",
+        "converges_without_overshoot_15",
+        "converges_without_overshoot_16",
+        "converges_without_overshoot_17",
+        "converges_without_overshoot_18",
+        "converges_without_overshoot_19",
+        "converges_without_overshoot_20",
+        "converges_without_overshoot_21",
+        "converges_without_overshoot_22",
+        "converges_without_overshoot_23",
+        "converges_without_overshoot_24",
+        "converges_without_overshoot_25",
+        "converges_without_overshoot_26",
+        "converges_without_overshoot_27",
+        "converges_without_overshoot_28",
+        "converges_without_overshoot_29",
+        "reversal_responds_on_next_tick"
+      ]
+    },
+    "reset": {
+      "required_failure": "encounter_reset_preserves_zoom_and_smoothing",
+      "summary": {
+        "failed": 9,
+        "passed": 80,
+        "rendered": false,
+        "summary": true
+      },
+      "failed_checks": [
+        "wall_does_not_overwrite_preference",
+        "wall_recovery_restores_selected_distance",
+        "pillar_recovery_keeps_preference",
+        "encounter_reset_preserves_zoom_and_smoothing",
+        "defeat_keeps_zoom",
+        "retry_input_keeps_zoom",
+        "salvage_keeps_zoom",
+        "equipment_state_replacement_keeps_zoom",
+        "next_duel_keeps_zoom"
+      ]
+    },
+    "collision": {
+      "required_failure": "rear_wall_blocks_camera",
+      "summary": {
+        "failed": 4,
+        "passed": 85,
+        "rendered": false,
+        "summary": true
+      },
+      "failed_checks": [
+        "rear_wall_blocks_camera",
+        "wheel_changes_preference_while_obstructed",
+        "shoulder_anchor_wall_check_preserved",
+        "pillar_blocks_zoomed_arm"
+      ]
+    }
+  },
+  "combat": {
+    "failed": 0,
+    "negative": "",
+    "passed": 118,
+    "suite": "combat",
+    "summary": true
+  },
+  "adapter": {
+    "failed": 0,
+    "passed": 532,
+    "suite": "combat_builds",
+    "summary": true
+  },
+  "graphical": {
+    "combat_bot_frames": 418,
+    "engine": "4.7.2-stable (official)",
+    "failed": 0,
+    "passed": 111,
+    "renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+    "suite": "graphical",
+    "summary": true
+  },
+  "presentation": {
+    "failed": 0,
+    "passed": 326,
+    "rendered": true,
+    "summary": true
+  },
+  "marrow_rules": {
+    "failed": 0,
+    "passed": 193,
+    "suite": "marrow",
+    "summary": true
+  },
+  "marrow_rendered": {
+    "captures": {
+      "01_initial_duel": 1,
+      "02_enemy_lunge_telegraph": 58,
+      "03_player_defends_lunge": 88,
+      "04_enemy_defeat": 467,
+      "05_salvage_acquired": 468,
+      "06_augmentation_equipped": 469,
+      "07_first_inherited_lunge": 545,
+      "08_second_duel_continues": 601,
+      "enemy-lunge/frame_000": 48,
+      "enemy-lunge/frame_001": 50,
+      "enemy-lunge/frame_002": 52,
+      "enemy-lunge/frame_003": 54,
+      "enemy-lunge/frame_004": 56,
+      "enemy-lunge/frame_005": 58,
+      "enemy-lunge/frame_006": 60,
+      "enemy-lunge/frame_007": 62,
+      "enemy-lunge/frame_008": 64,
+      "enemy-lunge/frame_009": 66,
+      "enemy-lunge/frame_010": 68,
+      "enemy-lunge/frame_011": 70,
+      "enemy-lunge/frame_012": 72,
+      "enemy-lunge/frame_013": 74,
+      "enemy-lunge/frame_014": 76,
+      "enemy-lunge/frame_015": 78,
+      "enemy-lunge/frame_016": 80,
+      "enemy-lunge/frame_017": 82,
+      "enemy-lunge/frame_018": 84,
+      "enemy-lunge/frame_019": 86,
+      "player-lunge/frame_000": 504,
+      "player-lunge/frame_001": 506,
+      "player-lunge/frame_002": 508,
+      "player-lunge/frame_003": 510,
+      "player-lunge/frame_004": 512,
+      "player-lunge/frame_005": 514,
+      "player-lunge/frame_006": 516,
+      "player-lunge/frame_007": 518,
+      "player-lunge/frame_008": 520,
+      "player-lunge/frame_009": 522,
+      "player-lunge/frame_010": 524,
+      "player-lunge/frame_011": 526,
+      "player-lunge/frame_012": 528,
+      "player-lunge/frame_013": 530,
+      "player-lunge/frame_014": 532,
+      "player-lunge/frame_015": 534,
+      "player-lunge/frame_016": 536,
+      "player-lunge/frame_017": 538,
+      "player-lunge/frame_018": 540,
+      "player-lunge/frame_019": 542,
+      "player-lunge/frame_020": 544,
+      "player-lunge/frame_021": 546,
+      "player-lunge/frame_022": 548,
+      "player-lunge/frame_023": 550,
+      "player-lunge/frame_024": 552,
+      "player-lunge/frame_025": 554,
+      "player-lunge/frame_026": 556,
+      "player-lunge/frame_027": 558,
+      "player-lunge/frame_028": 560,
+      "player-lunge/frame_029": 562,
+      "player-lunge/frame_030": 564,
+      "player-lunge/frame_031": 566,
+      "player-lunge/frame_032": 568,
+      "player-lunge/frame_033": 570,
+      "player-lunge/frame_034": 572,
+      "player-lunge/frame_035": 574,
+      "player-lunge/frame_036": 576,
+      "player-lunge/frame_037": 578,
+      "player-lunge/frame_038": 580,
+      "player-lunge/frame_039": 582,
+      "player-lunge/frame_040": 584,
+      "player-lunge/frame_041": 586
+    },
+    "engine": "4.7.2-stable (official)",
+    "failed": 0,
+    "input": "physical keyboard and mouse InputEvents; no combat/progression writes",
+    "rendered": true,
+    "summary": true,
+    "ticks": 857
+  },
+  "marrow_traces_identical_before_after_and_headless_rendered": {
+    "baseline": {
+      "sha256": "b02c2496317907aa26182215361fdc1820772e27e19d7973f804abf5ef2377e5",
+      "samples": 856
+    },
+    "after": {
+      "sha256": "b02c2496317907aa26182215361fdc1820772e27e19d7973f804abf5ef2377e5",
+      "samples": 856
+    }
+  },
+  "browser": {
+    "passed": 27,
+    "failed": 0
+  },
+  "baseline_browser": {
+    "passed": 18,
+    "failed": 0
+  },
+  "examples": {
+    "builds": {
+      "failed": 0,
+      "passed": 137,
+      "suite": "builds",
+      "summary": true
+    },
+    "anatomy": {
+      "failed": 0,
+      "passed": 190,
+      "suite": "anatomy",
+      "summary": true
+    },
+    "worldgen": {
+      "failed": 0,
+      "passed": 80,
+      "suite": "worldgen",
+      "summary": true
+    }
+  },
+  "human_playtest": "pending",
+  "browser_preview_published": false
+}

@@ -41,7 +41,7 @@ func _draw() -> void:
 	if show_controls:
 		draw_rect(Rect2(24, height - 126, width - 48, 74), Color(0.025, 0.04, 0.05, 0.94))
 		text_at(Vector2(40, height - 99), "WASD move   Mouse orbit   LMB strike   C heavy   RMB guard / tap-deflect   Space dodge", 14)
-		text_at(Vector2(40, height - 74), "Tab lock   Q equipped ability   R retry   Esc mouse   F3 debug   F1 close", 13, Color("9aaba8"))
+		text_at(Vector2(40, height - 74), "Wheel zoom   Tab lock   Q equipped ability   R retry   Esc mouse   F3 debug   F1 close", 13, Color("9aaba8"))
 	var message: String = arena.progression_prompt()
 	if arena.player.debug_hitboxes:
 		text_at(Vector2(32, 121), "DEBUG  ·  " + phase_name(e.phase) + "  ·  " + arena.event_text, 13)

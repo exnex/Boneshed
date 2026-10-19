@@ -1,0 +1,8 @@
+import: expected exit 0 confirmed
+headless: expected exit 0 confirmed
+mutation_import: expected exit 0 confirmed
+negative_snap: expected exit 1 confirmed
+negative_reset: expected exit 1 confirmed
+negative_collision: expected exit 1 confirmed
+rendered: expected exit 0 confirmed
+Zoom input, smoothing, collision, persistence, combat and rendered checks passed.

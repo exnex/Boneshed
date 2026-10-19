@@ -1,0 +1,1312 @@
+[
+	{
+		"check": "debug_hidden_on_spawn",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_0",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_1",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_2",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_3",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_4",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_5",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_6",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_7",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_8",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_9",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_10",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_11",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_12",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_13",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_14",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_15",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_16",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_17",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_18",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_19",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_20",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_21",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_22",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_23",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_24",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_25",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_26",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_27",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_28",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_29",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_30",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_31",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_32",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_33",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_34",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_35",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_36",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_37",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_38",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_39",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_40",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_41",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_42",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_43",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_44",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_45",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_46",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_47",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_48",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_49",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_50",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_51",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_52",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_53",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_54",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_55",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_56",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_57",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_58",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_59",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_60",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_61",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_62",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_63",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_64",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_65",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_66",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_67",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_68",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_69",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_70",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_71",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_72",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_73",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_74",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_75",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_76",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_77",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_78",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_79",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_80",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_81",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_82",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_83",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_84",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_85",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_light_86",
+		"passed": true
+	},
+	{
+		"check": "no_phase_boundary_weapon_teleport_light",
+		"passed": true
+	},
+	{
+		"check": "directional_cut_light",
+		"passed": true
+	},
+	{
+		"check": "no_ground_volume_light",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_0",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_1",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_2",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_3",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_4",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_5",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_6",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_7",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_8",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_9",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_10",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_11",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_12",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_13",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_14",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_15",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_16",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_17",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_18",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_19",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_20",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_21",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_22",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_23",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_24",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_25",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_26",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_27",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_28",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_29",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_30",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_31",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_32",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_33",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_34",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_35",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_36",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_37",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_38",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_39",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_40",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_41",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_42",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_43",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_44",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_45",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_46",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_47",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_48",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_49",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_50",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_51",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_52",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_53",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_54",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_55",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_56",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_57",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_58",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_59",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_60",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_61",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_62",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_63",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_64",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_65",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_66",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_67",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_68",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_69",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_70",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_71",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_72",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_73",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_74",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_75",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_76",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_77",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_78",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_79",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_80",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_81",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_82",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_83",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_84",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_85",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_86",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_87",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_88",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_89",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_90",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_91",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_92",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_93",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_94",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_95",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_96",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_97",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_98",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_99",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_heavy_100",
+		"passed": true
+	},
+	{
+		"check": "no_phase_boundary_weapon_teleport_heavy",
+		"passed": true
+	},
+	{
+		"check": "directional_cut_heavy",
+		"passed": true
+	},
+	{
+		"check": "no_ground_volume_heavy",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_0",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_1",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_2",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_3",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_4",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_5",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_6",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_7",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_8",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_9",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_10",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_11",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_12",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_13",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_14",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_15",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_16",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_17",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_18",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_19",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_20",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_21",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_22",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_23",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_24",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_25",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_26",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_27",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_28",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_29",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_30",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_31",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_32",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_33",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_34",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_35",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_36",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_37",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_38",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_39",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_40",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_41",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_42",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_43",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_44",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_45",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_46",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_47",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_48",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_49",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_50",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_51",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_52",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_53",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_54",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_55",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_56",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_57",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_58",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_59",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_60",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_61",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_62",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_63",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_64",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_65",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_66",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_67",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_68",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_69",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_70",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_71",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_72",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_73",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_74",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_75",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_76",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_77",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_78",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_79",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_80",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_81",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_82",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_83",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_84",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_85",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_86",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_87",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_88",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_89",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_90",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_91",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_92",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_93",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_94",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_95",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_96",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_97",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_98",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_99",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_100",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_101",
+		"passed": true
+	},
+	{
+		"check": "pose_cannot_change_rules_special_102",
+		"passed": true
+	},
+	{
+		"check": "no_phase_boundary_weapon_teleport_special",
+		"passed": true
+	},
+	{
+		"check": "no_ground_volume_special",
+		"passed": true
+	},
+	{
+		"check": "heavy_prepares_above_head",
+		"passed": true
+	},
+	{
+		"check": "deflection_preserves_authoritative_stagger",
+		"passed": true
+	},
+	{
+		"check": "deflection_has_visible_recoil_and_contact",
+		"passed": true
+	},
+	{
+		"check": "capture_deflect",
+		"passed": true
+	},
+	{
+		"check": "contact_expires_deflect",
+		"passed": true
+	},
+	{
+		"check": "block_preserves_followthrough",
+		"passed": true
+	},
+	{
+		"check": "capture_guard",
+		"passed": true
+	},
+	{
+		"check": "contact_expires_guard",
+		"passed": true
+	},
+	{
+		"check": "hit_has_body_recoil",
+		"passed": true
+	},
+	{
+		"check": "capture_hit",
+		"passed": true
+	},
+	{
+		"check": "contact_expires_hit",
+		"passed": true
+	},
+	{
+		"check": "break_collapses_body_without_halo",
+		"passed": true
+	},
+	{
+		"check": "capture_break",
+		"passed": true
+	},
+	{
+		"check": "contact_expires_break",
+		"passed": true
+	},
+	{
+		"check": "lock_separates_close_silhouettes",
+		"passed": true
+	},
+	{
+		"check": "lock_keeps_both_fighters_in_frame",
+		"passed": true
+	},
+	{
+		"check": "capture_locked",
+		"passed": true
+	},
+	{
+		"check": "locked_mouse_is_responsive_and_elevated",
+		"passed": true
+	},
+	{
+		"check": "lock_does_not_fight_manual_orbit",
+		"passed": true
+	},
+	{
+		"check": "spring_arm_stops_before_rear_wall",
+		"passed": true
+	},
+	{
+		"check": "capture_rear_wall",
+		"passed": true
+	},
+	{
+		"check": "shoulder_anchor_cannot_cross_side_wall",
+		"passed": true
+	},
+	{
+		"check": "capture_side_wall",
+		"passed": true
+	},
+	{
+		"check": "reset_clears_presentation_and_camera_state",
+		"passed": true
+	},
+	{
+		"check": "f3_and_f1_toggle_developer_volumes_and_controls",
+		"passed": true
+	},
+	{
+		"check": "combat_has_no_explanatory_phase_prompt",
+		"passed": true
+	},
+	{
+		"failed": 0,
+		"passed": 326,
+		"rendered": true,
+		"summary": true
+	}
+]

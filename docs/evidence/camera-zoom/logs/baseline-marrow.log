@@ -1,0 +1,7 @@
+import: expected exit 0 confirmed
+rules_progression: expected exit 0 confirmed
+mutations: expected exit 0 confirmed
+input_headless: expected exit 0 confirmed
+negative_pose: expected exit 1 confirmed
+input_rendered: expected exit 0 confirmed
+Shared lunge, progression, mutation, pose negative control and rendered input trace checks passed.
