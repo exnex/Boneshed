@@ -21,8 +21,8 @@
 | Gate | State | Acceptance still needed |
 | --- | --- | --- |
 | **0. Foundation** | **Implemented**: Godot project, shared agent/engineering rules, deterministic test tooling. | Keep tests and documentation aligned with actual entry scene. |
-| **1. Excellent duel** | **Playable, not human-accepted**: movement, lock, camera/zoom, attacks, guard/parry, dodge, posture, enemy AI and visual feedback. | Physical desktop playtest: recognition, fair hit timing, parry pressure, contact, responsiveness and overall enjoyment. |
-| **2. Take the enemy's power** | **First loop implemented, not human-accepted**: same player/enemy build model; Marrow Lunge → victory → salvage Marrow Arm → equip → use in second duel. | Check that the inheritance feels valuable, readable and balanced; actual augmentation tradeoffs are not approved. |
+| **1. Excellent duel** | **Playable, provisionally human-accepted for continued development (2026-10-19)**: movement, lock, camera/zoom, attacks, guard/parry, dodge, posture, enemy AI and visual feedback. | Physical desktop playtest: recognition, fair hit timing, parry pressure, contact, responsiveness and overall enjoyment. |
+| **2. Take the enemy's power** | **First loop implemented; full loop-specific human acceptance unconfirmed**: same player/enemy build model; Marrow Lunge → victory → salvage Marrow Arm → equip → use in second duel. | Check that the inheritance feels valuable, readable and balanced; actual augmentation tradeoffs are not approved. |
 | **3. Compact expedition** | **Not integrated.** Isolated keyword WorldBlueprint and anatomy/body-graph prototypes exist. | After combat feel gate: small atmospheric world, meaningful encounter, replayable seeded variation; extraction/carrying is still only a proposal. |
 | **Later** | **Deferred**: broad procedural worlds, large build catalog, Tower of Memories, persistence/backend, trading/economy. | Define only after the core loop earns expansion. |
 
@@ -70,3 +70,12 @@
 - **Proposed Codex assignment (not dispatched):** focused reproducible combat-readability/parry-pressure diagnostic review; do not change balance before confirming defects; submit scoped PR only for independently justified fixes.
 - **Proposed Claude assignment (not dispatched):** independent review of combat timing, presentation alignment and existing animation lab integration boundaries; report prioritized findings without implementing broad animation changes.
 - **Decision:** no procedural-world or Tower expansion until excellent-duel and salvage-loop human acceptance. Research lab remains separate.
+
+## Development continuation — 2026-10-19
+
+- **User playtest:** owner reports the current build 'plays good for now' and requests continued development. This is provisional acceptance to advance, not confirmation of each combat mechanic or complete salvage/rematch loop. Earlier combat concerns remain watch items, not automatic blockers.
+- **Next Up (P0):** build a **small first-expedition vertical slice**, connecting the existing isolated three-keyword WorldBlueprint to one traversable, atmospheric, seeded level and the existing duel. Reuse the current enemy/build/salvage loop; do not implement broad terrain generation, inventory/extraction loss, Tower, backend, or unapproved keyword algorithms as final design.
+- **In Progress:** none externally dispatched or verified. **Awaiting Review:** next Codex implementation PR and Claude independent review after dispatch. **Blocked:** any asset licensing or consequential gameplay changes require approval; full human acceptance of salvage/rematch remains unconfirmed.
+- **Codex proposed assignment (not yet dispatched):** implement a narrowly bounded expedition slice on `feat/first-expedition-slice`, preserving deterministic address+seed replay, stable keyword identity, readable combat geometry and current courtyard regression tests. Submit focused PR with rendered and headless evidence.
+- **Claude proposed assignment (not yet dispatched):** independently inspect worldgen-to-gameplay integration contract and provide a bounded architectural/QA review on a separate branch; avoid editing the same gameplay files. Submit review findings or docs-only PR.
+- **Decision:** prioritize a playable expedition over additional speculative combat tuning or infrastructure; no irreversible generator rules or licensed art approved.
