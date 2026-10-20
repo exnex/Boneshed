@@ -203,6 +203,11 @@ func run() -> void:
 	quit(1 if failed else 0)
 
 func test_data_validation() -> void:
+	# Presentation handedness comes from the held striking weapon, never a shield.
+	var sword := {"natural": false, "side": "left", "class": "blade"}
+	var shield := {"natural": false, "side": "right", "class": "shield"}
+	check(Look.describe({"weapons": [shield, sword], "body": []}).weapon_side == -1.0
+		and Look.describe({}) == {"weapon_side": 1.0, "replaced": {"left": "", "right": ""}, "marrow_side": 0.0}, "look_ignores_shield_for_sword_side")
 	var prepared := Adapter.load_encounter(Catalog.CATALOG_PATH, "res://data/builds/salvage_courtyard.json")
 	var config: Dictionary = prepared.configs.enemy
 	for field: String in config.signature:

@@ -20,10 +20,12 @@ static func describe(equipment: Dictionary) -> Dictionary:
 			look.replaced[part.side] = part.item
 			if BODY_MOD_VISUALS.get(part.item, "") == "marrow":
 				look.marrow_side = SIDES[part.side]
-	for weapon: Dictionary in equipment.get("weapons", []):
-		if not weapon.natural and SIDES.has(weapon.side):
-			look.weapon_side = SIDES[weapon.side]
-			break
+	# The drawn sword follows the first held weapon that is not a shield; a shield
+	# alone (or nothing) leaves the default right-hand pose.
+	var held: Array = equipment.get("weapons", []).filter(func(w: Dictionary) -> bool: return not w.natural and SIDES.has(w.side))
+	var striking: Array = held.filter(func(w: Dictionary) -> bool: return w["class"] != "shield")
+	if not (striking + held).is_empty():
+		look.weapon_side = SIDES[(striking + held)[0].side]
 	return look
 
 ## Empty when every resolved fact is visible on the fighter: weapon in the resolved

@@ -21,7 +21,7 @@ def run(name, args, expected=0, seconds=60):
     return [json.loads(line) for line in text.splitlines() if line.startswith('{')]
 run('import', base + ['--editor', '--import'])
 records = run('rules_progression', base + ['--script', 'res://scripts/qa/marrow_tests.gd'])
-assert any(r.get('summary') and r['passed'] == 211 and r['failed'] == 0 for r in records)
+assert any(r.get('summary') and r['passed'] == 212 and r['failed'] == 0 for r in records)
 run('mutations', ['python3', str(pathlib.Path(repo) / 'scripts/qa/marrow_mutations.py'), engine, repo, str(output / 'mutations')], seconds=180)
 args = ['--fixed-fps', '60', '--script', 'res://scripts/qa/marrow_playthrough.gd', '--']
 run('input_headless', base + args + ['--evidence-dir=' + str(output / 'headless')])

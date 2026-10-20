@@ -1,0 +1,150 @@
+[
+	{
+		"fighters": {
+			"CorruptedSwordsman": {
+				"equipped": {
+					"main_hand": "item.notched_sword",
+					"right_arm": "item.marrow_arm"
+				},
+				"marrow_root_x": 0.42,
+				"marrow_visible": true,
+				"off_arm_visible": false,
+				"sword_hand_x": -0.48
+			},
+			"Pilgrim": {
+				"equipped": {
+					"main_hand": "item.notched_sword"
+				},
+				"marrow_root_x": 0.0,
+				"marrow_visible": false,
+				"off_arm_visible": true,
+				"sword_hand_x": 0.48
+			}
+		},
+		"shot": "1_before_salvage_front"
+	},
+	{
+		"fighters": {
+			"CorruptedSwordsman": {
+				"equipped": {
+					"main_hand": "item.notched_sword",
+					"right_arm": "item.marrow_arm"
+				},
+				"marrow_root_x": 0.42,
+				"marrow_visible": true,
+				"off_arm_visible": false,
+				"sword_hand_x": -0.48
+			},
+			"Pilgrim": {
+				"equipped": {
+					"main_hand": "item.notched_sword"
+				},
+				"marrow_root_x": 0.0,
+				"marrow_visible": false,
+				"off_arm_visible": true,
+				"sword_hand_x": 0.48
+			}
+		},
+		"shot": "1_before_salvage_rear"
+	},
+	{
+		"fighters": {
+			"CorruptedSwordsman": {
+				"equipped": {
+					"main_hand": "item.notched_sword",
+					"right_arm": "item.marrow_arm"
+				},
+				"marrow_root_x": 0.42,
+				"marrow_visible": true,
+				"off_arm_visible": false,
+				"sword_hand_x": -0.48
+			},
+			"Pilgrim": {
+				"equipped": {
+					"main_hand": "item.notched_sword",
+					"right_arm": "item.marrow_arm"
+				},
+				"marrow_root_x": 0.42,
+				"marrow_visible": true,
+				"off_arm_visible": false,
+				"sword_hand_x": -0.48
+			}
+		},
+		"shot": "2_after_equip_front"
+	},
+	{
+		"fighters": {
+			"CorruptedSwordsman": {
+				"equipped": {
+					"main_hand": "item.notched_sword",
+					"right_arm": "item.marrow_arm"
+				},
+				"marrow_root_x": 0.42,
+				"marrow_visible": true,
+				"off_arm_visible": false,
+				"sword_hand_x": -0.48
+			},
+			"Pilgrim": {
+				"equipped": {
+					"main_hand": "item.notched_sword",
+					"right_arm": "item.marrow_arm"
+				},
+				"marrow_root_x": 0.42,
+				"marrow_visible": true,
+				"off_arm_visible": false,
+				"sword_hand_x": -0.48
+			}
+		},
+		"shot": "2_after_equip_rear"
+	},
+	{
+		"fighters": {
+			"CorruptedSwordsman": {
+				"equipped": {
+					"main_hand": "item.notched_sword",
+					"right_arm": "item.marrow_arm"
+				},
+				"marrow_root_x": 0.298,
+				"marrow_visible": true,
+				"off_arm_visible": false,
+				"sword_hand_x": -0.48
+			},
+			"Pilgrim": {
+				"equipped": {
+					"main_hand": "item.notched_sword",
+					"right_arm": "item.marrow_arm"
+				},
+				"marrow_root_x": 0.298,
+				"marrow_visible": true,
+				"off_arm_visible": false,
+				"sword_hand_x": -0.48
+			}
+		},
+		"shot": "3_lunge_drawback_front"
+	},
+	{
+		"fighters": {
+			"CorruptedSwordsman": {
+				"equipped": {
+					"main_hand": "item.notched_sword",
+					"right_arm": "item.marrow_arm"
+				},
+				"marrow_root_x": 0.391,
+				"marrow_visible": true,
+				"off_arm_visible": false,
+				"sword_hand_x": -0.48
+			},
+			"Pilgrim": {
+				"equipped": {
+					"main_hand": "item.notched_sword",
+					"right_arm": "item.marrow_arm"
+				},
+				"marrow_root_x": 0.391,
+				"marrow_visible": true,
+				"off_arm_visible": false,
+				"sword_hand_x": -0.48
+			}
+		},
+		"shot": "4_lunge_active_side"
+	}
+]

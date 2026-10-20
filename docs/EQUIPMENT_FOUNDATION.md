@@ -122,6 +122,8 @@ No combat code reads these values yet; `attack_modules.gd` still owns the sword'
   slots (tested with a four-armed fixture catalog) but there is no per-profile body plan
   and no body mod that *adds* slots; the anatomy graph remains isolated.
 - Only arms are modifiable (`body_parts: [arm]`); legs, torso, head are deferred.
+- Presentation draws one sword. A shield or second weapon is valid build data but has no
+  mesh yet; the drawn sword follows the first held non-shield weapon.
 - No "versatile" (one-or-two-handed) grip, off-hand-only weapon class, grip strength, or
   body-mod effects on *how* a weapon is held (only *whether* a hand exists).
 - Handling numbers and class names are placeholders; no balance is implied.
@@ -149,12 +151,21 @@ No combat code reads these values yet; `attack_modules.gd` still owns the sword'
   grip availability, pairs, occupancy, shield + one-hander, dual one-handers; weapon vs
   anatomical replacement; natural weapons and the legacy isolation; a four-armed fixture;
   0.3.0 migration; player/enemy parity.
-- `scripts/qa/marrow_tests.gd` (211): placement and handedness for both actors, visual
+- `scripts/qa/marrow_tests.gd` (212): placement and handedness for both actors, visual
   agreement after salvage/equip/rematch, lunge pose (bone left, sword right) for every
-  defense, same item rules for player and enemy.
+  defense, same item rules for player and enemy, shield never decides the sword side.
 - `scripts/qa/marrow_playthrough.gd`: input-driven loop with agreement checks plus a new
   `--negative=equipment-side` control; `marrow_mutations.py` adds four presentation/rules
   mutations that must be caught.
-- `scripts/qa/equipment_capture.gd`: rendered front/rear/lunge close-ups after the real
-  victory → salvage → equip → next-duel path; runs unchanged on older revisions for
-  before/after comparisons and writes `placement.json`.
+- `scripts/qa/equipment_capture.gd` via `bash scripts/tooling/test_equipment.sh`: rendered
+  front/rear/lunge close-ups after the real victory → salvage → equip → next-duel path,
+  asserting placement and agreement for both fighters; runs unchanged on older revisions
+  for before/after comparisons. Evidence: [`evidence/equipment-foundation/`](evidence/equipment-foundation/README.md).
+
+## 9. Performance
+
+Validation and resolution run only when a build changes (load, equip, next duel), over a
+handful of slots. `Fighter.equipment` derives its `look` once on assignment; the per-frame
+visual sync reads two precomputed numbers and one dictionary entry, replacing the previous
+`signature.is_empty()` check. No new nodes or meshes. Not separately benchmarked; llvmpipe
+timings would not predict desktop GPU cost anyway.
