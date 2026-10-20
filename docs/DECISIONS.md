@@ -76,3 +76,10 @@ Keep approved direction separate from brainstorms. Amend this document only when
 - Exactly how skill/posture/deflection mechanics differ from inspiration.
 - Tower AI modes, snapshot lifecycle, competition and rewards.
 - Persistence, multiplayer/backend scope, trading authority and cheats.
+
+## Confirmed owner direction — 2026-10-19 playtest
+
+- Combined First Expedition plus combat-presentation build was played and liked; development should progress, with ongoing tuning and full validation still open.
+- Three-keyword world names should form a coherent **adjective + adjective + noun** phrase, instead of a string of descriptors. Exact word taxonomy, sample vocabulary and mapping semantics remain open implementation choices; preserve deterministic address/seed behavior and reasonable compatibility.
+- Long-term melee identity: **Last Oasis-inspired directional mouse-controlled attacks and blocks** and **Mordhau-like inertia/angle-dependent weapon handling**, tempered by the immediacy and skill expression of **Sekiro-like fast duels**. Weapon dimensions include reach (short/medium/long), weight (light/medium/heavy), class (blades/staves), grip (two-handed weapon guarding vs one-handed plus optional shield). Specific controls, collision authority, drag/accel limits, endurance and balance are unapproved and should be separately prototyped first.
+- NPC combatants should fight for survival: reposition/retreat, dodge when threatened, counterattack after effective defense, and select appropriate moments for attack rather than simply blocking. AI must be readable and fair, not input-reading/omniscient. Exact behavior and tuning remain provisional.
