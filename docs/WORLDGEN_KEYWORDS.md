@@ -21,7 +21,7 @@ generators could consume.
 | Generator | [`scripts/worldgen/blueprint_generator.gd`](../scripts/worldgen/blueprint_generator.gd) |
 | Data loading / validation | [`scripts/worldgen/keyword_library.gd`](../scripts/worldgen/keyword_library.gd) |
 | Hashing and random streams | [`scripts/worldgen/seed_stream.gd`](../scripts/worldgen/seed_stream.gd) |
-| Curated vocabulary (39 words; 24 adjectives / 16 nouns) | [`data/worldgen/keywords.json`](../data/worldgen/keywords.json) |
+| Curated vocabulary (39 words; 12 environment / 12 quality / 15 noun options) | [`data/worldgen/keywords.json`](../data/worldgen/keywords.json) |
 | Rules, biomes, tuning | [`data/worldgen/rules.json`](../data/worldgen/rules.json) |
 | Blueprint tests (80 checks) | [`scripts/qa/worldgen_tests.gd`](../scripts/qa/worldgen_tests.gd) |
 | Demo | [`scripts/qa/worldgen_demo.gd`](../scripts/qa/worldgen_demo.gd) |
@@ -168,10 +168,10 @@ proposal; see §8.
 
 Errors never produce a partial blueprint.
 
-The new-expedition UI also requires adjective/adjective/noun roles. The pure
-blueprint API deliberately retains the original input contract above so old orders
+The new-expedition UI requires disjoint environment-adjective/quality-adjective/noun
+roles. The pure blueprint API deliberately retains the original input contract above so old orders
 remain replayable. No automatic noun substitution, sorting or semantic migration
-occurs. The explicit older-order replay UI offers the original 16 words in all
+occurs. The explicit older-address replay UI offers all 39 catalog words in all
 positions; see [compatibility details](KEYWORD_GRAMMAR.md).
 
 ## 6. The WorldBlueprint contract (schema 0.1.0)

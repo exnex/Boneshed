@@ -1,0 +1,207 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+{"check":"library_valid","passed":true}
+{"check":"curated_role_counts","passed":true}
+{"check":"legacy_offers_all_recorded_words_slot_0","passed":true}
+{"check":"disjoint_slot_0_1","passed":true}
+{"check":"disjoint_slot_0_2","passed":true}
+{"check":"legacy_offers_all_recorded_words_slot_1","passed":true}
+{"check":"disjoint_slot_1_2","passed":true}
+{"check":"legacy_offers_all_recorded_words_slot_2","passed":true}
+{"check":"original_vocabulary_preserved","passed":true}
+{"check":"invalid_slots_empty","passed":true}
+{"check":"grammar_normalization","passed":true}
+{"check":"environment_quality_noun","passed":true}
+{"check":"grammar_rejects_[\"cathedral\", \"drowned\", \"hollow\"]","passed":true}
+{"check":"grammar_rejects_[\"drowned\", \"tempest\", \"cathedral\"]","passed":true}
+{"check":"grammar_rejects_[\"drowned\", \"hollow\", \"gilded\"]","passed":true}
+{"check":"grammar_rejects_[\"frozen\", \"frozen\", \"ossuary\"]","passed":true}
+{"check":"grammar_rejects_[\"unknown\", \"hollow\", \"cathedral\"]","passed":true}
+{"check":"grammar_rejects_[\"drowned\", 4, \"cathedral\"]","passed":true}
+{"check":"grammar_rejects_[\"drowned\", \"hollow\"]","passed":true}
+{"check":"grammar_rejects_[\"gilded\", \"frozen\", \"citadel\"]","passed":true}
+{"check":"grammar_rejects_[\"veiled\", \"sunken\", \"dream\"]","passed":true}
+{"check":"grammar_rejects_[\"frozen\", \"barren\", \"hollow\"]","passed":true}
+{"check":"invalid_role_metadata_<null>","passed":true}
+{"check":"invalid_catalog_blocks_generation_<null>","passed":true}
+{"check":"invalid_role_metadata_[]","passed":true}
+{"check":"invalid_catalog_blocks_generation_[]","passed":true}
+{"check":"invalid_role_metadata_[\"place\"]","passed":true}
+{"check":"invalid_catalog_blocks_generation_[\"place\"]","passed":true}
+{"check":"invalid_role_metadata_[\"noun\", \"noun\"]","passed":true}
+{"check":"invalid_catalog_blocks_generation_[\"noun\", \"noun\"]","passed":true}
+{"check":"invalid_role_metadata_adjective","passed":true}
+{"check":"invalid_catalog_blocks_generation_adjective","passed":true}
+{"check":"invalid_role_metadata_[4]","passed":true}
+{"check":"invalid_catalog_blocks_generation_[4]","passed":true}
+{"check":"invalid_role_metadata_[\"environment_adjective\", \"quality_adjective\"]","passed":true}
+{"check":"invalid_catalog_blocks_generation_[\"environment_adjective\", \"quality_adjective\"]","passed":true}
+{"check":"invalid_role_metadata_[\"quality_adjective\", \"noun\"]","passed":true}
+{"check":"invalid_catalog_blocks_generation_[\"quality_adjective\", \"noun\"]","passed":true}
+{"check":"invalid_role_metadata_[\"environment_adjective\", \"noun\"]","passed":true}
+{"check":"invalid_catalog_blocks_generation_[\"environment_adjective\", \"noun\"]","passed":true}
+{"check":"empty_slot_rejected","passed":true}
+{"check":"all_old_blueprints_unchanged_seed_0","passed":true}
+{"check":"all_old_blueprints_unchanged_seed_1001","passed":true}
+{"check":"all_old_blueprints_unchanged_seed_4294967295","passed":true}
+{"check":"all_previous_grammar_blueprints_unchanged_seed_0","passed":true}
+{"check":"all_previous_grammar_blueprints_unchanged_seed_1001","passed":true}
+{"check":"all_previous_grammar_blueprints_unchanged_seed_4294967295","passed":true}
+{"check":"previous_example_preserved_Ashen Silent Sanctuary_1001","passed":true}
+{"check":"previous_example_preserved_Ashen Silent Sanctuary_1002","passed":true}
+{"check":"previous_example_preserved_Moonlit Thorned Garden_1001","passed":true}
+{"check":"previous_example_preserved_Moonlit Thorned Garden_1002","passed":true}
+{"check":"previous_example_preserved_Weeping Forgotten Requiem_1001","passed":true}
+{"check":"previous_example_preserved_Weeping Forgotten Requiem_1002","passed":true}
+{"check":"previous_example_preserved_Frozen Gilded Citadel_1001","passed":true}
+{"check":"previous_example_preserved_Frozen Gilded Citadel_1002","passed":true}
+{"check":"previous_example_preserved_Smoldering Pallid Necropolis_1001","passed":true}
+{"check":"previous_example_preserved_Smoldering Pallid Necropolis_1002","passed":true}
+{"check":"previous_example_preserved_Veiled Sunken Dream_1001","passed":true}
+{"check":"previous_example_preserved_Veiled Sunken Dream_1002","passed":true}
+{"check":"word_in_own_slot_drowned","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_drowned","passed":true}
+{"check":"word_in_own_slot_frozen","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_frozen","passed":true}
+{"check":"word_in_own_slot_smoldering","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_smoldering","passed":true}
+{"check":"word_in_own_slot_tempest","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_tempest","passed":true}
+{"check":"word_in_own_slot_lightless","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_lightless","passed":true}
+{"check":"word_in_own_slot_hallowed","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_hallowed","passed":true}
+{"check":"word_in_own_slot_profane","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_profane","passed":true}
+{"check":"word_in_own_slot_hollow","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_hollow","passed":true}
+{"check":"word_in_own_slot_towering","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_towering","passed":true}
+{"check":"word_in_own_slot_sunken","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_sunken","passed":true}
+{"check":"word_in_own_slot_barren","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_barren","passed":true}
+{"check":"word_in_own_slot_thorned","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_thorned","passed":true}
+{"check":"word_in_own_slot_ossuary","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_ossuary","passed":true}
+{"check":"word_in_own_slot_cathedral","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_cathedral","passed":true}
+{"check":"word_in_own_slot_forgotten","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_forgotten","passed":true}
+{"check":"word_in_own_slot_gilded","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_gilded","passed":true}
+{"check":"word_in_own_slot_ashen","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_ashen","passed":true}
+{"check":"word_in_own_slot_silent","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_silent","passed":true}
+{"check":"word_in_own_slot_veiled","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_veiled","passed":true}
+{"check":"word_in_own_slot_shattered","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_shattered","passed":true}
+{"check":"word_in_own_slot_withered","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_withered","passed":true}
+{"check":"word_in_own_slot_moonlit","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_moonlit","passed":true}
+{"check":"word_in_own_slot_windswept","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_windswept","passed":true}
+{"check":"word_in_own_slot_weeping","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_weeping","passed":true}
+{"check":"word_in_own_slot_forsaken","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_forsaken","passed":true}
+{"check":"word_in_own_slot_pallid","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_pallid","passed":true}
+{"check":"word_in_own_slot_buried","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_buried","passed":true}
+{"check":"word_in_own_slot_sanctuary","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_sanctuary","passed":true}
+{"check":"word_in_own_slot_garden","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_garden","passed":true}
+{"check":"word_in_own_slot_necropolis","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_necropolis","passed":true}
+{"check":"word_in_own_slot_labyrinth","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_labyrinth","passed":true}
+{"check":"word_in_own_slot_chasm","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_chasm","passed":true}
+{"check":"word_in_own_slot_citadel","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_citadel","passed":true}
+{"check":"word_in_own_slot_marsh","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_marsh","passed":true}
+{"check":"word_in_own_slot_sepulcher","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_sepulcher","passed":true}
+{"check":"word_in_own_slot_shore","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_shore","passed":true}
+{"check":"word_in_own_slot_spire","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_spire","passed":true}
+{"check":"word_in_own_slot_requiem","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_requiem","passed":true}
+{"check":"word_in_own_slot_dream","passed":true}
+{"check":"stable_identity_replay_and_varied_geography_dream","passed":true}
+{"check":"roles_do_not_change_generation_sanctuary","passed":true}
+{"check":"roles_do_not_change_generation_garden","passed":true}
+{"check":"roles_do_not_change_generation_requiem","passed":true}
+{"check":"roles_do_not_change_generation_citadel","passed":true}
+{"check":"roles_do_not_change_generation_necropolis","passed":true}
+{"check":"roles_do_not_change_generation_dream","passed":true}
+{"check":"natural_example_[\"ashen\", \"silent\", \"sanctuary\"]","passed":true}
+{"address":"Ashen Silent Sanctuary","blueprint":"df7e56f4","identity":"46d73a6b","layout":"3537de9e","modules":[{"center":[0,0],"id":"arrival","radius":2},{"center":[0,-6],"id":"reliquary","radius":2},{"center":[2,-14],"id":"soul_arena","radius":3}],"seed":"1001","themes":["absence","built","fire","ruin","sacred","spirit"]}
+{"address":"Ashen Silent Sanctuary","blueprint":"72b8eb32","identity":"46d73a6b","layout":"0f83fab0","modules":[{"center":[0,0],"id":"arrival","radius":2},{"center":[0,-6],"id":"reliquary","radius":2},{"center":[-2,-14],"id":"soul_arena","radius":3}],"seed":"1002","themes":["absence","built","fire","ruin","sacred","spirit"]}
+{"check":"natural_example_[\"moonlit\", \"thorned\", \"garden\"]","passed":true}
+{"address":"Moonlit Thorned Garden","blueprint":"3d4d742c","identity":"8b51a598","layout":"75e722ec","modules":[{"center":[0,0],"id":"arrival","radius":2},{"center":[2,-6],"id":"reliquary","radius":2},{"center":[0,-14],"id":"soul_arena","radius":3}],"seed":"1001","themes":["built","life","light","stone","wild"]}
+{"address":"Moonlit Thorned Garden","blueprint":"42686102","identity":"8b51a598","layout":"c2298172","modules":[{"center":[0,0],"id":"arrival","radius":2},{"center":[3,-6],"id":"reliquary","radius":2},{"center":[0,-14],"id":"soul_arena","radius":3}],"seed":"1002","themes":["built","life","light","stone","wild"]}
+{"check":"natural_example_[\"weeping\", \"forgotten\", \"requiem\"]","passed":true}
+{"address":"Weeping Forgotten Requiem","blueprint":"0b9138a4","identity":"442da094","layout":"79c1edd4","modules":[{"center":[0,0],"id":"arrival","radius":2},{"center":[4,-6],"id":"reliquary","radius":2},{"center":[4,-14],"id":"soul_arena","radius":3}],"seed":"1001","themes":["absence","death","memory","spirit","water"]}
+{"address":"Weeping Forgotten Requiem","blueprint":"e5dff620","identity":"442da094","layout":"ee82a96b","modules":[{"center":[0,0],"id":"arrival","radius":2},{"center":[0,-6],"id":"reliquary","radius":2},{"center":[-2,-14],"id":"soul_arena","radius":3}],"seed":"1002","themes":["absence","death","memory","spirit","water"]}
+{"check":"natural_example_[\"frozen\", \"gilded\", \"citadel\"]","passed":true}
+{"address":"Frozen Gilded Citadel","blueprint":"fb742a0e","identity":"2f51a35c","layout":"160e688f","modules":[{"center":[0,0],"id":"arrival","radius":2},{"center":[0,-6],"id":"reliquary","radius":2},{"center":[-2,-14],"id":"soul_arena","radius":3}],"seed":"1001","themes":["built","cold","height","wealth"]}
+{"address":"Frozen Gilded Citadel","blueprint":"651ae34c","identity":"2f51a35c","layout":"1c23c310","modules":[{"center":[0,0],"id":"arrival","radius":2},{"center":[0,-6],"id":"reliquary","radius":2},{"center":[-2,-14],"id":"soul_arena","radius":3}],"seed":"1002","themes":["built","cold","height","wealth"]}
+{"check":"natural_example_[\"smoldering\", \"pallid\", \"necropolis\"]","passed":true}
+{"address":"Smoldering Pallid Necropolis","blueprint":"eb98eb0a","identity":"6360d707","layout":"01021ae8","modules":[{"center":[0,0],"id":"arrival","radius":2},{"center":[-2,-5],"id":"reliquary","radius":2},{"center":[0,-12],"id":"soul_arena","radius":3}],"seed":"1001","themes":["bone","built","cold","death","fire"]}
+{"address":"Smoldering Pallid Necropolis","blueprint":"a1ddcb68","identity":"6360d707","layout":"a29c335b","modules":[{"center":[0,0],"id":"arrival","radius":2},{"center":[0,-6],"id":"reliquary","radius":2},{"center":[2,-14],"id":"soul_arena","radius":3}],"seed":"1002","themes":["bone","built","cold","death","fire"]}
+{"check":"natural_example_[\"veiled\", \"forsaken\", \"dream\"]","passed":true}
+{"address":"Veiled Forsaken Dream","blueprint":"c6b8d32a","identity":"d9bdd2dc","layout":"8282fa78","modules":[{"center":[0,0],"id":"arrival","radius":2},{"center":[0,-6],"id":"reliquary","radius":2},{"center":[-2,-14],"id":"soul_arena","radius":3}],"seed":"1001","themes":["absence","dark","deceit","memory","profane","void","water"]}
+{"address":"Veiled Forsaken Dream","blueprint":"cf9199a0","identity":"d9bdd2dc","layout":"a0a6ef81","modules":[{"center":[0,0],"id":"arrival","radius":2},{"center":[0,-6],"id":"reliquary","radius":2},{"center":[-2,-14],"id":"soul_arena","radius":3}],"seed":"1002","themes":["absence","dark","deceit","memory","profane","void","water"]}
+{"check":"new_worlds_default_to_grammar","passed":true}
+{"check":"visible_slot_roles","passed":true}
+{"check":"selector_filters_each_role","passed":true}
+{"check":"visible_menus_are_disjoint_and_complete","passed":true}
+{"check":"desktop_menu_fits_viewport","passed":true}
+{"check":"keyboard_selects_final_noun","passed":true}
+{"check":"requested_word_available_0_ashen","passed":true}
+{"check":"requested_word_available_1_silent","passed":true}
+{"check":"requested_word_available_2_sanctuary","passed":true}
+{"check":"mouse_launches_grammatical_address","passed":true}
+{"check":"legacy_offers_all_words_in_every_slot","passed":true}
+{"check":"requested_word_available_0_frozen","passed":true}
+{"check":"requested_word_available_1_frozen","passed":true}
+{"check":"requested_word_available_2_ossuary","passed":true}
+{"check":"legacy_duplicates_rejected","passed":true}
+{"check":"requested_word_available_0_tempest","passed":true}
+{"check":"requested_word_available_1_frozen","passed":true}
+{"check":"requested_word_available_2_towering","passed":true}
+{"check":"legacy_ui_preserves_exact_order_and_seed","passed":true}
+{"check":"legacy_restart_preserves_replay","passed":true}
+{"check":"requested_word_available_0_veiled","passed":true}
+{"check":"requested_word_available_1_sunken","passed":true}
+{"check":"requested_word_available_2_dream","passed":true}
+{"check":"legacy_replays_previous_roles_[\"veiled\", \"sunken\", \"dream\"]","passed":true}
+{"check":"requested_word_available_0_frozen","passed":true}
+{"check":"requested_word_available_1_barren","passed":true}
+{"check":"requested_word_available_2_hollow","passed":true}
+{"check":"legacy_replays_previous_roles_[\"frozen\", \"barren\", \"hollow\"]","passed":true}
+{"check":"requested_word_available_0_gilded","passed":true}
+{"check":"requested_word_available_1_moonlit","passed":true}
+{"check":"requested_word_available_2_garden","passed":true}
+{"check":"legacy_replays_previous_roles_[\"gilded\", \"moonlit\", \"garden\"]","passed":true}
+{"check":"fresh_world_restores_grammar","passed":true}
+{"check":"wrong_slot_feedback","passed":true}
+{"check":"requested_word_available_0_weeping","passed":true}
+{"check":"requested_word_available_1_forgotten","passed":true}
+{"check":"requested_word_available_2_requiem","passed":true}
+{"check":"rejects_invalid_seed_-1","passed":true}
+{"check":"rejects_invalid_seed_4294967296","passed":true}
+{"check":"rejects_invalid_seed_","passed":true}
+{"check":"rejects_invalid_seed_1.5","passed":true}
+{"check":"seed_boundary_replays_0","passed":true}
+{"check":"seed_boundary_replays_4294967295","passed":true}
+{"engine":"4.7.2-stable (official)","failed":0,"passed":192,"rendered":false}

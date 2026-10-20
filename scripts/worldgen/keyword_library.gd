@@ -8,7 +8,7 @@ const THEME_POOLS := ["hazards", "encounters", "discoveries"]
 const KEYWORDS_PATH := "res://data/worldgen/keywords.json"
 const RULES_PATH := "res://data/worldgen/rules.json"
 ## Selection grammar only; these roles never change semantic effects or weights.
-const SLOT_ROLES := ["adjective", "adjective", "noun"]
+const SLOT_ROLES := ["environment_adjective", "quality_adjective", "noun"]
 
 var data_version := ""
 var keywords := {}
@@ -43,12 +43,14 @@ func load_files(keywords_path := KEYWORDS_PATH, rules_path := RULES_PATH) -> boo
 func has_keyword(id: String) -> bool:
 	return keywords.has(id)
 
+## Older recorded addresses may use any catalog word in any position.
+## The legacy entry marker records original vocabulary membership only.
 func keywords_for_slot(slot: int, legacy := false) -> Array[String]:
 	var ids: Array[String] = []
 	if slot < 0 or slot >= SLOT_ROLES.size():
 		return ids
 	for id: String in keywords:
-		var offered: bool = keywords[id].get("legacy", false) if legacy else SLOT_ROLES[slot] in keywords[id].roles
+		var offered: bool = legacy or SLOT_ROLES[slot] in keywords[id].roles
 		if offered:
 			ids.append(id)
 	ids.sort()
@@ -80,14 +82,10 @@ func _validate() -> void:
 	var known_tags := {}
 	for id in keywords:
 		var roles: Variant = keywords[id].get("roles")
-		if not roles is Array or roles.is_empty():
-			errors.append("%s needs grammatical roles" % id)
-		else:
-			var seen_roles: Array = []
-			for role: Variant in roles:
-				if role not in ["adjective", "noun"] or role in seen_roles:
-					errors.append("%s has invalid or duplicate grammatical role" % id)
-				seen_roles.append(role)
+		if not roles is Array or roles.size() != 1:
+			errors.append("%s must belong to exactly one selectable slot; vocabulary overlap is forbidden" % id)
+		elif roles[0] not in SLOT_ROLES:
+			errors.append("%s has an invalid grammatical role" % id)
 		if not keywords[id].get("legacy") is bool:
 			errors.append("%s needs a boolean legacy marker" % id)
 		var senses: Array = keywords[id].get("senses", [])
@@ -104,6 +102,9 @@ func _validate() -> void:
 			for tag in sense.get("tags", []):
 				known_tags[tag] = true
 			_validate_effects(sense, where)
+	for slot in SLOT_ROLES.size():
+		if not keywords.values().any(func(entry: Dictionary) -> bool: return entry.get("roles") is Array and SLOT_ROLES[slot] in entry.roles):
+			errors.append("selectable slot %s has no keywords" % SLOT_ROLES[slot])
 	for id in keywords:
 		for sense in keywords[id].get("senses", []):
 			for tag in sense.get("resonates_with", []):

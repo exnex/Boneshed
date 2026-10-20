@@ -4,7 +4,7 @@
 	"keywords": [
 		{
 			"id": "drowned",
-			"roles": ["adjective"],
+			"roles": ["environment_adjective"],
 			"legacy": true,
 			"category": "condition",
 			"senses": [
@@ -23,7 +23,7 @@
 		},
 		{
 			"id": "frozen",
-			"roles": ["adjective"],
+			"roles": ["environment_adjective"],
 			"legacy": true,
 			"category": "condition",
 			"senses": [
@@ -42,7 +42,7 @@
 		},
 		{
 			"id": "smoldering",
-			"roles": ["adjective"],
+			"roles": ["environment_adjective"],
 			"legacy": true,
 			"category": "condition",
 			"senses": [
@@ -80,7 +80,7 @@
 		},
 		{
 			"id": "lightless",
-			"roles": ["adjective"],
+			"roles": ["environment_adjective"],
 			"legacy": true,
 			"category": "condition",
 			"senses": [
@@ -99,7 +99,7 @@
 		},
 		{
 			"id": "hallowed",
-			"roles": ["adjective"],
+			"roles": ["quality_adjective"],
 			"legacy": true,
 			"category": "spirit",
 			"senses": [
@@ -118,7 +118,7 @@
 		},
 		{
 			"id": "profane",
-			"roles": ["adjective"],
+			"roles": ["quality_adjective"],
 			"legacy": true,
 			"category": "spirit",
 			"senses": [
@@ -137,7 +137,7 @@
 		},
 		{
 			"id": "hollow",
-			"roles": ["adjective", "noun"],
+			"roles": ["quality_adjective"],
 			"legacy": true,
 			"category": "form",
 			"senses": [
@@ -167,7 +167,7 @@
 		},
 		{
 			"id": "towering",
-			"roles": ["adjective"],
+			"roles": ["quality_adjective"],
 			"legacy": true,
 			"category": "landform",
 			"senses": [
@@ -186,7 +186,7 @@
 		},
 		{
 			"id": "sunken",
-			"roles": ["adjective"],
+			"roles": ["environment_adjective"],
 			"legacy": true,
 			"category": "landform",
 			"senses": [
@@ -205,7 +205,7 @@
 		},
 		{
 			"id": "barren",
-			"roles": ["adjective"],
+			"roles": ["quality_adjective"],
 			"legacy": true,
 			"category": "landform",
 			"senses": [
@@ -224,7 +224,7 @@
 		},
 		{
 			"id": "thorned",
-			"roles": ["adjective"],
+			"roles": ["quality_adjective"],
 			"legacy": true,
 			"category": "landform",
 			"senses": [
@@ -281,7 +281,7 @@
 		},
 		{
 			"id": "forgotten",
-			"roles": ["adjective"],
+			"roles": ["quality_adjective"],
 			"legacy": true,
 			"category": "time",
 			"senses": [
@@ -311,7 +311,7 @@
 		},
 		{
 			"id": "gilded",
-			"roles": ["adjective"],
+			"roles": ["quality_adjective"],
 			"legacy": true,
 			"category": "fortune",
 			"senses": [
@@ -341,7 +341,7 @@
 		},
 		{
 			"id": "ashen",
-			"roles": ["adjective"],
+			"roles": ["environment_adjective"],
 			"legacy": false,
 			"category": "curated",
 			"senses": [
@@ -360,7 +360,7 @@
 		},
 		{
 			"id": "silent",
-			"roles": ["adjective"],
+			"roles": ["quality_adjective"],
 			"legacy": false,
 			"category": "curated",
 			"senses": [
@@ -379,7 +379,7 @@
 		},
 		{
 			"id": "veiled",
-			"roles": ["adjective"],
+			"roles": ["environment_adjective"],
 			"legacy": false,
 			"category": "curated",
 			"senses": [
@@ -398,7 +398,7 @@
 		},
 		{
 			"id": "shattered",
-			"roles": ["adjective"],
+			"roles": ["quality_adjective"],
 			"legacy": false,
 			"category": "curated",
 			"senses": [
@@ -417,7 +417,7 @@
 		},
 		{
 			"id": "withered",
-			"roles": ["adjective"],
+			"roles": ["environment_adjective"],
 			"legacy": false,
 			"category": "curated",
 			"senses": [
@@ -436,7 +436,7 @@
 		},
 		{
 			"id": "moonlit",
-			"roles": ["adjective"],
+			"roles": ["environment_adjective"],
 			"legacy": false,
 			"category": "curated",
 			"senses": [
@@ -455,7 +455,7 @@
 		},
 		{
 			"id": "windswept",
-			"roles": ["adjective"],
+			"roles": ["environment_adjective"],
 			"legacy": false,
 			"category": "curated",
 			"senses": [
@@ -474,7 +474,7 @@
 		},
 		{
 			"id": "weeping",
-			"roles": ["adjective"],
+			"roles": ["environment_adjective"],
 			"legacy": false,
 			"category": "curated",
 			"senses": [
@@ -493,7 +493,7 @@
 		},
 		{
 			"id": "forsaken",
-			"roles": ["adjective"],
+			"roles": ["quality_adjective"],
 			"legacy": false,
 			"category": "curated",
 			"senses": [
@@ -512,7 +512,7 @@
 		},
 		{
 			"id": "pallid",
-			"roles": ["adjective"],
+			"roles": ["quality_adjective"],
 			"legacy": false,
 			"category": "curated",
 			"senses": [
@@ -531,7 +531,7 @@
 		},
 		{
 			"id": "buried",
-			"roles": ["adjective"],
+			"roles": ["environment_adjective"],
 			"legacy": false,
 			"category": "curated",
 			"senses": [
