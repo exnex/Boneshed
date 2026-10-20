@@ -1,0 +1,51 @@
+{
+  "headless": {
+    "combat_builds": {
+      "failed": 0,
+      "passed": 532,
+      "suite": "combat_builds",
+      "summary": true
+    },
+    "combat": {
+      "failed": 0,
+      "negative": "",
+      "passed": 118,
+      "suite": "combat",
+      "summary": true
+    },
+    "timing_headless": {
+      "engine": "4.7.2-stable (official)",
+      "failed": 0,
+      "passed": 159,
+      "rendered": false,
+      "summary": true
+    }
+  },
+  "adapter_mutations": 63,
+  "initial_graphical_deadline_seconds": 180,
+  "resumed_graphical_deadline_seconds": 1200,
+  "encounter_regressions_passed": 8,
+  "expected_failure_runs": [
+    "invalid_build_startup",
+    "invalid_state_startup",
+    "negative_guard",
+    "negative_deflect",
+    "negative_phase",
+    "negative_toggle",
+    "negative_rear",
+    "negative_poise",
+    "negative_defense",
+    "negative_visual"
+  ],
+  "rendered": {
+    "graphical": 111,
+    "timing_rendered": {
+      "engine": "4.7.2-stable (official)",
+      "failed": 0,
+      "passed": 209,
+      "rendered": true,
+      "summary": true
+    },
+    "failed": 0
+  }
+}

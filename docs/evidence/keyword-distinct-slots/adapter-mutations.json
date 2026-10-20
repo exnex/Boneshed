@@ -1,0 +1,317 @@
+[
+  {
+    "mutation": "omitted_max_health",
+    "exit": 1,
+    "detected_by": "parameter_applied_max_health_player"
+  },
+  {
+    "mutation": "misspelled_max_health",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_max_health",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_max_posture",
+    "exit": 1,
+    "detected_by": "parameter_applied_max_posture_player"
+  },
+  {
+    "mutation": "misspelled_max_posture",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_max_posture",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_deflect_window",
+    "exit": 1,
+    "detected_by": "parameter_applied_deflect_window_player"
+  },
+  {
+    "mutation": "misspelled_deflect_window",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_deflect_window",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_guard_chip",
+    "exit": 1,
+    "detected_by": "parameter_applied_guard_chip_player"
+  },
+  {
+    "mutation": "misspelled_guard_chip",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_guard_chip",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_posture_recovery_rate",
+    "exit": 1,
+    "detected_by": "parameter_applied_posture_recovery_rate_player"
+  },
+  {
+    "mutation": "misspelled_posture_recovery_rate",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_posture_recovery_rate",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_posture_recovery_delay",
+    "exit": 1,
+    "detected_by": "parameter_applied_posture_recovery_delay_player"
+  },
+  {
+    "mutation": "misspelled_posture_recovery_delay",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_posture_recovery_delay",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_deflect_posture",
+    "exit": 1,
+    "detected_by": "parameter_applied_deflect_posture_player"
+  },
+  {
+    "mutation": "misspelled_deflect_posture",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_deflect_posture",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_attack_windup",
+    "exit": 1,
+    "detected_by": "parameter_applied_attack_windup_player"
+  },
+  {
+    "mutation": "misspelled_attack_windup",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_attack_windup",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_heavy_windup",
+    "exit": 1,
+    "detected_by": "parameter_applied_heavy_windup_player"
+  },
+  {
+    "mutation": "misspelled_heavy_windup",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_heavy_windup",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_light_active_duration",
+    "exit": 1,
+    "detected_by": "parameter_applied_light_active_duration_player"
+  },
+  {
+    "mutation": "misspelled_light_active_duration",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_light_active_duration",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_heavy_active_duration",
+    "exit": 1,
+    "detected_by": "parameter_applied_heavy_active_duration_player"
+  },
+  {
+    "mutation": "misspelled_heavy_active_duration",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_heavy_active_duration",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_light_recovery_duration",
+    "exit": 1,
+    "detected_by": "parameter_applied_light_recovery_duration_player"
+  },
+  {
+    "mutation": "misspelled_light_recovery_duration",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_light_recovery_duration",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_heavy_recovery_duration",
+    "exit": 1,
+    "detected_by": "parameter_applied_heavy_recovery_duration_player"
+  },
+  {
+    "mutation": "misspelled_heavy_recovery_duration",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_heavy_recovery_duration",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_light_damage",
+    "exit": 1,
+    "detected_by": "parameter_applied_light_damage_player"
+  },
+  {
+    "mutation": "misspelled_light_damage",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_light_damage",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_heavy_damage",
+    "exit": 1,
+    "detected_by": "parameter_applied_heavy_damage_player"
+  },
+  {
+    "mutation": "misspelled_heavy_damage",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_heavy_damage",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_light_hit_posture",
+    "exit": 1,
+    "detected_by": "parameter_applied_light_hit_posture_player"
+  },
+  {
+    "mutation": "misspelled_light_hit_posture",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_light_hit_posture",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_heavy_hit_posture",
+    "exit": 1,
+    "detected_by": "parameter_applied_heavy_hit_posture_player"
+  },
+  {
+    "mutation": "misspelled_heavy_hit_posture",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_heavy_hit_posture",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_light_guard_posture",
+    "exit": 1,
+    "detected_by": "parameter_applied_light_guard_posture_player"
+  },
+  {
+    "mutation": "misspelled_light_guard_posture",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_light_guard_posture",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_heavy_guard_posture",
+    "exit": 1,
+    "detected_by": "parameter_applied_heavy_guard_posture_player"
+  },
+  {
+    "mutation": "misspelled_heavy_guard_posture",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_heavy_guard_posture",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_guard_posture_overrides",
+    "exit": 1,
+    "detected_by": "parameter_applied_guard_posture_overrides_player"
+  },
+  {
+    "mutation": "misspelled_guard_posture_overrides",
+    "exit": 1,
+    "detected_by": "direct assignment engine error"
+  },
+  {
+    "mutation": "renamed_state_guard_posture_overrides",
+    "exit": 1,
+    "detected_by": "missing_state_property; no configs/resolved/states"
+  },
+  {
+    "mutation": "mistyped_state_max_health",
+    "exit": 1,
+    "detected_by": "invalid_state_property_type; no configs/resolved/states"
+  },
+  {
+    "mutation": "translation_typo",
+    "exit": 0,
+    "detected_by": "unknown_combat_parameter; no configs/resolved/states"
+  },
+  {
+    "mutation": "omitted_profile_overrides",
+    "exit": 1,
+    "detected_by": "enemy_per_attack_timing_preserved"
+  }
+]

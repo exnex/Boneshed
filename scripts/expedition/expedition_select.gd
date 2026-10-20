@@ -66,7 +66,7 @@ func _build_selection() -> void:
 	_label(box, "B O N E S H E D", 18, Color("d4bd8d"))
 	_label(box, "First Expedition", 36)
 	_label(box, "Three words. An empty world. One soul to release.", 18)
-	_label(box, "Name a place: adjective + adjective + noun", 15, Color("a4b8c0"))
+	_label(box, "Name a place: environment + quality + noun", 15, Color("a4b8c0"))
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 12)
 	box.add_child(row)
@@ -92,7 +92,7 @@ func _build_selection() -> void:
 	seed_edit.editable = false
 	box.add_child(seed_edit)
 	legacy_check = CheckBox.new()
-	legacy_check.text = "Replay an older keyword order (original 16 words)"
+	legacy_check.text = "Replay an older address (all words, any order)"
 	legacy_check.disabled = true
 	box.add_child(legacy_check)
 	legacy_check.toggled.connect(_populate_choices)
@@ -117,7 +117,7 @@ func _populate_choices(legacy: bool) -> void:
 		for id: String in ids:
 			choice.add_item(id.capitalize())
 		choice.select(ids.find(previous) if previous in ids else ids.find(defaults[slot]))
-		slot_labels[slot].text = "Word %d (older address)" % (slot + 1) if legacy else ["Adjective 1", "Adjective 2", "Place / concept noun"][slot]
+		slot_labels[slot].text = "Word %d (older address)" % (slot + 1) if legacy else ["Environment / state", "Character / quality", "Place / concept noun"][slot]
 	if is_instance_valid(error_label):
 		error_label.text = ""
 
@@ -145,7 +145,7 @@ func _begin_selection() -> void:
 	for choice: OptionButton in choices:
 		words.append(choice.get_item_text(choice.selected).to_lower())
 	if not legacy_check.button_pressed and not library.is_grammatical(words):
-		error_label.text = "Choose two different adjectives and a noun; no word may repeat."
+		error_label.text = "Choose an environment, a quality and a noun from their own lists."
 		return
 	var seed_value := 0
 	if replay_check.button_pressed:

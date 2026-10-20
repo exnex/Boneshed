@@ -9,7 +9,7 @@ output="$(cd "$output" && pwd)"
 export LIBGL_ALWAYS_SOFTWARE=1
 export LP_NUM_THREADS="${LP_NUM_THREADS:-4}"
 python3 - "$GODOT_BIN" "$REPO_ROOT" "$output" <<'PY'
-import json, pathlib, shutil, subprocess, sys, tempfile
+import hashlib, json, pathlib, shutil, subprocess, sys, tempfile
 engine, repo, output = sys.argv[1], pathlib.Path(sys.argv[2]), pathlib.Path(sys.argv[3])
 base = [engine, '--headless', '--path', str(repo)]
 rendered = ['xvfb-run', '-a', '-s', '-screen 0 1280x720x24 -nolisten tcp', engine,
@@ -22,12 +22,20 @@ def run(name, command, expected=0):
     assert result.returncode == expected and 'ERROR:' not in text, (name, result.returncode, log)
     print(name + ': passed', flush=True)
     return [json.loads(line) for line in text.splitlines() if line.startswith('{')]
+# This feature may edit roles only, never existing meanings, ids or semantic version.
+baseline = json.loads((repo/'scripts/qa/fixtures/keyword_slot_baseline.json').read_text())
+vocabulary = json.loads((repo/'data/worldgen/keywords.json').read_text())
+for entry in vocabulary['keywords']:
+    entry.pop('roles')
+semantic_hash = hashlib.sha256(json.dumps(vocabulary, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+assert semantic_hash == baseline['semantic_sha256'], 'existing keyword semantics changed'
+print('all 39 keyword meanings and original metadata unchanged', flush=True)
 run('import', base + ['--editor', '--import'])
 for mode, command in [('headless', base), ('rendered', rendered)]:
     run(mode, command + ['--fixed-fps', '60', '--script', 'res://scripts/qa/keyword_grammar_tests.gd', '--',
                          '--evidence-dir='+str(output/mode)])
     summary = json.loads((output/mode/'summary.json').read_text())
-    assert summary['failed'] == 0 and summary['passed'] >= 88, summary
+    assert summary['failed'] == 0 and summary['passed'] >= 180, summary
 assert (output/'headless/examples.json').read_bytes() == (output/'rendered/examples.json').read_bytes()
 assert len(list((output/'rendered').glob('*.png'))) == 3
 # Removing the role filter must fail the UI regression even though generation still works.
@@ -46,5 +54,15 @@ with tempfile.TemporaryDirectory(prefix='boneshed-grammar-') as temporary:
     records = run('negative-unfiltered-selector', isolated_base + ['--fixed-fps', '60', '--script',
         'res://scripts/qa/keyword_grammar_tests.gd', '--', '--evidence-dir='+str(output/'negative')], expected=1)
     assert any(r.get('check') == 'selector_filters_each_role' and r['passed'] is False for r in records)
+    assert any(r.get('check') == 'visible_menus_are_disjoint_and_complete' and r['passed'] is False for r in records)
+    source.write_text(text)
+    # A catalog author accidentally offering Frozen in two slots must fail loading.
+    catalog_path = isolated/'data/worldgen/keywords.json'
+    catalog = json.loads(catalog_path.read_text())
+    next(entry for entry in catalog['keywords'] if entry['id'] == 'frozen')['roles'].append('quality_adjective')
+    catalog_path.write_text(json.dumps(catalog))
+    records = run('negative-vocabulary-overlap', isolated_base + ['--script',
+        'res://scripts/qa/keyword_grammar_tests.gd', '--', '--evidence-dir='+str(output/'negative-overlap')], expected=1)
+    assert any(r.get('check') == 'library_valid' and r['passed'] is False for r in records)
 print('Grammar, vocabulary, old-address compatibility, identity, seeded replay and desktop selection passed.')
 PY

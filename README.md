@@ -12,7 +12,8 @@ The priority is one truly enjoyable duel, not an expansive feature list.
 
 ## Project status
 
-**First Expedition vertical slice.** Choose two adjectives and a place or concept noun, enter a fresh seeded
+**First Expedition vertical slice.** Choose an environment adjective, a quality adjective and a place or concept noun from
+distinct curated lists, enter a fresh seeded
 world, explore a bounded ruined causeway, and release the corrupted swordsman.
 Salvage/equip Marrow Arm and use its inherited power in a rematch. Use the address
 and seed to reproduce a world. Geometry, keyword algorithms and balance remain

@@ -1,0 +1,4 @@
+import: expected exit 0 confirmed
+worldgen_tests: expected exit 0 confirmed
+worldgen_demo: expected exit 0 confirmed
+80 checks passed; 16 example files regenerate identically; evidence: /workspace/Boneshed/artifacts/distinct-slots-worldgen

@@ -1,0 +1,148 @@
+{
+	"adjectives": [
+		"ashen",
+		"barren",
+		"buried",
+		"drowned",
+		"forgotten",
+		"forsaken",
+		"frozen",
+		"gilded",
+		"hallowed",
+		"hollow",
+		"lightless",
+		"moonlit",
+		"pallid",
+		"profane",
+		"shattered",
+		"silent",
+		"smoldering",
+		"sunken",
+		"thorned",
+		"towering",
+		"veiled",
+		"weeping",
+		"windswept",
+		"withered"
+	],
+	"digests": {
+		"0": {
+			"count": 8786,
+			"hash": "b17ad219"
+		},
+		"1001": {
+			"count": 8786,
+			"hash": "43f8d7a1"
+		},
+		"4294967295": {
+			"count": 8786,
+			"hash": "3d4eec8b"
+		}
+	},
+	"nouns": [
+		"cathedral",
+		"chasm",
+		"citadel",
+		"dream",
+		"garden",
+		"hollow",
+		"labyrinth",
+		"marsh",
+		"necropolis",
+		"ossuary",
+		"requiem",
+		"sanctuary",
+		"sepulcher",
+		"shore",
+		"spire",
+		"tempest"
+	],
+	"source": "31ec237",
+	"semantic_sha256": "223ee1c4981d6557681f173459eb6efcf33bb70f1150232c4735a0935c6d96ea",
+	"examples": [
+		{
+			"address": "Ashen Silent Sanctuary",
+			"seed": "1001",
+			"identity": "46d73a6b",
+			"blueprint": "df7e56f4",
+			"layout": "3537de9e"
+		},
+		{
+			"address": "Ashen Silent Sanctuary",
+			"seed": "1002",
+			"identity": "46d73a6b",
+			"blueprint": "72b8eb32",
+			"layout": "0f83fab0"
+		},
+		{
+			"address": "Moonlit Thorned Garden",
+			"seed": "1001",
+			"identity": "8b51a598",
+			"blueprint": "3d4d742c",
+			"layout": "75e722ec"
+		},
+		{
+			"address": "Moonlit Thorned Garden",
+			"seed": "1002",
+			"identity": "8b51a598",
+			"blueprint": "42686102",
+			"layout": "c2298172"
+		},
+		{
+			"address": "Weeping Forgotten Requiem",
+			"seed": "1001",
+			"identity": "442da094",
+			"blueprint": "0b9138a4",
+			"layout": "79c1edd4"
+		},
+		{
+			"address": "Weeping Forgotten Requiem",
+			"seed": "1002",
+			"identity": "442da094",
+			"blueprint": "e5dff620",
+			"layout": "ee82a96b"
+		},
+		{
+			"address": "Frozen Gilded Citadel",
+			"seed": "1001",
+			"identity": "2f51a35c",
+			"blueprint": "fb742a0e",
+			"layout": "160e688f"
+		},
+		{
+			"address": "Frozen Gilded Citadel",
+			"seed": "1002",
+			"identity": "2f51a35c",
+			"blueprint": "651ae34c",
+			"layout": "1c23c310"
+		},
+		{
+			"address": "Smoldering Pallid Necropolis",
+			"seed": "1001",
+			"identity": "6360d707",
+			"blueprint": "eb98eb0a",
+			"layout": "01021ae8"
+		},
+		{
+			"address": "Smoldering Pallid Necropolis",
+			"seed": "1002",
+			"identity": "6360d707",
+			"blueprint": "a1ddcb68",
+			"layout": "a29c335b"
+		},
+		{
+			"address": "Veiled Sunken Dream",
+			"seed": "1001",
+			"identity": "4363fc43",
+			"blueprint": "a22e0bee",
+			"layout": "abacd7d9"
+		},
+		{
+			"address": "Veiled Sunken Dream",
+			"seed": "1002",
+			"identity": "4363fc43",
+			"blueprint": "8502285a",
+			"layout": "264cbe12"
+		}
+	]
+}

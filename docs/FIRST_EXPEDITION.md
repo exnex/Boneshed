@@ -15,8 +15,9 @@ bash scripts/tooling/setup.sh
 bash scripts/tooling/play.sh
 ```
 
-F5 opens `scenes/first_expedition.tscn`. Choose **Adjective 1**, **Adjective 2**, then a
-**Place / concept noun** and **Begin expedition**. The two adjectives must differ.
+F5 opens `scenes/first_expedition.tscn`. Choose an **Environment / state** adjective,
+a **Character / quality** adjective, then a **Place / concept noun** and
+**Begin expedition**. The three curated lists share no words.
 For example: **Ashen Silent Sanctuary**, **Moonlit Thorned Garden**, or
 **Weeping Forgotten Requiem**. Native dropdowns support mouse and keyboard
 (Tab, Enter, arrows); long lists scroll. New expeditions use four bytes from Godot's `Crypto` entropy
@@ -24,8 +25,9 @@ source. To reproduce a world, select its three words in the same order, enable
 **Replay an existing seed**, and enter its displayed seed (0–4294967295).
 For a fixed fixture, use **Drowned / Hollow / Cathedral, seed 1001**.
 To replay a pre-grammar address such as **Tempest Frozen Towering**, enable both
-**Replay an existing seed** and **Replay an older keyword order**. Each slot then
-offers the original 16 words. Keep their exact order and seed; no word is renamed
+**Replay an existing seed** and **Replay an older address (all words, any order)**.
+Each slot then offers all 39 words, including previous shared-adjective addresses
+such as **Veiled Sunken Dream**. Keep their exact order and seed; no word is renamed
 or moved. Turning off seed replay restores the grammatical lists. See
 [grammar and compatibility](KEYWORD_GRAMMAR.md).
 
