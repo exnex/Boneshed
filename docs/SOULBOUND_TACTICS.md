@@ -76,3 +76,9 @@ Suggested provisional terms: **Soul**, **Temperament** or **Instinct**, **Tactic
 Previously proposed Stage 1 **Claude game AI styles** and **Codex research policy contract** remain useful but must now use *soul temperament as configuration input* and *capability-conditioned policy intents* rather than presenting a universal editable generic priority list as the final Ghost design. Small bounded prototypes only. Stage 2 changes from flat tactics editor to **offline soul+build-generated tactical graph proof of concept** with preview and budget validation, before any major UI. Avoid full ARPG node atlas, world loot, ranked or backend implementation until owner tests design.
 
 AI design target for next research: compare (a) identical equipment with aggressive vs defensive soul, (b) same soul with dagger vs two-hander, (c) same soul/build at different limited point allocations, while preserving visible cause→decision→legal action logs.
+
+## Stamina-affordance addition — 2026-10-20
+
+- Owner requires stamina-consuming attacks and dodge/roll actions whose costs depend on build; heavy weapons swing slower and cost more, light weapons can sustain weaker barrages, heavy armor reduces speed. See [STAMINA_AND_WEIGHT.md](STAMINA_AND_WEIGHT.md).
+- Generated soul/build policy actions must pass the same **stamina affordability** checks as player actions. Potential investment decisions include conserving a dodge reserve, retreating to regenerate and choosing lower-cost swings. Exact stamina observation precision for opponent AI is undecided; no private exact stamina data without equivalent player-visible information.
+- Tactic nodes should *choose* legal resource-constrained actions, not bypass physical stamina cost or grant fictitious max-stamina points absent explicit legitimate build capability. Include stamina consumption and failed-action reasons in policy test traces.
