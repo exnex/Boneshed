@@ -4,7 +4,6 @@ config_version=5
 [application]
 config/name="Boneshed — First Expedition"
 run/main_scene="res://scenes/first_expedition.tscn"
-run/main_scene.web="res://scenes/salvage_courtyard.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [display]
