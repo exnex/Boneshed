@@ -109,6 +109,42 @@ func correct_guard(direction: String) -> String:
 	var c := Geometry.chamber_vector(direction)
 	return Geometry.classify_guard(Vector2(-c.x, c.y), 0.0)
 
+# Owner feedback regression: windups and guards are deliberate held stances.
+# Previously the one-second max_hold forced an unwanted automatic swing.
+func hold_until_release_checks() -> void:
+	var a := duelist("sword")
+	a.press_attack("right_to_left")
+	for i in range(180): # 3 seconds > legacy max_hold (1 second)
+		a.tick(DT)
+	check(a.phase == State.Phase.WINDUP and not a.released and a.swing_serial == 0,
+		"directional_attack_stays_chambered_until_button_release",
+		{"phase": a.phase, "elapsed": a.windup_time, "swing_serial": a.swing_serial})
+	a.aim_attack("overhead")
+	for i in range(90):
+		a.tick(DT)
+	check(a.phase == State.Phase.WINDUP and a.direction == "overhead" and not a.released,
+		"held_chamber_can_redirect_without_auto_firing")
+	a.release_attack()
+	for i in range(90):
+		a.tick(DT)
+		if a.swing_serial > 0:
+			break
+	check(a.swing_serial == 1, "released_chamber_starts_exactly_one_swing")
+
+	var d := duelist("sword")
+	d.set_guard(true, "left")
+	for i in range(240):
+		d.tick(DT)
+	check(d.phase == State.Phase.IDLE and d.guarding and d.guard == "left" and d.guard_age > d.deflect_window,
+		"directional_guard_remains_held_without_repeated_deflect")
+	d.set_guard(true, "high")
+	for i in range(90):
+		d.tick(DT)
+	check(d.guarding and d.guard == "high" and d.guard_age > d.deflect_window,
+		"held_guard_can_change_direction_without_refreshing_deflect")
+	d.set_guard(false)
+	check(not d.guarding, "guard_lowers_only_on_release")
+
 # --- Suites --------------------------------------------------------------------
 
 func run() -> void:
@@ -121,6 +157,7 @@ func run() -> void:
 	if negative == "omniscient":
 		tuning.ai_reaction_delay = 0.0
 	data_checks()
+	hold_until_release_checks()
 	classification_checks()
 	arc_checks()
 	handling_checks()

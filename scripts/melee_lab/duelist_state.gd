@@ -253,7 +253,7 @@ func _tick_windup(delta: float) -> void:
 	if not released:
 		hold_time += delta
 	var arrived := _move_bang_bang(Geometry.chamber_pose(direction, t), delta)
-	if arrived and windup_time >= t.min_windup and (released or hold_time >= t.max_hold):
+	if arrived and windup_time >= t.min_windup and released:
 		phase = Phase.SWING
 		swing_serial += 1
 		hit_consumed = false
