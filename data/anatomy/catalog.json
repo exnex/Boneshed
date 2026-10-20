@@ -1,7 +1,7 @@
 {
 	"schema": "boneshed.anatomy_catalog.v0",
 	"catalog_version": "0.1.0",
-	"build_catalog_version": "0.3.0",
+	"build_catalog_version": "0.4.0",
 	"provisional": "Architectural fixture data. Every part, socket, capability, class, limit and requirement here is a placeholder awaiting human approval. No stat bonuses, costs, hitbox sizes or body limits are decided. Not wired into the courtyard or combat.",
 	"limits": {"max_nodes": 24, "max_depth": 6},
 	"required_anchors": ["camera_focus", "core_hurtbox", "facing", "movement_root"],

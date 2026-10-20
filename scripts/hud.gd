@@ -48,9 +48,9 @@ func _draw() -> void:
 		text_at(Vector2(32, 121), "DEBUG  ·  " + phase_name(e.phase) + "  ·  AI " + str(arena.enemy.get("ai_state")) + "  ·  " + arena.event_text, 13)
 	if arena.progression.stage == arena.Progression.Stage.VICTORY and arena.progression.owns("item.marrow_arm"):
 		draw_rect(Rect2(24, 143, 570, 100), Color(0.03, 0.05, 0.06, 0.94))
-		text_at(Vector2(40, 169), "MARROW ARM  /  " + ("EQUIPPED" if arena.progression.equipped() else "ACQUIRED"), 18, Color("ead9ac"))
-		text_at(Vector2(40, 194), "Grants Q · Marrow Lunge. Long reach; narrow aim; slow recovery.", 15)
-		text_at(Vector2(40, 218), "Standard deflection timing. Incompatible with two-handed grips.", 14, Color("a4b8b7"))
+		text_at(Vector2(40, 169), "MARROW ARM  /  LEFT ARM  /  " + ("EQUIPPED" if arena.progression.equipped() else "ACQUIRED"), 18, Color("ead9ac"))
+		text_at(Vector2(40, 194), "Body modification: replaces the left arm. Sword stays right; no left grip.", 15)
+		text_at(Vector2(40, 218), "Legacy Q · Marrow Lunge: long, narrow, slow recovery. Standard deflection.", 14, Color("a4b8b7"))
 	if message != "":
 		var message_width := font.get_string_size(message, HORIZONTAL_ALIGNMENT_LEFT, -1, 16).x
 		draw_rect(Rect2(width * 0.5 - message_width * 0.5 - 20, height - 100, message_width + 40, 36), Color(0.03, 0.05, 0.06, 0.85))

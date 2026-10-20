@@ -1,5 +1,10 @@
 # Shared Builds and Salvage — Design and Prototype
 
+**Equipment foundation (catalog 0.4.0):** see [EQUIPMENT_FOUNDATION.md](EQUIPMENT_FOUNDATION.md).
+Marrow Arm is now a left-arm body modification (`arm_l`); the sword stays in the right hand
+(`hand_r`). Build slots are `hand_r`/`hand_l` grips on `arm_r`/`arm_l` body slots; text below
+that names `main_hand`/`left_arm`/`right_arm` or a left-hand sword describes catalog 0.3.0.
+
 **Current playable milestone:** [First playable guide](FIRST_PLAYABLE.md). Catalog
 0.3.0 integrates Marrow Lunge and victory → salvage → equip → next duel into the normal
 entry scene. Marrow Arm preserves the 0.16 s deflection window; its former −0.05 s

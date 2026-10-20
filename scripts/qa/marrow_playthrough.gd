@@ -4,6 +4,7 @@ extends SceneTree
 ## keyboard/mouse events; this proves reachability, not human skill or game feel.
 const Playable = preload("res://scenes/salvage_courtyard.tscn")
 const Rules = preload("res://scripts/combat/combat_state.gd")
+const Look = preload("res://scripts/characters/presentation/equipment_look.gd")
 var arena: Node3D
 var output := "res://artifacts/marrow-playthrough"
 var held: Dictionary = {}
@@ -12,6 +13,7 @@ var captures: Dictionary = {}
 var tick := 0
 var failed := 0
 var negative_visual := false
+var negative_equipment := false
 var sequence_frames := {"enemy": 0, "player": 0}
 var lunge_observed := false
 var lunge_defended := false
@@ -25,6 +27,8 @@ func _initialize() -> void:
 			output = arg.trim_prefix("--evidence-dir=")
 		if arg == "--negative=marrow-visual":
 			negative_visual = true
+		if arg == "--negative=equipment-side":
+			negative_equipment = true
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
 	arena = Playable.instantiate()
 	root.add_child(arena)
@@ -67,6 +71,8 @@ func capture(label: String) -> void:
 func run() -> void:
 	await frame()
 	await capture("01_initial_duel")
+	check(Look.disagreements(arena.player).is_empty() and Look.disagreements(arena.enemy).is_empty()
+		and arena.enemy.marrow_pivot.position.x < 0.0 and arena.enemy.sword_pivot.position.x > 0.0, "enemy_marrow_left_sword_right_matches_build")
 	input("lock_on", true)
 	await frame()
 	input("lock_on", false)
@@ -95,10 +101,18 @@ func run() -> void:
 			elif not arena.progression.equipped():
 				await capture("05_salvage_acquired")
 				check(arena.progression.builds.player.carried == ["item.marrow_arm"] and pc.signature.is_empty(), "input_salvage_is_inventory_not_equipment")
+				check(not p.marrow_pivot.visible and p.free_arm.visible and Look.disagreements(p).is_empty(), "carried_marrow_not_attached")
 				input("equip", true)
 			elif arena.progression.duel_number == 1:
 				await capture("06_augmentation_equipped")
 				check(not pc.signature.is_empty() and p.marrow_pivot.visible, "input_equip_resolves_signature_and_visual")
+				if negative_equipment:
+					# Control: draw the bone on the wrong side without touching the build.
+					p.look.marrow_side = 1.0
+					p.sync_visual()
+				check(arena.progression.builds.player.equipped == {"hand_r": "item.notched_sword", "arm_l": "item.marrow_arm"}
+					and p.marrow_pivot.position.x < 0.0 and p.sword_pivot.position.x > 0.0 and not p.free_arm.visible
+					and Look.disagreements(p).is_empty() and Look.disagreements(e).is_empty(), "equipped_marrow_left_sword_right_matches_build")
 				input("next_duel", true)
 			else:
 				check(inherited_started and inherited_contact, "second_duel_won_with_inherited_power")

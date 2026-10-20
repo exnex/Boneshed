@@ -7,11 +7,15 @@ extends RefCounted
 ## Every operation returns a new build and leaves its input untouched. On any error the
 ## original build is returned unchanged. Errors are {"code", ...} records in a fixed
 ## (slot) order so outputs are deterministic.
+##
+## The build shape is unchanged from v0: `equipped` maps a slot id to one item id.
+## A two-handed weapon is stored once, in the grip it is held from; the paired grip it
+## also occupies is derived. A body slot without an item is the natural part.
 
 const Catalog := preload("res://scripts/builds/build_catalog.gd")
 
 const SCHEMA := "boneshed.build.v0"
-const RESOLVED_SCHEMA := "boneshed.resolved_build.v0"
+const RESOLVED_SCHEMA := "boneshed.resolved_build.v1"
 const BUILD_KEYS := ["build_id", "carried", "catalog_version", "equipped", "profile", "schema"]
 ## Derived values are rounded so floating-point noise never reaches outputs.
 const PRECISION := 10000.0
@@ -73,6 +77,7 @@ func resolve(build: Variant) -> Dictionary:
 		"stat_sources": sources,
 		"abilities": _resolve_abilities(build, final_stats),
 		"tradeoffs": _tradeoffs(build),
+		"equipment": _equipment(build),
 	}
 	resolved["guard_posture_overrides"] = profile.get("guard_posture_overrides", {}).duplicate(true)
 	resolved["fingerprint"] = Catalog.digest(resolved)
@@ -92,6 +97,25 @@ func equip(build: Variant, item_id: String, slot: String) -> Dictionary:
 		return {"ok": false, "errors": errors, "build": build}
 	var candidate: Dictionary = build.duplicate(true)
 	candidate.carried.erase(item_id)
+	candidate.equipped[slot] = item_id
+	return _commit(build, candidate)
+
+## Atomically swaps the item in a slot for a carried one; the old item becomes carried.
+## Weapon replacement and anatomical replacement share this operation; the slot kind
+## decides which rules apply. An empty slot behaves like `equip`.
+func replace(build: Variant, item_id: String, slot: String) -> Dictionary:
+	var errors := validate(build)
+	if errors.is_empty():
+		if not catalog.slots.has(slot):
+			errors.append({"code": "unknown_slot", "slot": slot})
+		elif not item_id in build.carried:
+			errors.append({"code": "not_carried", "item": item_id})
+	if not errors.is_empty():
+		return {"ok": false, "errors": errors, "build": build}
+	var candidate: Dictionary = build.duplicate(true)
+	candidate.carried.erase(item_id)
+	if candidate.equipped.has(slot):
+		candidate.carried.append(candidate.equipped[slot])
 	candidate.equipped[slot] = item_id
 	return _commit(build, candidate)
 
@@ -198,8 +222,11 @@ func _validate_loadout(build: Dictionary, errors: Array) -> void:
 		var item_id: String = build.equipped[slot]
 		if not catalog.items.has(item_id):
 			errors.append({"code": "unknown_item", "item": item_id, "slot": slot})
-		elif catalog.slots[slot].accepts != catalog.items[item_id].category or not slot in catalog.items[item_id].fits_slots:
+		elif Catalog.SLOT_ACCEPTS[catalog.slots[slot].kind] != catalog.items[item_id].category or not slot in catalog.items[item_id].fits_slots:
 			errors.append({"code": "wrong_slot", "item": item_id, "slot": slot})
+	if not errors.is_empty():
+		return
+	_validate_grips(build, slots, errors)
 	if not errors.is_empty():
 		return
 	var providers := {}
@@ -232,6 +259,66 @@ func _validate_loadout(build: Dictionary, errors: Array) -> void:
 			for tag in ability.requires_tags:
 				if not providers.has(tag):
 					errors.append({"code": "missing_ability_requirement", "ability": ability_id, "tag": tag})
+
+## A weapon needs a hand on each grip it occupies, and a two-handed weapon needs its
+## pair grip free. Limbs replaced by a handless body modification have no grip.
+func _validate_grips(build: Dictionary, slots: Array, errors: Array) -> void:
+	for slot in slots:
+		var item_id: String = build.equipped[slot]
+		if catalog.items[item_id].category != "weapon":
+			continue
+		var needed := [slot]
+		if catalog.hands_required(item_id) == 2:
+			needed.append(catalog.slots[slot].pair)
+		for grip in needed:
+			var limb: String = catalog.slots[grip].limb
+			var limb_item: String = build.equipped.get(limb, "")
+			if not catalog.keeps_grip(limb_item):
+				errors.append({"code": "grip_unavailable", "item": item_id, "slot": grip, "limb": limb, "blocked_by": limb_item})
+			elif grip != slot and build.equipped.has(grip):
+				errors.append({"code": "grip_occupied", "item": item_id, "slot": grip, "conflicts_with": build.equipped[grip]})
+
+## Gameplay-facing equipment view, in slot order: what each anatomical part is, which
+## grips exist and what holds them, and the physical profile of every weapon,
+## including explicitly declared natural weapons. Combat and presentation read this
+## instead of inferring anatomy from abilities.
+func _equipment(build: Dictionary) -> Dictionary:
+	var body := []
+	var grips := []
+	var weapons := []
+	var natural := []
+	var held := {}
+	var capabilities := {"weapon": {}, "body": {}}
+	for slot in catalog.slot_order:
+		var item_id: String = build.equipped.get(slot, "")
+		if catalog.slots[slot].kind == "grip" and not item_id.is_empty():
+			held[slot] = item_id
+			if catalog.hands_required(item_id) == 2:
+				held[catalog.slots[slot].pair] = item_id
+	for slot in catalog.slot_order:
+		var definition: Dictionary = catalog.slots[slot]
+		var item_id: String = build.equipped.get(slot, "")
+		var item: Dictionary = catalog.items.get(item_id, {})
+		for tag in item.get("provides_tags", []):
+			capabilities["weapon" if item.category == "weapon" else "body"][tag] = true
+		if definition.kind == "body":
+			body.append({"slot": slot, "part": definition.part, "side": definition.side, "item": item_id,
+				"grip": catalog.keeps_grip(item_id), "natural_weapon": not item.is_empty() and item.anatomy.has("natural_weapon")})
+			if not item.is_empty() and item.anatomy.has("natural_weapon"):
+				natural.append(_weapon_view(item_id, item.anatomy.natural_weapon, slot, definition.side, [], true))
+		else:
+			grips.append({"slot": slot, "limb": definition.limb, "side": definition.side,
+				"available": catalog.keeps_grip(build.equipped.get(definition.limb, "")), "held_by": held.get(slot, "")})
+			if not item_id.is_empty():
+				var occupied := [slot] if catalog.hands_required(item_id) == 1 else [slot, definition.pair]
+				weapons.append(_weapon_view(item_id, item.weapon, slot, definition.side, occupied, false))
+	return {"body": body, "grips": grips, "weapons": weapons + natural,
+		"capabilities": {"weapon": _sorted(capabilities.weapon.keys()), "body": _sorted(capabilities.body.keys())}}
+
+func _weapon_view(item_id: String, profile: Dictionary, slot: String, side: String, occupied: Array, is_natural: bool) -> Dictionary:
+	return {"item": item_id, "slot": slot, "side": side, "grips": occupied, "natural": is_natural,
+		"class": profile["class"], "grip": profile.get("grip", ""), "reach": profile.reach, "weight": profile.weight,
+		"handling": profile.handling.duplicate(true), "defense": profile.defense.duplicate(true)}
 
 ## The ability definition is shared and unchanged; only `effective` reflects the wielder.
 func _resolve_abilities(build: Dictionary, final_stats: Dictionary) -> Array:

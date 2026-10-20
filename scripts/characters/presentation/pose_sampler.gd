@@ -77,7 +77,8 @@ static func blend(a: Dictionary, b: Dictionary, weight: float) -> Dictionary:
 		pose[channel] = lerp(a[channel], b[channel], weight)
 	return pose
 
-## Right-handed pose for a left-hand sword (the bone arm takes the right side).
+## Exact left/right reflection of a pose: a right-hand sword pose becomes a left-hand
+## one, and the right-bone Marrow Lunge track becomes a left-bone one.
 static func mirror(pose: Dictionary) -> Dictionary:
 	var out := pose.duplicate()
 	out.hand = Vector3(-pose.hand.x, pose.hand.y, pose.hand.z)
@@ -86,8 +87,11 @@ static func mirror(pose: Dictionary) -> Dictionary:
 	out.off = Vector3(-pose.off.x, pose.off.y, pose.off.z)
 	return out
 
-## Base pose for the current rule state, before reaction layers.
-static func base_pose(state: Rules, mirrored: bool, reaction_kind: String) -> Dictionary:
+## Base pose for the current rule state, before reaction layers. `weapon_mirrored`
+## reflects the right-handed sword tracks for a left-hand weapon; `bone_mirrored`
+## reflects the right-bone Marrow Lunge track for a left Marrow Arm. Both come from
+## the resolved equipment, never from which abilities exist.
+static func base_pose(state: Rules, weapon_mirrored: bool, reaction_kind: String, bone_mirrored := false) -> Dictionary:
 	var pose: Dictionary
 	var authored_final := false
 	match state.phase:
@@ -106,7 +110,7 @@ static func base_pose(state: Rules, mirrored: bool, reaction_kind: String) -> Di
 			pose = blend(Keys.REST, Keys.DODGE, smoothstep(0.0, 0.15, progress) * (1.0 - smoothstep(0.65, 1.0, progress)))
 		_:
 			pose = Keys.GUARD.duplicate() if state.guarding else Keys.REST.duplicate()
-	return mirror(pose) if mirrored and not authored_final else pose
+	return mirror(pose) if (bone_mirrored if authored_final else weapon_mirrored) else pose
 
 ## 1 at impact, a fast damped recoil with one small rebound, exactly 0 at the end.
 static func reaction_envelope(elapsed: float) -> float:

@@ -1,7 +1,7 @@
 {
-	"schema": "boneshed.build_catalog.v0",
-	"catalog_version": "0.3.0",
-	"provisional": "Provisional first-playable tuning. Marrow Lunge: long narrow reach, 0.7s windup, 0.2s active, 0.8s recovery. Marrow Arm excludes two-handed grips; it does not reduce deflection responsiveness. Slots and bindings remain provisional.",
+	"schema": "boneshed.build_catalog.v1",
+	"catalog_version": "0.4.0",
+	"provisional": "Provisional first-playable tuning and equipment vocabulary. Weapons occupy grip slots carried by limbs; body modifications replace anatomical parts. Marrow Arm replaces the left arm and has no hand, so the left grip is unavailable and two-handed grips are impossible; the sword stays in the right hand. Marrow Lunge: long narrow reach, 0.7s windup, 0.2s active, 0.8s recovery; it is a legacy first-playable demonstration (binding 'special'), not a property of body modifications. Weapon classes and handling numbers are placeholders for the directional-melee prototype; no combat rule reads them yet. Slots and bindings remain provisional.",
 	"stats": [
 		{"id": "max_health", "min": 1, "max": 999, "better": "higher"},
 		{"id": "max_posture", "min": 1, "max": 999, "better": "higher"},
@@ -15,10 +15,19 @@
 		{"id": "posture_recovery_delay", "min": 0, "max": 10, "better": "lower"}
 	],
 	"slots": [
-		{"id": "main_hand", "accepts": "weapon"},
-		{"id": "left_arm", "accepts": "augment"},
-		{"id": "right_arm", "accepts": "augment"}
+		{"id": "hand_r", "kind": "grip", "side": "right", "limb": "arm_r", "pair": "hand_l"},
+		{"id": "hand_l", "kind": "grip", "side": "left", "limb": "arm_l", "pair": "hand_r"},
+		{"id": "arm_r", "kind": "body", "side": "right", "part": "arm"},
+		{"id": "arm_l", "kind": "body", "side": "left", "part": "arm"}
 	],
+	"equipment_classes": {
+		"weapon_classes": ["blade", "staff", "shield", "natural"],
+		"reach_classes": ["short", "medium", "long"],
+		"weight_classes": ["light", "medium", "heavy"],
+		"grips": {"one_handed": 1, "two_handed": 2},
+		"body_parts": ["arm"]
+	},
+	"legacy_abilities": ["ability.marrow_lunge"],
 	"bindings": ["light", "heavy", "special"],
 	"profiles": [
 		{
@@ -66,7 +75,7 @@
 			"tags": ["melee", "thrust", "signature", "corrupted"],
 			"requires_tags": ["body.marrow_arm"],
 			"module": "module.marrow_lunge",
-			"telegraph": "The bone arm splits open and draws far back before a straight, long thrust.",
+			"telegraph": "The left bone arm splits open and draws far back before a straight, long thrust.",
 			"timing": {"windup": 0.7, "active": 0.2, "recovery": 0.8},
 			"hit": {"health_damage": 26, "guard_posture": 45, "reach": 3.4, "width": 0.9, "posture_damage": 18}
 		}
@@ -76,27 +85,33 @@
 			"id": "item.notched_sword",
 			"name": "Notched Sword",
 			"category": "weapon",
-			"fits_slots": ["main_hand"],
+			"fits_slots": ["hand_r", "hand_l"],
 			"provides_tags": ["wield.blade"],
 			"requires_tags": [],
 			"excludes_tags": [],
 			"grants": ["attack.slash", "attack.heavy_slash"],
 			"modifiers": [],
 			"salvageable": false,
-			"notes": "Ordinary one-handed blade. Not salvageable in this prototype."
+			"weapon": {
+				"class": "blade", "grip": "one_handed", "reach": "medium", "weight": "medium",
+				"handling": {"length": 1.8, "mass": 1.4, "balance": 0.25},
+				"defense": {"guard": true, "deflect": true}
+			},
+			"notes": "Ordinary one-handed blade. Fits either hand; both courtyard fighters hold it in the right. Not salvageable in this prototype."
 		},
 		{
 			"id": "item.marrow_arm",
 			"name": "Marrow Arm",
-			"category": "augment",
-			"fits_slots": ["right_arm"],
+			"category": "body_mod",
+			"fits_slots": ["arm_l"],
 			"provides_tags": ["body.marrow_arm", "body.augmented"],
 			"requires_tags": [],
-			"excludes_tags": ["grip.two_handed"],
+			"excludes_tags": [],
 			"grants": ["ability.marrow_lunge"],
 			"modifiers": [],
 			"salvageable": true,
-			"notes": "Grants Marrow Lunge: a long, narrow bone thrust with committed recovery. Incompatible with two-handed grips. Standard deflection window is preserved."
+			"anatomy": {"part": "arm", "grip": false},
+			"notes": "Left-arm body modification: a handless, split-bone limb. It holds no weapon, so the left grip is unavailable and two-handed grips are impossible. Standard deflection window is preserved. Legacy: also grants the provisional Marrow Lunge demonstration."
 		}
 	]
 }

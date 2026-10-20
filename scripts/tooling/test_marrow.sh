@@ -21,13 +21,16 @@ def run(name, args, expected=0, seconds=60):
     return [json.loads(line) for line in text.splitlines() if line.startswith('{')]
 run('import', base + ['--editor', '--import'])
 records = run('rules_progression', base + ['--script', 'res://scripts/qa/marrow_tests.gd'])
-assert any(r.get('summary') and r['passed'] == 193 and r['failed'] == 0 for r in records)
+assert any(r.get('summary') and r['passed'] == 212 and r['failed'] == 0 for r in records)
 run('mutations', ['python3', str(pathlib.Path(repo) / 'scripts/qa/marrow_mutations.py'), engine, repo, str(output / 'mutations')], seconds=180)
 args = ['--fixed-fps', '60', '--script', 'res://scripts/qa/marrow_playthrough.gd', '--']
 run('input_headless', base + args + ['--evidence-dir=' + str(output / 'headless')])
 run('negative_pose', base + args + ['--negative=marrow-visual', '--evidence-dir=' + str(output / 'negative-pose')], expected=1)
 negative = json.loads((output / 'negative-pose/summary.json').read_text())
 assert negative['failed'] > 0
+# Equipment control: a bone drawn on the wrong side must fail the build/visual agreement check.
+side = run('negative_equipment', base + args + ['--negative=equipment-side', '--evidence-dir=' + str(output / 'negative-equipment')], expected=1)
+assert [r['check'] for r in side if r.get('passed') is False] == ['equipped_marrow_left_sword_right_matches_build'], side
 rendered = ['xvfb-run', '-a', '-s', '-screen 0 1280x720x24 -nolisten tcp', engine,
             '--path', repo, '--rendering-method', 'gl_compatibility', '--audio-driver', 'Dummy']
 run('input_rendered', rendered + args + ['--evidence-dir=' + str(output / 'rendered')], seconds=int(os.environ.get('BONESHED_GRAPHICAL_TIMEOUT', '900')))
@@ -42,5 +45,5 @@ assert len(list((output / 'rendered/player-lunge').glob('frame_*.png'))) >= 20
 headless = json.loads((output / 'headless/trace.json').read_text())
 rendered_trace = json.loads((output / 'rendered/trace.json').read_text())
 assert headless == rendered_trace, 'rendered and headless input traces differ'
-print('Shared lunge, progression, mutation, pose negative control and rendered input trace checks passed.')
+print('Shared lunge, progression, mutation, pose and equipment negative controls and rendered input trace checks passed.')
 PY

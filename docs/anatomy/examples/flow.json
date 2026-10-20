@@ -1,8 +1,8 @@
 {
 	"catalog": {
-		"build_catalog_fingerprint": "60bccc6041358946",
-		"build_catalog_version": "0.3.0",
-		"fingerprint": "2fd4fc6b9b6d206b",
+		"build_catalog_fingerprint": "323f3a5c5dae547f",
+		"build_catalog_version": "0.4.0",
+		"fingerprint": "59d6e95ae55a4947",
 		"version": "0.1.0"
 	},
 	"examples": [
@@ -182,7 +182,7 @@
 			"legacy_slots": {
 				"anatomy_only_nodes": [],
 				"equipped": {
-					"main_hand": "item.notched_sword"
+					"hand_r": "item.notched_sword"
 				},
 				"lossless": true,
 				"ok": true,
@@ -331,7 +331,7 @@
 					{
 						"item": "equip.notched_sword",
 						"mounts": [
-							"arm_l/grip"
+							"arm_r/grip"
 						]
 					}
 				],
@@ -339,14 +339,14 @@
 					{
 						"id": "arm_l",
 						"parent": "torso",
-						"part": "part.human_arm",
+						"part": "part.marrow_arm",
 						"proportions": {},
 						"socket": "shoulder_l"
 					},
 					{
 						"id": "arm_r",
 						"parent": "torso",
-						"part": "part.marrow_arm",
+						"part": "part.human_arm",
 						"proportions": {},
 						"socket": "shoulder_r"
 					},
@@ -376,14 +376,14 @@
 			},
 			"capabilities": {
 				"grasp": [
-					"arm_l"
+					"arm_r"
 				],
 				"guard.parry": [
 					"arm_l",
 					"arm_r"
 				],
 				"limb.marrow": [
-					"arm_r"
+					"arm_l"
 				],
 				"locomotion.biped": [
 					"legs"
@@ -392,10 +392,10 @@
 					"head"
 				],
 				"strike.thrust": [
-					"arm_r"
+					"arm_l"
 				],
 				"wield.blade": [
-					"arm_l"
+					"arm_r"
 				]
 			},
 			"combat_view": {
@@ -422,7 +422,7 @@
 						"missing": [],
 						"origin": {
 							"animation_module": "anim.arm_standard",
-							"node": "arm_l",
+							"node": "arm_r",
 							"point": "grip"
 						}
 					},
@@ -435,7 +435,7 @@
 						"missing": [],
 						"origin": {
 							"animation_module": "anim.arm_standard",
-							"node": "arm_l",
+							"node": "arm_r",
 							"point": "grip"
 						}
 					},
@@ -448,13 +448,13 @@
 						"missing": [],
 						"origin": {
 							"animation_module": "anim.arm_marrow",
-							"node": "arm_r",
+							"node": "arm_l",
 							"point": "bone_tip"
 						}
 					}
 				],
 				"body_id": "body.marrow_replacement",
-				"gameplay_fingerprint": "05174b27e71ee280",
+				"gameplay_fingerprint": "7fab8557cbaca44b",
 				"guard": {
 					"facing_node": "torso",
 					"guarding_nodes": [
@@ -493,27 +493,27 @@
 					{
 						"class": "long",
 						"flag": "review_reach",
-						"node": "arm_r"
+						"node": "arm_l"
 					},
 					{
 						"flag": "asymmetric_silhouette",
 						"left": [
-							"part.human_arm"
+							"part.marrow_arm"
 						],
 						"right": [
-							"part.marrow_arm"
+							"part.human_arm"
 						]
 					}
 				],
 				"schema": "boneshed.anatomy_combat_view.v0"
 			},
-			"fingerprint": "63b6500888b6dddc",
-			"gameplay_fingerprint": "05174b27e71ee280",
+			"fingerprint": "b4afa27515f777dc",
+			"gameplay_fingerprint": "7fab8557cbaca44b",
 			"legacy_slots": {
 				"anatomy_only_nodes": [],
 				"equipped": {
-					"main_hand": "item.notched_sword",
-					"right_arm": "item.marrow_arm"
+					"arm_l": "item.marrow_arm",
+					"hand_r": "item.notched_sword"
 				},
 				"lossless": true,
 				"ok": true,
@@ -521,7 +521,7 @@
 			},
 			"mounts": [
 				{
-					"mount": "arm_l/grip",
+					"mount": "arm_r/grip",
 					"occupied_by": "equip.notched_sword",
 					"type": "grip"
 				}
@@ -534,12 +534,12 @@
 					"missing": [],
 					"origin": {
 						"animation_module": "anim.arm_marrow",
-						"node": "arm_r",
+						"node": "arm_l",
 						"point": "bone_tip"
 					},
 					"sources": {
 						"limb.marrow": [
-							"arm_r"
+							"arm_l"
 						]
 					}
 				},
@@ -550,12 +550,12 @@
 					"missing": [],
 					"origin": {
 						"animation_module": "anim.arm_standard",
-						"node": "arm_l",
+						"node": "arm_r",
 						"point": "grip"
 					},
 					"sources": {
 						"wield.blade": [
-							"arm_l"
+							"arm_r"
 						]
 					}
 				},
@@ -566,12 +566,12 @@
 					"missing": [],
 					"origin": {
 						"animation_module": "anim.arm_standard",
-						"node": "arm_l",
+						"node": "arm_r",
 						"point": "grip"
 					},
 					"sources": {
 						"wield.blade": [
-							"arm_l"
+							"arm_r"
 						]
 					}
 				},
@@ -621,7 +621,7 @@
 						{
 							"capability": "limb.marrow",
 							"nodes": [
-								"arm_r"
+								"arm_l"
 							]
 						}
 					],
@@ -877,7 +877,7 @@
 					"torso"
 				],
 				"equipped": {
-					"main_hand": "item.notched_sword"
+					"hand_r": "item.notched_sword"
 				},
 				"lossless": false,
 				"ok": false,
@@ -1268,7 +1268,7 @@
 					"torso"
 				],
 				"equipped": {
-					"main_hand": "item.notched_sword"
+					"hand_l": "item.notched_sword"
 				},
 				"lossless": false,
 				"ok": true,
@@ -1479,7 +1479,7 @@
 				{
 					"code": "unknown_mount",
 					"item": "equip.notched_sword",
-					"mount": "arm_r/grip",
+					"mount": "arm_l/grip",
 					"op_index": 1
 				}
 			],
@@ -1487,13 +1487,13 @@
 			"id": "r.sword_in_handless_marrow_arm",
 			"ops": [
 				{
-					"mount": "arm_l/grip",
+					"mount": "arm_r/grip",
 					"op": "unmount"
 				},
 				{
 					"item": "equip.notched_sword",
 					"mounts": [
-						"arm_r/grip"
+						"arm_l/grip"
 					],
 					"op": "mount"
 				}
@@ -1645,7 +1645,7 @@
 					{
 						"item": "equip.notched_sword",
 						"mounts": [
-							"arm_l/grip"
+							"arm_r/grip"
 						]
 					}
 				],
@@ -1653,14 +1653,14 @@
 					{
 						"id": "arm_l",
 						"parent": "torso",
-						"part": "part.human_arm",
+						"part": "part.marrow_arm",
 						"proportions": {},
 						"socket": "shoulder_l"
 					},
 					{
 						"id": "arm_r",
 						"parent": "torso",
-						"part": "part.marrow_arm",
+						"part": "part.human_arm",
 						"proportions": {},
 						"socket": "shoulder_r"
 					},
@@ -1707,20 +1707,20 @@
 				],
 				"modules_removed": [],
 				"nodes_added": [
-					"arm_r:part.marrow_arm"
+					"arm_l:part.marrow_arm"
 				],
 				"nodes_removed": [
-					"arm_r:part.human_arm"
+					"arm_l:part.human_arm"
 				]
 			},
 			"expect": "body.marrow_replacement",
 			"from": "body.humanoid_fighter",
-			"id": "t.corrupt_right_arm",
+			"id": "t.corrupt_left_arm",
 			"legacy_slots": {
 				"anatomy_only_nodes": [],
 				"equipped": {
-					"main_hand": "item.notched_sword",
-					"right_arm": "item.marrow_arm"
+					"arm_l": "item.marrow_arm",
+					"hand_r": "item.notched_sword"
 				},
 				"lossless": true,
 				"ok": true,
@@ -1729,30 +1729,13 @@
 			"matches_expected": true,
 			"ops": [
 				{
-					"node": "arm_r",
+					"node": "arm_l",
 					"op": "replace",
 					"part": "part.marrow_arm"
-				},
-				{
-					"item": "equip.notched_sword",
-					"mounts": [
-						"arm_l/grip"
-					],
-					"op": "mount"
 				}
 			],
 			"report": {
-				"displaced": [
-					{
-						"item": "equip.notched_sword",
-						"mounts": [
-							"arm_r/grip"
-						],
-						"reasons": [
-							"unknown_mount"
-						]
-					}
-				],
+				"displaced": [],
 				"equipment_released": [],
 				"equipment_required": [],
 				"parts_added": [
@@ -1765,7 +1748,7 @@
 				"replaced": [
 					{
 						"from": "part.human_arm",
-						"node": "arm_r",
+						"node": "arm_l",
 						"to": "part.marrow_arm"
 					}
 				]
@@ -1846,10 +1829,10 @@
 					"anim.arm_marrow"
 				],
 				"nodes_added": [
-					"arm_r:part.human_arm"
+					"arm_l:part.human_arm"
 				],
 				"nodes_removed": [
-					"arm_r:part.marrow_arm"
+					"arm_l:part.marrow_arm"
 				]
 			},
 			"expect": "body.humanoid_fighter",
@@ -1858,7 +1841,7 @@
 			"legacy_slots": {
 				"anatomy_only_nodes": [],
 				"equipped": {
-					"main_hand": "item.notched_sword"
+					"hand_r": "item.notched_sword"
 				},
 				"lossless": true,
 				"ok": true,
@@ -1867,34 +1850,13 @@
 			"matches_expected": true,
 			"ops": [
 				{
-					"node": "arm_r",
+					"node": "arm_l",
 					"op": "replace",
 					"part": "part.human_arm"
-				},
-				{
-					"mount": "arm_l/grip",
-					"op": "unmount"
-				},
-				{
-					"item": "equip.notched_sword",
-					"mounts": [
-						"arm_r/grip"
-					],
-					"op": "mount"
 				}
 			],
 			"report": {
-				"displaced": [
-					{
-						"item": "equip.notched_sword",
-						"mounts": [
-							"arm_l/grip"
-						],
-						"reasons": [
-							"unmounted"
-						]
-					}
-				],
+				"displaced": [],
 				"equipment_released": [],
 				"equipment_required": [],
 				"parts_added": [
@@ -1907,7 +1869,7 @@
 				"replaced": [
 					{
 						"from": "part.marrow_arm",
-						"node": "arm_r",
+						"node": "arm_l",
 						"to": "part.human_arm"
 					}
 				]
@@ -2055,14 +2017,14 @@
 					{
 						"id": "arm_l",
 						"parent": "torso",
-						"part": "part.human_arm",
+						"part": "part.marrow_arm",
 						"proportions": {},
 						"socket": "shoulder_l"
 					},
 					{
 						"id": "arm_r",
 						"parent": "torso",
-						"part": "part.marrow_arm",
+						"part": "part.human_arm",
 						"proportions": {},
 						"socket": "shoulder_r"
 					},
@@ -2112,10 +2074,10 @@
 				],
 				"modules_removed": [],
 				"nodes_added": [
-					"arm_r:part.marrow_arm"
+					"arm_l:part.marrow_arm"
 				],
 				"nodes_removed": [
-					"arm_r:part.human_arm"
+					"arm_l:part.human_arm"
 				]
 			},
 			"expect": "",
@@ -2124,7 +2086,7 @@
 			"legacy_slots": {
 				"anatomy_only_nodes": [],
 				"equipped": {
-					"right_arm": "item.marrow_arm"
+					"arm_l": "item.marrow_arm"
 				},
 				"lossless": true,
 				"ok": true,
@@ -2133,7 +2095,7 @@
 			"matches_expected": true,
 			"ops": [
 				{
-					"node": "arm_r",
+					"node": "arm_l",
 					"op": "replace",
 					"part": "part.marrow_arm"
 				}
@@ -2165,7 +2127,7 @@
 				"replaced": [
 					{
 						"from": "part.human_arm",
-						"node": "arm_r",
+						"node": "arm_l",
 						"to": "part.marrow_arm"
 					}
 				]
@@ -2280,7 +2242,7 @@
 					"torso"
 				],
 				"equipped": {
-					"main_hand": "item.notched_sword"
+					"hand_r": "item.notched_sword"
 				},
 				"lossless": false,
 				"ok": false,
@@ -2465,7 +2427,7 @@
 					"torso"
 				],
 				"equipped": {
-					"main_hand": "item.notched_sword"
+					"hand_l": "item.notched_sword"
 				},
 				"lossless": false,
 				"ok": true,

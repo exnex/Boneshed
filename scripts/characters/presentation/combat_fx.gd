@@ -154,7 +154,7 @@ static func _sync_hit_mark(actor: Fighter, incoming_world: Vector3) -> void:
 		length = 0.35
 	elif attacker and attacker.combat.heavy:
 		roll = 1.2
-	if attacker and attacker.combat.signature.size() > 0 and not attacker.combat.is_signature():
+	if attacker and attacker.look.weapon_side < 0.0 and not attacker.combat.is_signature():
 		roll = -roll # Left-hand sword cuts the other way.
 	var toward := incoming_world if incoming_world.length_squared() > 0.0001 else Vector3.FORWARD
 	mark.position = Vector3(0.0, 1.3, 0.0) + toward * 0.32

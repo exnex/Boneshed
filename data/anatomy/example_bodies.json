@@ -16,13 +16,13 @@
 		{
 			"schema": "boneshed.anatomy.v0", "body_id": "body.marrow_replacement", "catalog_version": "0.1.0",
 			"nodes": [
-				{"id": "arm_l", "part": "part.human_arm", "parent": "torso", "socket": "shoulder_l", "proportions": {}},
-				{"id": "arm_r", "part": "part.marrow_arm", "parent": "torso", "socket": "shoulder_r", "proportions": {}},
+				{"id": "arm_l", "part": "part.marrow_arm", "parent": "torso", "socket": "shoulder_l", "proportions": {}},
+				{"id": "arm_r", "part": "part.human_arm", "parent": "torso", "socket": "shoulder_r", "proportions": {}},
 				{"id": "head", "part": "part.human_head", "parent": "torso", "socket": "neck", "proportions": {}},
 				{"id": "legs", "part": "part.biped_legs", "parent": "torso", "socket": "hips", "proportions": {}},
 				{"id": "torso", "part": "part.humanoid_torso", "parent": "", "socket": "", "proportions": {}}
 			],
-			"equipment": [{"item": "equip.notched_sword", "mounts": ["arm_l/grip"]}]
+			"equipment": [{"item": "equip.notched_sword", "mounts": ["arm_r/grip"]}]
 		},
 		{
 			"schema": "boneshed.anatomy.v0", "body_id": "body.four_armed", "catalog_version": "0.1.0",

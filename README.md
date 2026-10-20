@@ -32,7 +32,7 @@ bash scripts/tooling/play.sh
 
 Use WASD to move, mouse to orbit, wheel to zoom, Tab to lock, left mouse to attack, right mouse to
 guard/tap-deflect, Space to dodge, C for heavy, R to retry, and Esc for the expedition menu. After victory: F to
-salvage, E to equip, N for the next duel, Q for Marrow Lunge. See
+salvage, E to equip the left-arm Marrow modification, N for the next duel, Q for the legacy Marrow Lunge. See
 [the prototype guide](docs/COMBAT_PROTOTYPE.md) for setup details, architecture,
 timing values, reproducible tests, evidence, and human playtesting limitations.
 
@@ -57,6 +57,7 @@ timing values, reproducible tests, evidence, and human playtesting limitations.
 | [First playable loop](docs/FIRST_PLAYABLE.md) | Human controls, inherited attack, salvage/equip progression and evidence |
 | [First Expedition](docs/FIRST_EXPEDITION.md) | Desktop keyword selection, replayable generated world, exploration/duel integration and validation |
 | [Shared builds and salvage](docs/SHARED_BUILDS.md) | Shared player/enemy build contract and its historical foundation |
+| [Equipment foundation](docs/EQUIPMENT_FOUNDATION.md) | Weapons vs body modifications, grips and limbs, left-arm Marrow Arm, data format and migration |
 | [Anatomy and transformation](docs/ANATOMY.md) | Isolated, provisional body-graph prototype: extra limbs, replacements, equipment mounts, capability requirements, transformations and a proposed combat contract |
 | [Animation pipeline](docs/ANIMATION_PIPELINE.md) | Isolated research prototype: recommended Blender → glTF → AnimationTree pipeline, rule-timed clips, collision contract, transformations, rendered evidence |
 | [Engineering standards](docs/engineering/README.md) | GDScript and Godot architecture guides, agent checklist, code audit and debt backlog |

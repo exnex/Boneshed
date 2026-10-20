@@ -150,7 +150,7 @@ func scene_checks(arena: Node3D, scene: String) -> void:
 			var now := Sampler.attack_rule_time(e.combat)
 			if negative == "contact" and e.combat.phase == Rules.Phase.ACTIVE and binding != "special":
 				var late := Sampler.attack_pose(binding, Sampler.timing_of(e.combat), now - 0.06)
-				late = Sampler.mirror(late) if not e.combat.signature.is_empty() else late
+				late = Sampler.mirror(late) if e.look.weapon_side < 0.0 else late
 				e.sword_pivot.position = late.hand
 				e.sword_pivot.rotation = late.blade
 			var tip := e.sword_pivot.to_global(Vector3(0.0, 0.0, -TIP))
@@ -225,7 +225,7 @@ func scene_checks(arena: Node3D, scene: String) -> void:
 	p.sync_visual(1.0 / 60.0)
 	var eased := p.sword_pivot.position
 	p.sync_visual(Visual.FADE_SECONDS)
-	var guard := Keys.GUARD.hand if p.combat.signature.is_empty() else Vector3(-Keys.GUARD.hand.x, Keys.GUARD.hand.y, Keys.GUARD.hand.z)
+	var guard := Keys.GUARD.hand if p.look.weapon_side > 0.0 else Vector3(-Keys.GUARD.hand.x, Keys.GUARD.hand.y, Keys.GUARD.hand.z)
 	check(not eased.is_equal_approx(guard) and p.sword_pivot.position.is_equal_approx(guard), "guard_raise_eases_then_settles_" + scene)
 	p.combat.set_guard(false)
 	p.sync_visual(0.0)

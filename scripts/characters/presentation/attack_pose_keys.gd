@@ -8,8 +8,9 @@ extends RefCounted
 ## marks an anticipation peak or a settle, so the body visibly stops there.
 ##
 ## Character space: -Z forward, +X right, metres and radians. Light and heavy are
-## authored right-handed and mirrored for a left-hand sword; special is authored in
-## its final (bone arm right, sword left) space.
+## authored right-handed and mirrored for a left-hand sword. Special (the legacy
+## Marrow Lunge) is authored with the bone arm on the right and the sword in the
+## left hand, and is mirrored for the catalog's left Marrow Arm (sword right).
 ## Channels: hand = sword grip point, blade = sword Euler rotation, torso = chest
 ## Euler rotation, body = Vector4(crouch, lean back, lead-foot step, foot lift),
 ## grip = off hand on the hilt (0..1), off = free off-hand point.

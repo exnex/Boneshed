@@ -4,6 +4,7 @@ extends CharacterBody3D
 const Visual = preload("res://scripts/characters/fighter_visual.gd")
 const AttackModules = preload("res://scripts/combat/attack_modules.gd")
 const Rules = preload("res://scripts/combat/combat_state.gd")
+const Look = preload("res://scripts/characters/presentation/equipment_look.gd")
 var combat := Rules.new()
 var move_speed := 0.0 # Set from the prepared build before entering the scene tree.
 @export var acceleration := 32.0
@@ -19,6 +20,13 @@ var facing := Vector3.FORWARD
 var dodge_direction := Vector3.FORWARD
 var opponent: Fighter
 var is_player := false
+## The resolved build's equipment view (BuildRules `equipment`). Presentation reads
+## `look`, derived from it; nothing visual is inferred from abilities.
+var equipment: Dictionary = {}:
+	set(value):
+		equipment = value
+		look = Look.describe(value)
+var look: Dictionary = Look.describe({})
 var body_color := Color("b4c9ba")
 var marrow_pivot: Node3D
 var marrow_bone: MeshInstance3D
