@@ -51,6 +51,7 @@ timing values, reproducible tests, evidence, and human playtesting limitations.
 | [Camera zoom](docs/CAMERA_ZOOM.md) | Smooth wheel zoom, tuning, collision/persistence contract, tests and human playtest |
 | [Keyword world blueprints](docs/WORLDGEN_KEYWORDS.md) | Provisional three-keyword → WorldBlueprint contract consumed by First Expedition |
 | [Combat build integration](docs/COMBAT_BUILD_INTEGRATION.md) | Live courtyard adapter, exact parity and validation |
+| [Enemy survival AI](docs/ENEMY_SURVIVAL_AI.md) | Provisional reaction-delayed defense, counters, spacing and retreat for the corrupted swordsman; fairness bounds and evidence |
 | [First playable loop](docs/FIRST_PLAYABLE.md) | Human controls, inherited attack, salvage/equip progression and evidence |
 | [First Expedition](docs/FIRST_EXPEDITION.md) | Desktop keyword selection, replayable generated world, exploration/duel integration and validation |
 | [Shared builds and salvage](docs/SHARED_BUILDS.md) | Shared player/enemy build contract and its historical foundation |
