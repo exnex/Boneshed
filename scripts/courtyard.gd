@@ -34,11 +34,13 @@ func _ready() -> void:
 	_build_courtyard()
 	player = Player.new()
 	player.combat = prepared.states.player
+	player.equipment = prepared.resolved.player.equipment
 	player.move_speed = prepared.configs.player.move_speed
 	player.name = "Pilgrim"
 	add_child(player)
 	enemy = Swordsman.new()
 	enemy.combat = prepared.states.enemy
+	enemy.equipment = prepared.resolved.enemy.equipment
 	enemy.move_speed = prepared.configs.enemy.move_speed
 	enemy.name = "CorruptedSwordsman"
 	add_child(enemy)
@@ -77,6 +79,7 @@ func _physics_process(delta: float) -> void:
 		if equipped.ok:
 			resolved_builds.player = equipped.resolved.player
 			player.combat = equipped.states.player
+			player.equipment = equipped.resolved.player.equipment
 			player.move_speed = equipped.configs.player.move_speed
 			player.sync_visual()
 		_report_transaction(equipped, "MARROW ARM EQUIPPED · N to begin the next duel")
@@ -114,6 +117,8 @@ func _start_duel(next_duel: bool) -> void:
 	resolved_builds = prepared.resolved
 	player.combat = prepared.states.player
 	enemy.combat = prepared.states.enemy
+	player.equipment = prepared.resolved.player.equipment
+	enemy.equipment = prepared.resolved.enemy.equipment
 	player.move_speed = prepared.configs.player.move_speed
 	enemy.move_speed = prepared.configs.enemy.move_speed
 	_reset_positions()

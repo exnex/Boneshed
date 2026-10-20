@@ -1,5 +1,10 @@
 # Extensible Anatomy and Transformation — Design and Prototype
 
+**Equipment foundation (catalog 0.4.0):** see [EQUIPMENT_FOUNDATION.md](EQUIPMENT_FOUNDATION.md).
+Marrow Arm is now a left-arm body modification (`arm_l`); the sword stays in the right hand
+(`hand_r`). Build slots are `hand_r`/`hand_l` grips on `arm_r`/`arm_l` body slots; text below
+that names `main_hand`/`left_arm`/`right_arm` or a left-hand sword describes catalog 0.3.0.
+
 **Current playable milestone:** [First playable guide](FIRST_PLAYABLE.md). Catalog
 0.3.0 integrates Marrow Lunge and victory → salvage → equip → next duel into the normal
 entry scene. Marrow Arm preserves the 0.16 s deflection window; its former −0.05 s
@@ -147,9 +152,9 @@ before they can appear in combat.
 `check_requirement(resolved, id)` returns met/missing/excluded, the nodes that satisfy
 each term, and the **attack origin**: the first provider's node, its declared origin point
 and its animation module. `attack.slash` needs one `wield.blade` provider — so it
-originates at whichever arm holds the sword (`arm_r/grip` for the humanoid, `arm_l/grip`
-once the right arm is a Marrow Arm). `ability.marrow_lunge` needs `limb.marrow` and
-originates at `arm_r/bone_tip`. Equipment capabilities are credited to the node of their
+originates at whichever arm holds the sword (`arm_r/grip` for the humanoid and for the
+left-arm Marrow body; `arm_l/grip` for the carapace brute). `ability.marrow_lunge` needs
+`limb.marrow` and originates at `arm_l/bone_tip`. Equipment capabilities are credited to the node of their
 first mount.
 
 ### Transformations
@@ -169,8 +174,8 @@ Generated in [`docs/anatomy/examples/SUMMARY.md`](anatomy/examples/SUMMARY.md):
 
 1. **`body.humanoid_fighter`** — humanoid torso, head, two arms, biped legs, sword in
    `arm_r/grip`. No review flags. Projects losslessly to today's `player.fixture` build.
-2. **`body.marrow_replacement`** — `arm_r` replaced by the handless Marrow Arm
-   (`limb.marrow`, `strike.thrust`, long reach). The sword moves to `arm_l`. Unlocks
+2. **`body.marrow_replacement`** — `arm_l` replaced by the handless Marrow Arm
+   (`limb.marrow`, `strike.thrust`, long reach). The sword stays in `arm_r`. Unlocks
    `ability.marrow_lunge`; blocks `probe.two_handed_grip` (no second grip and an explicit
    `none: limb.marrow`). Projects losslessly to today's `soul.marrow_swordsman` build.
 3. **`body.four_armed`** — spined torso adds a lower shoulder pair. Upper arms: full
@@ -183,8 +188,8 @@ Generated in [`docs/anatomy/examples/SUMMARY.md`](anatomy/examples/SUMMARY.md):
    a counterweight tail, digitigrade legs, raised height. Flags: asymmetric, long reach,
    large hurtboxes, non-baseline locomotion, extra tail.
 
-Transformations demonstrated: humanoid → corrupted arm (sword displaced, then remounted
-left); corrupted arm → humanoid (Marrow Arm released to `carried`); humanoid →
+Transformations demonstrated: humanoid → corrupted left arm (the sword hand is untouched);
+corrupted arm → humanoid (Marrow Arm released to `carried`); humanoid →
 two-handed grip → corrupted (greatsword displaced because its pair is broken); humanoid
 → four-armed (core replaced, all children kept); four-armed → brute (three arms removed
 with their equipment displaced, sword remounted). The four transformations that target an
@@ -213,8 +218,8 @@ read. It is a proposal; no combat code reads it.
 The anatomy core has **no dependency** on `scripts/builds`; only `build_projection.gd`
 reads the build catalog (duck-typed, never preloaded, never written). Today's slots are a
 lossy projection of a body: `legacy_slots()` maps equipment with a `build_item` to its
-build slot and side-mounted parts with a `build_item` (the Marrow Arm) to
-`left_arm`/`right_arm`. Tests prove the humanoid and Marrow bodies project to exactly the
+grip slot by the side of its holding limb (`hand_r`/`hand_l`) and side-mounted parts
+with a `build_item` (the Marrow Arm) to `arm_l`/`arm_r`. Tests prove the humanoid and Marrow bodies project to exactly the
 current `player.fixture` and `soul.marrow_swordsman` loadouts, that the humanoid body
 projects to the loadout of **both** live courtyard actors in `data/builds/courtyard.json`
 (read as data only), and that every projection validates with the **unchanged**

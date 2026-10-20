@@ -18,6 +18,16 @@ def run(engine: str, repo: Path, output: Path) -> None:
          'lunge_damage_posture_Pilgrimhit'),
         ('combat/combat_state.gd', 'attacker.hit_consumed = true', 'attacker.hit_consumed = false',
          'one_contact_per_lunge_Pilgrimhit'),
+        # Equipment presentation: the bone must grow from the resolved (left) arm,
+        # the lunge pose must follow the bone, and handedness must come from the build.
+        ('characters/fighter_visual.gd', 'chest * Vector3(side * 0.42', 'chest * Vector3(0.42',
+         'marrow_left_sword_right_visual_Pilgrim'),
+        ('characters/presentation/pose_sampler.gd', '(bone_mirrored if authored_final else weapon_mirrored)', 'weapon_mirrored',
+         'lunge_from_left_bone_sword_stays_right_Pilgrimhit'),
+        ('characters/fighter_visual.gd', 'var mirrored: bool = look.weapon_side < 0.0', 'var mirrored: bool = look.marrow_side != 0.0',
+         'marrow_left_sword_right_visual_Pilgrim'),
+        ('builds/build_catalog.gd', 'return body_item_id.is_empty() or bool(items[body_item_id].anatomy.grip)', 'return true',
+         'equipment_rules_reject_sword_in_marrow_hand'),
     ]
     results = []
     with tempfile.TemporaryDirectory(prefix='marrow-mutations-', dir=output) as temp:

@@ -25,8 +25,8 @@ func _init(prepared: Dictionary) -> void:
 func owns(item: String) -> bool:
 	return item in builds.player.carried or item in builds.player.equipped.values()
 
-func equipped() -> bool:
-	return builds.player.equipped.get("right_arm", "") == "item.marrow_arm"
+func equipped(item := "item.marrow_arm") -> bool:
+	return item in builds.player.equipped.values()
 
 func available_rewards() -> Array:
 	if stage != Stage.VICTORY:
@@ -72,7 +72,7 @@ func acquire() -> Dictionary:
 	builds = candidate
 	return {"ok": true, "errors": []}
 
-func equip(item := "item.marrow_arm", slot := "right_arm") -> Dictionary:
+func equip(item := "item.marrow_arm", slot := "arm_l") -> Dictionary:
 	if stage != Stage.VICTORY:
 		return _failure("equipment_requires_finished_duel")
 	var transaction: Dictionary = adapter.resolver.equip(builds.player, item, slot)

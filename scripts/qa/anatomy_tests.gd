@@ -13,7 +13,7 @@ const Fixture := preload("res://scripts/qa/anatomy_fixture.gd")
 const EXAMPLE_FLOW := "res://docs/anatomy/examples/flow.json"
 const LIVE_BUILDS := "res://data/builds/courtyard.json"
 const CORE_SCRIPTS := ["res://scripts/anatomy/anatomy_catalog.gd", "res://scripts/anatomy/anatomy_rules.gd"]
-const LEGACY_SLOTS := ["main_hand", "left_arm", "right_arm"]
+const LEGACY_SLOTS := ["hand_r", "hand_l", "arm_r", "arm_l"]
 
 ## Test-only definitions layered onto the real catalog. Never shipped as content.
 const FIXTURE_PARTS := [
@@ -276,8 +276,8 @@ func test_attachment_compatibility() -> void:
 	check(rules.validate(aux).is_empty(), "auxiliary_arm_fits_augmented_spine")
 	codes = _invalid("body.humanoid_fighter", func(b): _node(b, "arm_r").part = "part.carapace_arm")
 	check("incompatible_socket" in codes and "missing_required_tag" in codes, "carapace_arm_needs_great_shoulder_and_frame", codes)
-	var errors: Array = fixture_rules.validate(_with_node_part(_body("body.marrow_replacement"), "arm_l", "part.test_hollow_claw", true))
-	check(errors.any(func(e): return e.code == "excluded_tag" and e.node == "arm_r" and e.conflicts_with == "arm_l" and e.tag == "corruption.hollow"),
+	var errors: Array = fixture_rules.validate(_with_node_part(_body("body.marrow_replacement"), "arm_r", "part.test_hollow_claw", true))
+	check(errors.any(func(e): return e.code == "excluded_tag" and e.node == "arm_l" and e.conflicts_with == "arm_r" and e.tag == "corruption.hollow"),
 		"corruption_lineages_exclude_each_other", errors)
 	check(fixture_rules.validate(_with_node_part(_body("body.humanoid_fighter"), "arm_l", "part.test_hollow_claw", true)).is_empty(), "exclusion_only_applies_when_both_present")
 
@@ -360,13 +360,13 @@ func test_requirements() -> void:
 		var met: Array = rules.check_requirements(_resolved(examples[id])).filter(func(r): return r.met).map(func(r): return r.id)
 		check(met == expected[id], "requirements_resolved:" + id, met)
 	var lunge := _requirement(examples["body.marrow_replacement"], "ability.marrow_lunge")
-	check(lunge.origin == {"node": "arm_r", "point": "bone_tip", "animation_module": "anim.arm_marrow"}, "lunge_origin_is_marrow_limb", lunge.origin)
+	check(lunge.origin == {"node": "arm_l", "point": "bone_tip", "animation_module": "anim.arm_marrow"}, "lunge_origin_is_marrow_limb", lunge.origin)
 	var slash := _requirement(examples["body.marrow_replacement"], "attack.slash")
-	check(slash.origin.node == "arm_l" and slash.origin.point == "grip", "slash_origin_follows_the_sword", slash.origin)
+	check(slash.origin.node == "arm_r" and slash.origin.point == "grip", "slash_origin_follows_the_sword", slash.origin)
 	var missing := _requirement(examples["body.humanoid_fighter"], "probe.multi_parry")
 	check(not missing.met and missing.missing == [{"capability": "guard.parry", "need": 3, "have": 2}], "missing_capability_reported_with_counts")
 	var excluded := _requirement(examples["body.marrow_replacement"], "probe.test_no_marrow", fixture_rules)
-	check(not excluded.met and excluded.missing.is_empty() and excluded.excluded == [{"capability": "limb.marrow", "nodes": ["arm_r"]}], "excluded_capability_blocks_requirement")
+	check(not excluded.met and excluded.missing.is_empty() and excluded.excluded == [{"capability": "limb.marrow", "nodes": ["arm_l"]}], "excluded_capability_blocks_requirement")
 	check(_requirement(examples["body.humanoid_fighter"], "probe.test_no_marrow", fixture_rules).met, "exclusion_absent_requirement_met")
 	check(rules.check_requirement(_resolved(examples["body.humanoid_fighter"]), "ability.unknown").get("error") == "unknown_requirement", "unknown_requirement_reported")
 	var two_handed := _body("body.humanoid_fighter")
@@ -468,7 +468,7 @@ func test_serialization() -> void:
 		var loaded: Dictionary = rules.from_json(text)
 		check(loaded.ok and rules.to_json(loaded.body) == text, "json_round_trip:" + id)
 		check(_resolved(loaded.body).fingerprint == _resolved(examples[id]).fingerprint, "round_trip_resolves_identically:" + id)
-	check(rules.to_json(examples["body.marrow_replacement"]) == '{"body_id":"body.marrow_replacement","catalog_version":"0.1.0","equipment":[{"item":"equip.notched_sword","mounts":["arm_l/grip"]}],"nodes":[{"id":"arm_l","parent":"torso","part":"part.human_arm","proportions":{},"socket":"shoulder_l"},{"id":"arm_r","parent":"torso","part":"part.marrow_arm","proportions":{},"socket":"shoulder_r"},{"id":"head","parent":"torso","part":"part.human_head","proportions":{},"socket":"neck"},{"id":"legs","parent":"torso","part":"part.biped_legs","proportions":{},"socket":"hips"},{"id":"torso","parent":"","part":"part.humanoid_torso","proportions":{},"socket":""}],"schema":"boneshed.anatomy.v0"}',
+	check(rules.to_json(examples["body.marrow_replacement"]) == '{"body_id":"body.marrow_replacement","catalog_version":"0.1.0","equipment":[{"item":"equip.notched_sword","mounts":["arm_r/grip"]}],"nodes":[{"id":"arm_l","parent":"torso","part":"part.marrow_arm","proportions":{},"socket":"shoulder_l"},{"id":"arm_r","parent":"torso","part":"part.human_arm","proportions":{},"socket":"shoulder_r"},{"id":"head","parent":"torso","part":"part.human_head","proportions":{},"socket":"neck"},{"id":"legs","parent":"torso","part":"part.biped_legs","proportions":{},"socket":"hips"},{"id":"torso","parent":"","part":"part.humanoid_torso","proportions":{},"socket":""}],"schema":"boneshed.anatomy.v0"}',
 		"canonical_body_json_exact")
 	var shuffled := _body("body.four_armed")
 	shuffled.nodes.reverse()

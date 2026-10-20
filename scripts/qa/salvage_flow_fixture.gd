@@ -12,14 +12,14 @@ const SIGNATURE := "ability.marrow_lunge"
 
 static func player_build(rules) -> Dictionary:
 	var build: Dictionary = rules.carry(rules.new_build("player.fixture", "profile.duelist"), "item.notched_sword").build
-	return rules.equip(build, "item.notched_sword", "main_hand").build
+	return rules.equip(build, "item.notched_sword", "hand_r").build
 
 static func corrupted_soul_build(rules) -> Dictionary:
 	var build: Dictionary = rules.new_build("soul.marrow_swordsman", "profile.corrupted_swordsman")
 	build = rules.carry(build, "item.notched_sword").build
 	build = rules.carry(build, "item.marrow_arm").build
-	build = rules.equip(build, "item.notched_sword", "main_hand").build
-	return rules.equip(build, "item.marrow_arm", "right_arm").build
+	build = rules.equip(build, "item.notched_sword", "hand_r").build
+	return rules.equip(build, "item.marrow_arm", "arm_l").build
 
 ## Returns {"ok", "errors", "flow"}. `flow` records every step's inputs and outputs.
 static func run(catalog) -> Dictionary:
@@ -39,7 +39,7 @@ static func run(catalog) -> Dictionary:
 		return {"ok": false, "errors": errors, "flow": {}}
 	var acquired: Dictionary = salvage.acquire(player, ref)
 	errors.append_array(acquired.errors)
-	var equipped: Dictionary = rules.equip(acquired.build, ref.item, "right_arm")
+	var equipped: Dictionary = rules.equip(acquired.build, ref.item, "arm_l")
 	errors.append_array(equipped.errors)
 	var player_after: Dictionary = rules.resolve(equipped.build).resolved
 	var flow := {
@@ -98,7 +98,7 @@ static func summary(flow: Dictionary) -> String:
 	]
 	for key in ["windup", "active", "recovery", "health_damage", "guard_posture", "reach"]:
 		lines.append("| %s | %s | %s |" % [key, str(flow.identity.enemy_effective[key]), str(flow.identity.player_effective[key])])
-	lines.append_array(["", "## Tradeoff introduced by the augment", ""])
+	lines.append_array(["", "## Tradeoff introduced by the body modification", ""])
 	for tradeoff in flow.step_7_change.new_tradeoffs:
 		for side in ["advantages", "disadvantages"]:
 			for entry in tradeoff[side]:

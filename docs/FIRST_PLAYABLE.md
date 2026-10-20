@@ -1,5 +1,10 @@
 # First playable: claim the Marrow Arm
 
+**Equipment foundation (catalog 0.4.0):** see [EQUIPMENT_FOUNDATION.md](EQUIPMENT_FOUNDATION.md).
+Marrow Arm is now a left-arm body modification (`arm_l`); the sword stays in the right hand
+(`hand_r`). Build slots are `hand_r`/`hand_l` grips on `arm_r`/`arm_l` body slots; text below
+that names `main_hand`/`left_arm`/`right_arm` or a left-hand sword describes catalog 0.3.0.
+
 The isolated salvage entry point is `scenes/salvage_courtyard.tscn`. The desktop
 project now opens [First Expedition](FIRST_EXPEDITION.md), which reuses this loop.
 The isolated scene uses the same
@@ -23,7 +28,7 @@ source scripts/tooling/env.sh
 1. The encounter starts immediately. Move into the circle with **WASD**; **mouse**
    orbits and **Tab** locks the swordsman. **LMB** strikes, **C** uses the ordinary
    heavy attack, **RMB** guards (tap near contact to deflect), **Space** dodges.
-2. Watch for **Marrow Lunge**: the ivory right arm draws back horizontally, its
+2. Watch for **Marrow Lunge**: the ivory left arm draws back horizontally, its
    amber bone forks frame the shoulder, then the bone extends in a straight thrust.
    This differs from the sword heavy's overhead raise. The body and weapon carry the cue; the normal HUD has no phase narration.
    Deflect the contact or dodge; punish the recovery. The first attack is a lunge,
@@ -31,8 +36,9 @@ source scripts/tooling/env.sh
 3. Defeat the enemy. The prompt changes to **SOUL RELEASED · F to salvage Marrow
    Arm**. Press **F**. The arm now appears in your build's carried inventory; you
    still cannot use its attack.
-4. Read the inspection card: a long, narrow thrust with slow recovery; incompatible
-   with two-handed grips; standard deflection timing. Press **E** to equip it.
+4. Read the inspection card: a left-arm body modification (the sword stays in your
+   right hand; the bone arm has no hand), plus the legacy Q lunge — a long, narrow
+   thrust with slow recovery; standard deflection timing. Press **E** to equip it.
    The ivory arm appears on your right, with the sword presented on your left.
 5. Press **N** to begin the next duel with your newly resolved equipment. Press
    **Tab** to lock again. **Q** executes Marrow Lunge; the HUD announces your

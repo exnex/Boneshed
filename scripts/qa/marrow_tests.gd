@@ -5,6 +5,7 @@ const Adapter = preload("res://scripts/combat/build_adapter.gd")
 const Catalog = preload("res://scripts/builds/build_catalog.gd")
 const Rules = preload("res://scripts/combat/combat_state.gd")
 const Playable = preload("res://scenes/salvage_courtyard.tscn")
+const Look = preload("res://scripts/characters/presentation/equipment_look.gd")
 var passed := 0
 var failed := 0
 var arena: Node3D
@@ -70,10 +71,19 @@ func run() -> void:
 	check(session.acquire().ok, "victory_acquisition_succeeds")
 	check(session.builds.player.carried == ["item.marrow_arm"] and session.builds.player.equipped == before.equipped, "acquisition_updates_inventory_only")
 	check(arena.player.combat.signature.is_empty() and not arena.player.combat.attack_special(), "carried_is_not_equipped")
+	arena.player.sync_visual()
+	check(not arena.player.marrow_pivot.visible and arena.player.free_arm.visible and Look.disagreements(arena.player).is_empty(), "carried_marrow_arm_is_not_shown")
 	check(not session.acquire().ok and session.builds.player.carried.size() == 1, "duplicate_claim_rejected")
 	var owned: Dictionary = session.builds.duplicate(true)
-	check(not session.equip("item.marrow_arm", "main_hand").ok and session.builds == owned, "occupied_slot_failure_is_atomic")
-	check(not session.equip("item.unknown", "right_arm").ok and session.builds == owned, "invalid_item_failure_is_atomic")
+	check(not session.equip("item.marrow_arm", "hand_r").ok and session.builds == owned, "occupied_slot_failure_is_atomic")
+	check(not session.equip("item.unknown", "arm_l").ok and session.builds == owned, "invalid_item_failure_is_atomic")
+	# Player and enemy builds go through the same item rules: no sword in a handless arm.
+	var rejects := true
+	for actor: String in ["player", "enemy"]:
+		var probe: Dictionary = session.builds[actor].duplicate(true)
+		probe.equipped = {"hand_l": "item.notched_sword", "arm_l": "item.marrow_arm"}
+		rejects = rejects and session.adapter.resolver.validate(probe).map(func(e): return e.code) == ["grip_unavailable"]
+	check(rejects, "equipment_rules_reject_sword_in_marrow_hand")
 	var equipped: Dictionary = session.equip()
 	check(equipped.ok and session.equipped() and session.builds.player.carried.is_empty(), "equipping_moves_owned_augment")
 	var player_ability: Dictionary = equipped.resolved.player.abilities[2]
@@ -83,6 +93,15 @@ func run() -> void:
 	arena._start_duel(true)
 	check(session.duel_number == 2 and arena.player.combat.signature == arena.enemy.combat.signature and not arena.player.combat.signature.is_empty(), "second_duel_uses_newly_resolved_build")
 	check(arena.player.marrow_pivot.visible and session.available_rewards().is_empty(), "equipped_visual_follows_build_and_new_duel_has_no_reward")
+	# Same item, same rules, same placement for both wielders: Marrow replaces the
+	# left arm and the sword stays in the right hand, in data and on screen.
+	for actor: Fighter in [arena.player, arena.enemy]:
+		actor.sync_visual()
+		var build: Dictionary = session.builds.player if actor == arena.player else session.builds.enemy
+		check(build.equipped == {"hand_r": "item.notched_sword", "arm_l": "item.marrow_arm"}, "marrow_left_sword_right_build_" + actor.name)
+		check(actor.look.weapon_side == 1.0 and actor.look.marrow_side == -1.0 and actor.marrow_pivot.position.x < 0.0
+			and actor.sword_pivot.position.x > 0.0 and actor.sword_arm.visible and not actor.free_arm.visible, "marrow_left_sword_right_visual_" + actor.name)
+		check(Look.disagreements(actor).is_empty(), "visual_agrees_with_resolved_equipment_" + actor.name)
 	fixture()
 	for attacker: Fighter in [arena.enemy, arena.player]:
 		var defender: Fighter = attacker.opponent
@@ -106,6 +125,7 @@ func run() -> void:
 			if defense == "rear":
 				defender.facing = attacker.facing
 			attacker._update_visual(0.0)
+			check(attacker.marrow_pivot.position.x < 0.0 and attacker.sword_pivot.position.x > 0.0, "lunge_from_left_bone_sword_stays_right_" + attacker.name + defense)
 			var result := attacker.resolve_attack()
 			var expected := {"hit": Rules.HIT, "guard": Rules.GUARD, "deflect": Rules.DEFLECTED, "dodge": Rules.EVADED, "rear": Rules.HIT}
 			check(result == expected[defense], "lunge_defense_" + attacker.name + defense)
@@ -196,7 +216,7 @@ func test_data_validation() -> void:
 		var catalog := Catalog.new()
 		catalog.load_data(data)
 		var builds: Dictionary = prepared.builds.duplicate(true)
-		builds.player.equipped["right_arm"] = "item.marrow_arm"
+		builds.player.equipped["arm_l"] = "item.marrow_arm"
 		var live := Adapter.new(catalog).prepare_encounter(builds)
 		check(live.ok and live.states.player.signature[field] == changed.signature[field] and live.states.enemy.signature[field] == changed.signature[field], "catalog_signature_change_reaches_both_actors_" + field)
 		for invalid: Variant in [null, "1", true, -1, INF, NAN]:
@@ -227,7 +247,7 @@ func test_data_validation() -> void:
 	var catalog := Catalog.new()
 	catalog.load_data(data)
 	var builds: Dictionary = prepared.builds.duplicate(true)
-	builds.enemy.equipped.erase("right_arm")
+	builds.enemy.equipped.erase("arm_l")
 	builds.player.carried = ["item.marrow_arm"]
 	var adapter := Adapter.new(catalog)
 	var initial := adapter.prepare_encounter(builds)

@@ -162,7 +162,7 @@ func test_rejection(adapter) -> void:
 	bad_builds.player.catalog_version = "stale"
 	rejected(adapter.prepare_encounter(bad_builds), "stale_build_rejected")
 	bad_builds = builds.duplicate(true)
-	bad_builds.enemy.equipped["right_arm"] = "item.marrow_arm"
+	bad_builds.enemy.equipped["arm_l"] = "item.marrow_arm"
 	var unsupported_data := raw.duplicate(true)
 	unsupported_data.abilities[2].module = "module.unimplemented_lunge"
 	rejected(Adapter.new(catalog_for(unsupported_data)).prepare_encounter(bad_builds), "unimplemented_lunge_cannot_start_gameplay")

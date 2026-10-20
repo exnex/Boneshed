@@ -3,13 +3,15 @@ extends RefCounted
 ## layers. Nothing in the build or combat code calls this yet.
 ##
 ## The shared build catalog is passed in and only read (duck-typed: `version`,
-## `items`, `abilities`). This is the only anatomy script that knows the legacy
-## `main_hand` / `left_arm` / `right_arm` slots; they are treated as a lossy view of a
-## body, not as anatomical limits.
+## `items`, `abilities`). This is the only anatomy script that knows the build's
+## `hand_r` / `hand_l` grips and `arm_r` / `arm_l` body slots; they are treated as a
+## lossy view of a body, not as anatomical limits.
 
 const SCHEMA := "boneshed.anatomy_combat_view.v0"
-## Legacy build slots for parts that carry a build item, by the side they hang from.
-const LEGACY_SIDE_SLOTS := {"left": "left_arm", "right": "right_arm"}
+## Build body slots for parts that carry a build item, by the side they hang from.
+const LEGACY_SIDE_SLOTS := {"left": "arm_l", "right": "arm_r"}
+## Build grip slots for equipment, by the side of the limb holding its first mount.
+const LEGACY_GRIP_SLOTS := {"left": "hand_l", "right": "hand_r"}
 ## Parts the legacy build assumes implicitly; any other part is anatomy-only.
 const LEGACY_IMPLICIT_PARTS := ["part.biped_legs", "part.human_arm", "part.human_head", "part.humanoid_torso"]
 
@@ -30,8 +32,12 @@ func legacy_slots(resolved: Dictionary) -> Dictionary:
 	var anatomy_only := []
 	if builds.version != anatomy.build_catalog_version:
 		unrepresented.append({"reason": "build_catalog_version_mismatch", "expected": anatomy.build_catalog_version, "actual": builds.version})
+	var sides := {}
+	for node in resolved.gameplay.nodes:
+		sides[node.id] = node.side
 	for entry in resolved.gameplay.equipment:
-		_place(equipped, unrepresented, entry.build_item, "", {"item": entry.item})
+		var holder: String = sides.get(str(entry.mounts[0]).get_slice("/", 0), "") if not entry.mounts.is_empty() else ""
+		_place(equipped, unrepresented, entry.build_item, LEGACY_GRIP_SLOTS.get(holder, ""), {"item": entry.item})
 	for node in resolved.gameplay.nodes:
 		var part: Dictionary = anatomy.parts[node.part]
 		if not part.build_item.is_empty():

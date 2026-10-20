@@ -6,6 +6,7 @@ extends RefCounted
 const Rules = preload("res://scripts/combat/combat_state.gd")
 const Sampler = preload("res://scripts/characters/presentation/pose_sampler.gd")
 const Fx = preload("res://scripts/characters/presentation/combat_fx.gd")
+const Look = preload("res://scripts/characters/presentation/equipment_look.gd")
 const ARM_UPPER := 0.4
 const ARM_LOWER := 0.4
 const LEG_UPPER := 0.42
@@ -62,8 +63,11 @@ static func sync(actor: Fighter, delta: float) -> void:
 	var phase: int = state.phase
 	var moving := Vector2(actor.velocity.x, actor.velocity.z).length()
 	actor.gait += moving * delta * 2.5
-	var mirrored := not state.signature.is_empty()
-	var pose := Sampler.base_pose(state, mirrored, actor.reaction_kind)
+	# Handedness and replaced limbs come from the resolved equipment only.
+	var look: Dictionary = actor.look
+	var mirrored: bool = look.weapon_side < 0.0
+	var marrow: float = look.marrow_side
+	var pose := Sampler.base_pose(state, mirrored, actor.reaction_kind, marrow < 0.0)
 	if phase == Rules.Phase.IDLE:
 		if state.guarding and state.guard_age > state.deflect_window and state.deflect_ready_in > 0.0:
 			pose.hand.y -= 0.12
@@ -92,10 +96,10 @@ static func sync(actor: Fighter, delta: float) -> void:
 	actor.torso.rotation = pose.torso
 	actor.sword_pivot.position = pose.hand
 	actor.sword_pivot.rotation = pose.blade
-	actor.marrow_pivot.visible = mirrored
+	actor.marrow_pivot.visible = marrow != 0.0
 	_sync_limbs(actor, pose, moving, mirrored)
-	if mirrored:
-		_sync_marrow(actor)
+	if marrow != 0.0:
+		_sync_marrow(actor, marrow)
 	Fx.sync(actor, mirrored, incoming)
 	# Localized steel contact, never a whole-body success/failure color code.
 	var hit := actor.reaction_time > 0.0 and actor.reaction_kind in [Rules.HIT, "punish", Rules.DEFEATED]
@@ -157,8 +161,10 @@ static func _sync_limbs(actor: Fighter, pose: Dictionary, moving: float, mirrore
 	var off_elbow := Sampler.two_bone(other, off_hand, ARM_UPPER, ARM_LOWER, _elbow_pole(-side, off_hand.y - other.y))
 	_segment(actor.free_arm, other, off_elbow, 0.16)
 	_segment(actor.free_forearm, off_elbow, off_hand, 0.135)
-	actor.free_arm.visible = not mirrored
-	actor.free_forearm.visible = not mirrored
+	# A body modification replaces the off arm; its own visual takes the shoulder.
+	var natural_off: bool = actor.look.replaced["right" if mirrored else "left"] == ""
+	actor.free_arm.visible = natural_off
+	actor.free_forearm.visible = natural_off
 	var stride := minf(0.22, moving * 0.055)
 	var local_motion := Vector3(actor.velocity.x, 0.0, actor.velocity.z).rotated(Vector3.UP, -actor.visual.rotation.y).normalized()
 	var hips := Basis(Vector3.UP, actor.pelvis.rotation.y)
@@ -189,21 +195,23 @@ static func _elbow_pole(side: float, hand_height: float) -> Vector3:
 	var raised := clampf((hand_height + 0.2) / 0.7, 0.0, 1.0)
 	return Vector3(side * 0.7, lerpf(-1.0, 0.15, raised), lerpf(0.45, -0.25, raised))
 
-static func _sync_marrow(actor: Fighter) -> void:
+## `side` is +1 for a right Marrow Arm, -1 for the catalog's left one; the draw-back
+## sweep mirrors with it.
+static func _sync_marrow(actor: Fighter, side: float) -> void:
 	var state := actor.combat
 	var length := 0.65
-	# The bone grows from the right shoulder, so it follows the body's coil and lunge.
+	# The bone grows from its shoulder, so it follows the body's coil and lunge.
 	var chest := Basis.from_euler(actor.torso.rotation)
-	actor.marrow_pivot.position = actor.torso.position + chest * Vector3(0.42, 0.18, 0.0)
+	actor.marrow_pivot.position = actor.torso.position + chest * Vector3(side * 0.42, 0.18, 0.0)
 	actor.marrow_pivot.rotation = Vector3.ZERO
 	# The body lunge moves the root forward; shorten the bone by the same amount so
 	# the visible tip still lands exactly on the rule reach.
-	var reach := float(state.signature.reach) + actor.marrow_pivot.position.z
+	var reach := float(state.signature.get("reach", 0.65)) + actor.marrow_pivot.position.z
 	if state.is_signature():
 		if state.phase == Rules.Phase.WINDUP:
 			var draw := smoothstep(0.0, 1.0, (state.windup_duration() - state.remaining) / maxf(0.01, state.windup_duration() - state.commitment_duration))
 			length = lerpf(0.65, 0.45, draw)
-			actor.marrow_pivot.rotation.y = -0.55 * draw
+			actor.marrow_pivot.rotation.y = -0.55 * draw * side
 			actor.marrow_pivot.position.z += 0.18 * draw
 			if state.attack_stage() == "release":
 				var release := smoothstep(0.0, 1.0, 1.0 - state.remaining / state.release_duration)
@@ -217,7 +225,7 @@ static func _sync_marrow(actor: Fighter) -> void:
 			length = lerpf(0.65, reach, recover)
 		elif state.phase == Rules.Phase.STAGGER and actor.reaction_kind == Rules.DEFLECTED:
 			length = lerpf(0.65, reach, actor.reaction_time / 0.32)
-			actor.marrow_pivot.rotation.y = -0.3 * (actor.reaction_time / 0.32)
+			actor.marrow_pivot.rotation.y = -0.3 * (actor.reaction_time / 0.32) * side
 	actor.marrow_bone.position.z = -length * 0.5
 	actor.marrow_bone.scale = Vector3(0.18, 0.18, length)
 	actor.marrow_tip.position = Vector3(0.0, 0.0, -length)

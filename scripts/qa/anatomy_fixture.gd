@@ -14,18 +14,15 @@ const BUILD_ABILITIES := ["attack.slash", "attack.heavy_slash", "ability.marrow_
 ## `from` names an example body or an earlier transformation; `expect` an example body
 ## whose nodes and equipment the result must match exactly.
 const TRANSFORMATIONS := [
-	{"id": "t.corrupt_right_arm", "from": "body.humanoid_fighter", "expect": "body.marrow_replacement", "ops": [
-		{"op": "replace", "node": "arm_r", "part": "part.marrow_arm"},
-		{"op": "mount", "item": "equip.notched_sword", "mounts": ["arm_l/grip"]}]},
+	{"id": "t.corrupt_left_arm", "from": "body.humanoid_fighter", "expect": "body.marrow_replacement", "ops": [
+		{"op": "replace", "node": "arm_l", "part": "part.marrow_arm"}]},
 	{"id": "t.revert_marrow_arm", "from": "body.marrow_replacement", "expect": "body.humanoid_fighter", "ops": [
-		{"op": "replace", "node": "arm_r", "part": "part.human_arm"},
-		{"op": "unmount", "mount": "arm_l/grip"},
-		{"op": "mount", "item": "equip.notched_sword", "mounts": ["arm_r/grip"]}]},
+		{"op": "replace", "node": "arm_l", "part": "part.human_arm"}]},
 	{"id": "t.take_two_handed_grip", "from": "body.humanoid_fighter", "expect": "", "ops": [
 		{"op": "unmount", "mount": "arm_r/grip"},
 		{"op": "mount", "item": "equip.fixture_greatsword", "mounts": ["arm_l/grip", "arm_r/grip"]}]},
 	{"id": "t.corrupt_two_handed_holder", "from": "t.take_two_handed_grip", "expect": "", "ops": [
-		{"op": "replace", "node": "arm_r", "part": "part.marrow_arm"}]},
+		{"op": "replace", "node": "arm_l", "part": "part.marrow_arm"}]},
 	{"id": "t.grow_second_arm_pair", "from": "body.humanoid_fighter", "expect": "body.four_armed", "ops": [
 		{"op": "replace", "node": "torso", "part": "part.spined_torso"},
 		{"op": "attach", "node": "arm_lower_l", "part": "part.auxiliary_arm", "parent": "torso", "socket": "lower_shoulder_l"},
@@ -49,8 +46,8 @@ const REJECTED := [
 		{"op": "detach", "node": "arm_l"},
 		{"op": "attach", "node": "arm_aux", "part": "part.auxiliary_arm", "parent": "torso", "socket": "shoulder_l"}]},
 	{"id": "r.sword_in_handless_marrow_arm", "from": "body.marrow_replacement", "codes": ["unknown_mount"], "ops": [
-		{"op": "unmount", "mount": "arm_l/grip"},
-		{"op": "mount", "item": "equip.notched_sword", "mounts": ["arm_r/grip"]}]},
+		{"op": "unmount", "mount": "arm_r/grip"},
+		{"op": "mount", "item": "equip.notched_sword", "mounts": ["arm_l/grip"]}]},
 	{"id": "r.two_handed_across_unpaired_arms", "from": "body.four_armed", "codes": ["unpaired_mounts", "wrong_mount_type"], "ops": [
 		{"op": "unmount", "mount": "arm_r/grip"},
 		{"op": "mount", "item": "equip.fixture_greatsword", "mounts": ["arm_lower_r/light_grip", "arm_r/grip"]}]},
