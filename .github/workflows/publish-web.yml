@@ -1,0 +1,59 @@
+name: Publish Boneshed desktop web preview
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-web.yml'
+      - 'project.godot'
+      - 'export_presets.cfg'
+      - 'scenes/**'
+      - 'scripts/**'
+      - 'data/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: boneshed-web-deploy
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: true
+      - name: Install headless prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1 libasound2t64 libxrandr2 libxcursor1 libxi6 libxinerama1
+      - name: Verify and install pinned Godot
+        env:
+          BONESHED_TOOLS: ${{ runner.temp }}/boneshed-tools
+        run: bash scripts/tooling/setup.sh
+      - name: Verify and install pinned Web export templates
+        env:
+          BONESHED_TOOLS: ${{ runner.temp }}/boneshed-tools
+        run: bash scripts/tooling/setup_web.sh
+      - name: Build and audit production web export
+        env:
+          BONESHED_TOOLS: ${{ runner.temp }}/boneshed-tools
+        run: bash scripts/tooling/export_web.sh "${{ runner.temp }}/boneshed-web-release"
+      - name: Smoke test real browser boot
+        run: |
+          python3 -m pip install --user --break-system-packages playwright
+          python3 scripts/tooling/smoke_web_preview.py "${{ runner.temp }}/boneshed-web-release"
+      - name: Record source revision
+        run: echo "${GITHUB_SHA}" > "${{ runner.temp }}/web-source-revision.txt"
+      - name: Publish audited export to both existing preview branches
+        env:
+          BONESHED_TOOLS: ${{ runner.temp }}/boneshed-tools
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          bash scripts/tooling/publish_web_preview.sh "${{ runner.temp }}/boneshed-web-release" gh-pages
+          bash scripts/tooling/publish_web_preview.sh "${{ runner.temp }}/boneshed-web-release" preview/browser-courtyard
