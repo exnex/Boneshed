@@ -1,0 +1,435 @@
+[
+	{
+		"aggression": 1.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 1,
+		"t": 0.2,
+		"tick": 12
+	},
+	{
+		"at": 0.233,
+		"binding": "light",
+		"contact_in": 0.14,
+		"decision": "answer_guard",
+		"distance": 1.51,
+		"roll": 0.1374,
+		"strained": false,
+		"streak": 1,
+		"swing": 1,
+		"t": 0.2,
+		"tick": 12,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 0.6,
+			"guard": 1.0
+		}
+	},
+	{
+		"chance": 0.75,
+		"decision": "counter_take",
+		"heavy": false,
+		"opponent_phase": "WINDUP",
+		"race": {
+			"heavy": true,
+			"light": true,
+			"slack": 0.84
+		},
+		"reason": "blocked",
+		"roll": 0.4601,
+		"t": 0.367,
+		"tick": 22
+	},
+	{
+		"decision": "felt_guard",
+		"health": 97.84,
+		"posture": 10.0,
+		"t": 0.367,
+		"tick": 22
+	},
+	{
+		"decision": "attack_counter",
+		"distance": 1.52,
+		"heavy": false,
+		"streak": 1,
+		"t": 0.417,
+		"tick": 25
+	},
+	{
+		"aggression": 1.65,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 2,
+		"t": 1.2,
+		"tick": 72
+	},
+	{
+		"contact_in": 0.14,
+		"decision": "recovery_guard_skip",
+		"own_remaining": 0.647,
+		"roll": 0.9231,
+		"t": 1.2,
+		"tick": 72
+	},
+	{
+		"aggression": 2.53,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 3,
+		"t": 1.533,
+		"tick": 92
+	},
+	{
+		"decision": "felt_hit",
+		"health": 79.84,
+		"posture": 28.0,
+		"t": 1.7,
+		"tick": 102
+	},
+	{
+		"decision": "attack_heavy",
+		"distance": 1.55,
+		"heavy_chance": 0.3,
+		"roll": 0.2106,
+		"t": 2.5,
+		"tick": 150
+	},
+	{
+		"aggression": 3.18,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 4,
+		"t": 2.533,
+		"tick": 152
+	},
+	{
+		"contact_in": 0.14,
+		"decision": "abort_skip",
+		"own_remaining": 0.817,
+		"roll": 0.7765,
+		"t": 2.533,
+		"tick": 152
+	},
+	{
+		"decision": "felt_hit",
+		"health": 61.84,
+		"posture": 46.0,
+		"t": 2.7,
+		"tick": 162
+	},
+	{
+		"aggression": 3.83,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 5,
+		"t": 3.533,
+		"tick": 212
+	},
+	{
+		"at": 3.541,
+		"binding": "light",
+		"contact_in": 0.14,
+		"decision": "answer_guard",
+		"distance": 1.59,
+		"roll": 0.0805,
+		"strained": false,
+		"streak": 2,
+		"swing": 5,
+		"t": 3.533,
+		"tick": 212,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 0.42,
+			"guard": 0.5
+		}
+	},
+	{
+		"chance": 0.9,
+		"decision": "counter_take",
+		"heavy": true,
+		"opponent_phase": "WINDUP",
+		"race": {
+			"heavy": true,
+			"light": true,
+			"slack": 0.84
+		},
+		"reason": "blocked",
+		"roll": 0.8569,
+		"t": 3.7,
+		"tick": 222
+	},
+	{
+		"decision": "felt_guard",
+		"health": 59.68,
+		"posture": 56.0,
+		"t": 3.7,
+		"tick": 222
+	},
+	{
+		"decision": "attack_counter",
+		"distance": 1.57,
+		"heavy": true,
+		"streak": 1,
+		"t": 3.717,
+		"tick": 223
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 6,
+		"t": 4.533,
+		"tick": 272
+	},
+	{
+		"contact_in": 0.0,
+		"decision": "recovery_guard_take",
+		"own_remaining": 0.643,
+		"roll": 0.2964,
+		"t": 4.733,
+		"tick": 284
+	},
+	{
+		"decision": "retreat",
+		"health": 59.68,
+		"posture": 0.56,
+		"t": 4.983,
+		"tick": 299
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 7,
+		"t": 5.033,
+		"tick": 302
+	},
+	{
+		"at": 5.078,
+		"binding": "light",
+		"contact_in": 0.14,
+		"decision": "answer_evade",
+		"distance": 1.63,
+		"roll": 0.3945,
+		"strained": true,
+		"streak": 1,
+		"swing": 7,
+		"t": 5.033,
+		"tick": 302,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 1.08,
+			"guard": 0.075
+		}
+	},
+	{
+		"contact_in": 0.09,
+		"decision": "dodge",
+		"side": 1.0,
+		"swing": 7,
+		"t": 5.083,
+		"tick": 305
+	},
+	{
+		"decision": "felt_evaded",
+		"health": 59.68,
+		"posture": 56.0,
+		"t": 5.2,
+		"tick": 312
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 8,
+		"t": 6.033,
+		"tick": 362
+	},
+	{
+		"at": 6.05,
+		"binding": "light",
+		"contact_in": 0.14,
+		"decision": "answer_guard",
+		"distance": 1.63,
+		"roll": 0.3871,
+		"strained": false,
+		"streak": 1,
+		"swing": 8,
+		"t": 6.033,
+		"tick": 362,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 0.15,
+			"guard": 1.0
+		}
+	},
+	{
+		"chance": 0.9,
+		"decision": "counter_take",
+		"heavy": true,
+		"opponent_phase": "WINDUP",
+		"race": {
+			"heavy": true,
+			"light": true,
+			"slack": 0.84
+		},
+		"reason": "blocked",
+		"roll": 0.7742,
+		"t": 6.2,
+		"tick": 372
+	},
+	{
+		"decision": "felt_guard",
+		"health": 57.52,
+		"posture": 58.0,
+		"t": 6.2,
+		"tick": 372
+	},
+	{
+		"decision": "attack_counter",
+		"distance": 1.54,
+		"heavy": true,
+		"streak": 2,
+		"t": 6.233,
+		"tick": 374
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 9,
+		"t": 7.033,
+		"tick": 422
+	},
+	{
+		"contact_in": 0.0,
+		"decision": "recovery_guard_take",
+		"own_remaining": 0.643,
+		"roll": 0.1444,
+		"t": 7.25,
+		"tick": 435
+	},
+	{
+		"decision": "reengage",
+		"posture": 0.58,
+		"t": 7.267,
+		"tick": 436
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 10,
+		"t": 7.533,
+		"tick": 452
+	},
+	{
+		"at": 7.556,
+		"binding": "light",
+		"contact_in": 0.14,
+		"decision": "answer_evade",
+		"distance": 1.57,
+		"roll": 0.7512,
+		"strained": true,
+		"streak": 1,
+		"swing": 10,
+		"t": 7.533,
+		"tick": 452,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 1.08,
+			"guard": 0.15
+		}
+	},
+	{
+		"contact_in": 0.107,
+		"decision": "dodge",
+		"side": -1.0,
+		"swing": 10,
+		"t": 7.567,
+		"tick": 454
+	},
+	{
+		"decision": "felt_evaded",
+		"health": 57.52,
+		"posture": 58.0,
+		"t": 7.7,
+		"tick": 462
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 11,
+		"t": 8.533,
+		"tick": 512
+	},
+	{
+		"at": 8.545,
+		"binding": "light",
+		"contact_in": 0.14,
+		"decision": "answer_guard",
+		"distance": 1.5,
+		"roll": 0.7242,
+		"strained": false,
+		"streak": 1,
+		"swing": 11,
+		"t": 8.533,
+		"tick": 512,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 0.15,
+			"guard": 1.0
+		}
+	},
+	{
+		"chance": 0.9,
+		"decision": "counter_take",
+		"heavy": true,
+		"opponent_phase": "WINDUP",
+		"race": {
+			"heavy": true,
+			"light": true,
+			"slack": 0.84
+		},
+		"reason": "blocked",
+		"roll": 0.7093,
+		"t": 8.7,
+		"tick": 522
+	},
+	{
+		"decision": "felt_guard",
+		"health": 55.36,
+		"posture": 60.0,
+		"t": 8.7,
+		"tick": 522
+	},
+	{
+		"decision": "attack_counter",
+		"distance": 1.5,
+		"heavy": true,
+		"streak": 3,
+		"t": 8.75,
+		"tick": 525
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 12,
+		"t": 9.533,
+		"tick": 572
+	}
+]

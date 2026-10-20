@@ -1,0 +1,82 @@
+[
+	{
+		"clip": "block_then_counter",
+		"first_frame_tick": 1,
+		"frame_every_ticks": 2,
+		"frames": 41,
+		"scene": "courtyard",
+		"style": "aggressive",
+		"trigger": "attack_counter",
+		"trigger_tick": 25
+	},
+	{
+		"clip": "evade_then_reset",
+		"first_frame_tick": 287,
+		"frame_every_ticks": 2,
+		"frames": 30,
+		"scene": "courtyard",
+		"style": "aggressive",
+		"trigger": "dodge",
+		"trigger_tick": 305
+	},
+	{
+		"clip": "feint_baits_dodge",
+		"first_frame_tick": 136,
+		"frame_every_ticks": 2,
+		"frames": 26,
+		"scene": "courtyard",
+		"style": "feinter",
+		"trigger": "dodge",
+		"trigger_tick": 156
+	},
+	{
+		"clip": "turtle_break_punish",
+		"first_frame_tick": 426,
+		"frame_every_ticks": 2,
+		"frames": 46,
+		"scene": "courtyard",
+		"style": "guarding",
+		"trigger": "counter_take",
+		"trigger_tick": 456
+	},
+	{
+		"clip": "posture_retreat",
+		"first_frame_tick": 289,
+		"frame_every_ticks": 2,
+		"frames": 41,
+		"scene": "courtyard",
+		"style": "aggressive",
+		"trigger": "retreat",
+		"trigger_tick": 299
+	},
+	{
+		"clip": "backstep_out_of_reach",
+		"first_frame_tick": 667,
+		"frame_every_ticks": 2,
+		"frames": 34,
+		"scene": "courtyard",
+		"style": "masher",
+		"trigger": "answer_backstep",
+		"trigger_tick": 683
+	},
+	{
+		"clip": "whiff_read_spacing",
+		"first_frame_tick": 53,
+		"frame_every_ticks": 2,
+		"frames": 46,
+		"scene": "courtyard",
+		"style": "spacer",
+		"trigger": "counter_",
+		"trigger_tick": 103
+	},
+	{
+		"clip": "lunge_from_range",
+		"first_frame_tick": 32,
+		"frame_every_ticks": 2,
+		"frames": 44,
+		"scene": "salvage_courtyard",
+		"style": "retreating",
+		"trigger": "lunge_take",
+		"trigger_tick": 48
+	}
+]

@@ -1,0 +1,42 @@
+[
+	{
+		"decision": "attack_light",
+		"distance": 1.83,
+		"heavy_chance": 0.3,
+		"roll": 0.3269,
+		"t": 6.617,
+		"tick": 397
+	},
+	{
+		"decision": "attack_light",
+		"distance": 1.84,
+		"heavy_chance": 0.3,
+		"roll": 0.4601,
+		"t": 8.65,
+		"tick": 519
+	},
+	{
+		"decision": "attack_light",
+		"distance": 1.84,
+		"heavy_chance": 0.3,
+		"roll": 0.6359,
+		"t": 10.983,
+		"tick": 659
+	},
+	{
+		"decision": "attack_light",
+		"distance": 1.85,
+		"heavy_chance": 0.3,
+		"roll": 0.7765,
+		"t": 13.417,
+		"tick": 805
+	},
+	{
+		"decision": "attack_heavy",
+		"distance": 1.84,
+		"heavy_chance": 0.3,
+		"roll": 0.1367,
+		"t": 15.4,
+		"tick": 924
+	}
+]

@@ -44,7 +44,8 @@ func _draw() -> void:
 		text_at(Vector2(40, height - 74), "Wheel zoom   Tab lock   Q equipped ability   R retry   Esc mouse   F3 debug   F1 close", 13, Color("9aaba8"))
 	var message: String = arena.progression_prompt()
 	if arena.player.debug_hitboxes:
-		text_at(Vector2(32, 121), "DEBUG  ·  " + phase_name(e.phase) + "  ·  " + arena.event_text, 13)
+		# The enemy's current intent label makes AI decisions inspectable during playtests.
+		text_at(Vector2(32, 121), "DEBUG  ·  " + phase_name(e.phase) + "  ·  AI " + str(arena.enemy.get("ai_state")) + "  ·  " + arena.event_text, 13)
 	if arena.progression.stage == arena.Progression.Stage.VICTORY and arena.progression.owns("item.marrow_arm"):
 		draw_rect(Rect2(24, 143, 570, 100), Color(0.03, 0.05, 0.06, 0.94))
 		text_at(Vector2(40, 169), "MARROW ARM  /  " + ("EQUIPPED" if arena.progression.equipped() else "ACQUIRED"), 18, Color("ead9ac"))

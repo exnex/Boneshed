@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+{"duel":{"answers":{"backstep":2,"evade":1,"guard":3},"counters":4,"enemy_dodges":1,"enemy_guard_ticks":76,"enemy_health":39.52,"enemy_windups":4,"events":{"enemy_evaded":1,"enemy_guard":3,"enemy_hit":3,"player_defeated":1,"player_hit":3},"frames":760,"guard_raises":4,"intents":{"APPROACH":110,"ATTACK FOOTWORK":320,"BACKSTEP":24,"CIRCLE":29,"COUNTER":4,"EVADE":31,"GUARD":76,"RETREAT":166},"label":"masher","max_consecutive_answer":{"backstep":1,"evade":1,"guard":1},"max_distance":3.86,"min_distance":1.74,"player_health":0.0,"player_swings":15,"player_swings_cancelled":0,"scene":"courtyard","seed":20261020,"winner":"enemy"}}
+{"duel":{"answers":{"evade":1,"guard":3},"counters":4,"enemy_dodges":1,"enemy_guard_ticks":84,"enemy_health":55.36,"enemy_windups":4,"events":{"enemy_evaded":1,"enemy_guard":4,"enemy_hit":2,"player_defeated":1,"player_hit":3},"frames":522,"guard_raises":4,"intents":{"APPROACH":17,"ATTACK FOOTWORK":326,"CIRCLE":60,"COUNTER":4,"EVADE":31,"GUARD":84},"label":"aggressive","max_consecutive_answer":{"evade":1,"guard":2},"max_distance":2.34,"min_distance":1.43,"player_health":0.0,"player_swings":11,"player_swings_cancelled":0,"scene":"courtyard","seed":20261020,"winner":"enemy"}}
+{"duel":{"answers":{},"counters":2,"enemy_dodges":0,"enemy_guard_ticks":0,"enemy_health":100.0,"enemy_windups":9,"events":{"player_defeated":1,"player_guard":7,"player_punish":1},"frames":1151,"guard_raises":0,"intents":{"ATTACK":7,"ATTACK FOOTWORK":814,"CIRCLE":328,"COUNTER":2},"label":"guarding","max_consecutive_answer":{},"max_distance":1.85,"min_distance":1.77,"player_health":0.0,"player_swings":0,"player_swings_cancelled":0,"scene":"courtyard","seed":20261020,"winner":"enemy"}}
+{"duel":{"answers":{},"counters":0,"enemy_dodges":0,"enemy_guard_ticks":0,"enemy_health":100.0,"enemy_windups":4,"events":{"player_defeated":1,"player_hit":3},"frames":557,"guard_raises":0,"intents":{"APPROACH":10,"ATTACK":4,"ATTACK FOOTWORK":347,"CIRCLE":196},"label":"passive","max_consecutive_answer":{},"max_distance":1.85,"min_distance":1.83,"player_health":0.0,"player_swings":0,"player_swings_cancelled":0,"scene":"courtyard","seed":20261020,"winner":"enemy"}}
+{"duel":{"answers":{},"counters":0,"enemy_dodges":0,"enemy_guard_ticks":0,"enemy_health":100.0,"enemy_windups":5,"events":{"player_defeated":1,"player_hit":4},"frames":974,"guard_raises":0,"intents":{"APPROACH":407,"ATTACK":5,"ATTACK FOOTWORK":390,"CIRCLE":172},"label":"retreating","max_consecutive_answer":{},"max_distance":2.98,"min_distance":1.78,"player_health":0.0,"player_swings":0,"player_swings_cancelled":0,"scene":"courtyard","seed":20261020,"winner":"enemy"}}
+{"duel":{"answers":{},"counters":0,"enemy_dodges":0,"enemy_guard_ticks":0,"enemy_health":0.0,"enemy_windups":3,"events":{"enemy_defeated":1,"enemy_hit":2,"enemy_punish":1,"player_deflected":3},"frames":583,"guard_raises":0,"intents":{"APPROACH":15,"ATTACK":3,"ATTACK FOOTWORK":300,"CIRCLE":96,"RETREAT":169},"label":"skilled","max_consecutive_answer":{},"max_distance":2.11,"min_distance":1.77,"player_health":100.0,"player_swings":4,"player_swings_cancelled":0,"scene":"courtyard","seed":20261020,"winner":"player"}}
+{"duel":{"answers":{"backstep":1,"evade":1,"guard":1},"counters":0,"enemy_dodges":1,"enemy_guard_ticks":78,"enemy_health":97.84,"enemy_windups":9,"events":{"enemy_guard":1,"player_defeated":1,"player_hit":5},"frames":1140,"guard_raises":4,"intents":{"APPROACH":353,"ATTACK":9,"ATTACK FOOTWORK":485,"BACKSTEP":12,"CIRCLE":172,"EVADE":31,"GUARD":78},"label":"spacer","max_consecutive_answer":{"backstep":1,"evade":1,"guard":1},"max_distance":5.43,"min_distance":1.7,"player_health":0.0,"player_swings":8,"player_swings_cancelled":0,"scene":"courtyard","seed":20261020,"winner":"enemy"}}
+{"duel":{"answers":{"backstep":3,"evade":4,"guard":8},"counters":0,"enemy_dodges":0,"enemy_guard_ticks":90,"enemy_health":100.0,"enemy_windups":8,"events":{"player_defeated":1,"player_deflected":2,"player_guard":2,"player_hit":2},"frames":1581,"guard_raises":9,"intents":{"APPROACH":57,"ATTACK":8,"ATTACK FOOTWORK":645,"BACKSTEP":30,"CIRCLE":717,"EVADE":34,"GUARD":90},"label":"feinter","max_consecutive_answer":{"backstep":1,"evade":2,"guard":2},"max_distance":2.02,"min_distance":1.83,"player_health":0.0,"player_swings":21,"player_swings_cancelled":21,"scene":"courtyard","seed":20261020,"winner":"enemy"}}
+{"duel":{"answers":{},"counters":0,"enemy_dodges":0,"enemy_guard_ticks":0,"enemy_health":100.0,"enemy_windups":0,"events":{},"frames":360,"guard_raises":0,"intents":{"APPROACH":360},"label":"far_swinger","max_consecutive_answer":{},"max_distance":5.99,"min_distance":4.87,"player_health":100.0,"player_swings":5,"player_swings_cancelled":0,"scene":"courtyard","seed":20261020,"winner":"timeout"}}
+{"check":"punishes_attack_mashing_with_counters","detail":{"counters":4,"winner":"enemy"},"passed":true}
+{"check":"survives_chasing_aggression_with_mixed_answers","detail":{"answers":{"evade":1,"guard":3},"winner":"enemy"},"passed":true}
+{"check":"counterattacks_after_successful_block","passed":true}
+{"check":"pressures_turtle_with_heavy_and_breaks_it","detail":{"heavies":5,"punish":1},"passed":true}
+{"check":"punishes_posture_break_with_heavy","passed":true}
+{"check":"no_phantom_defense_against_passive_player","passed":true}
+{"check":"circles_between_attacks_instead_of_standing","detail":{"APPROACH":10,"ATTACK":4,"ATTACK FOOTWORK":347,"CIRCLE":196},"passed":true}
+{"check":"reengages_a_kiting_player","detail":{"min_distance":1.78,"windups":5},"passed":true}
+{"check":"remains_beatable_by_skilled_legal_play","detail":{"player_health":100.0,"winner":"player"},"passed":true}
+{"check":"spaces_out_of_reach_and_reads_whiffs","detail":{"answers":{"backstep":1,"evade":1,"guard":1},"whiff_offers":3},"passed":true}
+{"check":"intercepts_a_player_walking_into_reach","detail":{"intercepts":3,"winner":"enemy"},"passed":true}
+{"check":"ignores_swings_from_out_of_reach","detail":{"closest_swing_m":5.06,"swings":5},"passed":true}
+{"check":"posture_strain_retreats_are_bounded_and_reengage","detail":{"retreats":2},"passed":true}
+{"check":"answers_wait_for_reaction_delay","detail":{"earliest_ticks_after_onset":0,"required":11},"passed":false}
+{"check":"one_committed_answer_per_perceived_swing","passed":true}
+{"check":"every_dodge_follows_a_committed_evade_answer","passed":true}
+{"check":"feints_can_bait_committed_dodges","detail":{"baited_dodges":0,"cancelled":21},"passed":false}
+{"check":"no_answer_repeats_more_than_three_times","detail":{"longest":2},"passed":true}
+{"check":"dodge_streak_capped","detail":{"longest_evade_streak":2},"passed":true}
+{"check":"dodges_stay_a_minority_answer","detail":{"dodges":3,"player_swings":64},"passed":true}
+{"check":"counters_only_follow_openings","passed":true}
+{"check":"flurry_answers_vary_without_guard_toggling","detail":{"answers":{"backstep":2,"evade":1,"guard":3},"guard_raises":4,"swings":15},"passed":true}
+{"check":"enemy_unchanged_until_windup_is_visible","detail":{"first_divergent_tick":151,"onset_tick":151},"passed":false}
+{"check":"perception_snapshot_is_whitelisted","detail":["active","binding","facing","guarding","health","phase","posture","quickest","reach","recovery","remaining","signature_reach","t","windup"],"passed":true}
+{"check":"controller_reads_no_input_or_hidden_state","detail":[],"passed":true}
+{"check":"same_seed_replays_identical_decisions","detail":{"decisions":29,"max_position_drift_m":0.0,"ticks":1140},"passed":true}
+{"check":"different_seed_changes_decisions","passed":true}
+{"duel":{"answers":{},"counters":0,"enemy_dodges":0,"enemy_guard_ticks":0,"enemy_health":100.0,"enemy_windups":5,"events":{"player_defeated":1,"player_hit":4},"frames":805,"guard_raises":0,"intents":{"APPROACH":325,"ATTACK":5,"ATTACK FOOTWORK":413,"CIRCLE":62},"label":"lunge_vs_kiting","max_consecutive_answer":{},"max_distance":3.19,"min_distance":1.71,"player_health":0.0,"player_swings":0,"player_swings_cancelled":0,"scene":"salvage_courtyard","seed":20261020,"winner":"enemy"}}
+{"check":"uses_lunge_reach_against_kiting_player","detail":{"lunge_takes":2,"skips":1},"passed":true}
+{"engine":"4.7.2-stable (official)","failed":3,"negative":"omniscient","passed":25,"suite":"enemy_ai","summary":true}

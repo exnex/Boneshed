@@ -1,0 +1,104 @@
+[
+	{
+		"decision": "attack_heavy",
+		"distance": 1.79,
+		"heavy_chance": 0.3,
+		"roll": 0.1374,
+		"t": 0.8,
+		"tick": 48
+	},
+	{
+		"decision": "attack_heavy",
+		"distance": 1.8,
+		"heavy_chance": 0.6,
+		"roll": 0.0642,
+		"t": 3.267,
+		"tick": 196
+	},
+	{
+		"decision": "attack_heavy",
+		"distance": 1.79,
+		"heavy_chance": 0.6,
+		"roll": 0.2106,
+		"t": 5.933,
+		"tick": 356
+	},
+	{
+		"chance": 1.0,
+		"decision": "counter_take",
+		"heavy": true,
+		"opponent_phase": "BROKEN",
+		"race": {
+			"heavy": true,
+			"light": true,
+			"slack": 1.597
+		},
+		"reason": "broken",
+		"roll": 0.7765,
+		"t": 7.6,
+		"tick": 456
+	},
+	{
+		"decision": "attack_counter",
+		"distance": 1.85,
+		"heavy": true,
+		"streak": 1,
+		"t": 7.617,
+		"tick": 457
+	},
+	{
+		"decision": "attack_light",
+		"distance": 1.8,
+		"heavy_chance": 0.3,
+		"roll": 0.6546,
+		"t": 9.85,
+		"tick": 591
+	},
+	{
+		"decision": "attack_heavy",
+		"distance": 1.79,
+		"heavy_chance": 0.6,
+		"roll": 0.3945,
+		"t": 11.95,
+		"tick": 717
+	},
+	{
+		"decision": "attack_light",
+		"distance": 1.8,
+		"heavy_chance": 0.6,
+		"roll": 0.7742,
+		"t": 14.517,
+		"tick": 871
+	},
+	{
+		"decision": "attack_heavy",
+		"distance": 1.8,
+		"heavy_chance": 0.6,
+		"roll": 0.1539,
+		"t": 16.7,
+		"tick": 1002
+	},
+	{
+		"chance": 1.0,
+		"decision": "counter_take",
+		"heavy": true,
+		"opponent_phase": "BROKEN",
+		"race": {
+			"heavy": true,
+			"light": true,
+			"slack": 1.597
+		},
+		"reason": "broken",
+		"roll": 0.7512,
+		"t": 18.367,
+		"tick": 1102
+	},
+	{
+		"decision": "attack_counter",
+		"distance": 1.85,
+		"heavy": true,
+		"streak": 1,
+		"t": 18.4,
+		"tick": 1104
+	}
+]

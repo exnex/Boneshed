@@ -127,7 +127,8 @@ func run() -> void:
 				input("guard", true)
 			elif not incoming:
 				input("guard", false)
-			if arena.progression.duel_number >= 2 and not inherited_started and pc.phase == Rules.Phase.IDLE and not incoming and distance <= 3.1:
+			# Retry the inherited lunge until it connects: the enemy may legally evade one.
+			if arena.progression.duel_number >= 2 and not inherited_contact and pc.phase == Rules.Phase.IDLE and not incoming and distance <= 3.1:
 				input("guard", false)
 				input("signature", true)
 				inherited_started = true
