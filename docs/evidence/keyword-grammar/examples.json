@@ -1,0 +1,486 @@
+[
+	{
+		"address": "Ashen Silent Sanctuary",
+		"blueprint": "df7e56f4",
+		"identity": "46d73a6b",
+		"layout": "3537de9e",
+		"modules": [
+			{
+				"center": [
+					0,
+					0
+				],
+				"id": "arrival",
+				"radius": 2
+			},
+			{
+				"center": [
+					0,
+					-6
+				],
+				"id": "reliquary",
+				"radius": 2
+			},
+			{
+				"center": [
+					2,
+					-14
+				],
+				"id": "soul_arena",
+				"radius": 3
+			}
+		],
+		"seed": "1001",
+		"themes": [
+			"absence",
+			"built",
+			"fire",
+			"ruin",
+			"sacred",
+			"spirit"
+		]
+	},
+	{
+		"address": "Ashen Silent Sanctuary",
+		"blueprint": "72b8eb32",
+		"identity": "46d73a6b",
+		"layout": "0f83fab0",
+		"modules": [
+			{
+				"center": [
+					0,
+					0
+				],
+				"id": "arrival",
+				"radius": 2
+			},
+			{
+				"center": [
+					0,
+					-6
+				],
+				"id": "reliquary",
+				"radius": 2
+			},
+			{
+				"center": [
+					-2,
+					-14
+				],
+				"id": "soul_arena",
+				"radius": 3
+			}
+		],
+		"seed": "1002",
+		"themes": [
+			"absence",
+			"built",
+			"fire",
+			"ruin",
+			"sacred",
+			"spirit"
+		]
+	},
+	{
+		"address": "Moonlit Thorned Garden",
+		"blueprint": "3d4d742c",
+		"identity": "8b51a598",
+		"layout": "75e722ec",
+		"modules": [
+			{
+				"center": [
+					0,
+					0
+				],
+				"id": "arrival",
+				"radius": 2
+			},
+			{
+				"center": [
+					2,
+					-6
+				],
+				"id": "reliquary",
+				"radius": 2
+			},
+			{
+				"center": [
+					0,
+					-14
+				],
+				"id": "soul_arena",
+				"radius": 3
+			}
+		],
+		"seed": "1001",
+		"themes": [
+			"built",
+			"life",
+			"light",
+			"stone",
+			"wild"
+		]
+	},
+	{
+		"address": "Moonlit Thorned Garden",
+		"blueprint": "42686102",
+		"identity": "8b51a598",
+		"layout": "c2298172",
+		"modules": [
+			{
+				"center": [
+					0,
+					0
+				],
+				"id": "arrival",
+				"radius": 2
+			},
+			{
+				"center": [
+					3,
+					-6
+				],
+				"id": "reliquary",
+				"radius": 2
+			},
+			{
+				"center": [
+					0,
+					-14
+				],
+				"id": "soul_arena",
+				"radius": 3
+			}
+		],
+		"seed": "1002",
+		"themes": [
+			"built",
+			"life",
+			"light",
+			"stone",
+			"wild"
+		]
+	},
+	{
+		"address": "Weeping Forgotten Requiem",
+		"blueprint": "0b9138a4",
+		"identity": "442da094",
+		"layout": "79c1edd4",
+		"modules": [
+			{
+				"center": [
+					0,
+					0
+				],
+				"id": "arrival",
+				"radius": 2
+			},
+			{
+				"center": [
+					4,
+					-6
+				],
+				"id": "reliquary",
+				"radius": 2
+			},
+			{
+				"center": [
+					4,
+					-14
+				],
+				"id": "soul_arena",
+				"radius": 3
+			}
+		],
+		"seed": "1001",
+		"themes": [
+			"absence",
+			"death",
+			"memory",
+			"spirit",
+			"water"
+		]
+	},
+	{
+		"address": "Weeping Forgotten Requiem",
+		"blueprint": "e5dff620",
+		"identity": "442da094",
+		"layout": "ee82a96b",
+		"modules": [
+			{
+				"center": [
+					0,
+					0
+				],
+				"id": "arrival",
+				"radius": 2
+			},
+			{
+				"center": [
+					0,
+					-6
+				],
+				"id": "reliquary",
+				"radius": 2
+			},
+			{
+				"center": [
+					-2,
+					-14
+				],
+				"id": "soul_arena",
+				"radius": 3
+			}
+		],
+		"seed": "1002",
+		"themes": [
+			"absence",
+			"death",
+			"memory",
+			"spirit",
+			"water"
+		]
+	},
+	{
+		"address": "Frozen Gilded Citadel",
+		"blueprint": "fb742a0e",
+		"identity": "2f51a35c",
+		"layout": "160e688f",
+		"modules": [
+			{
+				"center": [
+					0,
+					0
+				],
+				"id": "arrival",
+				"radius": 2
+			},
+			{
+				"center": [
+					0,
+					-6
+				],
+				"id": "reliquary",
+				"radius": 2
+			},
+			{
+				"center": [
+					-2,
+					-14
+				],
+				"id": "soul_arena",
+				"radius": 3
+			}
+		],
+		"seed": "1001",
+		"themes": [
+			"built",
+			"cold",
+			"height",
+			"wealth"
+		]
+	},
+	{
+		"address": "Frozen Gilded Citadel",
+		"blueprint": "651ae34c",
+		"identity": "2f51a35c",
+		"layout": "1c23c310",
+		"modules": [
+			{
+				"center": [
+					0,
+					0
+				],
+				"id": "arrival",
+				"radius": 2
+			},
+			{
+				"center": [
+					0,
+					-6
+				],
+				"id": "reliquary",
+				"radius": 2
+			},
+			{
+				"center": [
+					-2,
+					-14
+				],
+				"id": "soul_arena",
+				"radius": 3
+			}
+		],
+		"seed": "1002",
+		"themes": [
+			"built",
+			"cold",
+			"height",
+			"wealth"
+		]
+	},
+	{
+		"address": "Smoldering Pallid Necropolis",
+		"blueprint": "eb98eb0a",
+		"identity": "6360d707",
+		"layout": "01021ae8",
+		"modules": [
+			{
+				"center": [
+					0,
+					0
+				],
+				"id": "arrival",
+				"radius": 2
+			},
+			{
+				"center": [
+					-2,
+					-5
+				],
+				"id": "reliquary",
+				"radius": 2
+			},
+			{
+				"center": [
+					0,
+					-12
+				],
+				"id": "soul_arena",
+				"radius": 3
+			}
+		],
+		"seed": "1001",
+		"themes": [
+			"bone",
+			"built",
+			"cold",
+			"death",
+			"fire"
+		]
+	},
+	{
+		"address": "Smoldering Pallid Necropolis",
+		"blueprint": "a1ddcb68",
+		"identity": "6360d707",
+		"layout": "a29c335b",
+		"modules": [
+			{
+				"center": [
+					0,
+					0
+				],
+				"id": "arrival",
+				"radius": 2
+			},
+			{
+				"center": [
+					0,
+					-6
+				],
+				"id": "reliquary",
+				"radius": 2
+			},
+			{
+				"center": [
+					2,
+					-14
+				],
+				"id": "soul_arena",
+				"radius": 3
+			}
+		],
+		"seed": "1002",
+		"themes": [
+			"bone",
+			"built",
+			"cold",
+			"death",
+			"fire"
+		]
+	},
+	{
+		"address": "Veiled Sunken Dream",
+		"blueprint": "a22e0bee",
+		"identity": "4363fc43",
+		"layout": "abacd7d9",
+		"modules": [
+			{
+				"center": [
+					0,
+					0
+				],
+				"id": "arrival",
+				"radius": 2
+			},
+			{
+				"center": [
+					-4,
+					-5
+				],
+				"id": "reliquary",
+				"radius": 2
+			},
+			{
+				"center": [
+					-4,
+					-12
+				],
+				"id": "soul_arena",
+				"radius": 3
+			}
+		],
+		"seed": "1001",
+		"themes": [
+			"dark",
+			"deceit",
+			"depth",
+			"memory",
+			"ruin",
+			"void",
+			"water"
+		]
+	},
+	{
+		"address": "Veiled Sunken Dream",
+		"blueprint": "8502285a",
+		"identity": "4363fc43",
+		"layout": "264cbe12",
+		"modules": [
+			{
+				"center": [
+					0,
+					0
+				],
+				"id": "arrival",
+				"radius": 2
+			},
+			{
+				"center": [
+					3,
+					-6
+				],
+				"id": "reliquary",
+				"radius": 2
+			},
+			{
+				"center": [
+					3,
+					-14
+				],
+				"id": "soul_arena",
+				"radius": 3
+			}
+		],
+		"seed": "1002",
+		"themes": [
+			"dark",
+			"deceit",
+			"depth",
+			"memory",
+			"ruin",
+			"void",
+			"water"
+		]
+	}
+]

@@ -12,7 +12,7 @@ The priority is one truly enjoyable duel, not an expansive feature list.
 
 ## Project status
 
-**First Expedition vertical slice.** Choose three keywords, enter a fresh seeded
+**First Expedition vertical slice.** Choose two adjectives and a place or concept noun, enter a fresh seeded
 world, explore a bounded ruined causeway, and release the corrupted swordsman.
 Salvage/equip Marrow Arm and use its inherited power in a rematch. Use the address
 and seed to reproduce a world. Geometry, keyword algorithms and balance remain
@@ -49,6 +49,7 @@ timing values, reproducible tests, evidence, and human playtesting limitations.
 | [Combat iteration 2](docs/COMBAT_ITERATION_2.md) | Attack readability, deflection discipline, enemy defense and provisional tuning |
 | [Combat presentation 3](docs/COMBAT_PRESENTATION_3.md) | Articulated placeholder poses, restrained reactions, camera/HUD cleanup and human playtest |
 | [Camera zoom](docs/CAMERA_ZOOM.md) | Smooth wheel zoom, tuning, collision/persistence contract, tests and human playtest |
+| [Keyword grammar](docs/KEYWORD_GRAMMAR.md) | Adjective/adjective/noun vocabulary, desktop selection and old-address replay |
 | [Keyword world blueprints](docs/WORLDGEN_KEYWORDS.md) | Provisional three-keyword → WorldBlueprint contract consumed by First Expedition |
 | [Combat build integration](docs/COMBAT_BUILD_INTEGRATION.md) | Live courtyard adapter, exact parity and validation |
 | [First playable loop](docs/FIRST_PLAYABLE.md) | Human controls, inherited attack, salvage/equip progression and evidence |

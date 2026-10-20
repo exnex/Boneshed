@@ -26,7 +26,7 @@ for mode, command in [('headless', base), ('rendered', rendered)]:
     run(mode, command + ['--fixed-fps', '60', '--script', 'res://scripts/qa/expedition_tests.gd', '--',
                         '--evidence-dir='+str(output/mode)], seconds=300)
     result = json.loads((output/mode/'summary.json').read_text())
-    assert result['failed'] == 0 and result['passed'] == (671 if mode == 'headless' else 679) and result['unique_layouts'] == 192, result
+    assert result['failed'] == 0 and result['passed'] == (743 if mode == 'headless' else 751) and result['unique_layouts'] == 192, result
     run('camera-'+mode, command + ['--fixed-fps', '60', '--script', 'res://scripts/qa/expedition_camera_test.gd', '--',
                                   '--evidence-dir='+str(output/('camera-'+mode))], seconds=180)
     result = json.loads((output/('camera-'+mode)/'summary.json').read_text())

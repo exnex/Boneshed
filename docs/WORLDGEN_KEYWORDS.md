@@ -1,13 +1,14 @@
 # Three-Keyword World Blueprints — Design and Prototype
 
 **Status: provisional blueprint prototype, now consumed by [First Expedition](FIRST_EXPEDITION.md).** The high-level keyword identity-versus-seed-variation principle is confirmed in [DECISIONS.md](DECISIONS.md); individual algorithms, weights and content remain provisional.
-The confirmed direction (see [DECISIONS.md](DECISIONS.md)) is only that three poetic,
+The confirmed direction (see [DECISIONS.md](DECISIONS.md)) includes three poetic,
 .hack-inspired keywords and a fresh seed influence a world's resources, elemental
-conditions, landforms, enemies and difficulty. Everything below — the vocabulary, the
-axes, the weights, the rules and the formulas — is **Proposed** prototype work that
-needs human review. The blueprint itself generates no terrain, dungeon, enemy or loot.
+conditions, landforms, enemies and difficulty. The owner also confirmed
+**adjective + adjective + noun** selection grammar; see
+[grammar, vocabulary and compatibility](KEYWORD_GRAMMAR.md). Semantic effects, axes,
+weights, rules and formulas remain **Proposed** prototype work needing human review. The blueprint itself generates no terrain, dungeon, enemy or loot.
 The expedition separately consumes it for bounded modules and atmosphere and reuses
-the existing duel. The original courtyard and blueprint algorithms remain unchanged.
+the existing duel. The original courtyard, blueprint algorithms and original keyword effects remain unchanged.
 
 **Confirmed direction (2026-10-17):** The same three words should produce a recognizable world identity while allowing substantially different seeded maps, landmarks, encounters and discoveries. The present prototype deliberately varies only bounded parameters and featured themes; it does **not yet implement or demonstrate** that broader world realization. This gap is future work, not a failure of its deterministic blueprint contract.
 
@@ -20,9 +21,9 @@ generators could consume.
 | Generator | [`scripts/worldgen/blueprint_generator.gd`](../scripts/worldgen/blueprint_generator.gd) |
 | Data loading / validation | [`scripts/worldgen/keyword_library.gd`](../scripts/worldgen/keyword_library.gd) |
 | Hashing and random streams | [`scripts/worldgen/seed_stream.gd`](../scripts/worldgen/seed_stream.gd) |
-| Prototype vocabulary (16 words) | [`data/worldgen/keywords.json`](../data/worldgen/keywords.json) |
+| Curated vocabulary (39 words; 24 adjectives / 16 nouns) | [`data/worldgen/keywords.json`](../data/worldgen/keywords.json) |
 | Rules, biomes, tuning | [`data/worldgen/rules.json`](../data/worldgen/rules.json) |
-| Tests (80 checks) | [`scripts/qa/worldgen_tests.gd`](../scripts/qa/worldgen_tests.gd) |
+| Blueprint tests (80 checks) | [`scripts/qa/worldgen_tests.gd`](../scripts/qa/worldgen_tests.gd) |
 | Demo | [`scripts/qa/worldgen_demo.gd`](../scripts/qa/worldgen_demo.gd) |
 | Example output | [`docs/worldgen/examples/SUMMARY.md`](worldgen/examples/SUMMARY.md) and JSON beside it |
 
@@ -122,7 +123,9 @@ The blueprint is split so "recognizable identity" is testable:
 
 Position matters, modestly: weights are `[0.8, 0.9, 1.0]`, so the **last word is the
 anchor**, as in English adjective–adjective–noun order and .hack-style addresses
-("Hidden Forbidden Holy Ground"). Reordering keeps the same words, senses (usually)
+("Hidden Forbidden Holy Ground"). Grammatical roles only filter selection; they do
+not change these provisional weights or assign terrain/enemy/difficulty duties.
+The following off-grammar examples remain **legacy replay fixtures**. Reordering keeps the same words, senses (usually)
 and interactions but shifts emphasis — in *Profane Gilded Hallowed* the sanctity
 conflict leans hallowed; in *Hallowed Gilded Profane* it leans profane. This is a
 proposal; see §8.
@@ -164,6 +167,12 @@ proposal; see §8.
 | Broken data files | error `invalid_library`; the library validator reports axis ranges, unknown tags, weights, duplicate ids |
 
 Errors never produce a partial blueprint.
+
+The new-expedition UI also requires adjective/adjective/noun roles. The pure
+blueprint API deliberately retains the original input contract above so old orders
+remain replayable. No automatic noun substitution, sorting or semantic migration
+occurs. The explicit older-order replay UI offers the original 16 words in all
+positions; see [compatibility details](KEYWORD_GRAMMAR.md).
 
 ## 6. The WorldBlueprint contract (schema 0.1.0)
 
@@ -226,10 +235,9 @@ Each future generator should read only the blueprint plus its own stream seed:
 ## 8. Decisions requiring human approval
 
 1. **Architecture B** itself (axes + senses + tag-pair rules) as the direction.
-2. **Word order**: should the last word be the anchor (`[0.8, 0.9, 1.0]`), should all
-   positions be equal, or should positions have *roles* (e.g. condition / place /
-   twist)? Roles would be a stronger, more "grammatical" design but constrain which
-   words players can put where.
+2. **Generation semantics by position**: the selection grammar is now confirmed,
+   but `[0.8, 0.9, 1.0]` remains provisional. Equal weights or dedicated generation
+   duties by slot still need approval. Grammatical roles do not approve them.
 3. **Multiple meanings**: senses are chosen by context, ties keep the primary sense,
    and the seed never changes a meaning. Alternative: let the seed choose between
    close senses for more variety at the cost of identity.
@@ -240,9 +248,9 @@ Each future generator should read only the blueprint plus its own stream seed:
 6. **Seed scope**: seed only adds bounded texture (±0.08 axes, supporting themes,
    phrases). Should seeds be allowed to swing identity more (e.g. pick the secondary
    biome as primary), matching "a fresh seed prevents identical layouts"?
-7. **Vocabulary**: all 16 words, glosses, theme ids and weights are placeholders. The
-   real vocabulary, its tone, whether players see words as free text or pick from a
-   list, and how words are unlocked are open.
+7. **Vocabulary semantics**: 39 curated words are available in role-filtered lists;
+   the original 16 retain their effects and replay support. Glosses, semantic
+   weights and theme ids remain provisional; unlocks and rarity remain open.
 8. **Encounter density band** 0.15–0.55, and every formula in `_generation_parameters`.
 9. **Data format**: JSON in `data/worldgen/` (diffable, editor-independent) vs Godot
    `Resource` files (inspector editing, typed). First Expedition retains the existing

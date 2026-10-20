@@ -1,0 +1,60 @@
+{
+  "combat_builds": {
+    "failed": 0,
+    "passed": 532,
+    "suite": "combat_builds",
+    "summary": true
+  },
+  "combat": {
+    "failed": 0,
+    "negative": "",
+    "passed": 118,
+    "suite": "combat",
+    "summary": true
+  },
+  "timing_headless": {
+    "engine": "4.7.2-stable (official)",
+    "failed": 0,
+    "passed": 159,
+    "rendered": false,
+    "summary": true
+  },
+  "encounters": {
+    "engine": "4.7.2-stable (official)",
+    "failed": 0,
+    "probe_summary": true,
+    "records": 16
+  },
+  "adapter_source_mutations_detected": 63,
+  "expected_negative_controls": {
+    "negative_guard": "detected as expected",
+    "negative_deflect": "detected as expected",
+    "negative_phase": "detected as expected",
+    "negative_toggle": "detected as expected",
+    "negative_rear": "detected as expected",
+    "negative_poise": "detected as expected",
+    "negative_defense": "detected as expected",
+    "negative_visual": "detected as expected"
+  },
+  "rendered_retry": {
+    "graphical": {
+      "combat_bot_frames": 418,
+      "engine": "4.7.2-stable (official)",
+      "failed": 0,
+      "passed": 111,
+      "renderer": "llvmpipe (LLVM 19.1.7, 256 bits)",
+      "suite": "graphical",
+      "summary": true
+    },
+    "timing": {
+      "engine": "4.7.2-stable (official)",
+      "failed": 0,
+      "passed": 209,
+      "rendered": true,
+      "summary": true
+    },
+    "initial_graphical_timeout": 124,
+    "retry_timeout_seconds": 1200,
+    "LP_NUM_THREADS": "1"
+  }
+}
