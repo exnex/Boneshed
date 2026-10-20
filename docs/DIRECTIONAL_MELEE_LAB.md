@@ -52,8 +52,8 @@ added at runtime only if absent (production actions and `project.godot` are unto
 | --- | --- |
 | **LMB press** | Start preparing a cut *immediately*, toward the natural follow-up side |
 | **LMB held + mouse** | Mouse moves the aim cursor (not the camera). Flick past the deadzone: **right** / **up-right** / **up** / **up-left** / **left** = the side the blade is chambered on; **down** = thrust. The blade heads to the new chamber at once |
-| **LMB release** | Commit: the swing fires when the chamber is reached (never before `min_windup`). A tap = follow-up cut |
-| **RMB held + mouse** | Guard; the mouse points at the side to cover (same layout, **down** = centre against thrusts). The last guard side is kept if you don't flick |
+| **LMB release** | Commit: the swing fires when the chamber is reached (never before `min_windup`). The chamber holds as long as LMB is held; a tap = follow-up cut |
+| **RMB held + mouse** | Remain in guard until RMB is released (unless guard is broken or a dodge overrides it); mouse points at the side to cover (same layout, **down** = centre against thrusts). The last guard side is kept if you don't flick |
 | **RMB fresh press** | Opens the deflect window; cancels any attack |
 | **Space** | Dodge: cancels everything, brief invulnerability |
 | WASD · Tab | Move · toggle lock-on (on by default) |
@@ -78,7 +78,7 @@ The mouse belongs to the aim cursor only while LMB is held before release, or wh
 is held. After release (during the swing and recovery) it turns the camera again, so you
 can attack while moving and turning, and turning into a released cut drags it with the
 body (the blade's world path follows the body's facing each tick). A direction can be
-changed until release, which makes feints and late redirects possible; the opponent only
+changed until release and the weapon stays chambered indefinitely while held, which makes feints and late redirects possible; the opponent only
 sees the change after its reaction delay.
 
 ## 3. Architecture
@@ -267,8 +267,8 @@ in [`data/melee_lab/weapons.json`](../data/melee_lab/weapons.json).
 | | `max_angular_speed` | 13 rad/s | Shared hand-speed cap |
 | | `swing_start_deg`, `swing_live_deg` | 100°, 80° | Chamber angle; arc becomes live below this |
 | | `swing_end_horizontal_deg`, `swing_end_overhead_deg` | −80°, −30° | Arc end (overhead stops above ground) |
-| | `min_windup` | 0.18 s | Readability floor for every preparation |
-| | `max_hold` | 1.0 s | A held chamber auto-releases after this |
+| | `min_windup` | 0.18 s | Readability floor for every preparation; holding continues indefinitely without attacking |
+| | `max_hold` | 1.0 s | Legacy tuning value, no longer triggers player or state auto-release | A held chamber auto-releases after this |
 | | `brake_ratio` | 1.2 | Braking accel = α × this |
 | | `recovery_base` | 0.15 s | Recovery after a miss = this + ω/brake |
 | | `cancel_brake_cap` | 0.15 s | Max guard delay when cancelling a swing |
