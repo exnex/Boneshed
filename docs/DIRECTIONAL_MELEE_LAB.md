@@ -310,7 +310,7 @@ two-handed), Quarterstaff (2.0 m, 1.8 kg, 0.45, two-handed, cannot deflect).
 ## 10. Tests and evidence
 
 ```sh
-bash scripts/tooling/test_melee_lab.sh   # ≈ 6 min on the cloud image
+bash scripts/tooling/test_melee_lab.sh   # ≈ 3.5 min on the cloud image (llvmpipe)
 ```
 
 It parse-checks every lab script, runs **77 deterministic checks**
@@ -331,8 +331,13 @@ follow-up), AI (5: reaction delay, late redirect, variety, contacts, replay), is
 
 Evidence and results: [`docs/evidence/directional-melee-lab/`](evidence/directional-melee-lab/README.md).
 
-**Existing regression suites** were run on this branch; see the evidence README for the
-exact runners and results.
+Two runs produced byte-identical `results.json` and `clips.json`.
+
+**Existing regression suites** run on this branch all pass: `test.sh` (after re-running
+with `BONESHED_GRAPHICAL_TIMEOUT=900`; the default 180 s graphical timeout expired on this
+software renderer), `test_builds.sh`, `test_expedition.sh`, `test_marrow.sh`,
+`test_keyword_grammar.sh`, `test_worldgen.sh`, `test_enemy_ai.sh`. Details and what was
+not run: [regressions.md](evidence/directional-melee-lab/regressions.md).
 
 ## 11. Known limitations
 
