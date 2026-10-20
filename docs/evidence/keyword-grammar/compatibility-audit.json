@@ -1,0 +1,19 @@
+{
+  "base": "8025663d90f72f70e2b4ccda2259854212805851",
+  "original_keyword_entries_equal_excluding_selection_metadata": true,
+  "excluded_fields": [
+    "roles",
+    "legacy"
+  ],
+  "original_word_count": 16,
+  "new_total_word_count": 39,
+  "golden_source_files_unchanged": true,
+  "combat_source_and_build_data_unchanged": true,
+  "unchanged_generation_sources_sha256": {
+    "scripts/worldgen/blueprint_generator.gd": "63d62cd5d421ce6bfe6abf55f8839935127ce90643e80f3ac4e2d767bb60e965",
+    "scripts/worldgen/seed_stream.gd": "dfcc4470456cc42a937fb2774ccba63c8af3d3c1cb2f069e50d4aa5ca47bf0ca",
+    "data/worldgen/rules.json": "21b08e7f4bfe42f25f7bd92009b3ca7f3f13ea539df3f05b24cf7a3f9fc0231e",
+    "scripts/expedition/expedition_layout.gd": "2f9fc23be754f26d3a57b50707a252f613b607c2be78e2e31adb2d8dbd8cff41",
+    "scripts/expedition/world_builder.gd": "6cdc2f2f75850ed154828c3bd1e5160a127c24a635521f3eb06069c3ef05c21e"
+  }
+}

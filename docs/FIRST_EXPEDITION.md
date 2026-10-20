@@ -15,11 +15,19 @@ bash scripts/tooling/setup.sh
 bash scripts/tooling/play.sh
 ```
 
-F5 opens `scenes/first_expedition.tscn`. Choose three different supported words and
-**Begin expedition**. New expeditions use four bytes from Godot's `Crypto` entropy
+F5 opens `scenes/first_expedition.tscn`. Choose **Adjective 1**, **Adjective 2**, then a
+**Place / concept noun** and **Begin expedition**. The two adjectives must differ.
+For example: **Ashen Silent Sanctuary**, **Moonlit Thorned Garden**, or
+**Weeping Forgotten Requiem**. Native dropdowns support mouse and keyboard
+(Tab, Enter, arrows); long lists scroll. New expeditions use four bytes from Godot's `Crypto` entropy
 source. To reproduce a world, select its three words in the same order, enable
 **Replay an existing seed**, and enter its displayed seed (0–4294967295).
 For a fixed fixture, use **Drowned / Hollow / Cathedral, seed 1001**.
+To replay a pre-grammar address such as **Tempest Frozen Towering**, enable both
+**Replay an existing seed** and **Replay an older keyword order**. Each slot then
+offers the original 16 words. Keep their exact order and seed; no word is renamed
+or moved. Turning off seed replay restores the grammatical lists. See
+[grammar and compatibility](KEYWORD_GRAMMAR.md).
 
 Follow the floor inlay through the empty reliquary toward the ring. WASD moves,
 mouse orbits, wheel zooms, Tab locks, LMB attacks, C uses heavy, RMB guards/tap-deflects,
@@ -56,7 +64,8 @@ continue to exercise the prior courtyard input/zoom flow.
   are 12 m wide; the arena is 28 m across, with a clear central 20 m square. These
   dimensions, route families and encounter placement are **provisional**.
 - Identity derives from the existing seed-independent axes and resolved sense tags.
-  Word ordering, duplicate rejection, senses and blueprint formulas are unchanged.
+  Generation weights, duplicate rejection, old senses and blueprint formulas are unchanged.
+  Selection grammar filters offered words without assigning generation duties to slots.
   A named structure stream chooses geography. Independent terrain/atmosphere streams
   choose architectural breakage and distant silhouettes. The layout fingerprint
   includes the blueprint and generator version. It identifies generated data, not
@@ -87,7 +96,8 @@ Run `bash scripts/tooling/test_expedition.sh artifacts/expedition-fresh` in addi
 to the existing test runners. The new runner checks golden fingerprints, repeated
 generation, identity across 32 seeds for each of six addresses covering all 16 words,
 seeded geographic diversity, connected floor coverage, actual capsule sweeps/floor
-rays, arena clearance and every boundary edge for 18 built fixtures. It also checks
+rays, arena clearance and every boundary edge for 36 built fixtures (18 original and
+18 using new vocabulary). It also checks
 the gate's physical opening/closing, seed/duplicate UI feedback, keyboard activation,
 pause, retry/zoom, restart and return. Isolated seed and collision mutations must fail.
 Controlled generated-world camera fixtures also check open-arena distance, gate
@@ -107,7 +117,8 @@ acceptance, readability, fairness or desktop GPU performance**.
 Known limits: three simple footprints and a fixed encounter order; flat causeways
 over a void rather than terrain; abstract keyword cues with substantial reuse of
 architecture; no sound, authored animation, discoveries or extraction decisions.
-The same address can produce repeated routing families. All 16 words are supported,
+The same address can produce repeated routing families. All original 16 words remain
+replayable, and the 39-word curated vocabulary is supported,
 but not every ordered combination or desktop GPU has been physically tested. The
 existing analytic combat hit volumes, player-first resolution and 60 Hz camera
 remain. Near-wall/close-contact camera comfort still needs human assessment.

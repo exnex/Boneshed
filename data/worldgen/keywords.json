@@ -1,9 +1,11 @@
 {
 	"data_version": "prototype-0.1",
-	"note": "PROTOTYPE DATA. Vocabulary, glosses and weights are illustrative test fixtures, not approved game content.",
+	"note": "Curated address vocabulary. Semantic effects, glosses and numerical tuning remain provisional; grammatical roles do not assign generation duties.",
 	"keywords": [
 		{
 			"id": "drowned",
+			"roles": ["adjective"],
+			"legacy": true,
 			"category": "condition",
 			"senses": [
 				{
@@ -21,6 +23,8 @@
 		},
 		{
 			"id": "frozen",
+			"roles": ["adjective"],
+			"legacy": true,
 			"category": "condition",
 			"senses": [
 				{
@@ -38,6 +42,8 @@
 		},
 		{
 			"id": "smoldering",
+			"roles": ["adjective"],
+			"legacy": true,
 			"category": "condition",
 			"senses": [
 				{
@@ -55,6 +61,8 @@
 		},
 		{
 			"id": "tempest",
+			"roles": ["noun"],
+			"legacy": true,
 			"category": "condition",
 			"senses": [
 				{
@@ -72,6 +80,8 @@
 		},
 		{
 			"id": "lightless",
+			"roles": ["adjective"],
+			"legacy": true,
 			"category": "condition",
 			"senses": [
 				{
@@ -89,6 +99,8 @@
 		},
 		{
 			"id": "hallowed",
+			"roles": ["adjective"],
+			"legacy": true,
 			"category": "spirit",
 			"senses": [
 				{
@@ -106,6 +118,8 @@
 		},
 		{
 			"id": "profane",
+			"roles": ["adjective"],
+			"legacy": true,
 			"category": "spirit",
 			"senses": [
 				{
@@ -123,6 +137,8 @@
 		},
 		{
 			"id": "hollow",
+			"roles": ["adjective", "noun"],
+			"legacy": true,
 			"category": "form",
 			"senses": [
 				{
@@ -151,6 +167,8 @@
 		},
 		{
 			"id": "towering",
+			"roles": ["adjective"],
+			"legacy": true,
 			"category": "landform",
 			"senses": [
 				{
@@ -168,6 +186,8 @@
 		},
 		{
 			"id": "sunken",
+			"roles": ["adjective"],
+			"legacy": true,
 			"category": "landform",
 			"senses": [
 				{
@@ -185,6 +205,8 @@
 		},
 		{
 			"id": "barren",
+			"roles": ["adjective"],
+			"legacy": true,
 			"category": "landform",
 			"senses": [
 				{
@@ -202,6 +224,8 @@
 		},
 		{
 			"id": "thorned",
+			"roles": ["adjective"],
+			"legacy": true,
 			"category": "landform",
 			"senses": [
 				{
@@ -219,6 +243,8 @@
 		},
 		{
 			"id": "ossuary",
+			"roles": ["noun"],
+			"legacy": true,
 			"category": "architecture",
 			"senses": [
 				{
@@ -236,6 +262,8 @@
 		},
 		{
 			"id": "cathedral",
+			"roles": ["noun"],
+			"legacy": true,
 			"category": "architecture",
 			"senses": [
 				{
@@ -253,6 +281,8 @@
 		},
 		{
 			"id": "forgotten",
+			"roles": ["adjective"],
+			"legacy": true,
 			"category": "time",
 			"senses": [
 				{
@@ -281,6 +311,8 @@
 		},
 		{
 			"id": "gilded",
+			"roles": ["adjective"],
+			"legacy": true,
 			"category": "fortune",
 			"senses": [
 				{
@@ -304,6 +336,443 @@
 					"encounters": {"mimics": 0.9, "gilded_liars": 0.5},
 					"discoveries": {"cursed_treasure": 0.8, "fools_gold": 0.6},
 					"atmosphere": ["too-bright gold", "painted smiles", "hollow ringing"]
+				}
+			]
+		},
+		{
+			"id": "ashen",
+			"roles": ["adjective"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "ashen",
+					"gloss": "Ash settles over the remains of a fire",
+					"tags": ["fire", "ruin"],
+					"resonates_with": [],
+					"axes": {"temperature": 0.3, "vitality": -0.5, "age": 0.4},
+					"hazards": {"choking_smoke": 0.7, "ember_fall": 0.5, "scorched_ground": 0.3},
+					"encounters": {"burned_pilgrims": 0.8, "cinder_wraiths": 0.5, "dust_shades": 0.3},
+					"discoveries": {"char_relics": 0.8, "slag_metal": 0.5, "bleached_bones": 0.3},
+					"atmosphere": ["silver ash", "cold embers"]
+				}
+			]
+		},
+		{
+			"id": "silent",
+			"roles": ["adjective"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "silent",
+					"gloss": "A stillness unbroken by living voices",
+					"tags": ["absence", "spirit"],
+					"resonates_with": [],
+					"axes": {"stillness": 1, "vitality": -0.4},
+					"hazards": {"soul_drain": 0.7, "disorientation": 0.5, "memory_fog": 0.3},
+					"encounters": {"echo_shades": 0.8, "husks": 0.5, "nameless_souls": 0.3},
+					"discoveries": {"memory_shards": 0.8, "abandoned_belongings": 0.5, "unmarked_graves": 0.3},
+					"atmosphere": ["unbroken hush", "footsteps without echoes"]
+				}
+			]
+		},
+		{
+			"id": "veiled",
+			"roles": ["adjective"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "veiled",
+					"gloss": "Mist conceals the shape of the land",
+					"tags": ["water", "dark"],
+					"resonates_with": [],
+					"axes": {"moisture": 0.6, "light": -0.5},
+					"hazards": {"rot_fog": 0.7, "disorientation": 0.5, "blind_drops": 0.3},
+					"encounters": {"lurkers_below": 0.8, "things_unseen": 0.5, "lantern_eaters": 0.3},
+					"discoveries": {"lost_lanterns": 0.8, "pale_lichen": 0.5, "silted_relics": 0.3},
+					"atmosphere": ["trailing mist", "half-hidden arches"]
+				}
+			]
+		},
+		{
+			"id": "shattered",
+			"roles": ["adjective"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "shattered",
+					"gloss": "Stone broken by a forgotten catastrophe",
+					"tags": ["stone", "ruin"],
+					"resonates_with": [],
+					"axes": {"order": -0.6, "age": 0.5, "enclosure": -0.2},
+					"hazards": {"falling_masonry": 0.7, "rockfall": 0.5, "crumbling_floors": 0.3},
+					"encounters": {"relic_guardians": 0.8, "dust_shades": 0.5, "wanderers": 0.3},
+					"discoveries": {"lost_architecture": 0.8, "ancient_arms": 0.5, "lookout_caches": 0.3},
+					"atmosphere": ["fractured pillars", "stone splinters"]
+				}
+			]
+		},
+		{
+			"id": "withered",
+			"roles": ["adjective"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "withered",
+					"gloss": "Life clings to dry and dying roots",
+					"tags": ["wild", "death"],
+					"resonates_with": [],
+					"axes": {"vitality": -0.6, "moisture": -0.6, "order": -0.3},
+					"hazards": {"thorn_snares": 0.7, "spore_clouds": 0.5, "exposure": 0.3},
+					"encounters": {"overgrown_dead": 0.8, "briar_beasts": 0.5, "carrion_flocks": 0.3},
+					"discoveries": {"bitter_herbs": 0.8, "bleached_bones": 0.5, "swallowed_ruins": 0.3},
+					"atmosphere": ["brittle roots", "papery leaves"]
+				}
+			]
+		},
+		{
+			"id": "moonlit",
+			"roles": ["adjective"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "moonlit",
+					"gloss": "Pale light rests on abandoned stone",
+					"tags": ["light", "stone"],
+					"resonates_with": [],
+					"axes": {"light": 0.3, "temperature": -0.3, "stillness": 0.5},
+					"hazards": {"blind_drops": 0.7, "disorientation": 0.5, "falls": 0.3},
+					"encounters": {"sentinels": 0.8, "echo_shades": 0.5, "wanderers": 0.3},
+					"discoveries": {"clear_crystal": 0.8, "lookout_caches": 0.5, "pale_lichen": 0.3},
+					"atmosphere": ["pools of moonlight", "long silver shadows"]
+				}
+			]
+		},
+		{
+			"id": "windswept",
+			"roles": ["adjective"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "windswept",
+					"gloss": "Exposed ground scoured by restless air",
+					"tags": ["air", "storm"],
+					"resonates_with": [],
+					"axes": {"stillness": -0.7, "enclosure": -0.6},
+					"hazards": {"high_wind": 0.7, "gale": 0.5, "rockfall": 0.3},
+					"encounters": {"wanderers": 0.8, "carrion_flocks": 0.5, "cliff_stalkers": 0.3},
+					"discoveries": {"wreckage": 0.8, "lookout_caches": 0.5, "bleached_bones": 0.3},
+					"atmosphere": ["bent grass", "dust on the wind"]
+				}
+			]
+		},
+		{
+			"id": "weeping",
+			"roles": ["adjective"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "weeping",
+					"gloss": "Seeping walls seem to mourn the departed",
+					"tags": ["water", "memory"],
+					"resonates_with": [],
+					"axes": {"moisture": 0.7, "sanctity": -0.2, "stillness": 0.4},
+					"hazards": {"memory_fog": 0.7, "rot_fog": 0.5, "soul_drain": 0.3},
+					"encounters": {"nameless_souls": 0.8, "echo_shades": 0.5, "drowned_dead": 0.3},
+					"discoveries": {"unmarked_graves": 0.8, "memory_shards": 0.5, "silted_relics": 0.3},
+					"atmosphere": ["tears on stone", "distant sobbing"]
+				}
+			]
+		},
+		{
+			"id": "forsaken",
+			"roles": ["adjective"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "forsaken",
+					"gloss": "A refuge whose keepers never returned",
+					"tags": ["absence", "profane"],
+					"resonates_with": [],
+					"axes": {"sanctity": -0.5, "order": -0.4, "vitality": -0.5},
+					"hazards": {"whispering_madness": 0.7, "soul_drain": 0.5, "crumbling_floors": 0.3},
+					"encounters": {"husks": 0.8, "twisted_faithful": 0.5, "echo_shades": 0.3},
+					"discoveries": {"abandoned_belongings": 0.8, "heretic_texts": 0.5, "unmarked_graves": 0.3},
+					"atmosphere": ["deserted thresholds", "cold hearths"]
+				}
+			]
+		},
+		{
+			"id": "pallid",
+			"roles": ["adjective"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "pallid",
+					"gloss": "The landscape has lost its living color",
+					"tags": ["cold", "death"],
+					"resonates_with": [],
+					"axes": {"temperature": -0.5, "vitality": -0.6, "light": 0.2},
+					"hazards": {"killing_cold": 0.7, "whiteout": 0.5, "soul_drain": 0.3},
+					"encounters": {"preserved_dead": 0.8, "frost_hunters": 0.5, "husks": 0.3},
+					"discoveries": {"bleached_bones": 0.8, "frozen_remains": 0.5, "clear_crystal": 0.3},
+					"atmosphere": ["waxen light", "colorless stone"]
+				}
+			]
+		},
+		{
+			"id": "buried",
+			"roles": ["adjective"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "buried",
+					"gloss": "Earth presses over the remains of habitation",
+					"tags": ["earth", "depth", "ruin"],
+					"resonates_with": [],
+					"axes": {"elevation": -0.7, "enclosure": 0.8, "age": 0.5},
+					"hazards": {"cave_in": 0.7, "sinkholes": 0.5, "collapsing_ground": 0.3},
+					"encounters": {"buried_dead": 0.8, "burrowers": 0.5, "pit_dwellers": 0.3},
+					"discoveries": {"buried_streets": 0.8, "ore_veins": 0.5, "sunken_vaults": 0.3},
+					"atmosphere": ["earth-choked doors", "roots through ceilings"]
+				}
+			]
+		},
+		{
+			"id": "sanctuary",
+			"roles": ["noun"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "sanctuary",
+					"gloss": "A sheltered place of abandoned worship",
+					"tags": ["sacred", "built"],
+					"resonates_with": [],
+					"axes": {"sanctity": 0.7, "enclosure": 0.7, "order": 0.5},
+					"hazards": {"judgment_wards": 0.7, "falling_masonry": 0.5, "blinding_glare": 0.3},
+					"encounters": {"penitents": 0.8, "fallen_templars": 0.5, "choir_wraiths": 0.3},
+					"discoveries": {"votive_offerings": 0.8, "blessed_steel": 0.5, "reliquaries": 0.3},
+					"atmosphere": ["empty alcoves", "unlit votive bowls"]
+				}
+			]
+		},
+		{
+			"id": "garden",
+			"roles": ["noun"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "garden",
+					"gloss": "Cultivated ground reclaimed by wild growth",
+					"tags": ["wild", "life", "built"],
+					"resonates_with": [],
+					"axes": {"vitality": 0.7, "moisture": 0.4, "order": -0.3},
+					"hazards": {"thorn_snares": 0.7, "spore_clouds": 0.5, "collapsing_ground": 0.3},
+					"encounters": {"briar_beasts": 0.8, "overgrown_dead": 0.5, "wanderers": 0.3},
+					"discoveries": {"bitter_herbs": 0.8, "swallowed_ruins": 0.5, "votive_offerings": 0.3},
+					"atmosphere": ["root-bound paths", "petals on stone"]
+				}
+			]
+		},
+		{
+			"id": "necropolis",
+			"roles": ["noun"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "necropolis",
+					"gloss": "A city made for the departed",
+					"tags": ["death", "built", "bone"],
+					"resonates_with": [],
+					"axes": {"vitality": -0.9, "order": 0.8, "age": 0.6},
+					"hazards": {"grave_miasma": 0.7, "collapsing_niches": 0.5, "soul_drain": 0.3},
+					"encounters": {"bone_wardens": 0.8, "ossified_monks": 0.5, "buried_dead": 0.3},
+					"discoveries": {"grave_goods": 0.8, "bone_relics": 0.5, "unmarked_graves": 0.3},
+					"atmosphere": ["avenues of tombs", "sealed doorways"]
+				}
+			]
+		},
+		{
+			"id": "labyrinth",
+			"roles": ["noun"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "labyrinth",
+					"gloss": "Passages coil through worked stone",
+					"tags": ["built", "stone", "depth"],
+					"resonates_with": [],
+					"axes": {"enclosure": 0.9, "order": 0.5, "light": -0.4},
+					"hazards": {"disorientation": 0.7, "blind_drops": 0.5, "trapped_vaults": 0.3},
+					"encounters": {"sentinels": 0.8, "hoard_keepers": 0.5, "cave_hermits": 0.3},
+					"discoveries": {"lost_architecture": 0.8, "ore_veins": 0.5, "ancient_arms": 0.3},
+					"atmosphere": ["repeating arches", "echoes around corners"]
+				}
+			]
+		},
+		{
+			"id": "chasm",
+			"roles": ["noun"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "chasm",
+					"gloss": "The earth opens into a sheer divide",
+					"tags": ["earth", "depth", "stone"],
+					"resonates_with": [],
+					"axes": {"elevation": -0.9, "enclosure": 0.5, "order": -0.7},
+					"hazards": {"falls": 0.7, "rockfall": 0.5, "cave_in": 0.3},
+					"encounters": {"cliff_stalkers": 0.8, "burrowers": 0.5, "pit_dwellers": 0.3},
+					"discoveries": {"ore_veins": 0.8, "cave_paintings": 0.5, "clear_crystal": 0.3},
+					"atmosphere": ["sheer walls", "a distant trickle"]
+				}
+			]
+		},
+		{
+			"id": "citadel",
+			"roles": ["noun"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "citadel",
+					"gloss": "A fortified height left without defenders",
+					"tags": ["built", "height"],
+					"resonates_with": [],
+					"axes": {"elevation": 0.7, "order": 0.9, "enclosure": 0.4},
+					"hazards": {"falling_masonry": 0.7, "falls": 0.5, "trapped_vaults": 0.3},
+					"encounters": {"sentinels": 0.8, "fallen_templars": 0.5, "hoard_keepers": 0.3},
+					"discoveries": {"ancient_arms": 0.8, "lookout_caches": 0.5, "gold_leaf": 0.3},
+					"atmosphere": ["empty battlements", "weathered shields"]
+				}
+			]
+		},
+		{
+			"id": "marsh",
+			"roles": ["noun"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "marsh",
+					"gloss": "Low wet ground swallows old paths",
+					"tags": ["water", "earth", "wild"],
+					"resonates_with": [],
+					"axes": {"moisture": 0.9, "elevation": -0.5, "order": -0.6},
+					"hazards": {"sinking_sand": 0.7, "deep_water": 0.5, "rot_fog": 0.3},
+					"encounters": {"lurkers_below": 0.8, "drowned_dead": 0.5, "overgrown_dead": 0.3},
+					"discoveries": {"bitter_herbs": 0.8, "silted_relics": 0.5, "pearl_bone": 0.3},
+					"atmosphere": ["still reedbeds", "bubbles in dark pools"]
+				}
+			]
+		},
+		{
+			"id": "sepulcher",
+			"roles": ["noun"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "sepulcher",
+					"gloss": "A chamber holding a forgotten burial",
+					"tags": ["death", "built", "memory"],
+					"resonates_with": [],
+					"axes": {"enclosure": 0.8, "vitality": -0.8, "stillness": 0.8},
+					"hazards": {"soul_drain": 0.7, "collapsing_niches": 0.5, "memory_fog": 0.3},
+					"encounters": {"nameless_souls": 0.8, "ossified_monks": 0.5, "husks": 0.3},
+					"discoveries": {"grave_goods": 0.8, "bone_relics": 0.5, "memory_shards": 0.3},
+					"atmosphere": ["a stone bier", "faded burial cloth"]
+				}
+			]
+		},
+		{
+			"id": "shore",
+			"roles": ["noun"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "shore",
+					"gloss": "A lonely margin between water and land",
+					"tags": ["water", "earth"],
+					"resonates_with": [],
+					"axes": {"moisture": 0.6, "enclosure": -0.8, "stillness": -0.2},
+					"hazards": {"undertow": 0.7, "gale": 0.5, "exposure": 0.3},
+					"encounters": {"wanderers": 0.8, "drowned_dead": 0.5, "carrion_flocks": 0.3},
+					"discoveries": {"wreckage": 0.8, "pearl_bone": 0.5, "bleached_bones": 0.3},
+					"atmosphere": ["tide-worn stones", "a distant surf"]
+				}
+			]
+		},
+		{
+			"id": "spire",
+			"roles": ["noun"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "spire",
+					"gloss": "A slender monument above the ruins",
+					"tags": ["height", "stone", "built"],
+					"resonates_with": [],
+					"axes": {"elevation": 1, "order": 0.6, "enclosure": -0.3},
+					"hazards": {"falls": 0.7, "high_wind": 0.5, "falling_masonry": 0.3},
+					"encounters": {"sentinels": 0.8, "cliff_stalkers": 0.5, "choir_wraiths": 0.3},
+					"discoveries": {"lookout_caches": 0.8, "stained_glass": 0.5, "ancient_arms": 0.3},
+					"atmosphere": ["a needle against the sky", "spiraling steps"]
+				}
+			]
+		},
+		{
+			"id": "requiem",
+			"roles": ["noun"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "requiem",
+					"gloss": "A place shaped by remembrance of the dead",
+					"tags": ["memory", "spirit", "death"],
+					"resonates_with": [],
+					"axes": {"stillness": 0.9, "vitality": -0.5, "sanctity": 0.3},
+					"hazards": {"memory_fog": 0.7, "soul_drain": 0.5, "disorientation": 0.3},
+					"encounters": {"echo_shades": 0.8, "nameless_souls": 0.5, "penitents": 0.3},
+					"discoveries": {"memory_shards": 0.8, "votive_offerings": 0.5, "unmarked_graves": 0.3},
+					"atmosphere": ["a fading lament", "names in the dust"]
+				}
+			]
+		},
+		{
+			"id": "dream",
+			"roles": ["noun"],
+			"legacy": false,
+			"category": "curated",
+			"senses": [
+				{
+					"id": "dream",
+					"gloss": "A landscape of half-remembered impressions",
+					"tags": ["memory", "deceit", "void"],
+					"resonates_with": [],
+					"axes": {"light": -0.3, "order": -0.5, "stillness": 0.6},
+					"hazards": {"illusory_floors": 0.7, "memory_fog": 0.5, "disorientation": 0.3},
+					"encounters": {"echo_shades": 0.8, "gilded_liars": 0.5, "things_unseen": 0.3},
+					"discoveries": {"memory_shards": 0.8, "fools_gold": 0.5, "lost_lanterns": 0.3},
+					"atmosphere": ["familiar doorways", "uncertain horizons"]
 				}
 			]
 		}

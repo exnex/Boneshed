@@ -7,6 +7,9 @@ const ENVIRONMENT := 1
 const ADDRESSES := [["drowned", "hollow", "cathedral"], ["frozen", "tempest", "towering"],
 	["smoldering", "frozen", "ossuary"], ["hallowed", "gilded", "profane"],
 	["thorned", "sunken", "forgotten"], ["barren", "lightless", "hollow"]]
+const GRAMMAR_ADDRESSES := [["ashen", "silent", "sanctuary"], ["moonlit", "thorned", "garden"],
+	["weeping", "forgotten", "requiem"], ["frozen", "gilded", "citadel"],
+	["smoldering", "pallid", "necropolis"], ["veiled", "sunken", "dream"]]
 var failed := 0
 var passed := 0
 var output := "res://artifacts/expedition-tests"
@@ -48,8 +51,9 @@ func run() -> void:
 		check(variants.size() >= 12, "seed_changes_geometry_" + words[0])
 	check(not Layout.generate(["drowned", "drowned", "hollow"], 1).ok, "duplicates_rejected_without_layout")
 	check(not Layout.generate(["unknown", "hollow", "cathedral"], 1).ok, "unsupported_rejected_without_layout")
+	# Exercise new vocabulary through the existing builder as well as legacy fixtures.
 	# Physics fixtures inspect the actual built shapes, not a second layout model.
-	for words: Array in ADDRESSES:
+	for words: Array in ADDRESSES + GRAMMAR_ADDRESSES:
 		for seed_value in [1, 1001, 1002]:
 			var layout: Dictionary = Layout.generate(words, seed_value).layout
 			var world := Builder.new()

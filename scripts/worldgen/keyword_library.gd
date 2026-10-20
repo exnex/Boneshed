@@ -7,6 +7,8 @@ const AXES := ["temperature", "moisture", "light", "enclosure", "elevation", "or
 const THEME_POOLS := ["hazards", "encounters", "discoveries"]
 const KEYWORDS_PATH := "res://data/worldgen/keywords.json"
 const RULES_PATH := "res://data/worldgen/rules.json"
+## Selection grammar only; these roles never change semantic effects or weights.
+const SLOT_ROLES := ["adjective", "adjective", "noun"]
 
 var data_version := ""
 var keywords := {}
@@ -41,6 +43,30 @@ func load_files(keywords_path := KEYWORDS_PATH, rules_path := RULES_PATH) -> boo
 func has_keyword(id: String) -> bool:
 	return keywords.has(id)
 
+func keywords_for_slot(slot: int, legacy := false) -> Array[String]:
+	var ids: Array[String] = []
+	if slot < 0 or slot >= SLOT_ROLES.size():
+		return ids
+	for id: String in keywords:
+		var offered: bool = keywords[id].get("legacy", false) if legacy else SLOT_ROLES[slot] in keywords[id].roles
+		if offered:
+			ids.append(id)
+	ids.sort()
+	return ids
+
+func is_grammatical(words: Array) -> bool:
+	if words.size() != SLOT_ROLES.size():
+		return false
+	var seen: Dictionary = {}
+	for slot in words.size():
+		if not (words[slot] is String or words[slot] is StringName):
+			return false
+		var id := String(words[slot]).strip_edges().to_lower()
+		if not has_keyword(id) or seen.has(id) or SLOT_ROLES[slot] not in keywords[id].roles:
+			return false
+		seen[id] = true
+	return true
+
 func _read_json(path: String) -> Variant:
 	if not FileAccess.file_exists(path):
 		errors.append("missing data file %s" % path)
@@ -53,6 +79,17 @@ func _read_json(path: String) -> Variant:
 func _validate() -> void:
 	var known_tags := {}
 	for id in keywords:
+		var roles: Variant = keywords[id].get("roles")
+		if not roles is Array or roles.is_empty():
+			errors.append("%s needs grammatical roles" % id)
+		else:
+			var seen_roles: Array = []
+			for role: Variant in roles:
+				if role not in ["adjective", "noun"] or role in seen_roles:
+					errors.append("%s has invalid or duplicate grammatical role" % id)
+				seen_roles.append(role)
+		if not keywords[id].get("legacy") is bool:
+			errors.append("%s needs a boolean legacy marker" % id)
 		var senses: Array = keywords[id].get("senses", [])
 		if senses.is_empty():
 			errors.append("%s has no senses" % id)

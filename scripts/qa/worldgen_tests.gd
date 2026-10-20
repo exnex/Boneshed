@@ -38,7 +38,7 @@ func bp(words: Array, world_seed := 1001) -> Dictionary:
 func run() -> void:
 	gen = Gen.new()
 	check(gen.library.errors.is_empty(), "library_valid", gen.library.errors)
-	check(gen.library.keywords.size() >= 12 and gen.library.keywords.size() <= 20, "vocabulary_is_small_sample")
+	check(gen.library.keywords.size() == 39, "curated_vocabulary_size")
 	test_streams()
 	test_repeatability()
 	test_seed_variation()
@@ -120,7 +120,7 @@ func test_different_words() -> void:
 	var b := bp(["barren", "smoldering", "towering"], 7)
 	check(a.streams.terrain != b.streams.terrain, "different_words_same_seed_distinct_streams")
 
-## Exhaustive over every unordered combination (560) at one seed, plus a few seeds.
+## Exhaustive over every unordered combination at one seed, including legacy orders.
 func test_ranges() -> void:
 	var ids: Array = gen.library.keywords.keys()
 	ids.sort()
@@ -136,7 +136,7 @@ func test_ranges() -> void:
 					problems.append(["not_ok", ids[i], ids[j], ids[k]])
 					continue
 				_check_ranges(result.blueprint, band, problems)
-	check(count == 560, "all_combinations_generated", count)
+	check(count == ids.size() * (ids.size() - 1) * (ids.size() - 2) / 6, "all_combinations_generated", count)
 	check(problems.is_empty(), "all_values_within_contract", problems.slice(0, 5))
 
 func _check_ranges(b: Dictionary, band: Array, problems: Array) -> void:

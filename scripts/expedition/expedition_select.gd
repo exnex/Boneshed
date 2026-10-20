@@ -12,8 +12,11 @@ var travel_card: Label
 var error_label: Label
 var seed_edit: LineEdit
 var replay_check: CheckBox
+var legacy_check: CheckBox
 var begin_button: Button
 var choices: Array[OptionButton] = []
+var slot_labels: Array[Label] = []
+var library := Library.new()
 var last_request: Dictionary = {}
 var canvas: CanvasLayer
 
@@ -48,8 +51,8 @@ func _build_selection() -> void:
 	selection.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	selection.offset_left = -350
 	selection.offset_right = 350
-	selection.offset_top = -285
-	selection.offset_bottom = 285
+	selection.offset_top = -300
+	selection.offset_bottom = 300
 	canvas.add_child(selection)
 	# Backdrop belongs to selection's lifetime/visibility, without intercepting input.
 	selection.visibility_changed.connect(func() -> void: backdrop.visible = selection.visible)
@@ -58,30 +61,28 @@ func _build_selection() -> void:
 		margin.add_theme_constant_override("margin_" + side, 30)
 	selection.add_child(margin)
 	var box := VBoxContainer.new()
-	box.add_theme_constant_override("separation", 14)
+	box.add_theme_constant_override("separation", 10)
 	margin.add_child(box)
 	_label(box, "B O N E S H E D", 18, Color("d4bd8d"))
 	_label(box, "First Expedition", 36)
 	_label(box, "Three words. An empty world. One soul to release.", 18)
-	_label(box, "Choose three different keywords", 15, Color("a4b8c0"))
+	_label(box, "Name a place: adjective + adjective + noun", 15, Color("a4b8c0"))
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 12)
 	box.add_child(row)
-	var library := Library.new()
 	if not library.load_files():
 		_label(box, "Keyword library unavailable: " + "; ".join(library.errors), 16)
 		return
-	var ids: Array = library.keywords.keys()
-	ids.sort()
-	var defaults := ["drowned", "hollow", "cathedral"]
 	for i in 3:
+		var column := VBoxContainer.new()
+		row.add_child(column)
+		slot_labels.append(_label(column, "", 14, Color("a4b8c0")))
 		var choice := OptionButton.new()
 		choice.custom_minimum_size = Vector2(195, 42)
-		for id: String in ids:
-			choice.add_item(id.capitalize())
-		choice.select(ids.find(defaults[i]))
-		row.add_child(choice)
+		choice.get_popup().max_size.y = 360
+		column.add_child(choice)
 		choices.append(choice)
+	_populate_choices(false)
 	replay_check = CheckBox.new()
 	replay_check.text = "Replay an existing seed"
 	box.add_child(replay_check)
@@ -90,12 +91,35 @@ func _build_selection() -> void:
 	seed_edit.max_length = 10
 	seed_edit.editable = false
 	box.add_child(seed_edit)
-	replay_check.toggled.connect(func(enabled: bool) -> void: seed_edit.editable = enabled)
+	legacy_check = CheckBox.new()
+	legacy_check.text = "Replay an older keyword order (original 16 words)"
+	legacy_check.disabled = true
+	box.add_child(legacy_check)
+	legacy_check.toggled.connect(_populate_choices)
+	replay_check.toggled.connect(func(enabled: bool) -> void:
+		seed_edit.editable = enabled
+		legacy_check.disabled = not enabled
+		if not enabled:
+			legacy_check.button_pressed = false)
 	_label(box, "New expeditions use a fresh seed. Keep the address + seed to return.", 14, Color("a4b8c0"))
 	error_label = _label(box, "", 15, Color("e6a29a"))
 	error_label.custom_minimum_size.y = 24
 	begin_button = _button(box, "Begin expedition", _begin_selection)
 	_label(box, "WASD move · Mouse orbit · Tab lock · F1 controls · Esc menu", 14, Color("a4b8c0"))
+
+func _populate_choices(legacy: bool) -> void:
+	var defaults := ["drowned", "hollow", "cathedral"]
+	for slot in choices.size():
+		var choice := choices[slot]
+		var previous: String = choice.get_item_text(choice.selected).to_lower() if choice.selected >= 0 else defaults[slot]
+		var ids := library.keywords_for_slot(slot, legacy)
+		choice.clear()
+		for id: String in ids:
+			choice.add_item(id.capitalize())
+		choice.select(ids.find(previous) if previous in ids else ids.find(defaults[slot]))
+		slot_labels[slot].text = "Word %d (older address)" % (slot + 1) if legacy else ["Adjective 1", "Adjective 2", "Place / concept noun"][slot]
+	if is_instance_valid(error_label):
+		error_label.text = ""
 
 func _build_pause() -> void:
 	pause_panel = PanelContainer.new()
@@ -120,6 +144,9 @@ func _begin_selection() -> void:
 	var words: Array = []
 	for choice: OptionButton in choices:
 		words.append(choice.get_item_text(choice.selected).to_lower())
+	if not legacy_check.button_pressed and not library.is_grammatical(words):
+		error_label.text = "Choose two different adjectives and a noun; no word may repeat."
+		return
 	var seed_value := 0
 	if replay_check.button_pressed:
 		var entered := seed_edit.text.strip_edges()
