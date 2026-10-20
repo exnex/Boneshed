@@ -47,3 +47,13 @@
 ## Avoid scope creep
 
 No online ranked, tower entrance exam, production combat replacement, inventory economy, new anatomy parts, shield balancing or graphical overhaul in Stage 1. Do not give omniscient decisions or perfect reaction to opponents. Do not impose a time limit on human-held attacks/guards. AI should use intentional release via its policy, not physical auto-attack.
+
+## 2026-10-20 design amendment: soul-seeded tactical graph
+
+- **Before implementing Stage 2**, read [Soulbound Tactics](SOULBOUND_TACTICS.md) and revised [ASYNC_RANKED_GHOSTS.md](ASYNC_RANKED_GHOSTS.md). Owner now wants a **required collected soul** defining default AI temperament, with **build-granted tactic points and capability-specific nodes**. Players invest a finite budget into a **modular procedural cause/effect behavior graph**, rather than merely editing a universal generic rules list.
+- **Stage 1 unchanged in size, amended in intent:** Claude's isolated melee lab styles should be treated as prototypes of different innate **soul behaviors**, using legal combat intents and readable perception; Codex's independent research should test a soul+build+point-budget graph compiler and meaningful style divergence. Neither agent has a new job automatically just because docs change; if existing prompts were handed off, share this amendment with them before assumptions harden.
+- **Stage 2 replaces generic priority-rule-only editor** with a bounded, deterministic, pre-submission-previewable soul+build-generated graph and mutable investment policy, cost validation and clear action availability. Do not draw a giant PoE-style passive grid until evaluation and player UX are validated. Preserve frozen build, legal actions, anti-omniscience, versioning, and editing after imprint.
+
+## Amendment — soul-rooted tactical graph, 2026-10-20
+
+Stage 1 should treat its prototype AI styles as sample **soul defaults**, maintaining readable, fair perception and legal combat intent. Independent Codex tactics research should use **soul + resolved build capabilities + limited point budget** as inputs, and test generated options and policy outcomes on identical and varied builds. Stage 2 is no longer just a generic priority-rule editor: prototype a deterministic bounded graph generated from soul and build, with pre-imprint preview, investment costs, clear WHEN/IF/THEN action routing and post-imprint editing. Do not build a huge passive node atlas, implement production soul drops or ranked economy yet. Read [Soulbound Tactics](SOULBOUND_TACTICS.md) before agent implementation. Previously supplied agent prompts need this update if already dispatched.
