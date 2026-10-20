@@ -115,3 +115,10 @@ Keep approved direction separate from brainstorms. Amend this document only when
 - The submitted build supplies **tactics points** and capability-specific tactical nodes. Players invest a **limited budget** in modifying/adding conditional decisions. The tactical structure is **modular and procedurally generated based on soul and build**; player-visible cause-and-effect behavior and deep strategic tradeoffs are intended.
 - This refines/supersedes the *generic empty programmable decision-tree* assumption. The frozen submitted physical build remains fixed; tactics investment remains editable after submission as already specified. Whether the installed soul itself is consumable/frozen, point formula, graph generation randomness, node economy, reallocation cost and UI presentation are not approved.
 - See [Soulbound Tactics](SOULBOUND_TACTICS.md) for separated recommendations and owner questions. No soul-acquisition loop or tactics editor implementation is authorized by this design record.
+
+## Soul-seeded Echo tactics — owner direction, 2026-10-20
+
+- A **soul must be collected before creating/submitting an Echo**. Different soul types establish initial AI temperament, such as aggressive, defensive or balanced.
+- The build grants a limited tactics-point budget and capability-specific behavior nodes. Players invest to modify the soul's starting behavior and add conditional, cause-and-effect decisions within a **modular procedurally generated graph** shaped by soul and physical build.
+- Earlier requirement that submitted physical build remains immutable while tactics may be edited after submission still applies. Soul consumption, exact point formula, procedural variance, node costs and editing restrictions have NOT been selected.
+- See [Soulbound Tactics](SOULBOUND_TACTICS.md) for proposals and unresolved design questions. No production implementation authorized.
