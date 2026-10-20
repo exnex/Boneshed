@@ -47,13 +47,27 @@ jobs:
         run: |
           python3 -m pip install --user --break-system-packages playwright
           python3 scripts/tooling/smoke_web_preview.py "${{ runner.temp }}/boneshed-web-release"
-      - name: Record source revision
-        run: echo "${GITHUB_SHA}" > "${{ runner.temp }}/web-source-revision.txt"
-      - name: Publish audited export to both existing preview branches
+      - name: Export separate experimental directional melee scene
+        env:
+          BONESHED_TOOLS: ${{ runner.temp }}/boneshed-tools
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path("project.godot")
+          src = p.read_text()
+          expected = 'run/main_scene="res://scenes/first_expedition.tscn"'
+          assert src.count(expected) == 1, "Unexpected default scene: refusing to publish the wrong build"
+          p.write_text(src.replace(expected, 'run/main_scene="res://scenes/melee_lab.tscn"'))
+          PY
+          bash scripts/tooling/export_web.sh "${{ runner.temp }}/boneshed-web-melee-lab"
+          git checkout -- project.godot
+      - name: Smoke test experimental melee lab in real browser
+        run: python3 scripts/tooling/smoke_web_preview.py "${{ runner.temp }}/boneshed-web-melee-lab"
+      - name: Publish audited main game and lab to both Pages branches
         env:
           BONESHED_TOOLS: ${{ runner.temp }}/boneshed-tools
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          bash scripts/tooling/publish_web_preview.sh "${{ runner.temp }}/boneshed-web-release" gh-pages
-          bash scripts/tooling/publish_web_preview.sh "${{ runner.temp }}/boneshed-web-release" preview/browser-courtyard
+          bash scripts/tooling/publish_web_dual.sh "${{ runner.temp }}/boneshed-web-release" "${{ runner.temp }}/boneshed-web-melee-lab" gh-pages
+          bash scripts/tooling/publish_web_dual.sh "${{ runner.temp }}/boneshed-web-release" "${{ runner.temp }}/boneshed-web-melee-lab" preview/browser-courtyard
