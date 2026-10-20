@@ -13,7 +13,7 @@ enemy's intent, both phases and the latest decision. **Pictures and bots are not
 | `trace_<style>.json` | The enemy's full decision trace for each scripted style (seed 20261020) |
 | `replay_trace_seed_*.json` | Same-seed and different-seed replay traces |
 | `clips.json` | Trigger tick and frame range of each rendered clip |
-| `sheet_<clip>.png` | Contact sheet (every 4th tick) of each clip |
+| `sheet_<clip>.jpg` | Contact sheet (every 4th tick) of each clip |
 | `clip_<clip>.mp4` | The same frames at 30 fps (every 2nd tick, so roughly real time) |
 | `compare_styles.gd`, `before_after_*.jsonl` | Before/after harness and its output for the original and new AI |
 

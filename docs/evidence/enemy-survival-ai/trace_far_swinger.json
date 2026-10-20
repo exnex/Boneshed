@@ -1,0 +1,47 @@
+[
+	{
+		"aggression": 1.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 1,
+		"t": 0.2,
+		"tick": 12
+	},
+	{
+		"aggression": 1.58,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 2,
+		"t": 1.4,
+		"tick": 84
+	},
+	{
+		"aggression": 2.16,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 3,
+		"t": 2.6,
+		"tick": 156
+	},
+	{
+		"aggression": 2.74,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 4,
+		"t": 3.8,
+		"tick": 228
+	},
+	{
+		"aggression": 3.32,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 5,
+		"t": 5.0,
+		"tick": 300
+	}
+]

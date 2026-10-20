@@ -1,0 +1,418 @@
+[
+	{
+		"aggression": 1.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 1,
+		"t": 0.2,
+		"tick": 12
+	},
+	{
+		"at": 0.233,
+		"binding": "light",
+		"contact_in": 0.14,
+		"decision": "answer_guard",
+		"distance": 1.84,
+		"roll": 0.1374,
+		"strained": false,
+		"streak": 1,
+		"swing": 1,
+		"t": 0.2,
+		"tick": 12,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 0.6,
+			"guard": 1.0
+		}
+	},
+	{
+		"decision": "attack_light",
+		"distance": 1.85,
+		"heavy_chance": 0.3,
+		"roll": 0.4601,
+		"t": 0.8,
+		"tick": 48
+	},
+	{
+		"aggression": 1.59,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 2,
+		"t": 1.367,
+		"tick": 82
+	},
+	{
+		"counters_deflected": 0,
+		"decision": "own_attack_deflected",
+		"t": 1.433,
+		"tick": 86
+	},
+	{
+		"aggression": 2.18,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 3,
+		"t": 2.533,
+		"tick": 152
+	},
+	{
+		"at": 2.591,
+		"binding": "light",
+		"contact_in": 0.14,
+		"decision": "answer_evade",
+		"distance": 1.85,
+		"roll": 0.6359,
+		"strained": false,
+		"streak": 1,
+		"swing": 3,
+		"t": 2.533,
+		"tick": 152,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 0.6,
+			"guard": 0.5
+		}
+	},
+	{
+		"contact_in": 0.073,
+		"decision": "dodge",
+		"side": -1.0,
+		"swing": 3,
+		"t": 2.6,
+		"tick": 156
+	},
+	{
+		"decision": "attack_heavy",
+		"distance": 1.7,
+		"heavy_chance": 0.3,
+		"roll": 0.2106,
+		"t": 3.417,
+		"tick": 205
+	},
+	{
+		"aggression": 2.77,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 4,
+		"t": 3.7,
+		"tick": 222
+	},
+	{
+		"contact_in": 0.14,
+		"decision": "abort_skip",
+		"own_remaining": 0.567,
+		"roll": 0.7765,
+		"t": 3.7,
+		"tick": 222
+	},
+	{
+		"aggression": 3.37,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 5,
+		"t": 4.867,
+		"tick": 292
+	},
+	{
+		"contact_in": 0.14,
+		"decision": "recovery_guard_take",
+		"own_remaining": 0.21,
+		"roll": 0.0805,
+		"t": 4.867,
+		"tick": 292
+	},
+	{
+		"aggression": 3.96,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 6,
+		"t": 6.033,
+		"tick": 362
+	},
+	{
+		"at": 6.073,
+		"binding": "light",
+		"contact_in": 0.14,
+		"decision": "answer_guard",
+		"distance": 1.85,
+		"roll": 0.1367,
+		"strained": false,
+		"streak": 1,
+		"swing": 6,
+		"t": 6.033,
+		"tick": 362,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 0.15,
+			"guard": 1.0
+		}
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 7,
+		"t": 7.2,
+		"tick": 432
+	},
+	{
+		"at": 7.224,
+		"binding": "light",
+		"contact_in": 0.14,
+		"decision": "answer_evade",
+		"distance": 1.85,
+		"roll": 0.6821,
+		"strained": false,
+		"streak": 1,
+		"swing": 7,
+		"t": 7.2,
+		"tick": 432,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 0.3,
+			"guard": 0.5
+		}
+	},
+	{
+		"contact_in": 0.107,
+		"decision": "dodge",
+		"side": -1.0,
+		"swing": 7,
+		"t": 7.233,
+		"tick": 434
+	},
+	{
+		"decision": "attack_heavy",
+		"distance": 1.82,
+		"heavy_chance": 1.0,
+		"roll": 0.7459,
+		"t": 7.883,
+		"tick": 473
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 8,
+		"t": 8.367,
+		"tick": 502
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 9,
+		"t": 9.533,
+		"tick": 572
+	},
+	{
+		"at": 9.596,
+		"binding": "light",
+		"contact_in": 0.123,
+		"decision": "answer_guard",
+		"distance": 1.85,
+		"roll": 0.2846,
+		"strained": false,
+		"streak": 1,
+		"swing": 9,
+		"t": 9.55,
+		"tick": 573,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 0.15,
+			"guard": 1.0
+		}
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 10,
+		"t": 10.7,
+		"tick": 642
+	},
+	{
+		"at": 10.709,
+		"binding": "light",
+		"contact_in": 0.14,
+		"decision": "answer_guard",
+		"distance": 1.85,
+		"roll": 0.1444,
+		"strained": false,
+		"streak": 2,
+		"swing": 10,
+		"t": 10.7,
+		"tick": 642,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 0.3,
+			"guard": 0.5
+		}
+	},
+	{
+		"decision": "attack_heavy",
+		"distance": 1.84,
+		"heavy_chance": 1.0,
+		"roll": 0.3759,
+		"t": 11.767,
+		"tick": 706
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 11,
+		"t": 11.867,
+		"tick": 712
+	},
+	{
+		"contact_in": 0.14,
+		"decision": "abort_take",
+		"own_remaining": 0.75,
+		"roll": 0.1922,
+		"t": 11.867,
+		"tick": 712
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 12,
+		"t": 13.033,
+		"tick": 782
+	},
+	{
+		"at": 13.071,
+		"binding": "light",
+		"contact_in": 0.14,
+		"decision": "answer_evade",
+		"distance": 1.84,
+		"roll": 0.7093,
+		"strained": false,
+		"streak": 1,
+		"swing": 12,
+		"t": 13.033,
+		"tick": 782,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 0.3,
+			"guard": 0.25
+		}
+	},
+	{
+		"contact_in": 0.09,
+		"decision": "dodge",
+		"side": 1.0,
+		"swing": 12,
+		"t": 13.083,
+		"tick": 785
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 13,
+		"t": 14.2,
+		"tick": 852
+	},
+	{
+		"at": 14.244,
+		"binding": "light",
+		"contact_in": 0.14,
+		"decision": "answer_guard",
+		"distance": 1.84,
+		"roll": 0.5279,
+		"strained": false,
+		"streak": 1,
+		"swing": 13,
+		"t": 14.2,
+		"tick": 852,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 0.15,
+			"guard": 1.0
+		}
+	},
+	{
+		"decision": "attack_heavy",
+		"distance": 1.84,
+		"heavy_chance": 1.0,
+		"roll": 0.5758,
+		"t": 14.367,
+		"tick": 862
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 14,
+		"t": 15.367,
+		"tick": 922
+	},
+	{
+		"contact_in": 0.123,
+		"decision": "recovery_guard_take",
+		"own_remaining": 0.643,
+		"roll": 0.2938,
+		"t": 15.383,
+		"tick": 923
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 15,
+		"t": 16.533,
+		"tick": 992
+	},
+	{
+		"at": 16.587,
+		"binding": "light",
+		"contact_in": 0.14,
+		"decision": "answer_guard",
+		"distance": 1.85,
+		"roll": 0.4607,
+		"strained": false,
+		"streak": 2,
+		"swing": 15,
+		"t": 16.533,
+		"tick": 992,
+		"weights": {
+			"backstep": 0.0,
+			"evade": 0.3,
+			"guard": 0.5
+		}
+	},
+	{
+		"decision": "attack_heavy",
+		"distance": 1.84,
+		"heavy_chance": 1.0,
+		"roll": 0.084,
+		"t": 17.5,
+		"tick": 1050
+	},
+	{
+		"aggression": 4.0,
+		"binding": "light",
+		"decision": "saw_windup",
+		"remaining": 0.323,
+		"swing": 16,
+		"t": 17.7,
+		"tick": 1062
+	}
+]

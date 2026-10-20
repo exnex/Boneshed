@@ -60,7 +60,7 @@ Bounded reaction and commitment:
 - Each consecutive repeat of the same answer multiplies its weight by 0.5;
   dodges are capped at 2 in a row. Across the scripted styles no answer repeats more than
   3 times running.
-- Dodges stay a minority (in the shipped run, 13 of 85 player swings; the test bound is ≤ 50 %).
+- Dodges stay a minority (in the shipped run, 8 dodges against 64 player swings; the test bound is ≤ 50 %).
 - Counters only follow an opening (block, whiff, break) within 0.9 s.
 - Attack spacing jitters between 0.8× and 1.6× the 0.65 s interval.
 - All randomness uses one `RandomNumberGenerator` seeded from `ai_seed` on every

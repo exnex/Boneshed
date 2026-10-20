@@ -1,0 +1,47 @@
+[
+	{
+		"decision": "lunge_take",
+		"distance": 2.89,
+		"roll": 0.3269,
+		"t": 0.8,
+		"tick": 48
+	},
+	{
+		"decision": "lunge_take",
+		"distance": 2.98,
+		"roll": 0.1374,
+		"t": 3.083,
+		"tick": 185
+	},
+	{
+		"decision": "lunge_skip",
+		"distance": 2.87,
+		"roll": 0.4601,
+		"t": 5.583,
+		"tick": 335
+	},
+	{
+		"decision": "attack_light",
+		"distance": 1.84,
+		"heavy_chance": 0.3,
+		"roll": 0.7167,
+		"t": 8.7,
+		"tick": 522
+	},
+	{
+		"decision": "attack_light",
+		"distance": 1.83,
+		"heavy_chance": 0.3,
+		"roll": 0.9545,
+		"t": 10.683,
+		"tick": 641
+	},
+	{
+		"decision": "attack_special",
+		"distance": 1.85,
+		"heavy_chance": 0.3,
+		"roll": 0.0805,
+		"t": 12.733,
+		"tick": 764
+	}
+]
