@@ -1,0 +1,12 @@
+parse check: all lab scripts parse
+checks: expected exit 0 confirmed
+checks_replay: expected exit 0 confirmed
+cross-process replay: results.json identical
+negative_no-substeps: expected exit 1 confirmed
+negative no-substeps: caught by ['fast_blade_cannot_tunnel_through_guard']
+negative_omniscient: expected exit 1 confirmed
+negative omniscient: caught by ['ai_guard_waits_for_reaction_delay', 'late_redirect_is_seen_only_after_delay']
+rendered: expected exit 0 confirmed
+Melee lab checks, replay, negative controls and rendered clips passed.
+isolation: no protected production or coordination file changed versus origin/main
+Evidence: /home/user/Boneshed/artifacts/lab-final

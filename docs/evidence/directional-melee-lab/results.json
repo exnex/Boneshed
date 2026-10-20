@@ -1,0 +1,106 @@
+{
+	"ai_attack_directions": {
+		"diag_left": 3,
+		"diag_right": 4,
+		"left_to_right": 4,
+		"overhead": 3,
+		"right_to_left": 3,
+		"thrust": 8
+	},
+	"ai_fairness": {
+		"first_answer_after": 0.250000000000001,
+		"reaction_delay": 0.22,
+		"redirect_answer_after": 0.250000000000001
+	},
+	"alignment_matrix": {
+		"diag_left": {
+			"center": "hit",
+			"high": "block",
+			"high_left": "hit",
+			"high_right": "block",
+			"left": "hit",
+			"right": "block"
+		},
+		"diag_right": {
+			"center": "hit",
+			"high": "block",
+			"high_left": "block",
+			"high_right": "hit",
+			"left": "block",
+			"right": "hit"
+		},
+		"left_to_right": {
+			"center": "hit",
+			"high": "hit",
+			"high_left": "hit",
+			"high_right": "block",
+			"left": "hit",
+			"right": "block"
+		},
+		"overhead": {
+			"center": "misaligned",
+			"high": "block",
+			"high_left": "block",
+			"high_right": "block",
+			"left": "hit",
+			"right": "hit"
+		},
+		"right_to_left": {
+			"center": "hit",
+			"high": "hit",
+			"high_left": "block",
+			"high_right": "hit",
+			"left": "block",
+			"right": "hit"
+		},
+		"thrust": {
+			"center": "block",
+			"high": "hit",
+			"high_left": "hit",
+			"high_right": "hit",
+			"left": "hit",
+			"right": "hit"
+		}
+	},
+	"direction_change": {
+		"greatsword_follow_up": 0.183333333333333,
+		"greatsword_repeat": 0.433333333333333,
+		"sword_follow_up": 0.183333333333333,
+		"sword_repeat": 0.35
+	},
+	"end_pose_only_result": "none",
+	"guard_raise_seconds": {
+		"greatsword": 0.15,
+		"knife": 0.0666666666666667,
+		"sword": 0.1
+	},
+	"reach": {
+		"greatsword@2.9": "hit",
+		"knife@1.5": "hit",
+		"knife@2.2": "none",
+		"sword@2.4": "hit",
+		"sword@3.2": "none"
+	},
+	"swing_profiles": {
+		"greatsword": {
+			"contact": 0.533333333333333,
+			"momentum": 73.1861,
+			"omega": 13.0,
+			"windup": 0.283333333333333
+		},
+		"knife": {
+			"contact": 0.333333333333333,
+			"momentum": 9.4341975,
+			"omega": 13.0,
+			"windup": 0.183333333333333
+		},
+		"sword": {
+			"contact": 0.45,
+			"momentum": 27.664,
+			"omega": 13.0,
+			"windup": 0.25
+		}
+	},
+	"timed_press_deflect": "deflect",
+	"timed_press_early": "block"
+}
