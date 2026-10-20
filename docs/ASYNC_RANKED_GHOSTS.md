@@ -12,7 +12,7 @@
    - **Defense:** when other players face their AI-controlled ghost and **lose**, the ghost's owner gains *defensive points*.
    At least one participant is AI controlled and the challenged ghost is always AI controlled. This is **asynchronous** competition, not synchronized human-vs-human PvP.
 5. After submission, owners can edit their ghost's **behavior decision tree/policy**, but **cannot change its underlying submitted build**. Behavior options and tactics derive from the build's real equipment, anatomy, skills, weapon/grip capabilities and other actual legal actions. Build/equip UX must transparently disclose which ghost-tactic capabilities each choice grants, blocks or changes.
-6. The player should be able to elect to use the submitted build in ranked attacks; **exact semantics of piloting a fixed snapshot after sacrifice** versus using a new/live character require clarification. Preserve this distinction explicitly rather than guessing.
+5. **Confirmed clarification:** in offensive ranked challenges, the human directly pilots **their own active submitted/frozen ghost build**, even though the original gear/body were sacrificed and cleared from normal adventuring. The defending opponent is always another player's AI-controlled ghost. Current adventuring equipment does not determine the offensive ranked avatar.
 
 ## Proposed player-facing terminology (NOT confirmed names)
 
@@ -43,15 +43,29 @@ Keep language accessible. Name lock requires explicit owner approval.
 
 ## Open owner decisions
 
-1. **Ranked attacker avatar:** When playing offense, does the player directly control their **active frozen Echo** even though its gear/body were sacrificed in normal play? Or do they enter with their current live build and challenge the defending Echo?
-2. **Sacrifice boundary:** Exactly what is lost on Imprint: equipped weapons and armor, all carried goods, body mods, skills/stats, all character progress? Do items left in storage remain untouched?
-3. **Retired Echo eligibility:** Stats visible forever, but can retired builds still be challenged/viewed/replayed?
-4. **Behavior edits:** Can owners change AI tactics anytime, including while an outstanding match is resolving? Should results pin a policy version at match creation?
-5. **Scoring:** Are assault/defense values cumulative points, separate skill ratings, or both? How is rank calculated and are there seasons?
-6. **Decision-tree expression:** Visual priority rules, hierarchical behavior trees or a constrained hybrid? What policy complexity/resource costs should be tradeoffs?
-7. **Preserved character identity:** What survives a reset—account unlocks, learned recipes, currencies, global progression, or something else?
-8. **Ghost challenge selection:** Matchmaking, opt-in queue, revenge/counter-challenges and farming limits remain undecided.
+1. **Sacrifice boundary:** Exactly what is lost on Imprint: equipped weapons and armor, all carried goods, body mods, skills/stats, all character progress? Do items left in storage remain untouched?
+2. **Retired Echo eligibility:** Stats visible forever, but can retired builds still be challenged/viewed/replayed?
+3. **Behavior edits:** Can owners change AI tactics anytime, including while an outstanding match is resolving? Should results pin a policy version at match creation?
+4. **Scoring:** Are assault/defense values cumulative points, separate skill ratings, or both? How is rank calculated and are there seasons?
+5. **Decision-tree expression:** Visual priority rules, hierarchical behavior trees or a constrained hybrid? What policy complexity/resource costs should be tradeoffs?
+6. **Preserved character identity:** What survives a reset—account unlocks, learned recipes, currencies, global progression, or something else?
+7. **Ghost challenge selection:** Matchmaking, opt-in queue, revenge/counter-challenges and farming limits remain undecided.
 
 ## Dependencies for later milestones
 
 Shared anatomy/build capability resolver → legal player/AI combat intent + readable perception → behavior-policy evaluator + testing tools → immutable sacrifice transaction and reset semantics → persistent snapshot/policy records → fair asynchronous challenge execution, results and scoring → accessible tactics/leaderboard/history UX. None of these is claimed shipped.
+
+## Optional Tower entrance examination — owner concept, 2026-10-20
+
+**Purpose (confirmed):** Before irreversible build submission, a player may bring their **current, unsacrificed adventuring build** to an **optional exam** and fight a sequence of randomly selected other players' AI-controlled ranked ghosts. It provides a preview of how competitive the submitted build might be. Taking or passing the exam is **not required** to create a ghost. The exam does **not** itself freeze or sacrifice the build.
+
+**Format under discussion:**
+- Initial proposal: **five 1v1 encounters**, randomly sampling ghosts at **progressively higher ranks**, with **three lives total** across the exam. The owner's wording also included “3 rounds”; whether that means something besides the three lives or was an edit is **not yet resolved**.
+- A longer **ten-encounter** format and **exam-specific rewards** are potential expansions, not settled features.
+- Whether defeat consumes anything outside this optional run, whether wins count toward regular Assault rating, precise lives/retries structure, opponent rank buckets and reward eligibility are undecided.
+
+**Crucial limitation (owner-confirmed):** an exam gauges **human-piloted** build performance. Some builds may be poor in human hands but excel under tuned **AI ghost tactics**, and the exam must not mislead players into assuming a low result proves an AI-oriented build is uncompetitive. The UX should clearly label the human-control limitation and eventually might provide a behavior-policy simulation or AI sparring preview as an **optional proposed** complement (not confirmed).
+
+**Lifecycle distinction:** current build → optional entrance exam (current human-controlled, no sacrifice) → player elects imprint (fixed ranked snapshot, normal build sacrificed/reset) → owner pilots frozen active echo in ranked offense; configurable ghost AI defends asynchronous challenges. No rank entry prerequisite is implied.
+
+**Terminology proposal:** “Tower Trial” or “Entrance Trial” is friendlier than “exam” if failure should not imply a required qualification. “Five-floor Trial” suits the progression, but the event length is unsettled; do not lock floor count into a permanent title.
