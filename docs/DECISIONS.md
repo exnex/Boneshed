@@ -122,3 +122,9 @@ Keep approved direction separate from brainstorms. Amend this document only when
 - The build grants a limited tactics-point budget and capability-specific behavior nodes. Players invest to modify the soul's starting behavior and add conditional, cause-and-effect decisions within a **modular procedurally generated graph** shaped by soul and physical build.
 - Earlier requirement that submitted physical build remains immutable while tactics may be edited after submission still applies. Soul consumption, exact point formula, procedural variance, node costs and editing restrictions have NOT been selected.
 - See [Soulbound Tactics](SOULBOUND_TACTICS.md) for proposals and unresolved design questions. No production implementation authorized.
+
+## Stamina and equipment weight — owner direction, 2026-10-20
+
+- The game **must have stamina**. **Attacks, dodges and dodge rolls use stamina**, with action costs modified by character build. **Heavy armor slows movement**; **heavy weapons swing more slowly and consume more stamina**. **Light weapons allow rapid barrages of less powerful strikes**. Exact cost/balance formulas and every other penalty are not confirmed.
+- Implement resource legality consistently for player, NPC and eventual AI Echo using shared equipment/build metadata. Preserving the successful **indefinite attack chamber and held guard** remains essential; no unapproved holding timer or passive drain.
+- Stamina/exertion vs posture/guard stability should remain distinguishable (recommended architecture). Detailed confirmed facts, proposals and open questions: [STAMINA_AND_WEIGHT.md](STAMINA_AND_WEIGHT.md).
