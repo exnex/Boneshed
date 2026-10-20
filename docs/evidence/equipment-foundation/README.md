@@ -24,3 +24,28 @@ Orientation: in a **front** shot the character's left is on the **screen right**
 `compare_*.png` stack before (top) and after (bottom) at half size.
 Renders show placement only; they say nothing about game feel or readability, which need
 a human playtest.
+
+## Regression run (head `b0a50c5`, merged with `main` `495b270`)
+
+Pinned engine, Linux x86_64 cloud container, Mesa llvmpipe. All runners executed sequentially.
+
+| Runner | Result | Time |
+| --- | --- | --- |
+| `test_builds.sh` | pass (205 checks; salvage example regenerates identically) | 9 s |
+| `test_anatomy.sh` | pass (190 checks; anatomy example regenerates identically) | 8 s |
+| `test_marrow.sh` | pass (212 checks, 8 mutations, pose + equipment negative controls, rendered input playthrough = headless trace) | 204 s |
+| `test_equipment.sh` | pass (rendered placement + agreement, both fighters) | 8 s |
+| `test_combat_motion.sh` | pass (63 checks + negative controls) | 128 s |
+| `test_enemy_ai.sh` | pass | 947 s |
+| `test_presentation.sh` | pass | 17 s |
+| `test_expedition.sh` | pass | 218 s |
+| `test_camera_zoom.sh` | pass | 110 s |
+| `test_keyword_grammar.sh` | pass | 159 s |
+| `test_worldgen.sh` | pass | 17 s |
+| `test_animation_lab.sh` | pass | 244 s |
+| `test.sh` | pass with `BONESHED_GRAPHICAL_TIMEOUT=900` (combat_builds 532, combat 118, graphical 111) | 373 s |
+
+`test.sh` first failed only by **timeout** (exit 124) in the rendered `graphical` step at the
+default 180 s, with no failed checks. The same step alone takes 284 s on unmodified `main`
+(`495b270`) and 283 s on this branch in this container (both 111/111), so the limit is an
+environment issue, not a regression. Not run: `test_web.sh` (no export/input change).
