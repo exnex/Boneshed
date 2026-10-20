@@ -76,10 +76,9 @@ func run() -> void:
 	root.add_child(shell)
 	await frame(2)
 	await capture("01_selection")
-	# Real UI values and button signal, including validation and fresh entropy.
+	# Equal menu indices now select distinct words from separate vocabularies.
 	shell.choices[1].select(shell.choices[0].selected)
-	shell._begin_selection()
-	check(shell.expedition == null and not shell.error_label.text.is_empty(), "ui_duplicate_feedback")
+	check(shell.choices[0].get_item_text(shell.choices[0].selected) != shell.choices[1].get_item_text(shell.choices[1].selected), "ui_equal_indices_are_distinct_words")
 	select_words(shell, ADDRESSES[0])
 	shell.replay_check.button_pressed = true
 	shell.seed_edit.text = "4294967296"

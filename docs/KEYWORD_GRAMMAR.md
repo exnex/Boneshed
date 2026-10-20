@@ -1,20 +1,24 @@
 # Keyword address grammar
 
-The owner confirmed **adjective + adjective + noun** addresses after playing First
-Expedition. The desktop selector now offers 24 adjectives in each of the first two
-slots and 16 place/concept nouns in the third. Adjectives must differ; a word cannot
-appear twice. **Hollow** is both an adjective and a place noun. **Tempest** is a noun.
+The owner confirmed **adjective + adjective + noun** addresses and, after native
+playtesting, distinct curated vocabularies for all three slots. Normal selection
+now offers **12 environment/state adjectives**, **12 character/quality adjectives**,
+and **15 place/concept nouns**. Each word belongs to exactly one selectable slot:
+all **2,160** combinations contain three different words.
 
-| Role | Available words |
-| --- | --- |
-| Adjectives | Ashen, Barren, Buried, Drowned, Forgotten, Forsaken, Frozen, Gilded, Hallowed, Hollow, Lightless, Moonlit, Pallid, Profane, Shattered, Silent, Smoldering, Sunken, Thorned, Towering, Veiled, Weeping, Windswept, Withered |
-| Place/concept nouns | Cathedral, Chasm, Citadel, Dream, Garden, Hollow, Labyrinth, Marsh, Necropolis, Ossuary, Requiem, Sanctuary, Sepulcher, Shore, Spire, Tempest |
+| Slot | Role | Available words |
+| --- | --- | --- |
+| 1 | Environment / state adjective | Ashen, Buried, Drowned, Frozen, Lightless, Moonlit, Smoldering, Sunken, Veiled, Weeping, Windswept, Withered |
+| 2 | Character / quality adjective | Barren, Forgotten, Forsaken, Gilded, Hallowed, Hollow, Pallid, Profane, Shattered, Silent, Thorned, Towering |
+| 3 | Place / concept noun | Cathedral, Chasm, Citadel, Dream, Garden, Labyrinth, Marsh, Necropolis, Ossuary, Requiem, Sanctuary, Sepulcher, Shore, Spire, Tempest |
 
 Examples include **Ashen Silent Sanctuary**, **Moonlit Thorned Garden**, **Weeping
 Forgotten Requiem**, **Frozen Gilded Citadel**, **Smoldering Pallid Necropolis**, and
-**Veiled Sunken Dream**. They cover ruined, wild, memorial, cold, fire/death and
-uncertain/dreamlike themes. New words have individually authored semantic data using
-the existing axes/tags/theme pools. Their effects and visual interpretation remain
+**Veiled Forsaken Dream**. Other combinations include **Buried Hallowed Sepulcher**,
+**Windswept Shattered Spire**, **Sunken Profane Cathedral**, and **Withered Towering
+Garden**. They cover ruined, wild, memorial, cold, fire/death and
+uncertain/dreamlike themes. All 39 existing words retain their individually authored
+semantic data using the existing axes/tags/theme pools. Their effects and visual interpretation remain
 provisional, and a concept noun does not promise a bespoke level type. Existing
 curated causeways and abstract scenery are reused.
 
@@ -25,29 +29,37 @@ Lists scroll. Choose **Begin expedition** for a fresh entropy seed. For a record
 address, enable **Replay an existing seed**, choose the words in their original
 order and enter its seed (0–4294967295).
 
-If an old address does not fit the new grammar, also enable **Replay an older
-keyword order (original 16 words)**. All three slots then offer the original words,
-with labels that explicitly identify older addresses. For example, **Tempest Frozen
-Towering / 1001** and **Hallowed Gilded Profane / 1001** remain playable exactly as
-recorded. Turning seed replay off restores grammatical selection. Existing restart
-and return behavior, including salvage reset, is unchanged.
+If a recorded address does not fit the new slot lists, also enable **Replay an
+older address (all words, any order)**. All three slots then offer all 39 catalog
+words, with labels identifying older addresses. This includes both the original
+16-word addresses and those recorded under the previous shared-adjective selector.
+For example, **Tempest Frozen Towering / 1001**, **Veiled Sunken Dream / 1001**, and
+**Frozen Barren Hollow / 1001** remain playable exactly as recorded. **Hollow** is now
+selectable only as a quality in normal mode; its original senses, including its
+place reading in older addresses, are unchanged. Repeated words remain invalid.
+Turning seed replay off restores grammatical selection. Existing restart and return
+behavior, including salvage reset, is unchanged.
 
 ## Compatibility audit
 
 | Surface | Result / policy |
 | --- | --- |
-| Original 16 keyword ids and effects | Preserved; no aliases, substitutions or sense changes |
-| All 3,360 original valid ordered triples | Preserved in the generator and older-order replay UI; duplicates still rejected |
+| All 39 keyword ids and effects | Preserved; only `roles` metadata changes; no aliases, substitutions or sense changes |
+| All 3,360 original valid ordered triples | Preserved in the generator and older-address replay UI; duplicates still rejected |
+| All 8,786 previous grammatical addresses | Preserved through expanded replay, including words introduced in PR #30 |
 | Existing WorldBlueprint consumers | Schema `0.1.0`, semantic `data_version: prototype-0.1`, position weights, namespace, streams and formulas unchanged |
 | Old golden blueprints | All 14 JSON examples plus index and summary regenerate byte for byte |
 | First Expedition seed fixtures | All four pinned layout fingerprints unchanged, including Drowned Hollow Cathedral / 1001 (`1c1b4200`) |
-| New selection | Filters by `roles`; it does not reorder, replace, or reinterpret words |
+| New selection | Filters by one of `environment_adjective`, `quality_adjective`, `noun`; filters are independent of current selections |
 | Persisted saves | The slice has no disk-save system; a recorded address + seed needs no data migration |
 
-The vocabulary extension is additive. `roles` and `legacy` are validated catalog
-metadata; neither enters blueprints, identity hashes or stream seeds. The existing
-semantic data version is deliberately retained to avoid changing every old
-fingerprint just because selection metadata and additional words were added.
+The vocabulary is unchanged. `roles` must be a one-element array naming one of the
+three slot roles; multi-role entries (overlap), unknown roles, malformed roles, and
+empty slot pools fail catalog validation. `legacy` remains the validated historical
+marker for membership in the original 16-word vocabulary; replay now uses the
+complete catalog rather than that marker. Neither enters blueprints, identity
+hashes or stream seeds. The existing semantic data version is deliberately retained
+to avoid changing old fingerprints when selection metadata changes.
 Low-level `Blueprint.generate` and `Layout.generate` keep their permissive ordered
 input contract for existing consumers/fixtures. `Library.is_grammatical` is the
 normal-selection boundary; `keywords_for_slot` supplies the UI options. Changing
@@ -74,20 +86,25 @@ bash scripts/tooling/test_keyword_grammar.sh artifacts/grammar-new
 bash scripts/tooling/test_expedition.sh artifacts/expedition-new
 ```
 
-The grammar runner compares baseline fingerprints captured from `main 8025663`
-**before editing** for every original ordered triple at seeds 0, 1001 and 4294967295
-(10,080 comparisons). It exercises every vocabulary word across 32 seeds, comparing
-entire repeated layouts, seed-independent identity and at least 12 geographic
-arrangements per address. Six example addresses also test role metadata independence
-and generate an evidence table with identity/blueprint/layout hashes for two seeds.
-Native mouse launch, keyboard popup navigation, invalid/boundary seeds, duplicate
-feedback, exact older-order replay, restart and restoring normal grammar are tested
-headless and rendered. Removing the UI role filter must fail an isolated mutation.
-The existing expedition runner adds 18 built new-vocabulary fixtures for route
-capsule sweeps, floor rays, arena clearance, boundary/gate collision, alongside its
-original fixtures and legal-input salvage/rematch trace comparison.
+The grammar runner checks a SHA-256 baseline of every catalog field except `roles`,
+captured from **main `31ec237` before editing**. This guards all 39 original meanings
+and ids. It also compares baseline blueprint fingerprints for every previous valid
+grammar address at seeds 0, 1001 and 4294967295 (**26,358 comparisons**) in addition
+to the original ordered-triple baseline (**10,080 comparisons**). The 12 historical
+example identity/blueprint/layout hashes remain fixed; all four original expedition
+layout fixtures and all 16 golden worldgen files remain unchanged.
 
-[Executed results and captures](evidence/keyword-grammar/README.md) record the checked
-source hashes. Automated checks and software-rendered captures establish these
-invariants; whether the vocabulary is evocative and the game feels good still needs
-human reading and desktop playtesting. Command Center owns PR review and merging.
+Every word is exercised in its assigned slot across 32 seeds, comparing repeated
+layouts, seed-independent identity and at least 12 geographic arrangements per
+address. Tests check pairwise disjointness of both catalog lists and actual visible
+menus, malformed and overlapping role metadata, all catalog words in all replay
+slots, and old-role replay through the UI. Native mouse launch, keyboard popup
+navigation, invalid/boundary seeds, wrong-slot rejection, restart and restoration of
+normal selection are tested headless and rendered. Isolated mutations removing the
+UI filter or assigning Frozen to both adjective pools must fail.
+
+[Executed results and captures](evidence/keyword-distinct-slots/README.md) record
+source hashes, examples, and the exact commands. The existing expedition runner adds
+physics, traversal, camera and legal-input salvage/rematch regression checks.
+Automated checks establish replay and selection invariants; vocabulary appeal and
+desktop feel still need human evaluation. Command Center owns PR review and merging.
