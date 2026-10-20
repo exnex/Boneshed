@@ -1,0 +1,32 @@
+parse check: all lab scripts parse
+checks: expected exit 0 confirmed
+checks_replay: expected exit 0 confirmed
+cross-process replay: results.json identical
+negative_no-substeps: expected exit 1 confirmed
+negative no-substeps: caught by ['fast_blade_cannot_tunnel_through_guard']
+negative_omniscient: expected exit 1 confirmed
+negative omniscient: caught by ['ai_guard_waits_for_reaction_delay', 'late_redirect_is_seen_only_after_delay']
+rendered: expected exit 0 confirmed
+Melee lab checks, replay, negative controls and rendered clips passed.
+.github/workflows/publish-web.yml
+data/builds/catalog.json
+data/builds/courtyard.json
+data/builds/salvage_courtyard.json
+docs/ROADMAP.md
+project.godot
+scripts/builds/build_catalog.gd
+scripts/builds/build_migration.gd
+scripts/builds/build_migration.gd.uid
+scripts/builds/build_rules.gd
+scripts/characters/fighter.gd
+scripts/characters/fighter_visual.gd
+scripts/characters/presentation/attack_pose_keys.gd
+scripts/characters/presentation/combat_fx.gd
+scripts/characters/presentation/equipment_look.gd
+scripts/characters/presentation/equipment_look.gd.uid
+scripts/characters/presentation/pose_sampler.gd
+scripts/combat/duel_progression.gd
+scripts/expedition/expedition_select.gd
+scripts/worldgen/keyword_library.gd
+Isolation violated: the lab branch changed a protected production/coordination file.
+exit 1

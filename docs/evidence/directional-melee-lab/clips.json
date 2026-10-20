@@ -1,0 +1,174 @@
+[
+	{
+		"clip": "telegraph_all_directions",
+		"events": [
+			"Opponent:hit",
+			"Opponent:hit",
+			"Opponent:hit",
+			"Opponent:hit",
+			"Opponent:hit"
+		],
+		"expected": [
+			"hit"
+		],
+		"frames": 165,
+		"opponent_weapon": "sword",
+		"passed": true,
+		"player_weapon": "sword"
+	},
+	{
+		"clip": "block_aligned",
+		"events": [
+			"Player:block"
+		],
+		"expected": [
+			"block"
+		],
+		"frames": 35,
+		"opponent_weapon": "sword",
+		"passed": true,
+		"player_weapon": "sword"
+	},
+	{
+		"clip": "deflect_timed_press",
+		"events": [
+			"Player:deflect"
+		],
+		"expected": [
+			"deflect"
+		],
+		"frames": 35,
+		"opponent_weapon": "sword",
+		"passed": true,
+		"player_weapon": "sword"
+	},
+	{
+		"clip": "wrong_side_guard_hit",
+		"events": [
+			"Player:hit"
+		],
+		"expected": [
+			"hit"
+		],
+		"frames": 35,
+		"opponent_weapon": "sword",
+		"passed": true,
+		"player_weapon": "sword"
+	},
+	{
+		"clip": "bad_angle_misaligned",
+		"events": [
+			"Player:misaligned"
+		],
+		"expected": [
+			"misaligned"
+		],
+		"frames": 35,
+		"opponent_weapon": "sword",
+		"passed": true,
+		"player_weapon": "sword"
+	},
+	{
+		"clip": "guard_break_heavy_vs_light",
+		"events": [
+			"Player:guard_break"
+		],
+		"expected": [
+			"guard_break"
+		],
+		"frames": 40,
+		"opponent_weapon": "knife",
+		"passed": true,
+		"player_weapon": "greatsword"
+	},
+	{
+		"clip": "thrust_vs_center_guard",
+		"events": [
+			"Player:block"
+		],
+		"expected": [
+			"block"
+		],
+		"frames": 30,
+		"opponent_weapon": "sword",
+		"passed": true,
+		"player_weapon": "sword"
+	},
+	{
+		"clip": "clash_crossing_blades",
+		"events": [
+			"Player:clash"
+		],
+		"expected": [
+			"clash"
+		],
+		"frames": 35,
+		"opponent_weapon": "sword",
+		"passed": true,
+		"player_weapon": "sword"
+	},
+	{
+		"clip": "weapon_compare_knife",
+		"events": [],
+		"expected": [],
+		"frames": 45,
+		"opponent_weapon": "sword",
+		"passed": true,
+		"player_weapon": "knife"
+	},
+	{
+		"clip": "weapon_compare_sword",
+		"events": [],
+		"expected": [],
+		"frames": 45,
+		"opponent_weapon": "sword",
+		"passed": true,
+		"player_weapon": "sword"
+	},
+	{
+		"clip": "weapon_compare_greatsword",
+		"events": [],
+		"expected": [],
+		"frames": 55,
+		"opponent_weapon": "sword",
+		"passed": true,
+		"player_weapon": "greatsword"
+	},
+	{
+		"clip": "cancel_guard_and_dodge",
+		"events": [],
+		"expected": [],
+		"frames": 50,
+		"opponent_weapon": "sword",
+		"passed": true,
+		"player_weapon": "sword"
+	},
+	{
+		"clip": "ai_duel",
+		"events": [
+			"Opponent:hit",
+			"Opponent:hit",
+			"Opponent:hit",
+			"Opponent:block",
+			"Opponent:hit"
+		],
+		"expected": [],
+		"frames": 210,
+		"opponent_weapon": "sword",
+		"passed": true,
+		"player_weapon": "sword"
+	},
+	{
+		"clip": "player_view_input_aim",
+		"events": [
+			"Player:hit"
+		],
+		"expected": [
+			"hit"
+		],
+		"frames": 45,
+		"opponent_weapon": "sword",
+		"passed": true,
+		"player_weapon": "sword"
+	}
+]

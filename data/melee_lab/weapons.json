@@ -1,0 +1,78 @@
+{
+	"schema": "boneshed.melee_lab_weapons.v0",
+	"provisional": true,
+	"notes": "Lab-only weapon items. They are appended in memory to the shared build catalog (data/builds/catalog.json is never modified) and validated by the same catalog and build rules. Physical numbers are placeholders for comparison, not balance.",
+	"catalog_version": "0.4.0-melee-lab",
+	"items": [
+		{
+			"id": "item.lab_long_knife",
+			"name": "Long Knife (lab)",
+			"category": "weapon",
+			"fits_slots": ["hand_r", "hand_l"],
+			"provides_tags": ["wield.blade"],
+			"requires_tags": [],
+			"excludes_tags": [],
+			"grants": ["attack.slash", "attack.heavy_slash"],
+			"modifiers": [],
+			"salvageable": false,
+			"weapon": {
+				"class": "blade",
+				"grip": "one_handed",
+				"reach": "short",
+				"weight": "light",
+				"handling": {"length": 0.9, "mass": 0.7, "balance": 0.15},
+				"defense": {"guard": true, "deflect": true}
+			},
+			"notes": "Light, short, quick to redirect; weak guard."
+		},
+		{
+			"id": "item.lab_greatsword",
+			"name": "Greatsword (lab)",
+			"category": "weapon",
+			"fits_slots": ["hand_r", "hand_l"],
+			"provides_tags": ["wield.blade"],
+			"requires_tags": [],
+			"excludes_tags": [],
+			"grants": ["attack.slash", "attack.heavy_slash"],
+			"modifiers": [],
+			"salvageable": false,
+			"weapon": {
+				"class": "blade",
+				"grip": "two_handed",
+				"reach": "long",
+				"weight": "heavy",
+				"handling": {"length": 2.1, "mass": 3.0, "balance": 0.3},
+				"defense": {"guard": true, "deflect": true}
+			},
+			"notes": "Two-handed, long and heavy: slow to start and redirect, high momentum, strong guard."
+		},
+		{
+			"id": "item.lab_quarterstaff",
+			"name": "Quarterstaff (lab)",
+			"category": "weapon",
+			"fits_slots": ["hand_r", "hand_l"],
+			"provides_tags": ["wield.staff"],
+			"requires_tags": [],
+			"excludes_tags": [],
+			"grants": [],
+			"modifiers": [],
+			"salvageable": false,
+			"weapon": {
+				"class": "staff",
+				"grip": "two_handed",
+				"reach": "long",
+				"weight": "medium",
+				"handling": {"length": 2.0, "mass": 1.8, "balance": 0.45},
+				"defense": {"guard": true, "deflect": false}
+			},
+			"notes": "Long two-handed staff with a far balance point; guards well but cannot deflect (defense.deflect false)."
+		}
+	],
+	"loadouts": [
+		{"id": "sword", "label": "Notched Sword (1H)", "equipped": {"hand_r": "item.notched_sword"}},
+		{"id": "knife", "label": "Long Knife (1H)", "equipped": {"hand_r": "item.lab_long_knife"}},
+		{"id": "greatsword", "label": "Greatsword (2H)", "equipped": {"hand_r": "item.lab_greatsword"}},
+		{"id": "staff", "label": "Quarterstaff (2H)", "equipped": {"hand_r": "item.lab_quarterstaff"}}
+	],
+	"profiles": {"player": "profile.duelist", "opponent": "profile.corrupted_swordsman"}
+}

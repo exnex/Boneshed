@@ -59,6 +59,7 @@ timing values, reproducible tests, evidence, and human playtesting limitations.
 | [Shared builds and salvage](docs/SHARED_BUILDS.md) | Shared player/enemy build contract and its historical foundation |
 | [Equipment foundation](docs/EQUIPMENT_FOUNDATION.md) | Weapons vs body modifications, grips and limbs, left-arm Marrow Arm, data format and migration |
 | [Anatomy and transformation](docs/ANATOMY.md) | Isolated, provisional body-graph prototype: extra limbs, replacements, equipment mounts, capability requirements, transformations and a proposed combat contract |
+| [Directional melee lab](docs/DIRECTIONAL_MELEE_LAB.md) | Isolated, experimental playable scene for mouse-directed attacks/guards, weapon inertia and swept weapon contact (`bash scripts/tooling/play_melee_lab.sh`); not production combat |
 | [Animation pipeline](docs/ANIMATION_PIPELINE.md) | Isolated research prototype: recommended Blender → glTF → AnimationTree pipeline, rule-timed clips, collision contract, transformations, rendered evidence |
 | [Engineering standards](docs/engineering/README.md) | GDScript and Godot architecture guides, agent checklist, code audit and debt backlog |
 | [AGENTS.md](AGENTS.md) | Shared instructions for AI development agents |
