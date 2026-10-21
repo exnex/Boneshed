@@ -29,7 +29,7 @@ def run(name, args, expected=0, seconds=600):
 script = ['--script', 'res://scripts/qa/melee_lab_tests.gd', '--']
 records = run('checks', base + script + [f'--evidence-dir={output}/checks'])
 summary = next(r for r in records if r.get('summary'))
-assert summary['failed'] == 0 and summary['passed'] == 86, summary
+assert summary['failed'] == 0 and summary['passed'] == 90, summary
 run('checks_replay', base + script + [f'--evidence-dir={output}/checks-replay'])
 assert filecmp.cmp(output / 'checks' / 'results.json', output / 'checks-replay' / 'results.json', shallow=False)
 print('cross-process replay: results.json identical', flush=True)
