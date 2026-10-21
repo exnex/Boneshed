@@ -68,6 +68,28 @@
 		"dodge_speed": 10.0,
 		"guard_move_scale": 0.6,
 		"attack_turn_rate_deg": 270.0,
+		"roll_duration": 0.6,
+		"roll_invulnerable": 0.3,
+		"roll_speed": 8.0,
+		"roll_cooldown": 0.8,
+
+		"stamina_max": 100.0,
+		"stamina_regen": 28.0,
+		"stamina_regen_delay": 0.6,
+		"stamina_empty_regen_delay": 1.2,
+		"stamina_regen_guard_scale": 1.0,
+		"stamina_regen_hold_scale": 1.0,
+		"attack_cost_base": 5.0,
+		"attack_cost_per_inertia": 3.5,
+		"attack_cost_per_armor_kg": 0.1,
+		"feint_refund": 0.5,
+		"dodge_cost": 16.0,
+		"roll_cost": 26.0,
+		"evasion_cost_per_armor_kg": 0.03,
+		"armor_move_penalty_per_kg": 0.012,
+		"armor_evasion_speed_penalty_per_kg": 0.012,
+		"armor_min_move_scale": 0.6,
+		"armor_regen_penalty_per_kg": 0.01,
 
 		"aim_sensitivity": 0.012,
 		"aim_deadzone": 0.35,
@@ -78,6 +100,10 @@
 		"ai_min_windup": 0.32,
 		"ai_hold_max": 0.2,
 		"ai_attack_interval": 0.9,
-		"ai_counter_chance": 0.6
+		"ai_counter_chance": 0.6,
+		"ai_stamina_margin": 6.0,
+		"ai_recover_spacing": 1.2,
+		"ai_slowed_spacing": 0.4,
+		"ai_slowed_cooldown_scale": 1.5
 	}
 }

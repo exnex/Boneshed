@@ -1,6 +1,7 @@
 extends Control
-## Lab HUD: instructions, aim/guard cursor, health and posture, outcome banner, event
-## log and the derived handling of both weapons. Reads arena and rules state only.
+## Lab HUD: instructions, aim/guard cursor, health, posture and stamina, status buildup
+## and effects, refused-action feedback, outcome banner, event log, and the derived
+## handling and build comparison of both fighters. Reads arena and rules state only.
 
 const State = preload("res://scripts/melee_lab/duelist_state.gd")
 const Geometry = preload("res://scripts/melee_lab/swing_geometry.gd")
@@ -8,6 +9,8 @@ const LabInput = preload("res://scripts/melee_lab/lab_input.gd")
 const Visual = preload("res://scripts/melee_lab/lab_visual.gd")
 const OUTCOME_COLORS := {"deflect": Color("ffe27a"), "block": Color("9fd0ff"), "misaligned": Color("ffa04a"),
 	"guard_break": Color("c07bff"), "hit": Color("ff5a4a"), "clash": Color("ffffff"), "evaded": Color("a0a0a0")}
+const STATUS_COLORS := {"poison": Color("7dd05a"), "slow": Color("7fb2ff")}
+const REFUSAL_SECONDS := 1.0
 const OUTCOME_TEXT := {"deflect": "DEFLECTION", "block": "BLOCK", "misaligned": "BAD ANGLE", "guard_break": "GUARD BREAK",
 	"hit": "HIT", "clash": "CLASH", "evaded": "EVADED"}
 
@@ -32,6 +35,35 @@ func _bars(at: Vector2, width: float, who: String, s: State, color: Color) -> vo
 	draw_rect(Rect2(at + Vector2(0, 6), Vector2(width * s.health / s.max_health, 9)), Color("c9483d"))
 	draw_rect(Rect2(at + Vector2(0, 19), Vector2(width, 6)), Color(0, 0, 0, 0.6))
 	draw_rect(Rect2(at + Vector2(0, 19), Vector2(width * s.posture / s.max_posture, 6)), Color("e8b04a"))
+	# Stamina, with tick marks at this build's attack / dodge / roll costs.
+	var refused := not s.stamina.last_refusal.is_empty() and s.clock - float(s.stamina.last_refusal.at) < REFUSAL_SECONDS
+	var bar := Rect2(at + Vector2(0, 29), Vector2(width, 8))
+	draw_rect(bar, Color(0.6, 0, 0, 0.7) if refused else Color(0, 0, 0, 0.6))
+	draw_rect(Rect2(bar.position, Vector2(width * s.stamina.fraction(), 8)), Color("5fd08a") if not s.stamina.emptied else Color("3f7f5a"))
+	for cost: Array in [[s.resources.attack_cost, Color.WHITE], [s.resources.dodge_cost, Color("9fd0ff")], [s.resources.roll_cost, Color("c79bff")]]:
+		var x: float = bar.position.x + width * minf(1.0, cost[0] / s.stamina.max_stamina)
+		draw_line(Vector2(x, bar.position.y - 2), Vector2(x, bar.end.y + 2), cost[1], 2.0)
+	_text(at + Vector2(width + 8, 37), "%3.0f" % s.stamina.current, 13, Color("5fd08a"))
+	if refused:
+		var r: Dictionary = s.stamina.last_refusal
+		_text(at + Vector2(0, 54), "NOT ENOUGH STAMINA: %s needs %.0f, have %.0f" % [r.action, r.cost, r.stamina], 14, Color("ff7a6a"))
+	_draw_statuses(at + Vector2(0, 72 if refused else 54), s)
+
+func _draw_statuses(at: Vector2, s: State) -> void:
+	var x := 0.0
+	var view := s.status.view()
+	for effect: String in view:
+		var e: Dictionary = view[effect]
+		var color: Color = STATUS_COLORS.get(effect, Color.WHITE)
+		if e.active:
+			_text(at + Vector2(x, 0), "%s %.1fs" % [effect.to_upper(), e.remaining], 14, color)
+		elif e.immune > 0.0:
+			_text(at + Vector2(x, 0), "%s immune %.1fs" % [effect, e.immune], 13, Color(color, 0.6))
+		else:
+			draw_rect(Rect2(at + Vector2(x, -9), Vector2(70, 6)), Color(0, 0, 0, 0.6))
+			draw_rect(Rect2(at + Vector2(x, -9), Vector2(70 * minf(1.0, e.buildup / e.threshold), 6)), color)
+			_text(at + Vector2(x + 74, 0), "%s%s" % [effect, " res %d%%" % roundi(e.resistance * 100.0) if e.resistance > 0.0 else ""], 12, Color(color, 0.8))
+		x += 150.0
 
 func _draw() -> void:
 	if arena == null or arena.player == null:
@@ -42,8 +74,10 @@ func _draw() -> void:
 	_text(Vector2(18, 28), "DIRECTIONAL MELEE LAB — experimental, not production combat", 17, Color("e9d9a8"))
 	_text(Vector2(18, 50), "You: %s   ·   Opponent: %s   ·   AI mode: %s%s" % [arena.player.loadout_label, arena.opponent.loadout_label,
 		arena.opponent.mode, (" (guard %s)" % (arena.opponent.dummy_guard if arena.opponent.dummy_guard != "" else "none")) if arena.opponent.mode == "dummy" else ""], 15)
-	_text(Vector2(18, 70), "%s%s" % ["SLOW MOTION ×%.2f   " % Engine.time_scale if Engine.time_scale < 1.0 else "", "lock-on" if arena.player.locked else "free camera"], 14, Color("b8c4c0"))
-	_bars(Vector2(18, view.y - 54), 300.0, "You · %s" % State.Phase.keys()[p.phase], p, Color("9fe0c8"))
+	_text(Vector2(18, 70), "%s%s%s" % ["SLOW MOTION ×%.2f   " % Engine.time_scale if Engine.time_scale < 1.0 else "", "lock-on" if arena.player.locked else "free camera",
+		"   ·   WORLD: %s" % arena.world_condition if arena.world_condition != "" else ""], 14, Color("b8c4c0"))
+	_text(Vector2(18, 90), _build_line(arena.player), 14, Color("cfe8dc"))
+	_bars(Vector2(18, view.y - 96), 300.0, "You · %s" % State.Phase.keys()[p.phase], p, Color("9fe0c8"))
 	_bars(Vector2(view.x * 0.5 - 170, 96), 340.0, "Opponent · %s" % State.Phase.keys()[o.phase], o, Color("f0b0a0"))
 	_draw_cursor(Vector2(view.x * 0.5, view.y - 105))
 	_draw_banner(view)
@@ -51,7 +85,13 @@ func _draw() -> void:
 	if show_help:
 		_draw_help(Vector2(18, 110))
 	if show_tuning:
-		_draw_tuning(Vector2(view.x * 0.5 - 330, 150))
+		_draw_tuning(Vector2(view.x * 0.5 - 430, 150))
+
+## One-line build summary: the numbers that differ between profiles.
+func _build_line(actor: Node) -> String:
+	var r: Dictionary = actor.state.resources
+	return "Build: %s · armor %.1f kg · move %.2f m/s · attack %.1f · dodge %.1f · roll %.1f · regen %.1f/s · mitigation %d%%" % [
+		actor.loadout_label, r.armor_mass, actor.current_move_speed(), r.attack_cost, r.dodge_cost, r.roll_cost, r.stamina_regen, roundi(r.mitigation * 100.0)]
 
 func _draw_cursor(center: Vector2) -> void:
 	var player: Node = arena.player
@@ -108,15 +148,16 @@ func _draw_log(at: Vector2) -> void:
 func _draw_help(at: Vector2) -> void:
 	var lines := [
 		"F1 hide help · F2 handling/tuning · F3 hitboxes · F4 slow motion",
-		"WASD move · Space dodge · Tab lock-on · R reset · Esc free mouse",
+		"WASD move · Space dodge step · Shift dodge roll · Tab lock-on · R reset",
+		"Green bar = stamina; ticks mark your attack / dodge / roll costs",
 		"LMB hold: aim swing with mouse, release to cut. Tap = follow-up cut",
 		"   flick right/up-right/up/up-left/left = chamber side, down = thrust",
 		"RMB hold: guard; mouse points at the side to cover (down = centre)",
 		"   press just before contact, aligned, to DEFLECT",
-		"[ ] your weapon · , . opponent weapon · M AI mode · G dummy guard",
-		"T trails · Y telegraph arcs · U intent labels",
+		"[ ] your build · , . opponent build · M AI mode · G dummy guard",
+		"T trails · Y telegraph arcs · U intent labels · V toxic miasma · Esc mouse",
 	]
-	draw_rect(Rect2(at - Vector2(8, 18), Vector2(520, lines.size() * 19 + 12)), Color(0, 0, 0, 0.45))
+	draw_rect(Rect2(at - Vector2(8, 18), Vector2(560, lines.size() * 19 + 12)), Color(0, 0, 0, 0.45))
 	for i in range(lines.size()):
 		_text(at + Vector2(0, i * 19), lines[i], 14)
 
@@ -126,7 +167,16 @@ func _draw_tuning(at: Vector2) -> void:
 		var h: Dictionary = actor.state.h
 		rows.append("%-19s %5.2f  %5.0f  %4.2fm  %4.2f  %4.1f  %4.2fs" % [actor.loadout_label.left(19), h.inertia, h.accel, h.reach, h.guard_strength, h.guard_shift, arena.contact_estimate(actor)])
 	rows.append("units: kg·m², rad/s², m, ×ref, rad/s, s from rest (est.)")
+	rows.append("")
+	rows.append("build                          armor  speed  atk   dodge roll  regen  mitig  resist p/s  on-hit")
+	for actor: Node in [arena.player, arena.opponent]:
+		var r: Dictionary = actor.state.resources
+		var sources: Array = r.status_sources.map(func(src: Dictionary) -> String: return "%s %.0f" % [src.effect, src.buildup])
+		rows.append("%-30s %4.1fkg %4.2f  %4.1f  %4.1f  %4.1f  %4.1f/s  %3d%%   %2d/%2d%%    %s" % [actor.loadout_label.left(30), r.armor_mass, actor.current_move_speed(),
+			r.attack_cost, r.dodge_cost, r.roll_cost, r.stamina_regen, roundi(r.mitigation * 100.0),
+			roundi(r.resistances.get("poison", 0.0) * 100.0), roundi(r.resistances.get("slow", 0.0) * 100.0), ", ".join(sources) if not sources.is_empty() else "—"])
+	rows.append("speed m/s now (armor × impairment) · costs in stamina of %.0f · regen after %.1fs" % [arena.tuning.stamina_max, arena.tuning.stamina_regen_delay])
 	rows.append("see data/melee_lab/tuning.json for all %d provisional values" % arena.tuning.size())
-	draw_rect(Rect2(at - Vector2(8, 18), Vector2(660, rows.size() * 19 + 12)), Color(0, 0, 0, 0.6))
+	draw_rect(Rect2(at - Vector2(8, 18), Vector2(880, rows.size() * 19 + 12)), Color(0, 0, 0, 0.6))
 	for i in range(rows.size()):
 		_text(at + Vector2(0, i * 19), rows[i], 14, Color("e9e2c9"))

@@ -1,0 +1,2 @@
+{"check":"feint_spam_is_bounded_by_stamina","detail":{"attack_cost":13.35,"released_windup_cancel_net":13.35,"spam_feints_in_400_cycles":400,"spam_refusals":0,"swing_cancel_net":13.35,"unreleased_guard_cancel_net":0.0},"passed":false}
+{"engine":"4.7.2-stable (official)","failed":1,"negative":"free-feints","passed":72,"suite":"melee_lab_resources","summary":true}

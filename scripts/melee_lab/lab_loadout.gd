@@ -8,6 +8,7 @@ extends RefCounted
 
 const Catalog = preload("res://scripts/builds/build_catalog.gd")
 const BuildRules = preload("res://scripts/builds/build_rules.gd")
+const CombatResources = preload("res://scripts/melee_lab/combat_resources.gd")
 const WEAPONS_PATH := "res://data/melee_lab/weapons.json"
 const TUNING_PATH := "res://data/melee_lab/tuning.json"
 const WEAPONS_SCHEMA := "boneshed.melee_lab_weapons.v0"
@@ -40,11 +41,12 @@ static func tuning_from_data(data: Variant) -> Dictionary:
 		floats[key] = float(values[key])
 	return {"ok": true, "errors": [], "values": floats}
 
-## Returns {"ok", "errors", "rules", "loadouts", "profiles"}.
-static func load_lab(catalog_path := Catalog.CATALOG_PATH, weapons_path := WEAPONS_PATH) -> Dictionary:
-	return lab_from_data(read_json(catalog_path), read_json(weapons_path))
+## Returns {"ok", "errors", "rules", "loadouts", "profiles", "combat"}. `combat` is the
+## validated lab combat-resources data (armor, traits, statuses).
+static func load_lab(catalog_path := Catalog.CATALOG_PATH, weapons_path := WEAPONS_PATH, combat_path := CombatResources.PATH) -> Dictionary:
+	return lab_from_data(read_json(catalog_path), read_json(weapons_path), read_json(combat_path))
 
-static func lab_from_data(base: Variant, lab: Variant) -> Dictionary:
+static func lab_from_data(base: Variant, lab: Variant, combat: Variant = null) -> Dictionary:
 	if not base is Dictionary:
 		return _failure(["missing or invalid shared catalog"])
 	if not lab is Dictionary or lab.get("schema") != WEAPONS_SCHEMA:
@@ -57,11 +59,22 @@ static func lab_from_data(base: Variant, lab: Variant) -> Dictionary:
 	var catalog := Catalog.new()
 	if not catalog.load_data(combined):
 		return _failure(catalog.errors)
+	var combat_data := {}
+	if combat != null:
+		var checked := CombatResources.from_data(combat, combined.items.map(func(item: Dictionary) -> String: return item.id))
+		if not checked.ok:
+			return _failure(checked.errors)
+		combat_data = checked.data.duplicate(true)
+	for loadout: Dictionary in lab.loadouts:
+		var armor_problems := CombatResources.armor_errors(combat_data, loadout.get("armor", []))
+		if not armor_problems.is_empty():
+			return _failure(armor_problems)
 	return {"ok": true, "errors": [], "rules": BuildRules.new(catalog), "loadouts": lab.loadouts.duplicate(true),
-		"profiles": lab.profiles.duplicate(true)}
+		"profiles": lab.profiles.duplicate(true), "combat": combat_data}
 
 ## Resolves one actor through the shared build rules. Returns {"ok", "errors", "weapon",
-## "stats", "label"} where `weapon` is the first held (non-natural) weapon view.
+## "stats", "label", "armor", "combat"} where `weapon` is the first held (non-natural)
+## weapon view and `armor` the loadout's lab armor ids (resolved beside BuildRules).
 static func resolve(lab: Dictionary, role: String, loadout_id: String) -> Dictionary:
 	var loadout: Dictionary = {}
 	for candidate: Dictionary in lab.loadouts:
@@ -81,7 +94,8 @@ static func resolve(lab: Dictionary, role: String, loadout_id: String) -> Dictio
 	var stats := {}
 	for stat: String in PROFILE_STATS:
 		stats[stat] = float(result.resolved.stats[stat])
-	return {"ok": true, "errors": [], "weapon": held[0], "stats": stats, "label": str(loadout.get("label", loadout_id))}
+	return {"ok": true, "errors": [], "weapon": held[0], "stats": stats, "label": str(loadout.get("label", loadout_id)),
+		"id": loadout_id, "armor": loadout.get("armor", []).duplicate(), "combat": lab.get("combat", {})}
 
 static func _failure(errors: Array) -> Dictionary:
-	return {"ok": false, "errors": errors, "rules": null, "loadouts": [], "profiles": {}}
+	return {"ok": false, "errors": errors, "rules": null, "loadouts": [], "profiles": {}, "combat": {}}

@@ -12,6 +12,7 @@ var arena: Node
 var observer: Camera3D
 var clips: Array[Dictionary] = []
 var failed := 0
+var evasive_swings := 0 # Same 5 s barrage: the resistant build must manage fewer.
 
 func _initialize() -> void:
 	for arg: String in OS.get_cmdline_user_args():
@@ -41,6 +42,31 @@ func run() -> void:
 	await clip("cancel_guard_and_dodge", "sword", "sword", 100, [], cancels)
 	await clip("ai_duel", "sword", "sword", 420, [], duel)
 	await clip("player_view_input_aim", "sword", "sword", 90, ["hit"], input_aim, true)
+	# Combat resources (experimental): builds, stamina, evasion and statuses.
+	await clip("stamina_barrage_evasive", "evasive", "balanced", 300, [], barrage, false, func() -> String:
+		evasive_swings = arena.player.state.swing_serial
+		return _expect(evasive_swings >= 7, "evasive swings %d" % evasive_swings))
+	await clip("stamina_barrage_resistant", "resistant", "balanced", 300, [], barrage, false, func() -> String:
+		return _expect(arena.player.state.swing_serial < evasive_swings and arena.player.state.stamina.current < arena.player.state.resources.attack_cost + 25.0,
+			"resistant swings %d, stamina %.1f" % [arena.player.state.swing_serial, arena.player.state.stamina.current]))
+	await clip("stamina_refused_attack", "resistant", "balanced", 90, [], refused, false, func() -> String:
+		return _expect(arena.player.state.stamina.refusals >= 1 and arena.player.state.swing_serial == 0, "refusals %d" % arena.player.state.stamina.refusals))
+	await clip("dodge_step_vs_roll", "balanced", "balanced", 150, [], evasions, false, func() -> String:
+		var ledger: Array = arena.player.state.stamina.ledger.map(func(e: Dictionary) -> String: return e.action)
+		return _expect(ledger == ["dodge", "roll"], str(ledger)))
+	await clip("poison_venom_knife_hits", "evasive", "sword", 420, ["hit"], venom, false, func() -> String:
+		var o: Node = arena.opponent
+		var ticks: int = arena.status_events.filter(func(e: Dictionary) -> bool: return e.fighter == "Opponent" and e.event == "tick").size()
+		return _expect(ticks >= 2 and o.state.status_damage_taken > 0.0, "poison ticks %d" % ticks))
+	await clip("slow_greatsword_hits", "resistant", "balanced", 380, ["hit"], heavy_hits, false, func() -> String:
+		var slowed: bool = arena.status_events.any(func(e: Dictionary) -> bool: return e.fighter == "Opponent" and e.effect == "slow" and e.event == "activated")
+		return _expect(slowed, "slow activated %s" % slowed))
+	await clip("dodge_avoids_venom", "balanced", "evasive", 110, ["evaded"], dodge_venom, false, func() -> String:
+		return _expect(arena.player.state.status.buildup.poison == 0.0, "player poison buildup %.1f" % arena.player.state.status.buildup.poison))
+	await clip("block_stops_venom", "balanced", "evasive", 110, ["block"], block_venom, false, func() -> String:
+		return _expect(arena.player.state.status.buildup.poison == 0.0, "player poison buildup %.1f" % arena.player.state.status.buildup.poison))
+	await clip("ai_duel_evasive_vs_resistant", "evasive", "resistant", 600, [], resource_duel, false, func() -> String:
+		return _expect(arena.opponent.state.stamina.refusals == 0 and arena.events.size() > 0, "AI refusals %d, contacts %d" % [arena.opponent.state.stamina.refusals, arena.events.size()]))
 	var file := FileAccess.open(output.path_join("clips.json"), FileAccess.WRITE)
 	file.store_string(JSON.stringify(clips, "\t") + "\n")
 	print(JSON.stringify({"suite": "melee_lab_rendered", "summary": true, "rendered": clips.size(), "failed": failed,
@@ -48,7 +74,7 @@ func run() -> void:
 	quit(0 if failed == 0 else 1)
 
 ## Runs one clip: configure, then step `ticks` physics frames calling `script(tick)`.
-func clip(label: String, player_weapon: String, opponent_weapon: String, ticks: int, expect: Array, script: Callable, player_view := false) -> void:
+func clip(label: String, player_weapon: String, opponent_weapon: String, ticks: int, expect: Array, script: Callable, player_view := false, verify := Callable()) -> void:
 	arena.manual_step = true
 	arena.set_loadouts(player_weapon, opponent_weapon)
 	arena.player.input_enabled = player_view
@@ -60,6 +86,7 @@ func clip(label: String, player_weapon: String, opponent_weapon: String, ticks: 
 	arena.flags.debug = label.begins_with("block") or label.begins_with("bad_angle")
 	observer.current = not player_view
 	arena.player.camera.current = player_view
+	arena.world_condition = ""
 	_frame_side()
 	var dir := output.path_join(label)
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir))
@@ -77,9 +104,15 @@ func clip(label: String, player_weapon: String, opponent_weapon: String, ticks: 
 	var results: Array = arena.events.map(func(e: Dictionary) -> String: return "%s:%s" % [e.attacker, e.result])
 	var outcomes: Array = arena.events.map(func(e: Dictionary) -> String: return e.result)
 	var ok := expect.all(func(r: String) -> bool: return r in outcomes)
+	var verified := ""
+	if verify.is_valid():
+		verified = verify.call()
+		ok = ok and not verified.begins_with("FAILED")
 	failed += int(not ok)
 	var record := {"clip": label, "frames": frame, "expected": expect, "events": results, "passed": ok,
 		"player_weapon": player_weapon, "opponent_weapon": opponent_weapon}
+	if verified != "":
+		record.verified = verified
 	clips.append(record)
 	print(JSON.stringify(record))
 	_release_inputs()
@@ -175,3 +208,91 @@ func input_aim(tick: int) -> void:
 	if tick == 34:
 		event.pressed = false
 		Input.parse_input_event(event)
+
+static func _expect(ok: bool, detail: String) -> String:
+	return ("ok: " if ok else "FAILED: ") + detail
+
+## Chained cuts into the air as fast as stamina allows: the HUD bar and refusals show
+## the build's economy.
+func barrage(tick: int) -> void:
+	var p: State = arena.player.state
+	if tick == -1:
+		arena.opponent.position = Vector3(0.0, 0.02, -6.0)
+		return
+	if p.phase in [State.Phase.IDLE, State.Phase.RECOVERY] and p.buffered == "" and p.stamina.can_afford(p.resources.attack_cost):
+		p.press_attack("")
+		p.release_attack()
+
+func refused(tick: int) -> void:
+	var p: State = arena.player.state
+	if tick == -1:
+		p.stamina.current = p.resources.attack_cost * 0.5
+		p.stamina.since_spend = 0.0
+		return
+	if tick in [10, 30]:
+		p.press_attack("overhead")
+		p.release_attack()
+
+## Dodge step to the right, then a dodge roll to the left (same build): distance, cost.
+func evasions(tick: int) -> void:
+	if tick == -1:
+		arena.opponent.position = Vector3(0.0, 0.02, -6.0)
+		return
+	if tick == 10:
+		arena.player.try_dodge(Vector3.RIGHT)
+	if tick == 80:
+		arena.player.try_roll(Vector3.LEFT)
+
+## Venom knife cuts into an unguarded dummy until poison activates and ticks.
+func venom(tick: int) -> void:
+	var p: State = arena.player.state
+	if tick == -1:
+		arena.opponent.position = Vector3(0.0, 0.02, 1.0)
+		arena.opponent.state.max_health = 10000.0
+		arena.opponent.state.health = 10000.0
+		return
+	if tick < 200 and not arena.opponent.state.status.is_active("poison") and p.phase in [State.Phase.IDLE, State.Phase.RECOVERY] and p.buffered == "" and p.stamina.can_afford(p.resources.attack_cost):
+		p.press_attack("")
+		p.release_attack()
+
+func heavy_hits(tick: int) -> void:
+	var p: State = arena.player.state
+	if tick == -1:
+		arena.opponent.position = Vector3(0.0, 0.02, 0.0)
+		arena.opponent.state.max_health = 10000.0
+		arena.opponent.state.health = 10000.0
+		return
+	if not arena.opponent.state.status.is_active("slow") and p.phase == State.Phase.IDLE and p.stamina.can_afford(p.resources.attack_cost):
+		p.press_attack("overhead")
+		p.release_attack()
+	if arena.opponent.state.status.is_active("slow"):
+		arena.opponent.desired_move = Vector3.LEFT # Walks slowly while impaired.
+
+## The opponent's venom knife cut is dodged: evaded, no buildup.
+func dodge_venom(tick: int) -> void:
+	var o: State = arena.opponent.state
+	if tick == -1:
+		arena.opponent.position = Vector3(0.0, 0.02, 1.0)
+		return
+	if tick == 10:
+		o.press_attack("right_to_left")
+		o.release_attack()
+	if tick == 20:
+		arena.player.state.dodge()
+
+func block_venom(tick: int) -> void:
+	var o: State = arena.opponent.state
+	if tick == -1:
+		arena.opponent.position = Vector3(0.0, 0.02, 1.0)
+		return
+	arena.player.state.set_guard(true, "left")
+	if tick == 20:
+		o.press_attack("right_to_left")
+		o.release_attack()
+
+## AI duel: the resistant opponent against a static guard, paying its own costs.
+func resource_duel(tick: int) -> void:
+	if tick == -1:
+		arena.opponent.mode = "attack"
+		arena.opponent.reset_ai()
+	arena.player.state.set_guard(true, "high")

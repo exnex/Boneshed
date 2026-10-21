@@ -11,6 +11,14 @@ extends RefCounted
 ## if both touch in the same substep the weapon wins (fixed, defender-favouring tie rule).
 ##
 ## Outcomes:  deflect · block · misaligned · guard_break · clash · hit · evaded · none
+##
+## Order of resolution for every contact (experimental):
+##   1. physical outcome (above) and physical damage, reduced by the defender's armor
+##      mitigation; 2. status routing: the attacker's on-hit sources (traits of the
+##      striking item) scaled by the outcome's routing factor (data: hit 1, misaligned
+##      0.5, others 0; `evaded` is always 0); 3. the defender's resistance and buildup
+##      (duelist_state.receive_status → status_effects.gd). A miss produces no contact
+##      at all, so it cannot apply status.
 
 const Geometry = preload("res://scripts/melee_lab/swing_geometry.gd")
 const State = preload("res://scripts/melee_lab/duelist_state.gd")
@@ -47,7 +55,7 @@ static func resolve(att: State, att_prev: Transform3D, att_now: Transform3D,
 		var a0: Vector3 = att_xf * pose.hand
 		var a1: Vector3 = att_xf * Geometry.tip(pose, att.h.length)
 		var weapon_touch := {}
-		if weapon_obstacle and def.phase != State.Phase.DODGE:
+		if weapon_obstacle and not def.evading():
 			var dpose := def.pose_at(w)
 			var close := closest_points(a0, a1, def_xf * dpose.hand, def_xf * Geometry.tip(dpose, def.h.length))
 			if close.distance <= t.blade_radius + t.guard_radius:
@@ -108,7 +116,7 @@ static func _weapon_contact(att: State, def: State, point: Vector3, arrival: Vec
 	var pressure: float = momentum * t.block_posture_per_momentum * (t.thrust_block_scale if thrust else 1.0) / def.h.guard_strength
 	if alignment > t.block_align_deg:
 		# The guard was touched at a bad angle: the blade slides off into the body.
-		var damage: float = _damage(att) * t.misaligned_damage_scale
+		var damage: float = _damage(att) * t.misaligned_damage_scale * _unmitigated(def)
 		def.take_damage(damage)
 		def.add_posture(pressure * t.misaligned_posture_scale)
 		def.stagger(t.stagger_hit)
@@ -141,12 +149,12 @@ static func _body_contact(att: State, def: State, point: Vector3, arrival: Vecto
 	att.hit_consumed = true
 	var report := {"point": point, "arrival": arrival, "momentum": att.momentum(), "substep": step, "substeps": count,
 		"direction": att.direction, "guard": def.guard, "alignment": -1.0, "guard_bypassed": def.guarding, "damage": 0.0, "posture": 0.0}
-	if def.phase == State.Phase.DODGE:
+	if def.invulnerable():
 		def.last_event = "EVADED"
 		report.result = EVADED
 		return _finish(att, def, report)
 	var broken := def.phase == State.Phase.BROKEN
-	var damage: float = _damage(att) * (t.broken_damage_scale if broken else 1.0)
+	var damage: float = _damage(att) * (t.broken_damage_scale if broken else 1.0) * _unmitigated(def)
 	var posture: float = t.hit_posture * att.impact_ratio()
 	def.take_damage(damage)
 	if def.phase != State.Phase.DEAD:
@@ -160,7 +168,11 @@ static func _body_contact(att: State, def: State, point: Vector3, arrival: Vecto
 static func _damage(att: State) -> float:
 	return (att.t.thrust_damage if att.direction == Geometry.THRUST else att.t.swing_damage) * att.impact_ratio()
 
+static func _unmitigated(def: State) -> float:
+	return 1.0 - float(def.resources.mitigation)
+
 static func _finish(att: State, def: State, report: Dictionary) -> Dictionary:
+	report.status = def.receive_status(att.resources.status_sources, report.result, str(att.h.get("item", "")))
 	report.attacker_phase = State.Phase.keys()[att.phase]
 	report.defender_phase = State.Phase.keys()[def.phase]
 	report.defender_health = def.health

@@ -13,9 +13,11 @@ const Solver = preload("res://scripts/melee_lab/contact_solver.gd")
 const Handling = preload("res://scripts/melee_lab/weapon_handling.gd")
 const Geometry = preload("res://scripts/melee_lab/swing_geometry.gd")
 const Hud = preload("res://scripts/melee_lab/lab_hud.gd")
+const CombatResources = preload("res://scripts/melee_lab/combat_resources.gd")
 const PLAYER_START := Vector3(0.0, 0.02, 2.2)
 const OPPONENT_START := Vector3(0.0, 0.02, -0.4)
 const MARKER_SECONDS := 0.9
+const DEFAULT_LOADOUT := "balanced"
 
 var tuning: Dictionary = {}
 var lab: Dictionary = {}
@@ -23,10 +25,14 @@ var player: Player
 var opponent: Opponent
 var hud: Hud
 var flags := {"trails": true, "arcs": true, "debug": false, "labels": true}
-var player_loadout := 0 # Index into lab.loadouts: the notched sword.
+var player_loadout := 0 # Index into lab.loadouts; set to DEFAULT_LOADOUT on load.
 var opponent_loadout := 0
 var clock := 0.0
 var events: Array[Dictionary] = []
+## Status lifecycle events (buildup, activation, ticks, expiry) for HUD, logs and tests.
+var status_events: Array[Dictionary] = []
+## Active world condition id ("" = none); its ambient sources reach every fighter.
+var world_condition := ""
 var markers: Array[Dictionary] = []
 ## When true, a QA driver steps the arena (`advance`) instead of _physics_process.
 var manual_step := false
@@ -40,6 +46,10 @@ func _ready() -> void:
 		set_physics_process(false)
 		return
 	tuning = tuned.values
+	for i in range(lab.loadouts.size()):
+		if lab.loadouts[i].id == DEFAULT_LOADOUT:
+			player_loadout = i
+			opponent_loadout = i
 	LabInput.install()
 	_build_arena()
 	player = Player.new()
@@ -88,6 +98,7 @@ func reset_duel() -> void:
 	opponent.reset_at(OPPONENT_START, PLAYER_START - OPPONENT_START)
 	opponent.reset_ai()
 	events.clear()
+	status_events.clear()
 	clock = 0.0
 	for marker: Dictionary in markers:
 		marker.node.queue_free()
@@ -103,6 +114,10 @@ func advance(delta: float) -> void:
 	clock += delta
 	player.control(delta)
 	opponent.control(delta)
+	if world_condition != "":
+		var condition := CombatResources.find_world(lab.combat, world_condition)
+		for actor: Node in [player, opponent]:
+			actor.state.receive_ambient(condition.get("status_sources", []), delta, world_condition)
 	player.step(delta)
 	opponent.step(delta)
 	for pair: Array in [[player, opponent], [opponent, player]]:
@@ -111,6 +126,13 @@ func advance(delta: float) -> void:
 		var report := Solver.resolve(att.state, att.prev_xform, att.xform(), def.state, def.prev_xform, def.xform())
 		if report.result != Solver.NONE:
 			_record(att, def, report)
+	for actor: Node in [player, opponent]:
+		for entry: Dictionary in actor.state.status.drain_events():
+			entry.at = snappedf(clock, 0.0001)
+			entry.fighter = str(actor.name)
+			status_events.append(entry)
+			if entry.event != "buildup":
+				print(JSON.stringify({"lab_status": _printable(entry)}))
 
 func _record(att: Node, def: Node, report: Dictionary) -> void:
 	var entry := report.duplicate()
@@ -201,6 +223,9 @@ func _hotkeys() -> void:
 	if Input.is_action_just_pressed("lab_opponent_mode"):
 		opponent.mode = Opponent.MODES[(Opponent.MODES.find(opponent.mode) + 1) % Opponent.MODES.size()]
 		opponent.state.set_guard(false)
+	if Input.is_action_just_pressed("lab_world_condition"):
+		var conditions: Array = lab.combat.get("world_conditions", [])
+		world_condition = "" if world_condition != "" or conditions.is_empty() else str(conditions[0].id)
 	if Input.is_action_just_pressed("lab_dummy_guard"):
 		var guards := Opponent.DUMMY_GUARDS
 		opponent.dummy_guard = guards[(guards.find(opponent.dummy_guard) + 1) % guards.size()]

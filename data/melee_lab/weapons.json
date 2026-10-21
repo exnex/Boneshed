@@ -1,7 +1,7 @@
 {
 	"schema": "boneshed.melee_lab_weapons.v0",
 	"provisional": true,
-	"notes": "Lab-only weapon items. They are appended in memory to the shared build catalog (data/builds/catalog.json is never modified) and validated by the same catalog and build rules. Physical numbers are placeholders for comparison, not balance.",
+	"notes": "Lab-only weapon items and loadouts. A loadout may list lab armor ids (data/melee_lab/combat_resources.json); armor is resolved by the lab adapter because the shared catalog has no armor category yet. Lab weapon items are appended in memory to the shared build catalog (data/builds/catalog.json is never modified) and validated by the same catalog and build rules. Physical numbers are placeholders for comparison, not balance.",
 	"catalog_version": "0.4.0-melee-lab",
 	"items": [
 		{
@@ -24,6 +24,27 @@
 				"defense": {"guard": true, "deflect": true}
 			},
 			"notes": "Light, short, quick to redirect; weak guard."
+		},
+		{
+			"id": "item.lab_venom_knife",
+			"name": "Venom Knife (lab)",
+			"category": "weapon",
+			"fits_slots": ["hand_r", "hand_l"],
+			"provides_tags": ["wield.blade"],
+			"requires_tags": [],
+			"excludes_tags": [],
+			"grants": ["attack.slash", "attack.heavy_slash"],
+			"modifiers": [],
+			"salvageable": false,
+			"weapon": {
+				"class": "blade",
+				"grip": "one_handed",
+				"reach": "short",
+				"weight": "light",
+				"handling": {"length": 0.9, "mass": 0.7, "balance": 0.15},
+				"defense": {"guard": true, "deflect": true}
+			},
+			"notes": "Long Knife handling with an envenomed edge. Its poison source is a lab trait in combat_resources.json (the shared catalog has no status fields)."
 		},
 		{
 			"id": "item.lab_greatsword",
@@ -72,7 +93,10 @@
 		{"id": "sword", "label": "Notched Sword (1H)", "equipped": {"hand_r": "item.notched_sword"}},
 		{"id": "knife", "label": "Long Knife (1H)", "equipped": {"hand_r": "item.lab_long_knife"}},
 		{"id": "greatsword", "label": "Greatsword (2H)", "equipped": {"hand_r": "item.lab_greatsword"}},
-		{"id": "staff", "label": "Quarterstaff (2H)", "equipped": {"hand_r": "item.lab_quarterstaff"}}
+		{"id": "staff", "label": "Quarterstaff (2H)", "equipped": {"hand_r": "item.lab_quarterstaff"}},
+		{"id": "evasive", "label": "Evasive: Venom Knife + cloth", "equipped": {"hand_r": "item.lab_venom_knife"}, "armor": ["armor.lab_cloth_wraps"]},
+		{"id": "balanced", "label": "Balanced: Sword + mail", "equipped": {"hand_r": "item.notched_sword"}, "armor": ["armor.lab_mail_shirt"]},
+		{"id": "resistant", "label": "Resistant: Greatsword + plate", "equipped": {"hand_r": "item.lab_greatsword"}, "armor": ["armor.lab_bog_iron_plate"]}
 	],
 	"profiles": {"player": "profile.duelist", "opponent": "profile.corrupted_swordsman"}
 }
