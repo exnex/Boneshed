@@ -56,6 +56,7 @@ timing values, reproducible tests, evidence, and human playtesting limitations.
 | [Enemy survival AI](docs/ENEMY_SURVIVAL_AI.md) | Provisional reaction-delayed defense, counters, spacing and retreat for the corrupted swordsman; fairness bounds and evidence |
 | [First playable loop](docs/FIRST_PLAYABLE.md) | Human controls, inherited attack, salvage/equip progression and evidence |
 | [First Expedition](docs/FIRST_EXPEDITION.md) | Desktop keyword selection, replayable generated world, exploration/duel integration and validation |
+| [Expedition preview](docs/EXPEDITION_PREVIEW.md) | Isolated prototype (`bash scripts/tooling/play_expedition_preview.sh`): seeded multi-region surface, validated room-graph dungeon, guardian, finds and extraction; not the default scene |
 | [Shared builds and salvage](docs/SHARED_BUILDS.md) | Shared player/enemy build contract and its historical foundation |
 | [Equipment foundation](docs/EQUIPMENT_FOUNDATION.md) | Weapons vs body modifications, grips and limbs, left-arm Marrow Arm, data format and migration |
 | [Anatomy and transformation](docs/ANATOMY.md) | Isolated, provisional body-graph prototype: extra limbs, replacements, equipment mounts, capability requirements, transformations and a proposed combat contract |

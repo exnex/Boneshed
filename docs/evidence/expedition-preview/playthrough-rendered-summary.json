@@ -1,0 +1,75 @@
+{
+	"address": "drowned hollow cathedral",
+	"captures": {
+		"01_arrival": 3,
+		"02_sentinel_duel": 529,
+		"03_salvage_equipped": 1186,
+		"04_descent": 2097,
+		"05_dungeon_entry": 2131,
+		"06_guardian_duel": 3327,
+		"07_guardian_released": 3755,
+		"08_reliquary": 4134,
+		"09_extracted": 8485
+	},
+	"duels": [
+		{
+			"player_health": 100.0,
+			"site": "site.r1",
+			"ticks": 597,
+			"won": true
+		},
+		{
+			"player_health": 100.0,
+			"site": "site.guardian",
+			"ticks": 393,
+			"won": true
+		}
+	],
+	"engine": "4.7.2-stable (official)",
+	"failed": 0,
+	"fingerprint": "7f003420",
+	"input": "physical keyboard/mouse InputEvents via InputMap; route read from the plan; no state writes",
+	"passed": 24,
+	"performance": {
+		"dungeon": {
+			"builder": {
+				"collision_shapes": 274,
+				"lights": 17,
+				"meshes": 485,
+				"nodes": 803
+			},
+			"draw_calls": 528.0,
+			"frame_ms_mean": 67.9080333333333,
+			"frame_ms_p95": 78.172,
+			"generation_ms": 26.46,
+			"objects_drawn": 1008.0,
+			"physics_ms_mean": 1.62277777777778,
+			"primitives": 85262.0,
+			"process_ms_mean": 89.7740222222224,
+			"scene_nodes": 1001.0,
+			"static_memory_mb": 56.044960975647
+		},
+		"surface": {
+			"builder": {
+				"collision_shapes": 274,
+				"lights": 17,
+				"meshes": 489,
+				"nodes": 809
+			},
+			"draw_calls": 872.0,
+			"frame_ms_mean": 72.5599888888889,
+			"frame_ms_p95": 81.877,
+			"generation_ms": 26.46,
+			"objects_drawn": 1153.0,
+			"physics_ms_mean": 2.21036666666667,
+			"primitives": 90868.0,
+			"process_ms_mean": 113.985066666667,
+			"scene_nodes": 1007.0,
+			"static_memory_mb": 51.3826036453247
+		}
+	},
+	"rendered": true,
+	"seed": 1001,
+	"summary": true,
+	"ticks": 8485
+}

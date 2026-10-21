@@ -1,0 +1,75 @@
+{
+	"address": "smoldering pallid necropolis",
+	"captures": {
+		"01_arrival": 3,
+		"02_sentinel_duel": 568,
+		"03_salvage_equipped": 1222,
+		"04_descent": 2635,
+		"05_dungeon_entry": 2671,
+		"06_guardian_duel": 3270,
+		"07_guardian_released": 3698,
+		"08_reliquary": 4054,
+		"09_extracted": 8195
+	},
+	"duels": [
+		{
+			"player_health": 100.0,
+			"site": "site.r1",
+			"ticks": 597,
+			"won": true
+		},
+		{
+			"player_health": 100.0,
+			"site": "site.guardian",
+			"ticks": 393,
+			"won": true
+		}
+	],
+	"engine": "4.7.2-stable (official)",
+	"failed": 0,
+	"fingerprint": "310b0809",
+	"input": "physical keyboard/mouse InputEvents via InputMap; route read from the plan; no state writes",
+	"passed": 15,
+	"performance": {
+		"dungeon": {
+			"builder": {
+				"collision_shapes": 217,
+				"lights": 15,
+				"meshes": 432,
+				"nodes": 693
+			},
+			"draw_calls": 0.0,
+			"frame_ms_mean": 0.556966666666667,
+			"frame_ms_p95": 0.796,
+			"generation_ms": 38.302,
+			"objects_drawn": 0.0,
+			"physics_ms_mean": 3.18000000000001,
+			"primitives": 0.0,
+			"process_ms_mean": 2.132,
+			"scene_nodes": 891.0,
+			"static_memory_mb": 48.2184648513794
+		},
+		"surface": {
+			"builder": {
+				"collision_shapes": 217,
+				"lights": 15,
+				"meshes": 434,
+				"nodes": 696
+			},
+			"draw_calls": 0.0,
+			"frame_ms_mean": 0.541322222222222,
+			"frame_ms_p95": 0.928,
+			"generation_ms": 38.302,
+			"objects_drawn": 0.0,
+			"physics_ms_mean": 0.0,
+			"primitives": 0.0,
+			"process_ms_mean": 0.0,
+			"scene_nodes": 894.0,
+			"static_memory_mb": 42.5240297317505
+		}
+	},
+	"rendered": false,
+	"seed": 7,
+	"summary": true,
+	"ticks": 8195
+}
