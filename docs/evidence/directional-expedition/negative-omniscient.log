@@ -1,0 +1,2 @@
+{"check":"soul_sees_windup_only_after_reaction_delay","detail":{"after":0.0333,"delay":0.22},"passed":false}
+{"engine":"4.7.2-stable (official)","failed":1,"passed":93,"suite":"directional_expedition","summary":true}

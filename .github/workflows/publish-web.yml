@@ -63,11 +63,18 @@ jobs:
           git checkout -- project.godot
       - name: Smoke test experimental melee lab in real browser
         run: python3 scripts/tooling/smoke_web_preview.py "${{ runner.temp }}/boneshed-web-melee-lab"
-      - name: Publish audited main game and lab to both Pages branches
+      - name: Export separate experimental directional expedition scene
+        env:
+          BONESHED_TOOLS: ${{ runner.temp }}/boneshed-tools
+        # Exports from a disposable copy; project.godot and export_presets.cfg stay untouched.
+        run: bash scripts/tooling/export_web_directional.sh "${{ runner.temp }}/boneshed-web-directional-expedition"
+      - name: Smoke test experimental directional expedition in real browser
+        run: python3 scripts/tooling/smoke_web_directional.py "${{ runner.temp }}/boneshed-web-directional-expedition" "${{ runner.temp }}/directional-smoke"
+      - name: Publish audited main game, lab and directional expedition to both Pages branches
         env:
           BONESHED_TOOLS: ${{ runner.temp }}/boneshed-tools
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          bash scripts/tooling/publish_web_dual.sh "${{ runner.temp }}/boneshed-web-release" "${{ runner.temp }}/boneshed-web-melee-lab" gh-pages
-          bash scripts/tooling/publish_web_dual.sh "${{ runner.temp }}/boneshed-web-release" "${{ runner.temp }}/boneshed-web-melee-lab" preview/browser-courtyard
+          bash scripts/tooling/publish_web_dual.sh "${{ runner.temp }}/boneshed-web-release" "${{ runner.temp }}/boneshed-web-melee-lab" gh-pages "${{ runner.temp }}/boneshed-web-directional-expedition"
+          bash scripts/tooling/publish_web_dual.sh "${{ runner.temp }}/boneshed-web-release" "${{ runner.temp }}/boneshed-web-melee-lab" preview/browser-courtyard "${{ runner.temp }}/boneshed-web-directional-expedition"

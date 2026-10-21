@@ -1,0 +1,23 @@
+{"check":"cut_right_to_left_vs_guard_left_is_block","detail":{"guard":null,"point":null,"result":"none"},"passed":false}
+{"check":"cut_right_to_left_vs_guard_right_is_hit","detail":{"guard":null,"point":null,"result":"none"},"passed":false}
+{"check":"cut_left_to_right_vs_guard_right_is_block","detail":{"guard":null,"point":null,"result":"none"},"passed":false}
+{"check":"cut_left_to_right_vs_guard_left_is_hit","detail":{"guard":null,"point":null,"result":"none"},"passed":false}
+{"check":"cut_overhead_vs_guard_high_is_block","detail":{"guard":null,"point":null,"result":"none"},"passed":false}
+{"check":"cut_thrust_vs_guard_high_is_hit","detail":{"guard":null,"point":null,"result":"none"},"passed":false}
+{"check":"thrust_vs_centre_guard_is_threshold_geometry_known_issue","detail":{"lateral":1e99999,"result":null,"threshold":0.08},"passed":false}
+{"check":"adjacent_45_degree_guard_also_blocks_as_in_lab_matrix","detail":null,"passed":false}
+{"check":"guarded_poison_attack_applies_no_status","detail":{"result":null,"status":null},"passed":false}
+{"check":"hit_applies_poison_buildup_after_soul_resistance","detail":{"applied":null,"expected":35.0,"resistance":0.0},"passed":false}
+{"check":"guarded_slow_attack_applies_no_status","detail":{"result":null,"status":null},"passed":false}
+{"check":"hit_applies_slow_buildup_after_soul_resistance","detail":{"applied":null,"expected":55.0,"resistance":0.0},"passed":false}
+{"check":"venom_hits_poison_soul_and_poison_ticks","detail":{"activations":0,"tick_damage":0.0},"passed":false}
+{"check":"soul_damages_through_the_same_contact_solver","detail":0,"passed":false}
+{"check":"fixture_damaged_vigil_soul","detail":100.0,"passed":false}
+{"check":"lethal_contact_releases_soul","detail":null,"passed":false}
+{"check":"victory_offers_marrow_arm_reference","detail":null,"passed":false}
+{"check":"f_then_e_equips_arm_and_grants_lunge","detail":null,"passed":false}
+{"check":"equipped_build_remains_a_valid_shared_build","detail":{"hand_r":"item.notched_sword"},"passed":false}
+{"check":"q_holds_marrow_lunge_chamber","detail":null,"passed":false}
+{"check":"q_lunge_charged_once","detail":[],"passed":false}
+{"check":"same_address_seed_and_inputs_replay_identical_duel","detail":1,"passed":false}
+{"engine":"4.7.2-stable (official)","failed":22,"passed":69,"suite":"directional_expedition","summary":true}

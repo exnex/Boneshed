@@ -1,0 +1,74 @@
+{
+	"address": "smoldering pallid necropolis",
+	"captures": {
+		"01_arrival": 3,
+		"02_vigil_duel": 594,
+		"03_salvage_equipped": 946,
+		"04_descent": 2542,
+		"05_dungeon_entry": 2583,
+		"05b_dungeon_evasion": 2841,
+		"06_guardian_duel": 3409,
+		"07_guardian_released": 3992,
+		"08_reliquary": 4387,
+		"09_extracted": 8960
+	},
+	"contacts": 16,
+	"duels": [
+		{
+			"kind": "exterior",
+			"player_health": 100.0,
+			"retries": 0,
+			"site": "site.r1",
+			"ticks": 313,
+			"variant": "venom_vigil",
+			"won": true
+		},
+		{
+			"kind": "guardian",
+			"player_health": 100.0,
+			"retries": 0,
+			"site": "site.guardian",
+			"ticks": 543,
+			"variant": "iron_guardian",
+			"won": true
+		}
+	],
+	"engine": "4.7.2-stable (official)",
+	"evasion": {
+		"dodge": {
+			"charges": 1,
+			"cost": 20.32,
+			"moved": 4.635,
+			"stamina_before": 100.0
+		},
+		"roll": {
+			"charges": 1,
+			"cost": 33.02,
+			"moved": 4.975,
+			"stamina_before": 100.0
+		}
+	},
+	"failed": 0,
+	"fingerprint": "310b0809",
+	"input": "keyboard/mouse InputEvents via InputMap and mouse motion; route read from the plan; visible combat cues only; no state writes",
+	"passed": 27,
+	"performance": {
+		"dungeon": {
+			"draw_calls": 0.0,
+			"frame_ms_median": 0.948,
+			"frame_ms_p95": 1.314,
+			"scene_nodes": 832.0
+		},
+		"surface": {
+			"draw_calls": 0.0,
+			"frame_ms_median": 0.879,
+			"frame_ms_p95": 1.222,
+			"scene_nodes": 835.0
+		}
+	},
+	"rendered": false,
+	"seed": 7,
+	"status_events": 0,
+	"summary": true,
+	"ticks": 8960
+}

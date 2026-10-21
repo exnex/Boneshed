@@ -1,0 +1,29 @@
+parse check: all integration scripts parse
+boot: expected exit 0 confirmed
+tests: expected exit 0 confirmed
+tests-replay: expected exit 0 confirmed
+cross-process replay: integration results identical
+playthrough-headless: expected exit 0 confirmed
+playthrough-rendered: expected exit 0 confirmed
+trace equality headless vs rendered: passed
+playthrough-replay: expected exit 0 confirmed
+cross-process replay: playthrough trace and contacts identical
+playthrough-smoldering-7: expected exit 0 confirmed
+playthrough-frozen-1002: expected exit 0 confirmed
+playthrough-drowned-424242: expected exit 0 confirmed
+rendered clips: contact sheets and MP4s written
+mutation-import: expected exit 0 confirmed
+negative-no-contact: expected exit 1 confirmed
+negative no-contact: caught by ['cut_right_to_left_vs_guard_left_is_block', 'lethal_contact_releases_soul']
+negative-double-charge: expected exit 1 confirmed
+negative double-charge: caught by ['lmb_press_charges_attack_once']
+negative-omniscient: expected exit 1 confirmed
+negative omniscient: caught by ['soul_sees_windup_only_after_reaction_delay']
+negative-block-status: expected exit 1 confirmed
+negative block-status: caught by ['guarded_poison_attack_applies_no_status']
+Directional expedition: fixtures, replay, five playthroughs, trace equality, clips and mutations passed.
+Evidence: artifacts/dx-run1
+
+real	17m38.142s
+user	48m2.096s
+sys	1m43.381s
