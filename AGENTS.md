@@ -40,3 +40,9 @@ The guides in PR #14 are proposed until that PR is merged. Once merged, they gov
 
 ## Coordination
 This document governs ChatGPT, Codex, Claude, and local agents. `CLAUDE.md` points here and adds only Claude-specific handoff expectations. Working instructions elsewhere cannot override these repo rules.
+
+## Pull request readiness — mandatory for every agent
+- Read [PR workflow](docs/PR_WORKFLOW.md) and use [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md) for every PR. A draft PR is **work in progress**, not a completed handoff.
+- When assigned work is complete, push all commits, explicitly mark any draft PR **Ready for review** via GitHub, and **recheck its live state** is non-draft (`draft=false`). Creating a PR, passing tests or checking the template box does not change Draft status.
+- Final agent report must include PR URL, exact head SHA, verified **Ready for review** state, tests, limitations and what Command Center should review. If ready transition cannot be completed, report **BLOCKED — DRAFT** with the reason; never claim completion.
+- Implementing agents do not self-merge; ChatGPT Command Center handles review, merges and updates the living roadmap.
