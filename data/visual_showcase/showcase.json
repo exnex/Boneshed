@@ -1,0 +1,18 @@
+{
+	"schema": "boneshed.visual_showcase.v0",
+	"provisional": true,
+	"notes": "Presentation-only selection data for the isolated visual showcase. Weapon and armor ids are existing shared-catalog items and melee lab armor; every showcase loadout is resolved by the same lab adapter and BuildRules as the melee lab, so handling, stamina, mitigation and resistances are derived exactly as there. Nothing here adds an item or a balance value.",
+	"weapons": {
+		"light": "item.lab_long_knife",
+		"medium": "item.notched_sword",
+		"heavy": "item.lab_greatsword"
+	},
+	"armor": {
+		"none": [],
+		"cloth": ["armor.lab_cloth_wraps"],
+		"mail": ["armor.lab_mail_shirt"],
+		"plate": ["armor.lab_bog_iron_plate"]
+	},
+	"player": {"kind": "pilgrim", "weapon": "medium", "armor": "mail", "marrow_arm": false},
+	"opponent": {"kind": "corrupted", "weapon": "medium", "armor": "cloth", "marrow_arm": true}
+}
