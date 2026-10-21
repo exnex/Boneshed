@@ -1,0 +1,114 @@
+{
+	"schema": "boneshed.expedition_preview.modules.v0",
+	"provisional": true,
+	"note": "Authored placeholder modules for the isolated expedition preview. Footprints, sizes, counts and palettes are prototype values awaiting playtest and Command Center review.",
+	"world": {
+		"cell": 4.0,
+		"slot": 11,
+		"level_height": 1.5,
+		"max_level": 2,
+		"region_count": [4, 6],
+		"activation_radius": 9.0,
+		"leash_radius": 17.0,
+		"extraction_seconds": 3.0
+	},
+	"region_templates": [
+		{"id": "open_court", "weight": 1.0, "rows": [
+			".#####.",
+			"#######",
+			"#######",
+			"#######",
+			"#######",
+			"#######",
+			".#####."]},
+		{"id": "broken_cross", "weight": 1.0, "rows": [
+			"..###..",
+			".#####.",
+			"#######",
+			"#######",
+			"#######",
+			".#####.",
+			"..###.."]},
+		{"id": "ring_sanctum", "weight": 0.9, "rows": [
+			".#####.",
+			"#######",
+			"##PPP##",
+			"##PPP##",
+			"##PPP##",
+			"#######",
+			".#####."]},
+		{"id": "colonnade", "weight": 0.9, "rows": [
+			"#######",
+			"#P###P#",
+			"#######",
+			"#######",
+			"#######",
+			"#P###P#",
+			"#######"]},
+		{"id": "shattered_rim", "weight": 0.8, "rows": [
+			".#####.",
+			"##.####",
+			"#######",
+			"#######",
+			"####.##",
+			"#######",
+			".#####."]}
+	],
+	"landmarks": [
+		{"id": "broken_spire", "weight": 0.6, "tags": ["built", "sacred", "height", "ruin"]},
+		{"id": "rib_arch", "weight": 0.3, "tags": ["bone", "death"]},
+		{"id": "drowned_basin", "weight": 0.3, "tags": ["water", "depth"]},
+		{"id": "rime_obelisks", "weight": 0.3, "tags": ["cold"]},
+		{"id": "ember_pyre", "weight": 0.3, "tags": ["fire", "waste"]},
+		{"id": "thorn_thicket", "weight": 0.3, "tags": ["wild", "life"]},
+		{"id": "gilded_idol", "weight": 0.3, "tags": ["wealth", "deceit"]},
+		{"id": "profane_altar", "weight": 0.3, "tags": ["profane", "corruption", "dark"]},
+		{"id": "toppled_colossus", "weight": 0.5, "tags": ["memory", "age", "stone"]},
+		{"id": "storm_mast", "weight": 0.3, "tags": ["storm", "air"]}
+	],
+	"biome_palettes": {
+		"flooded_lowland": {"floor": "33474c", "trim": "6d8f93", "glow": "6eabb2"},
+		"frozen_reach": {"floor": "4a5a64", "trim": "9fb8c4", "glow": "a9e0ef"},
+		"ashfield": {"floor": "3a3330", "trim": "7a6458", "glow": "e0864a"},
+		"storm_coast": {"floor": "38434c", "trim": "7d8d99", "glow": "b4c8ff"},
+		"sanctum_ruin": {"floor": "45443f", "trim": "a49b84", "glow": "e8cf8a"},
+		"catacomb": {"floor": "37332f", "trim": "8f8673", "glow": "c9b98d"},
+		"cavern_depths": {"floor": "2f3436", "trim": "5e6a6b", "glow": "7fc0b0"},
+		"briar_wilds": {"floor": "333d33", "trim": "6c7e62", "glow": "a7c77a"},
+		"high_crags": {"floor": "43484c", "trim": "8d959a", "glow": "d8dfe6"},
+		"barren_expanse": {"floor": "4a463f", "trim": "8e8573", "glow": "d9b77d"},
+		"corrupted_fen": {"floor": "35303a", "trim": "6f5f78", "glow": "b57fc4"},
+		"silent_ruin": {"floor": "3c4043", "trim": "7e8486", "glow": "c2c9cc"},
+		"lightless_abyss": {"floor": "26282d", "trim": "4f5560", "glow": "7a84c9"},
+		"sunken_city": {"floor": "30424a", "trim": "6f8c94", "glow": "7cc4c0"}
+	},
+	"dungeon": {
+		"cell": 2.0,
+		"origin": [1500.0, 0.0, 0.0],
+		"wall_height": 5.0,
+		"corridor_width": 3,
+		"corridor_length": [2, 4],
+		"filler_count": [1, 3],
+		"attempts": 24
+	},
+	"dungeon_rooms": [
+		{"id": "antechamber", "role": "entry", "size": [9, 9], "features": [
+			{"kind": "pillar", "at": [-3, -3]}, {"kind": "pillar", "at": [3, -3]},
+			{"kind": "pillar", "at": [-3, 3]}, {"kind": "pillar", "at": [3, 3]}]},
+		{"id": "pillar_hall", "role": "filler", "weight": 1.0, "size": [11, 11], "features": [
+			{"kind": "pillar", "at": [-3, -3]}, {"kind": "pillar", "at": [3, -3]},
+			{"kind": "pillar", "at": [-3, 3]}, {"kind": "pillar", "at": [3, 3]}]},
+		{"id": "long_gallery", "role": "filler", "weight": 1.0, "size": [7, 15], "features": [
+			{"kind": "pillar", "at": [-2, -4]}, {"kind": "pillar", "at": [2, -4]},
+			{"kind": "pillar", "at": [-2, 4]}, {"kind": "pillar", "at": [2, 4]}]},
+		{"id": "crypt_crossing", "role": "filler", "weight": 0.8, "size": [9, 9], "features": [
+			{"kind": "sarcophagus", "at": [0, 0]}]},
+		{"id": "guard_chamber", "role": "guardian", "size": [15, 15], "features": [
+			{"kind": "pillar", "at": [-6, -6]}, {"kind": "pillar", "at": [6, -6]},
+			{"kind": "pillar", "at": [-6, 6]}, {"kind": "pillar", "at": [6, 6]}]},
+		{"id": "reliquary_vault", "role": "reward", "size": [9, 9], "features": [
+			{"kind": "pedestal", "at": [0, -2]}]},
+		{"id": "ossuary_niche", "role": "cache", "size": [7, 7], "features": [
+			{"kind": "bone_pile", "at": [-2, -2]}, {"kind": "bone_pile", "at": [2, -2]}]}
+	]
+}

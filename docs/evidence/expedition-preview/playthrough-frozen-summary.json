@@ -1,0 +1,75 @@
+{
+	"address": "frozen gilded citadel",
+	"captures": {
+		"01_arrival": 3,
+		"02_sentinel_duel": 437,
+		"03_salvage_equipped": 1069,
+		"04_descent": 1422,
+		"05_dungeon_entry": 1457,
+		"06_guardian_duel": 2633,
+		"07_guardian_released": 3061,
+		"08_reliquary": 3435,
+		"09_extracted": 8179
+	},
+	"duels": [
+		{
+			"player_health": 100.0,
+			"site": "site.r1",
+			"ticks": 575,
+			"won": true
+		},
+		{
+			"player_health": 100.0,
+			"site": "site.guardian",
+			"ticks": 393,
+			"won": true
+		}
+	],
+	"engine": "4.7.2-stable (official)",
+	"failed": 0,
+	"fingerprint": "b407c34a",
+	"input": "physical keyboard/mouse InputEvents via InputMap; route read from the plan; no state writes",
+	"passed": 15,
+	"performance": {
+		"dungeon": {
+			"builder": {
+				"collision_shapes": 255,
+				"lights": 16,
+				"meshes": 434,
+				"nodes": 730
+			},
+			"draw_calls": 0.0,
+			"frame_ms_mean": 0.521877777777778,
+			"frame_ms_p95": 0.772,
+			"generation_ms": 29.608,
+			"objects_drawn": 0.0,
+			"physics_ms_mean": 4.44799999999999,
+			"primitives": 0.0,
+			"process_ms_mean": 58.144,
+			"scene_nodes": 928.0,
+			"static_memory_mb": 45.6820783615112
+		},
+		"surface": {
+			"builder": {
+				"collision_shapes": 255,
+				"lights": 16,
+				"meshes": 436,
+				"nodes": 733
+			},
+			"draw_calls": 0.0,
+			"frame_ms_mean": 0.681433333333333,
+			"frame_ms_p95": 1.021,
+			"generation_ms": 29.608,
+			"objects_drawn": 0.0,
+			"physics_ms_mean": 0.0,
+			"primitives": 0.0,
+			"process_ms_mean": 0.0,
+			"scene_nodes": 931.0,
+			"static_memory_mb": 42.6180410385132
+		}
+	},
+	"rendered": false,
+	"seed": 1002,
+	"summary": true,
+	"ticks": 8179
+}

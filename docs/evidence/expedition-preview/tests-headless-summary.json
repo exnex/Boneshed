@@ -1,0 +1,52 @@
+{
+	"engine": "4.7.2-stable (official)",
+	"failed": 0,
+	"metrics": {
+		"build_ms_drowned_1001": 14.032,
+		"build_ms_moonlit_3": 12.053,
+		"build_ms_smoldering_7": 12.245,
+		"dungeon_rooms_min_max": [
+			5,
+			7
+		],
+		"generation_ms_mean": 27.8372013888889,
+		"nodes_drowned_1001": {
+			"collision_shapes": 274,
+			"lights": 17,
+			"meshes": 489,
+			"nodes": 809
+		},
+		"nodes_moonlit_3": {
+			"collision_shapes": 238,
+			"lights": 15,
+			"meshes": 458,
+			"nodes": 742
+		},
+		"nodes_smoldering_7": {
+			"collision_shapes": 217,
+			"lights": 15,
+			"meshes": 434,
+			"nodes": 696
+		},
+		"plans": 144,
+		"regions_min_max": [
+			4,
+			5
+		],
+		"unique_dungeons_ashen": 24,
+		"unique_dungeons_drowned": 24,
+		"unique_dungeons_frozen": 24,
+		"unique_dungeons_moonlit": 24,
+		"unique_dungeons_smoldering": 24,
+		"unique_dungeons_weeping": 24,
+		"unique_regions_ashen": 24,
+		"unique_regions_drowned": 24,
+		"unique_regions_frozen": 24,
+		"unique_regions_moonlit": 24,
+		"unique_regions_smoldering": 24,
+		"unique_regions_weeping": 24
+	},
+	"passed": 1078,
+	"rendered": false,
+	"summary": true
+}
