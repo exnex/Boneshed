@@ -128,3 +128,9 @@ Keep approved direction separate from brainstorms. Amend this document only when
 - The game **must have stamina**. **Attacks, dodges and dodge rolls use stamina**, with action costs modified by character build. **Heavy armor slows movement**; **heavy weapons swing more slowly and consume more stamina**. **Light weapons allow rapid barrages of less powerful strikes**. Exact cost/balance formulas and every other penalty are not confirmed.
 - Implement resource legality consistently for player, NPC and eventual AI Echo using shared equipment/build metadata. Preserving the successful **indefinite attack chamber and held guard** remains essential; no unapproved holding timer or passive drain.
 - Stamina/exertion vs posture/guard stability should remain distinguishable (recommended architecture). Detailed confirmed facts, proposals and open questions: [STAMINA_AND_WEIGHT.md](STAMINA_AND_WEIGHT.md).
+
+## Elemental combat, ailments, resistances and evasive alternatives — owner direction 2026-10-20
+
+- World elemental conditions are part of the keyword-world vision. **Weapons, armor and anatomical/body modifications may also carry elemental properties and effects.** Status examples include poison, burn, stun, freeze, slow and paralysis (illustrative, not complete/final names).
+- **Resistance-based mitigation and light/evasion-based avoidance** are both important build strategies. This must interact meaningfully with stamina, heavier/slower equipment, weapon handling, and eventually AI-controlled Echoes. Exact damage types, resistance formulas, status stacking, disabling-effect safeguards and environment interactions remain **unconfirmed**.
+- Canonical design implications and safe bounded experiment: [ELEMENTAL_STATUS_FOUNDATION.md](ELEMENTAL_STATUS_FOUNDATION.md). Do not convert candidate example status names/numbers into final production rules.
