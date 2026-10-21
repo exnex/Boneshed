@@ -1,0 +1,90 @@
+{
+	"schema": "boneshed.melee_lab_combat_resources.v0",
+	"provisional": true,
+	"notes": "Lab-only stamina/weight/status data for the isolated directional melee lab. The shared build catalog has no armor category, armor slots, element or status fields yet, so armor, item traits and status definitions live here, keyed by catalog item ids, and are resolved next to (not inside) BuildRules. Every number is placeholder tuning for comparison; poison and slow are representative examples, not an approved status roster or element taxonomy.",
+	"effects": {
+		"poison": {
+			"kind": "damage_over_time",
+			"label": "POISONED",
+			"color": "7dd05a",
+			"threshold": 100.0,
+			"decay_per_second": 6.0,
+			"duration": 6.0,
+			"tick_interval": 1.0,
+			"tick_damage": 3.0,
+			"can_kill": false,
+			"while_active": "refresh",
+			"immunity_after": 0.0
+		},
+		"slow": {
+			"kind": "impairment",
+			"label": "SLOWED",
+			"color": "7fb2ff",
+			"threshold": 100.0,
+			"decay_per_second": 10.0,
+			"duration": 3.0,
+			"move_scale": 0.65,
+			"handling_scale": 0.8,
+			"while_active": "ignore",
+			"immunity_after": 2.0
+		}
+	},
+	"routing": {
+		"hit": 1.0,
+		"misaligned": 0.5,
+		"block": 0.0,
+		"deflect": 0.0,
+		"guard_break": 0.0,
+		"clash": 0.0,
+		"evaded": 0.0
+	},
+	"armor": [
+		{
+			"id": "armor.lab_cloth_wraps",
+			"name": "Cloth wraps (lab)",
+			"slot": "torso",
+			"mass": 2.5,
+			"mitigation": 0.05,
+			"resistances": {"poison": 0.0, "slow": 0.0},
+			"notes": "Barely encumbering; almost no protection or resistance."
+		},
+		{
+			"id": "armor.lab_mail_shirt",
+			"name": "Mail shirt (lab)",
+			"slot": "torso",
+			"mass": 9.0,
+			"mitigation": 0.15,
+			"resistances": {"poison": 0.25, "slow": 0.25},
+			"notes": "Moderate protection and resistance at a moderate mobility cost."
+		},
+		{
+			"id": "armor.lab_bog_iron_plate",
+			"name": "Bog-iron plate (lab)",
+			"slot": "torso",
+			"mass": 20.0,
+			"mitigation": 0.3,
+			"resistances": {"poison": 0.6, "slow": 0.6},
+			"notes": "Heavy, resistant plate: slow movement, expensive evasion, slower stamina recovery."
+		}
+	],
+	"traits": {
+		"item.lab_venom_knife": {
+			"element": "toxin",
+			"status_sources": [{"effect": "poison", "route": "on_hit", "buildup": 35.0}],
+			"notes": "Envenomed edge: poison buildup only on routed contact (never on a miss or dodge)."
+		},
+		"item.lab_greatsword": {
+			"element": "",
+			"status_sources": [{"effect": "slow", "route": "on_hit", "buildup": 55.0}],
+			"notes": "Concussive mass: physical (non-elemental) slow buildup on routed contact."
+		}
+	},
+	"world_conditions": [
+		{
+			"id": "world.lab_toxic_miasma",
+			"label": "Toxic miasma",
+			"status_sources": [{"effect": "poison", "route": "ambient", "buildup_per_second": 12.0}],
+			"notes": "Environmental exception: ambient buildup on every fighter in the arena, resisted by armor but not avoided by dodging. Off by default (V toggles)."
+		}
+	]
+}

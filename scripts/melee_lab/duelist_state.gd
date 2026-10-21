@@ -3,17 +3,43 @@ extends RefCounted
 ## inertia-limited weapon motion, directional guard with timed deflection, dodge, and
 ## the reactions applied by the contact solver. Presentation-, input- and AI-free;
 ## controllers call the press/hold/release methods and `tick`. All values provisional.
+##
+## Combat resources (experimental): stamina is charged exactly once per action at the
+## moment it legally begins — an attack when its windup starts (a buffered attack when
+## the buffer turns into a windup), a dodge or roll when it starts. Release events,
+## redirects, holding a chamber and holding a guard never charge. A voluntary cancel of
+## an *unreleased* windup (fresh guard press, dodge, roll) refunds `feint_refund` of the
+## attack's cost; released attacks and interruptions refund nothing. Unaffordable
+## actions are refused and recorded (stamina_pool.gd). Status buildup reaches this
+## fighter only through `receive_status`, after the contact outcome is known.
 
 const Geometry = preload("res://scripts/melee_lab/swing_geometry.gd")
 const Handling = preload("res://scripts/melee_lab/weapon_handling.gd")
+const Stamina = preload("res://scripts/melee_lab/stamina_pool.gd")
+const Status = preload("res://scripts/melee_lab/status_effects.gd")
+const Resources = preload("res://scripts/melee_lab/combat_resources.gd")
 
-enum Phase { IDLE, WINDUP, SWING, RECOVERY, RECOIL, STAGGER, BROKEN, DODGE, DEAD }
+## ROLL is appended so earlier phase indices (logged in evidence) keep their values.
+enum Phase { IDLE, WINDUP, SWING, RECOVERY, RECOIL, STAGGER, BROKEN, DODGE, DEAD, ROLL }
 const ACTING := [Phase.IDLE, Phase.WINDUP, Phase.SWING, Phase.RECOVERY]
 const ARRIVED := 0.0005 # Radians; chamber reached.
 const BUFFER_SECONDS := 0.2 # An attack pressed during braking starts when the blade is free.
 
 var t: Dictionary
 var h: Dictionary
+## Unimpaired handling; `h` is this scaled while a handling impairment is active.
+var base_h: Dictionary
+var handling_scale := 1.0
+## combat_resources.gd derive output: costs, mobility, mitigation, resistances, sources.
+var resources: Dictionary
+var stamina := Stamina.new()
+var status: Status
+## Stamina paid for the current attack (0 once it can no longer be refunded).
+var attack_paid := 0.0
+var action_serial := 0
+var roll_elapsed := 0.0
+## Periodic status damage taken since reset (for tests and HUD).
+var status_damage_taken := 0.0
 var max_health := 100.0
 var max_posture := 100.0
 var deflect_window := 0.16
@@ -61,12 +87,18 @@ var dodge_ready_in := 0.0
 var since_pressure := 99.0
 var last_event := ""
 
-func _init(tuning: Dictionary, handling: Dictionary, stats := {}) -> void:
+## `combat` is combat_resources.gd derive output; {} derives an unarmoured, status-free
+## profile from the same tuning, so every fighter has stamina.
+func _init(tuning: Dictionary, handling: Dictionary, stats := {}, combat := {}) -> void:
 	t = tuning
+	base_h = handling
 	h = handling
 	for stat: String in ["max_health", "max_posture", "deflect_window", "posture_recovery_rate", "posture_recovery_delay"]:
 		if stats.has(stat):
 			set(stat, float(stats[stat]))
+	resources = combat if not combat.is_empty() else Resources.derive(handling, str(handling.get("item", "")), [], {}, tuning)
+	stamina.configure(resources.stamina_max, resources.stamina_regen, resources.stamina_regen_delay, resources.stamina_empty_regen_delay)
+	status = Status.new(resources.effects, resources.resistances)
 	reset()
 
 func reset() -> void:
@@ -91,6 +123,12 @@ func reset() -> void:
 	thrust_speed = 0.0
 	move_speed = 0.0
 	last_event = ""
+	stamina.reset()
+	status.reset()
+	attack_paid = 0.0
+	roll_elapsed = 0.0
+	status_damage_taken = 0.0
+	_set_handling_scale(1.0)
 	var rest := Geometry.rest_pose(t)
 	hand = rest.hand
 	dir = rest.dir
@@ -110,6 +148,8 @@ func press_attack(requested := "") -> bool:
 		buffer_released = false
 		return false
 	if phase != Phase.IDLE or guarding:
+		return false
+	if not _charge_attack():
 		return false
 	_begin_windup(chosen)
 	return true
@@ -139,6 +179,7 @@ func set_guard(held: bool, sector := "") -> void:
 		if phase in [Phase.WINDUP, Phase.SWING, Phase.RECOVERY]:
 			var spinning := omega if phase != Phase.WINDUP else 0.0
 			guard_delay = minf(spinning / h.brake, t.cancel_brake_cap) if spinning > 0.0 else 0.0
+			stamina.refund(pending_refund(), action_serial, clock)
 			_cancel_attack()
 		var allowed: bool = phase == Phase.IDLE and h.can_guard
 		guard_age = 0.0 if allowed and h.can_deflect and deflect_ready_in <= 0.0 else 99.0
@@ -147,19 +188,77 @@ func set_guard(held: bool, sector := "") -> void:
 	if not guarding:
 		guard_age = 99.0
 
+## Quick dodge step: short, fully invulnerable, cheaper. Cancels any attack.
 func dodge() -> bool:
+	return _evade(Phase.DODGE, "dodge", resources.dodge_cost, t.dodge_duration, t.dodge_cooldown)
+
+## Dodge roll: travels further and longer, invulnerable only for its first
+## `roll_invulnerable` seconds, then a vulnerable tail; costs more.
+func roll() -> bool:
+	return _evade(Phase.ROLL, "roll", resources.roll_cost, t.roll_duration, t.roll_cooldown)
+
+func _evade(kind: Phase, action: String, cost: float, duration: float, cooldown: float) -> bool:
 	if phase not in ACTING or dodge_ready_in > 0.0:
 		return false
+	# A cancelled unreleased windup's refund counts toward the evasion's cost.
+	action_serial += 1
+	if not stamina.spend(action, cost, action_serial, clock, pending_refund()):
+		return false
+	attack_paid = 0.0 # Already folded into the charge above.
 	_cancel_attack()
 	buffered = ""
 	guarding = false
 	guard_age = 99.0
-	phase = Phase.DODGE
-	remaining = t.dodge_duration
-	dodge_ready_in = t.dodge_cooldown
+	phase = kind
+	remaining = duration
+	roll_elapsed = 0.0
+	dodge_ready_in = cooldown
+	return true
+
+## Stamina a voluntary cancel would return now: only an unreleased windup is a feint.
+func pending_refund() -> float:
+	return attack_paid * t.feint_refund if phase == Phase.WINDUP and not released else 0.0
+
+func _charge_attack() -> bool:
+	action_serial += 1
+	if not stamina.spend("attack", resources.attack_cost, action_serial, clock):
+		return false
+	attack_paid = resources.attack_cost
 	return true
 
 ## --- Queries --------------------------------------------------------------------
+
+func invulnerable() -> bool:
+	return phase == Phase.DODGE or (phase == Phase.ROLL and roll_elapsed < t.roll_invulnerable)
+
+func evading() -> bool:
+	return phase in [Phase.DODGE, Phase.ROLL]
+
+## Locomotion and evasion speed multipliers from armor and active impairments.
+func move_scale() -> float:
+	return resources.move_scale * status.move_scale()
+
+func evasion_speed_scale() -> float:
+	return resources.evasion_speed_scale * status.move_scale()
+
+## What this fighter may legally do right now, by the same rules for every controller
+## (player input, lab AI, a future Echo policy). Costs are this build's real costs.
+func legal_actions() -> Dictionary:
+	var free := phase in ACTING
+	return {
+		"attack": phase == Phase.IDLE and not guarding and guard_delay <= 0.0 and stamina.can_afford(resources.attack_cost),
+		"attack_cost": resources.attack_cost,
+		"dodge": free and dodge_ready_in <= 0.0 and stamina.can_afford(resources.dodge_cost, pending_refund()),
+		"dodge_cost": resources.dodge_cost,
+		"roll": free and dodge_ready_in <= 0.0 and stamina.can_afford(resources.roll_cost, pending_refund()),
+		"roll_cost": resources.roll_cost,
+		"guard": h.can_guard and phase in [Phase.IDLE, Phase.WINDUP, Phase.SWING, Phase.RECOVERY],
+	}
+
+## This fighter's own condition: exact for itself, never a view of its opponent.
+func self_view() -> Dictionary:
+	return {"stamina": stamina.current, "stamina_max": stamina.max_stamina, "health": health, "posture": posture,
+		"statuses": status.view(), "legal": legal_actions()}
 
 func is_live() -> bool:
 	return sweep_open and not hit_consumed and live_value >= 0.0
@@ -200,6 +299,12 @@ func chamber_angle() -> float:
 
 func tick(delta: float) -> void:
 	clock += delta
+	if phase != Phase.DEAD:
+		var regen_scale: float = t.stamina_regen_hold_scale if phase == Phase.WINDUP and not released else (t.stamina_regen_guard_scale if guarding else 1.0)
+		stamina.tick(delta, regen_scale)
+		for due: Dictionary in status.tick(delta):
+			take_status_damage(due.damage, due.can_kill)
+		_set_handling_scale(status.handling_scale())
 	prev_hand = hand
 	prev_dir = dir
 	prev_live_value = live_value
@@ -239,6 +344,8 @@ func _tick_idle(delta: float) -> void:
 		var next := buffered
 		var was_released := buffer_released
 		buffered = ""
+		if not _charge_attack():
+			return # Refused when the windup would start; recorded by the pool.
 		_begin_windup(next)
 		released = was_released
 		_tick_windup(delta)
@@ -288,12 +395,14 @@ func _tick_swing(delta: float) -> void:
 
 func _tick_timed(delta: float) -> void:
 	remaining -= delta
+	if phase == Phase.ROLL:
+		roll_elapsed += delta
 	if phase == Phase.RECOVERY:
 		omega = maxf(0.0, omega - h.brake * delta)
 		thrust_speed = maxf(0.0, thrust_speed - h.thrust_accel * t.brake_ratio * delta)
 		if direction == Geometry.THRUST:
 			_shift_toward(Geometry.thrust_pose(0.0, t), h.guard_shift, delta)
-	elif phase != Phase.DODGE:
+	elif not evading():
 		_shift_toward(Geometry.rest_pose(t), h.guard_shift * 0.5, delta)
 	if remaining > 0.0:
 		return
@@ -326,8 +435,12 @@ func _begin_windup(chosen: String) -> void:
 func _enter_recovery(duration: float) -> void:
 	phase = Phase.RECOVERY
 	remaining = duration
+	attack_paid = 0.0
 
+## Ends any attack. Never refunds by itself: voluntary cancels add `pending_refund()`
+## before calling this; interruptions (hits, stagger, guard break, death) refund nothing.
 func _cancel_attack() -> void:
+	attack_paid = 0.0
 	if phase not in [Phase.WINDUP, Phase.SWING, Phase.RECOVERY]:
 		return
 	phase = Phase.IDLE
@@ -398,6 +511,48 @@ func break_guard() -> void:
 	guard_age = 99.0
 	posture = max_posture
 	last_event = "GUARD BREAK"
+
+## Periodic status damage. `can_kill` false leaves the fighter at 1 health at worst.
+func take_status_damage(amount: float, can_kill: bool) -> void:
+	var floor_health := 0.0 if can_kill else minf(health, 1.0)
+	var dealt := maxf(0.0, minf(amount, health - floor_health))
+	status_damage_taken += dealt
+	if dealt > 0.0:
+		take_damage(dealt)
+
+## Routes a contact's status sources through the outcome table, then resistance and
+## buildup (status_effects.gd). An evaded attack or a missing outcome applies nothing,
+## whatever the data says. Returns the buildup actually applied per effect.
+func receive_status(sources: Array, outcome: String, from: String) -> Dictionary:
+	var applied := {}
+	if outcome == "evaded" or outcome == "none" or phase == Phase.DEAD:
+		return applied
+	var scale := float(resources.routing.get(outcome, 0.0))
+	if scale <= 0.0:
+		return applied
+	for source: Dictionary in sources:
+		if source.route == "on_hit":
+			applied[source.effect] = applied.get(source.effect, 0.0) + status.add_buildup(source.effect, source.buildup * scale, from)
+	return applied
+
+## Environmental buildup per second (world conditions). Not avoidable by evading.
+func receive_ambient(sources: Array, delta: float, from: String) -> void:
+	if phase == Phase.DEAD:
+		return
+	for source: Dictionary in sources:
+		if source.route == "ambient":
+			status.add_buildup(source.effect, source.buildup_per_second * delta, from)
+
+func _set_handling_scale(scale: float) -> void:
+	if is_equal_approx(scale, handling_scale):
+		return
+	handling_scale = scale
+	if is_equal_approx(scale, 1.0):
+		h = base_h
+		return
+	h = base_h.duplicate()
+	for key: String in ["accel", "brake", "guard_shift", "turn_rate", "thrust_accel"]:
+		h[key] = base_h[key] * scale
 
 func take_damage(amount: float) -> void:
 	health = maxf(0.0, health - amount)

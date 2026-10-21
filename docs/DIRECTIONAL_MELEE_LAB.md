@@ -29,6 +29,12 @@ references are inspiration; no undocumented commercial mechanic is reproduced or
 | [12. Owner playtest checklist](#12-owner-playtest-checklist) | |
 | [13. Proposed next milestone](#13-proposed-next-milestone) | |
 
+**2026-10-21 addition (experimental):** stamina, equipment weight, a dodge roll, a small
+poison/slow status pipeline, armor resistances and resource-aware AI legality now run in
+this lab. Their rules, numbers, schemas, tests and playtest checklist are in
+[MELEE_LAB_COMBAT_RESOURCES.md](MELEE_LAB_COMBAT_RESOURCES.md); the controls and
+contact rules below are unchanged except where marked.
+
 ## 1. Launch
 
 ```sh
@@ -39,8 +45,9 @@ bash scripts/tooling/play_melee_lab.sh # opens res://scenes/melee_lab.tscn
 
 Equivalent: `bash scripts/tooling/play.sh res://scenes/melee_lab.tscn`. In the Godot
 editor, open `scenes/melee_lab.tscn` and press **F6** (Run Current Scene); **F5** still
-runs First Expedition. The lab is native desktop only: its JSON files are not in the web
-export filter, and nothing links to it from the game.
+runs First Expedition. The lab is also exported separately for the browser at
+<https://exnex.github.io/Boneshed/melee-lab/> (`data/melee_lab/*.json` is in the Web
+export filter); nothing links to it from the game.
 
 ## 2. Controls and rationale
 
@@ -55,13 +62,14 @@ added at runtime only if absent (production actions and `project.godot` are unto
 | **LMB release** | Commit: the swing fires when the chamber is reached (never before `min_windup`). The chamber holds as long as LMB is held; a tap = follow-up cut |
 | **RMB held + mouse** | Remain in guard until RMB is released (unless guard is broken or a dodge overrides it); mouse points at the side to cover (same layout, **down** = centre against thrusts). The last guard side is kept if you don't flick |
 | **RMB fresh press** | Opens the deflect window; cancels any attack |
-| **Space** | Dodge: cancels everything, brief invulnerability |
+| **Space** | Dodge step: cancels everything, brief invulnerability (costs stamina) |
+| **Shift** | Dodge roll (2026-10-21, experimental): further, costlier, vulnerable tail — see [combat resources](MELEE_LAB_COMBAT_RESOURCES.md) |
 | WASD · Tab | Move · toggle lock-on (on by default) |
 | R · Esc | Reset duel · free the mouse |
 | F1 · F2 · F3 · F4 | Help · handling/tuning table · hitboxes · slow motion ×0.3 |
 | T · Y · U | Blade trails · telegraph arcs · intent labels |
-| `[` `]` · `,` `.` | Cycle your weapon · cycle the opponent's weapon |
-| M · G | Opponent mode (duel/defend/attack/dummy) · dummy guard side |
+| `[` `]` · `,` `.` | Cycle your build · the opponent's build (weapons, plus the evasive/balanced/resistant armor profiles) |
+| M · G · V | Opponent mode (duel/defend/attack/dummy) · dummy guard side · toxic miasma world condition |
 
 Direction names describe the swing's travel: chambering **right** cuts **right→left**.
 
@@ -310,14 +318,19 @@ two-handed), Quarterstaff (2.0 m, 1.8 kg, 0.45, two-handed, cannot deflect).
 ## 10. Tests and evidence
 
 ```sh
-bash scripts/tooling/test_melee_lab.sh   # ≈ 3.5 min on the cloud image (llvmpipe)
+bash scripts/tooling/test_melee_lab.sh   # ≈ 6 min on the cloud image (llvmpipe)
 ```
 
-It parse-checks every lab script, runs **77 deterministic checks**
+It parse-checks every lab script, runs **86 deterministic checks** (77 at first
+merge, plus the 6 hold-to-release checks of PR #48 and one load check per added
+loadout; the runner's expected count had not been updated after PR #48 and is fixed
+now)
 ([`melee_lab_tests.gd`](../scripts/qa/melee_lab_tests.gd)) twice in separate processes
 and compares the results byte for byte, runs two negative controls that must fail their
 named checks (`--negative=no-substeps` → tunnelling; `--negative=omniscient` → AI
-reaction delay), renders 14 clips under Xvfb/llvmpipe that each assert their outcome
+reaction delay), runs the combat-resources suite with its own replay and two negative
+controls ([details](MELEE_LAB_COMBAT_RESOURCES.md#7-tests-and-evidence)), renders 23 clips
+(14 original + 9 resource clips) under Xvfb/llvmpipe that each assert their outcome
 ([`melee_lab_capture.gd`](../scripts/qa/melee_lab_capture.gd)), builds contact sheets and
 MP4s, and fails if the branch touched `project.godot`, export presets, workflows, the
 roadmap/decision log, production scenes or production combat/AI/build/world scripts.
@@ -353,11 +366,11 @@ not run: [regressions.md](evidence/directional-melee-lab/regressions.md).
   chambers/counter-attacks through attacks (Mordhau's chamber), no feint penalty.
 - The AI uses a fixed seed and simple rules; it is a sparring partner, not the
   production survival AI. It never dodges in this version.
-- Death has no flow: press R. No stamina. Slow motion uses `Engine.time_scale`.
+- Death has no flow: press R. Slow motion uses `Engine.time_scale`. Stamina and statuses:
+  see [combat resources §8](MELEE_LAB_COMBAT_RESOURCES.md#8-known-problems-and-deferred-mechanics).
 - Tuning is first-pass; heavy weapons may feel sluggish or overwhelming, and the thrust is
   weak at typical spacing (it often lands early in its extension).
 - Contact uses the rules frame only; walls do not stop blades.
-- The lab is not in the web export.
 
 ## 12. Owner playtest checklist
 

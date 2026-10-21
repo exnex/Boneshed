@@ -8,6 +8,12 @@ extends "res://scripts/melee_lab/lab_duelist.gd"
 ##
 ## Modes (M cycles): duel · defend (never attacks) · attack (never guards) · dummy
 ## (holds the guard chosen with G, or none).
+##
+## Combat resources: the opponent pays the same stamina costs through the same rules
+## state as the player. It asks `state.legal_actions()` before pressing, so it does not
+## spam refused attacks; below cost + `ai_stamina_margin` it backs off to recover. It
+## reacts to its *own* slow (legal self-knowledge) by keeping more distance and
+## attacking less often. It reads nothing about the player's stamina or statuses.
 
 const Geometry = preload("res://scripts/melee_lab/swing_geometry.gd")
 const MODES := ["duel", "defend", "attack", "dummy"]
@@ -35,6 +41,7 @@ var counter_ready := false
 var strafe := 1.0
 var strafe_time := 0.0
 var recent: Array[String] = []
+var conserving := false
 var trace: Array[Dictionary] = []
 
 func _ready() -> void:
@@ -60,6 +67,7 @@ func reset_ai(seed_value := SEED) -> void:
 	strafe = 1.0
 	strafe_time = 0.0
 	recent.clear()
+	conserving = false
 	trace.clear()
 
 ## What is on screen this tick. Direction is visible once the blade heads for a chamber.
@@ -147,15 +155,31 @@ func _attack(view: Dictionary, delta: float) -> void:
 	state.set_guard(hold_guard, guard_sector)
 	if mode == "defend" or state.phase != State.Phase.IDLE or state.guarding:
 		return
+	if not _can_spend_on_attack():
+		return
 	var distance := global_position.distance_to(opponent.global_position)
 	if distance > state.h.reach + 0.5 or (cooldown > 0.0 and not counter_ready):
 		return
 	var direction := _choose_direction(view)
 	state.press_attack(direction)
 	hold_for = tuning.ai_min_windup + rng.randf() * tuning.ai_hold_max
-	cooldown = tuning.ai_attack_interval + rng.randf() * 0.5
+	cooldown = (tuning.ai_attack_interval + rng.randf() * 0.5) * (tuning.ai_slowed_cooldown_scale if _slowed() else 1.0)
 	_log("attack", {"direction": direction, "hold": snappedf(hold_for, 0.0001), "counter": counter_ready})
 	counter_ready = false
+
+## Legal and sensible: the rules must allow the attack, and the opponent keeps a small
+## reserve so it is not left empty. Logs the transitions, not every tick.
+func _can_spend_on_attack() -> bool:
+	var legal := state.legal_actions()
+	var reserve_ok: bool = state.stamina.current >= legal.attack_cost + tuning.ai_stamina_margin
+	var want_to_conserve: bool = not reserve_ok
+	if want_to_conserve != conserving:
+		conserving = want_to_conserve
+		_log("conserve" if conserving else "recovered", {"stamina": snappedf(state.stamina.current, 0.01), "cost": snappedf(legal.attack_cost, 0.01)})
+	return legal.attack and reserve_ok
+
+func _slowed() -> bool:
+	return state.status.move_scale() < 1.0
 
 ## Prefer a side the visible guard does not cover; never the same cut three times running.
 func _choose_direction(view: Dictionary) -> String:
@@ -179,6 +203,10 @@ func _move(delta: float) -> void:
 	var toward := toward_opponent()
 	var distance := global_position.distance_to(opponent.global_position)
 	var ideal: float = state.h.reach * 0.85
+	if conserving and mode != "defend":
+		ideal += tuning.ai_recover_spacing
+	if _slowed():
+		ideal += tuning.ai_slowed_spacing
 	strafe_time -= delta
 	if strafe_time <= 0.0:
 		strafe = -strafe if rng.randf() < 0.5 else strafe

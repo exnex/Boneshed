@@ -9,7 +9,10 @@ extends "res://scripts/melee_lab/lab_duelist.gd"
 ##   RMB         — guard; while held the mouse aims the guard (same cursor layout: point
 ##                 at the side to cover, down = centre vs thrusts). A fresh press opens
 ##                 the deflect window and cancels any attack.
-##   Space       — dodge (cancels everything, brief invulnerability).
+##   Space       — dodge step (cancels everything, brief invulnerability).
+##   Shift       — dodge roll (experimental: further, costlier, vulnerable tail).
+## Attacks, dodges and rolls cost stamina; an unaffordable press is refused (shown on
+## the HUD) and the mouse stays with the camera.
 ## Outside those holds, the mouse orbits the camera as usual, including during the swing
 ## itself, so the body can turn into (or away from) a released cut.
 
@@ -78,7 +81,10 @@ func control(delta: float) -> void:
 	elif Input.is_action_just_pressed("lab_attack") and not guard_held:
 		aim_owner = "attack"
 		cursor = Vector2.ZERO
+		var refusals := state.stamina.refusals
 		state.press_attack(Geometry.classify_attack(cursor, tuning.aim_deadzone))
+		if state.stamina.refusals != refusals:
+			aim_owner = ""
 	if aim_owner == "guard" and not guard_held:
 		aim_owner = "attack" if attack_held else ""
 	if aim_owner == "attack":
@@ -92,6 +98,9 @@ func control(delta: float) -> void:
 	state.set_guard(guard_held, Geometry.classify_guard(cursor, tuning.aim_deadzone) if aim_owner == "guard" else "")
 	if Input.is_action_just_pressed("lab_dodge"):
 		if try_dodge(desired_move):
+			aim_owner = ""
+	elif Input.is_action_just_pressed("lab_roll"):
+		if try_roll(desired_move):
 			aim_owner = ""
 	if locked and is_instance_valid(opponent):
 		turn_toward(toward_opponent(), delta)

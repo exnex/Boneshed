@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Directional melee lab: parse check, deterministic rule/scene/AI checks, cross-process
-# replay, two negative controls, rendered clips with contact sheets and MP4s, and a
+# Directional melee lab: parse check, deterministic rule/scene/AI checks and the combat
+# resources suite (stamina, weight, status), each replayed in a second process, four
+# negative controls, rendered clips with contact sheets and MP4s, and a
 # guard that the branch leaves production entry points and coordinator files untouched.
 set -euo pipefail
 source "$(dirname "$0")/env.sh"
@@ -28,7 +29,7 @@ def run(name, args, expected=0, seconds=600):
 script = ['--script', 'res://scripts/qa/melee_lab_tests.gd', '--']
 records = run('checks', base + script + [f'--evidence-dir={output}/checks'])
 summary = next(r for r in records if r.get('summary'))
-assert summary['failed'] == 0 and summary['passed'] == 77, summary
+assert summary['failed'] == 0 and summary['passed'] == 86, summary
 run('checks_replay', base + script + [f'--evidence-dir={output}/checks-replay'])
 assert filecmp.cmp(output / 'checks' / 'results.json', output / 'checks-replay' / 'results.json', shallow=False)
 print('cross-process replay: results.json identical', flush=True)
@@ -38,12 +39,25 @@ for mutation, labels in [('no-substeps', {'fast_blade_cannot_tunnel_through_guar
     failures = {r['check'] for r in records if r.get('passed') is False}
     assert labels <= failures, (mutation, failures)
     print(f'negative {mutation}: caught by {sorted(labels)}', flush=True)
+resources = ['--script', 'res://scripts/qa/melee_lab_resources_tests.gd', '--']
+records = run('resources', base + resources + [f'--evidence-dir={output}/resources'])
+summary = next(r for r in records if r.get('summary'))
+assert summary['failed'] == 0 and summary['passed'] == 73, summary
+run('resources_replay', base + resources + [f'--evidence-dir={output}/resources-replay'])
+assert filecmp.cmp(output / 'resources' / 'results.json', output / 'resources-replay' / 'results.json', shallow=False)
+print('resources cross-process replay: results.json identical', flush=True)
+for mutation, labels in [('free-feints', {'feint_spam_is_bounded_by_stamina'}),
+                         ('block-applies-status', {'blocked_attack_applies_no_status'})]:
+    records = run('negative_' + mutation, base + resources + ['--negative=' + mutation, f'--evidence-dir={output}/negative-{mutation}'], expected=1)
+    failures = {r['check'] for r in records if r.get('passed') is False}
+    assert labels <= failures, (mutation, failures)
+    print(f'negative {mutation}: caught by {sorted(labels)}', flush=True)
 rendered = ['xvfb-run', '-a', '-s', '-screen 0 1280x720x24 -nolisten tcp', engine, '--path', repo,
             '--rendering-method', 'gl_compatibility', '--audio-driver', 'Dummy', '--fixed-fps', '60',
             '--script', 'res://scripts/qa/melee_lab_capture.gd', '--', f'--evidence-dir={output}/rendered']
 records = run('rendered', rendered, seconds=1800)
 summary = next(r for r in records if r.get('summary'))
-assert summary['failed'] == 0 and summary['rendered'] == 14, summary
+assert summary['failed'] == 0 and summary['rendered'] == 23, summary
 assert 'llvmpipe' in (output / 'rendered.log').read_text(), 'Software renderer not confirmed'
 clips = json.loads((output / 'rendered' / 'clips.json').read_text())
 for clip in clips:

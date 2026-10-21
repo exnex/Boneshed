@@ -109,6 +109,13 @@ func _sync_arms(state: State) -> void:
 		arms[i].quaternion = Quaternion(Vector3.UP, offset.normalized())
 
 func _sync_colors(state: State) -> void:
+	# Body tint shows active statuses; the weapon colours below are unchanged.
+	var body: Color = actor.body_color
+	if state.status.is_active("poison"):
+		body = body.lerp(Color("6fd04a"), 0.5)
+	if state.status.is_active("slow"):
+		body = body.lerp(Color("6f9cff"), 0.5)
+	body_material.albedo_color = body
 	var color := Color("c8d0cc")
 	var glow := 0.0
 	match state.phase:
@@ -218,6 +225,24 @@ func _sync_label(state: State) -> void:
 	elif state.phase == State.Phase.RECOIL:
 		text = "RECOIL"
 		color = Color("f6e7a6")
+	elif state.phase == State.Phase.ROLL:
+		text = "ROLL" if state.invulnerable() else "ROLL · open"
+		color = Color("c79bff")
+	elif state.phase == State.Phase.DODGE:
+		text = "DODGE"
+		color = Color("9fd0ff")
+	if text == "":
+		var refusal: Dictionary = state.stamina.last_refusal
+		var tags: Array[String] = []
+		if not refusal.is_empty() and state.clock - float(refusal.at) < 0.8:
+			tags.append("NO STAMINA")
+		elif state.stamina.emptied:
+			tags.append("EXHAUSTED")
+		for effect: String in ["poison", "slow"]:
+			if state.status.is_active(effect):
+				tags.append(str(state.status.defs[effect].label))
+		text = " · ".join(tags)
+		color = Color("ff7a6a") if not tags.is_empty() and tags[0] in ["NO STAMINA", "EXHAUSTED"] else Color("b6f0a0")
 	label.text = text
 	label.modulate = color
 
