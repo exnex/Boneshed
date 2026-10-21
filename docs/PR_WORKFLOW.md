@@ -15,7 +15,7 @@ Applies to Claude, Codex, ChatGPT and other automated contributors to this repos
 
 1. Read AGENTS.md, this guide, the current repo state and relevant instructions; reconcile any prior PRs.
 2. Create a dedicated branch; open a **draft** PR early if iterative feedback helps, or create a non-draft PR on completion.
-3. Use [the pull request template](.github/PULL_REQUEST_TEMPLATE.md), including change scope, exact tests/results, risks, omitted tests, follow-up and owner-playtest instructions.
+3. Use [the pull request template](../.github/PULL_REQUEST_TEMPLATE.md), including change scope, exact tests/results, risks, omitted tests, follow-up and owner-playtest instructions.
 4. Complete the assigned work. Re-run checks against the final head as practical and disclose any missing or failing checks; failure is not silently acceptable.
 5. **Last mandatory step:** publish final commits; inspect the PR in GitHub. If it is Draft and complete, invoke **Ready for review**. **Verify the new live status**, not merely the tool invocation or checklist text. Do not declare completion while `draft=true`.
 6. Final handoff must include the **PR URL, exact head SHA, verified state (Ready for review / Blocked — draft), tests, known issues and next action**. Never claim the PR is merged; never self-merge or self-approve.
