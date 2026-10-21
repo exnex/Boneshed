@@ -2,14 +2,14 @@
 	"engine": "4.7.2-stable (official)",
 	"failed": 0,
 	"metrics": {
-		"build_ms_drowned_1001": 14.032,
-		"build_ms_moonlit_3": 12.053,
-		"build_ms_smoldering_7": 12.245,
+		"build_ms_drowned_1001": 21.627,
+		"build_ms_moonlit_3": 23.432,
+		"build_ms_smoldering_7": 15.175,
 		"dungeon_rooms_min_max": [
 			5,
 			7
 		],
-		"generation_ms_mean": 27.8372013888889,
+		"generation_ms_mean": 26.4763263888889,
 		"nodes_drowned_1001": {
 			"collision_shapes": 274,
 			"lights": 17,

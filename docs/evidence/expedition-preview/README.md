@@ -30,7 +30,7 @@ bash scripts/tooling/test_expedition_preview.sh artifacts/expedition-preview
 | Input-driven loop, Drowned Hollow Cathedral 1001 | **15/15** loop checks headless and rendered (rendered also passes its 9 capture checks), **identical traces** (8485 ticks): selection UI → sentinel duel → F/E → surface find → descent → guardian duel using Q → gates open → reliquary → side cache → ascent → extraction summary |
 | Same loop, Smoldering Pallid Necropolis 7 and Frozen Gilded Citadel 1002 | 15/15 each, headless (8195 / 8179 ticks) |
 | Source mutations (isolated copies) | Seed removed from the blueprint → region diversity fails; one-cell separation weakened → plan validity fails; environment collision disabled → floor/physics checks fail |
-| Regression runners | See the PR description for the exact list run on this branch |
+| Existing runners on this branch | `test.sh` (courtyard combat/build/adapter/graphical/timing; needed `BONESHED_GRAPHICAL_TIMEOUT=900` here — the 180 s default timed out under llvmpipe while still passing checks), `test_expedition.sh`, `test_melee_lab.sh` (incl. isolation versus `origin/main` `e55a1f2`), `test_worldgen.sh` (80), `test_keyword_grammar.sh`, `test_builds.sh` (205): all passed. Not run: anatomy, animation lab, camera zoom, combat motion, enemy AI, equipment, Marrow, presentation, web |
 
 The bot reads the plan to route (like a player reading a map) and reads visible
 combat timing to choose key events; it writes no position, combat, AI, reward or
@@ -41,14 +41,14 @@ bot's timing is reliable, **not** that the duels are fair or fun.
 
 | Measure | Value |
 | --- | --- |
-| Plan generation (blueprint + regions + dungeon + validation) | 27 ms mean over 144 plans |
+| Plan generation (blueprint + regions + dungeon + validation) | 26.5 ms mean over 144 plans (headless and rendered runs) |
 | Build (`preview_builder.gd`) | 14–16 ms per fixture |
 | Built scene (Drowned 1001) | 809 nodes, 489 mesh instances, 274 collision shapes, 17 lights (smoldering 7: 696/434/217/15) |
 | Static memory (whole process) | headless ~43 MB surface / ~48 MB after the dungeon; rendered ~51 / ~56 MB |
 | Headless simulation, standing | 0.56 ms/frame surface, 0.44 ms/frame dungeon (wall clock, physics + scripts) |
-| Rendered, llvmpipe, standing at arrival | 70 ms mean / 83 ms p95 per frame; 872 draw calls, 1153 objects, 91k primitives |
-| Rendered, llvmpipe, dungeon entry | 62 ms mean / 72 ms p95; 528 draw calls (surface hidden), 1008 objects, 85k primitives |
-| Physics step (monitor) | ~1.8–2.0 ms |
+| Rendered, llvmpipe, standing at arrival | 73 ms mean / 82 ms p95 per frame; 872 draw calls, 1153 objects, 91k primitives |
+| Rendered, llvmpipe, dungeon entry | 68 ms mean / 78 ms p95; 528 draw calls (surface hidden), 1008 objects, 85k primitives |
+| Physics step (monitor) | ~1.6–2.2 ms |
 
 Hiding the inactive area removes its draw calls. llvmpipe numbers measure the
 container's CPU rasteriser and do not predict desktop GPU frame time. Draw calls are

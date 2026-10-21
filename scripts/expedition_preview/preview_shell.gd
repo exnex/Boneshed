@@ -84,6 +84,9 @@ func _show_summary(summary: Dictionary) -> void:
 		"Carried: " + (", ".join(summary.carried) if not summary.carried.is_empty() else "none"),
 		"Equipped: " + ", ".join(summary.equipped.values())]
 	summary_label.text = "\n".join(lines)
+	# The summary replaces the duel HUD rather than drawing over it.
+	preview.hud.visible = false
+	preview.objective_label.visible = false
 	get_tree().paused = true
 	summary_panel.show()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

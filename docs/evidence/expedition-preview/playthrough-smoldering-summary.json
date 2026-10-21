@@ -39,15 +39,15 @@
 				"nodes": 693
 			},
 			"draw_calls": 0.0,
-			"frame_ms_mean": 0.5749,
-			"frame_ms_p95": 0.895,
-			"generation_ms": 21.538,
+			"frame_ms_mean": 0.556966666666667,
+			"frame_ms_p95": 0.796,
+			"generation_ms": 38.302,
 			"objects_drawn": 0.0,
-			"physics_ms_mean": 4.63900000000001,
+			"physics_ms_mean": 3.18000000000001,
 			"primitives": 0.0,
-			"process_ms_mean": 3.084,
+			"process_ms_mean": 2.132,
 			"scene_nodes": 891.0,
-			"static_memory_mb": 48.2175340652466
+			"static_memory_mb": 48.2184648513794
 		},
 		"surface": {
 			"builder": {
@@ -57,15 +57,15 @@
 				"nodes": 696
 			},
 			"draw_calls": 0.0,
-			"frame_ms_mean": 0.5302,
-			"frame_ms_p95": 0.777,
-			"generation_ms": 21.538,
+			"frame_ms_mean": 0.541322222222222,
+			"frame_ms_p95": 0.928,
+			"generation_ms": 38.302,
 			"objects_drawn": 0.0,
 			"physics_ms_mean": 0.0,
 			"primitives": 0.0,
 			"process_ms_mean": 0.0,
 			"scene_nodes": 894.0,
-			"static_memory_mb": 42.5230989456177
+			"static_memory_mb": 42.5240297317505
 		}
 	},
 	"rendered": false,

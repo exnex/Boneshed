@@ -20,7 +20,7 @@ func has(id: String) -> bool:
 
 static func label(item: String) -> String:
 	var name := item.get_slice(".", 1).replace("_", " ").capitalize()
-	return "Sealed reliquary · " + name if item.begins_with("relic.") else name
+	return "Vault relic (%s)" % name.to_lower() if item.begins_with("relic.") else name
 
 ## Read-only report: finds plus the build items the existing progression owns.
 func summary(builds: Dictionary) -> Dictionary:
