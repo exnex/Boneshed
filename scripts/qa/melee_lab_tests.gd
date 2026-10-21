@@ -585,6 +585,34 @@ func cancel_checks() -> void:
 	while a.phase == State.Phase.WINDUP:
 		a.tick(DT)
 	check(a.direction == "overhead", "unreleased_windup_can_redirect")
+	# A side-to-side or overhead-to-side redirect must retract to neutral first;
+	# direct great-circle interpolation could take the blade behind the character.
+	for initial: String in ["right_to_left", "overhead"]:
+		a = duelist("sword")
+		a.press_attack(initial)
+		for i in range(180):
+			a.tick(DT)
+		var destination := "left_to_right"
+		a.aim_attack(destination)
+		var neutral_seen := false
+		var fired_early := false
+		for i in range(240):
+			a.tick(DT)
+			if a.dir.angle_to(Geometry.rest_pose(tuning).dir) < 0.035:
+				neutral_seen = true
+			if a.phase != State.Phase.WINDUP:
+				fired_early = true
+				break
+		check(neutral_seen and a.direction == destination and not fired_early and a.rechamber_to_neutral == false,
+			"redirect_from_" + initial + "_uses_forward_neutral_without_auto_fire")
+		a.release_attack()
+		for i in range(180):
+			a.tick(DT)
+			if a.swing_serial > 0:
+				break
+		check(a.swing_serial == 1 and a.last_swung == destination,
+			"redirect_from_" + initial + "_releases_new_direction")
+
 
 ## Legal input events through the real scene: aim ownership and camera separation.
 func scene_checks() -> void:

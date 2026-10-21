@@ -404,3 +404,7 @@ integration plan (mapping directional attacks onto the shared combat rules and t
 survival AI) is worth scoping. Owner decisions needed: preferred aim scheme, whether
 heavy-weapon inertia should ever delay defense, whether thrusts stay, and whether natural
 weapons (Marrow Arm) should use the same directional system.
+
+## Opposite-side chamber redirect — owner feedback 2026-10-20
+
+Owner observed that a held directional change (e.g. overhead/90° toward left/180°, or left↔right) visibly swept the sword behind the fighter. In the isolated lab the unreleased windup now retracts through the forward neutral/rest pose before moving to the new selected chamber. It remains held until deliberate release, and early release waits for re-chambering to complete. This path is for **pre-attack chamber repositioning**, not offensive swing trajectory or damage; physical timing and hand paths remain provisional pending the owner's browser playtest.

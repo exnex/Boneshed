@@ -56,6 +56,9 @@ var last_swung := ""
 var windup_time := 0.0
 var released := false
 var hold_time := 0.0
+## Re-chamber via neutral before moving to a new aimed cut. Prevents the
+## shortest-slerp from swinging an opposite-side change behind the fighter.
+var rechamber_to_neutral := false
 var buffered := ""
 var buffer_time := 0.0
 var buffer_released := false
@@ -158,6 +161,7 @@ func press_attack(requested := "") -> bool:
 func aim_attack(requested: String) -> void:
 	if phase == Phase.WINDUP and not released and requested != "" and requested != direction:
 		direction = requested
+		rechamber_to_neutral = true
 	elif buffered != "" and requested != "":
 		buffered = requested
 
@@ -359,6 +363,13 @@ func _tick_windup(delta: float) -> void:
 	windup_time += delta
 	if not released:
 		hold_time += delta
+	if rechamber_to_neutral:
+		# Retract toward the forward neutral pose before crossing to another side.
+		# The alternate direct great-circle route can pass behind the body.
+		if _move_bang_bang(Geometry.rest_pose(t), delta):
+			rechamber_to_neutral = false
+			move_speed = 0.0
+		return
 	var arrived := _move_bang_bang(Geometry.chamber_pose(direction, t), delta)
 	if arrived and windup_time >= t.min_windup and released:
 		phase = Phase.SWING
@@ -422,6 +433,7 @@ func _live_value() -> float:
 	return Geometry.swing_live(t) - theta
 
 func _begin_windup(chosen: String) -> void:
+	rechamber_to_neutral = false
 	phase = Phase.WINDUP
 	direction = chosen
 	windup_time = 0.0
@@ -440,6 +452,7 @@ func _enter_recovery(duration: float) -> void:
 ## Ends any attack. Never refunds by itself: voluntary cancels add `pending_refund()`
 ## before calling this; interruptions (hits, stagger, guard break, death) refund nothing.
 func _cancel_attack() -> void:
+	rechamber_to_neutral = false
 	attack_paid = 0.0
 	if phase not in [Phase.WINDUP, Phase.SWING, Phase.RECOVERY]:
 		return
