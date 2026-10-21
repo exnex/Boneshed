@@ -7,3 +7,5 @@ Engineering standards live in [docs/engineering/](docs/engineering/README.md); A
 Before implementation, identify the exact Godot version that will be used and check that the version is supported by the environment. Do not infer a version from another project.
 
 Work in focused branches and submit PRs. Summarize at the end of each task: changes made, checks performed, uncertainties, and suggested next small task. Do not silently expand scope or assert that untested combat feels good.
+
+PR readiness is an explicit completion gate. Before ending a finished assignment, follow [docs/PR_WORKFLOW.md](docs/PR_WORKFLOW.md): mark a Draft PR **Ready for review**, verify `draft=false` in GitHub, and provide URL + head SHA + tests. If the transition fails, report **BLOCKED — DRAFT**, not "finished". Never self-merge.
