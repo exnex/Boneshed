@@ -608,6 +608,7 @@ func outcome_equivalence_checks() -> void:
 		root.add_child(arena)
 		await process_frame
 		var lines: Array[String] = []
+		arena.player.input_enabled = false # Scripted player (the controller would clear the guard).
 		for pairing: Array in [["balanced", "balanced"], ["resistant", "evasive"], ["knife", "greatsword"]]:
 			arena.set_loadouts(pairing[0], pairing[1])
 			arena.opponent.mode = "duel"

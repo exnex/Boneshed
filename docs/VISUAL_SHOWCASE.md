@@ -226,11 +226,121 @@ kept clear: no collision within 4 m of the duel centre (tested).
 
 ## 7. Rendering evaluation and benchmarks
 
-BENCHMARK_SECTION
+**Renderers.** The project stays on **GL Compatibility** (browser-safe; `project.godot`
+untouched). The showcase also runs on **Forward+** when started with
+`--rendering-method forward_plus` (`play_visual_showcase.sh --forward`); nothing is
+saved. What Forward+ adds here: volumetric fog with light shafts from the moon and
+braziers, SSAO, SSIL (high), cheaper many-light shading (clustered) and better
+positional shadows. Compatibility has no SSAO/SSIL/volumetric fog; the showcase
+substitutes depth + height fog, additive fog cards and a fake shaft mesh, and limits
+shadowed positional lights to one. Side-by-side: `docs/evidence/visual-showcase/forward_vs_compat_*.jpg`.
+
+**Measurement conditions — read before the numbers.** This cloud container has **no
+GPU**. Both renderers ran on **CPU software rasterisers**: Mesa *llvmpipe* (OpenGL) for
+Compatibility and Mesa *lavapipe* (Vulkan, installed only inside the throwaway
+container) for Forward+, on 4 cores of an Intel Xeon @ 2.80 GHz, Xvfb 1280×720,
+Godot 4.7.2. Frame times below therefore measure *CPU pixel-shading cost* and only
+rank configurations against each other; **they are not desktop GPU frame times** and
+must not be read as "the showcase runs at 1–7 fps". Draw calls, primitives, node and
+mesh counts, triangle counts and memory are renderer facts and do carry over.
+Command: `bash scripts/tooling/bench_visual_showcase.sh` (same seeded AI duel, 60
+warm-up + 240 measured frames per case, then 120 frames with every shadow off).
+Raw data: `docs/evidence/visual-showcase/bench_gl_compatibility.json`, `bench_forward_plus.json`.
+
+GL Compatibility (llvmpipe):
+
+| Case | Frame ms mean | p95 | No-shadow ms | Shadow cost ms | Draw calls | Primitives | Nodes | Meshes | Lights / shadowed | Static MB | Video MB | Texture MB | Startup ms |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Melee lab (before) | 66.8 | 78.2 | 41.8 | 25.0 | 188 | 60,750 | 94 | 62 | 1 / 1 | 47.4 | 19.5 | 13.1 | 136 |
+| Showcase low | 142.6 | 165.9 | 136.4 | 6.2 | 189 | 228,027 | 255 | 58 | 4 / 1 | 51.1 | 32.8 | 23.5 | 7,482 |
+| Showcase medium | 399.2 | 445.2 | 362.2 | 37.0 | 196 | 228,560 | 267 | 62 | 8 / 1 | 51.4 | 61.9 | 52.6 | 10,006 |
+| Showcase high | 615.4 | 682.2 | 330.9 | 284.5 | 256 | 567,702 | 267 | 62 | 8 / 2 | 51.6 | 80.9 | 71.7 | 9,595 |
+
+Forward+ (lavapipe):
+
+| Case | Frame ms mean | p95 | No-shadow ms | Shadow cost ms | Draw calls | Primitives | Nodes | Meshes | Lights / shadowed | Static MB | Video MB | Texture MB | Startup ms |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Melee lab (before) | 76.7 | 94.2 | 58.3 | 18.4 | 194 | 63,041 | 91 | 61 | 1 / 1 | 60.8 | 144.8 | 56.9 | 420 |
+| Showcase low | 184.2 | 206.5 | 159.1 | 25.1 | 195 | 227,985 | 255 | 58 | 4 / 1 | 65.9 | 121.7 | 31.0 | 21,054 |
+| Showcase medium | 440.3 | 483.1 | 385.0 | 55.3 | 198 | 228,481 | 263 | 58 | 8 / 1 | 66.2 | 183.8 | 93.1 | 11,202 |
+| Showcase high | 919.3 | 1,054.8 | 741.0 | 178.3 | 302 | 906,235 | 263 | 58 | 8 / 3 | 66.8 | 327.5 | 234.0 | 34,670 |
+
+Scene content (all presets): environment **54,808 triangles** in one merged mesh
+(108 pieces, 8 surfaces: one per material); characters **15,524 triangles** together for the
+default pair (pilgrim in mail + soul in cloth with the Marrow Arm; the heaviest
+configurations, plate, are 10,434 (pilgrim) and 10,572 (soul) — the < 20,000 per
+character budget check passes for all 12 body × armor × arm configurations); weapons **1,948**; 5 skinned meshes with
+**9,660 skinned vertices** (GPU skinning). **Draw calls stay at the lab's level**
+(≈ 190–200 low/medium; 256–302 high, where extra shadow passes appear) because
+architecture and characters merge per material. *Primitives* include shadow passes.
+
+**Animation / skinning cost.** The pose layer (rules tick + solve, both measured
+together) costs **111–135 µs per character per frame** on this CPU (≈ 0.25 ms per frame
+for the duel); the reach-assist bisection is the largest part. Skinning runs on the
+GPU and could not be separated on a software rasteriser.
+
+**Startup** includes procedural texture generation when the size is not cached yet
+(0.7–2.6 s of it here) and first-frame shader compilation (most of the rest on a
+software renderer). Later launches load the cached textures.
+
+**Where the time goes (relative, software).** Low → medium is mostly four more
+point lights, 2× MSAA and twice the texture size; medium → high is positional-light
+shadows (Compatibility: +285 ms shadow cost — omni shadows are six cube faces) and,
+on Forward+, SSIL and full-resolution volumetric fog.
+
+**Proposed presets (provisional; to be confirmed on real hardware with this same
+benchmark):**
+
+| Tier | Example hardware (estimate, not measured) | Renderer | Preset | Notes |
+| --- | --- | --- | --- | --- |
+| High-end PC | Discrete GPU, GTX 1660 / RX 5600 class or better | Forward+ | `high` | Volumetric fog, SSAO + SSIL, 4096 shadows, two shadowed braziers, 4× MSAA |
+| Mid-range PC | GTX 1050 Ti class, or recent integrated (Iris Xe, Radeon 680M) | Forward+ | `medium` | Volumetric fog, SSAO, no SSIL, no positional shadows, 2× MSAA |
+| Low-end PC / browser | Older integrated GPUs, WebGL2 | Compatibility | `low` | Depth fog only, 1024 shadows, no torches or MSAA, 128 px textures |
+
+The preset table lives in one place (`scripts/visual_showcase/quality.gd`) and is not
+connected to any production setting.
 
 ## 8. Tests and evidence
 
-TESTS_SECTION
+```sh
+bash scripts/tooling/test_visual_showcase.sh artifacts/visual-showcase      # ≈ 45 min here (rendering is software)
+BONESHED_SKIP_RENDER=1 bash scripts/tooling/test_visual_showcase.sh artifacts/vs-fast   # headless parts only
+bash scripts/tooling/bench_visual_showcase.sh artifacts/visual-showcase-bench
+```
+
+The runner parse-checks every showcase script, runs `visual_showcase_tests.gd`
+(**49 checks**) and replays it in a second process (results byte-identical), runs three
+**source mutations in a disposable copy** (each must fail its named check), renders the
+evidence in GL Compatibility (llvmpipe) and, when a Vulkan driver exists, Forward+
+hero shots (lavapipe), encodes contact sheets and MP4s, and fails if a protected
+production, lab, shared-data or coordination file differs from `origin/main`.
+
+| Area | Checks (all passing) |
+| --- | --- |
+| Rig integrity | 22 bones, parents before children, every bone aims at its tail, mirror symmetry, skeleton rest = definition, every socket on an existing bone (both bodies); human proportions (pilgrim); soul taller and longer-armed |
+| Skin | 4 normalised influences per vertex and valid bone indices on every layer of all 12 configurations; < 20,000 triangles per character; plate surfaces bound to a single bone; layers match equipment |
+| Weapon / contact agreement | Each weapon mesh ends at exactly the rules length; over 11,700 solved poses the drawn weapon equals the rules segment (max 2.5e-7 m); in the engine (after the `SkeletonModifier3D`, through `BoneAttachment3D`) the grip socket is on the rules hand (5e-7 m) and the tip marker on the rules tip (3e-7 m) |
+| Weapon / hand alignment | Right fist on the grip for 3 weapons × 2 bodies × all attacks, guards and a redirect (< 5 mm; measured 0.0); second fist on the hilt whenever reachable (< 1 mm, 70 % of greatsword ticks); arm stretch never above 1.0 |
+| Directional chambers | Real mouse input: hold right chamber, flick left → the rules route through the forward neutral, the drawn tip never goes behind the body (max tip z 0.41 m), fist stays on the grip, the released cut is the aimed side |
+| Guard / dodge / roll | Edge faces each of five guard sectors; held guard lowers the stance; dodge shifts the body toward the dodge with the weapon exact; roll tumbles the body and the weapon is free only during ROLL |
+| Hits, posture, death | Kick recoils and settles; posture lowers the stance; death drops the body and lands the weapon |
+| Equipment swapping | All 12 weapon × armor selections derive the same rules state as resolving the same items directly; armor layers follow the selection; no node leak; greatsword + Marrow Arm rejected by `BuildRules`; Marrow Arm module attached when equipped |
+| Combat outcomes | Byte-identical contact logs vs the melee lab (16 contacts, three pairings, scripted player + seeded AI) |
+| Environment data | Showcase and layout data valid; crypt assembly deterministic; duel floor free of collision |
+| Isolation | Default scene and project renderer unchanged; no game or lab script references the showcase |
+
+| Mutation (disposable copy) | Caught by |
+| --- | --- |
+| Weapon drawn 5 cm off the rules hand | `drawn_weapon_equals_rules_segment_every_tick`, `engine_weapon_tip_on_rules_tip` |
+| Fist aimed 5 cm off the grip | `right_fist_on_grip_all_weapons_directions_guards`, `engine_grip_socket_on_rules_hand` |
+| Presentation writes rules state (`omega *= 0.97`) | `combat_outcomes_identical_to_melee_lab` |
+
+Regression suites run on the same branch: REGRESSION_LINE
+
+Evidence (curated): [`docs/evidence/visual-showcase/`](evidence/visual-showcase/README.md) —
+before/after pairs, character and equipment close-ups with the contact-segment overlay,
+crypt shots, Forward+ shots, clips (MP4 + contact sheets), test results, contact logs
+and benchmark JSON.
 
 ## 9. Provenance
 
@@ -246,12 +356,89 @@ container** to render Forward+ evidence; nothing in the repository depends on it
 
 ## 10. What is still crude
 
-LIMITATIONS_SECTION
+Stated plainly, so the owner can judge the gap rather than infer it from screenshots:
+
+- **Faces and heads.** Sculpted from deformed spheres with baked crease shading; no
+  real eyes, lips, hair or facial animation. They are hidden by hood, face-wrap, coif or
+  helm on the pilgrim and stylised as a skull on the soul — a deliberate way to avoid a
+  face pipeline, not a solution. Close-ups expose it.
+- **Anatomy is tube-and-blob.** Limbs and torso are lofted cross-sections: no muscle
+  definition, collarbones, knuckles or fingers (the fists are closed shapes), and
+  joints are simple linear-blend skinning (some candy-wrapper at extreme elbow twists).
+  Proportions are believable at gameplay distance; silhouettes are still "mannequin".
+- **Cloth and mail are rigid lofts skinned to bones**, not simulated: no folds, no
+  secondary motion, skirts only follow the thighs. Banners do not move.
+- **Animation is procedural.** Gait, trunk wind-up, hit reactions, roll and death are
+  springs and IK, not authored motion: no anticipation poses, no foot-roll, no
+  hand-keyed weight. It is readable and honest to the rules, but it is not the
+  "authored weight and follow-through" the animation research recommends. Locomotion
+  feet can slide during fast turns; there is no foot locking.
+- **Weapon lengths are the lab's.** The 1.8 m Notched Sword looks like a greatsword
+  (§3); only a design decision fixes that.
+- **Second hand releases** on the greatsword in ~30 % of sampled ticks (wide guards,
+  cut endings) — visible when it happens.
+- **Textures are procedural noise** at 128–512 px: convincing at gameplay distance,
+  flat up close; tiling is visible on large walls; no decals, dirt masks, moss or
+  vertex-painted wear.
+- **Lighting in Compatibility** relies on fake shafts, fog cards and a fill light; light
+  leaks through ceiling joints draw bright floor patches. Forward+ looks clearly better
+  (volumetric fog, SSAO), at a GPU cost not measured on a GPU here.
+- **No audio, no camera polish** (the lab's camera, unchanged), no hit-stop, no blood
+  or damage decals, no corpse persistence beyond lying on the floor.
+- **Performance is unmeasured on a GPU.** All frame times are software rendering; the
+  preset tiers are estimates.
+- **Desktop only.** Not exported to the browser; texture generation would be slower in
+  WebAssembly.
+- **Owner feel is unknown.** No human has played it; nothing here claims the combat
+  feels better or worse than the lab.
 
 ## 11. Owner playtest guide
 
-PLAYTEST_SECTION
+1. `bash scripts/tooling/setup.sh`, then `bash scripts/tooling/play_visual_showcase.sh`
+   (Compatibility). If the machine has a Vulkan GPU, repeat with `--forward`; try
+   `-- --quality=high` and `-- --quality=low` too.
+2. Fight the soul in its default duel mode (sword + cloth + Marrow Arm vs your sword +
+   mail). Does the directional control feel **exactly** like the melee lab — held
+   chambers, the forward-neutral re-chamber, release, fresh-press deflects, stamina?
+   (It should: same code. Anything different is a bug.)
+3. Watch the blade, not the HUD: is the edge glow + trail enough to read the incoming
+   side, or do you want the lab's arcs (Y) and labels (U) back by default?
+4. Switch weapons 1/2/3 and armor 4/5/6/0. Do the knife, sword and greatsword *look*
+   light, medium and heavy in your hands and in the trunk's follow-through? Does plate
+   look worth its weight?
+5. Press K to remove/restore the soul's Marrow Arm; 7/8/9 change its weapon (9 is
+   refused with the arm, by the shared grip rule). Is the arm readable as a left-arm
+   modification?
+6. Dodge (Space) and roll (Shift) near the soul; take hits; let your posture fill; win
+   and watch the release. Which of these presentations helps you read the fight, and
+   which distracts?
+7. Note the camera, darkness and fog: too dark to fight? Is the crypt the right
+   *direction* for the game's look?
+8. Record: anything that looked wrong (weapon not in the hand, body through armor,
+   jitter), the frame rate you see with each preset, and
+   whether this direction should continue.
 
 ## 12. Recommendation for visual milestone 2
 
-RECOMMENDATION_SECTION
+**Recommendation: keep the code-built rig, sockets, equipment contract and modular
+room format from this milestone, and replace the procedural *art* with an authored
+pipeline for one character family — the step this milestone could not take here.**
+
+1. **One authored humanoid (Blender → glTF), same 22-bone names and sockets** so it
+   drops into `humanoid_rig.gd`'s contract and the tests (rig, sockets, fist-on-grip,
+   drawn weapon = contact segment) keep guarding it. Sculpted face/hands, proper
+   topology for deformation, baked normal/AO. Owner decision needed: commission or
+   in-house artist, and an asset-licence policy (AGENTS.md).
+2. **Authored combat poses as data, timed by the rules**: keyed chamber/guard poses per
+   direction and weapon class blended with the existing IK so the fist stays exact,
+   plus authored locomotion, hit and death clips (the animation research's
+   AnimationTree plan). Keep procedural IK only for the grip, off hand and feet.
+3. **Decide weapon lengths** (§3) before authoring weapons, so the art matches reach.
+4. **Measure on real hardware**: run `bench_visual_showcase.sh` on two or three owner
+   machines and fix the preset table from data; decide whether Forward+ becomes the
+   desktop renderer (Compatibility remains for the browser).
+5. **Environment**: a small authored trim-sheet + decal set for the same crypt pieces,
+   and the first generator that emits `crypt_layout.json` from a seed (the format and
+   determinism test already exist).
+6. Only after the owner accepts the look: bring the presentation into the directional
+   expedition behind a toggle, and consider the browser export.

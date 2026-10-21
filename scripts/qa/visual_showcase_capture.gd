@@ -57,6 +57,8 @@ func open(scene: String) -> void:
 	await process_frame
 	await process_frame
 	arena.hud.visible = false
+	# Scripted player: the controller would otherwise re-apply the (empty) mouse guard.
+	arena.player.input_enabled = false
 	if arena.get("legend") != null:
 		arena.legend.visible = false
 	observer = Camera3D.new()
@@ -281,26 +283,22 @@ func clips() -> void:
 			arena.player.state.aim_attack("overhead")
 		if i == 160:
 			arena.player.state.release_attack(), func(_i: int) -> void: side_camera())
-	# 2. Soul attacks; the player raises a fresh guard on the arriving side: deflection.
+	# 2. The player cuts into the soul's guard; the soul re-presses its guard just before
+	# contact (the lab capture's timing): a deflection, then the same cut blocked.
 	arena.reset_duel()
 	arena.opponent.mode = "dummy"
-	arena.player.reset_at(Vector3(0.0, 0.02, 1.4), Vector3(0.0, 0.0, -1.0))
-	var deflected := [false]
-	await clip("guard_deflect", 150, func(i: int) -> void:
-		if i == 10:
-			arena.opponent.state.press_attack("right_to_left")
-			arena.opponent.state.release_attack()
-		if i == 10:
-			arena.player.state.set_guard(true, "left")
-			arena.player.state.guard_age = 99.0
-		var s: State = arena.opponent.state
-		if s.phase == State.Phase.SWING and s.live_value > -0.6 and not deflected[0]:
-			arena.player.state.set_guard(false)
-			arena.player.state.set_guard(true, "left")
-			deflected[0] = true
-		if i == 120:
-			arena.player.state.set_guard(false), func(_i: int) -> void: side_camera())
-	expect(arena.events.any(func(e: Dictionary) -> bool: return e.result in ["deflect", "block"]), "clip_guard_deflect_contact")
+	arena.opponent.dummy_guard = "left"
+	await step(20)
+	await clip("guard_deflect", 170, func(i: int) -> void:
+		if i == 10 or i == 90:
+			arena.player.state.press_attack("right_to_left")
+		if i == 34 or i == 114:
+			arena.player.state.release_attack()
+		if i == 40:
+			arena.opponent.dummy_guard = ""
+		if i == 41:
+			arena.opponent.dummy_guard = "left", func(_i: int) -> void: side_camera())
+	expect(arena.events.any(func(e: Dictionary) -> bool: return e.result == "deflect"), "clip_guard_deflect_contact")
 	# 3. Weapon mass: the same overhead with the knife, then the greatsword.
 	for weapon: String in ["light", "heavy"]:
 		arena.select("player", {"weapon": weapon, "armor": "mail"})
