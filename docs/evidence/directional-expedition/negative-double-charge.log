@@ -1,0 +1,4 @@
+{"check":"lmb_press_charges_attack_once","detail":[{"action":"attack","at":0.0333,"cost":13.348,"refund":0.0,"serial":1},{"action":"attack","at":0.0333,"cost":13.348,"refund":0.0,"serial":2}],"passed":false}
+{"check":"release_swing_and_recovery_charge_nothing","detail":2,"passed":false}
+{"check":"held_chamber_waits_indefinitely_with_one_charge","detail":{"held_seconds":2.5,"phase":"WINDUP"},"passed":false}
+{"engine":"4.7.2-stable (official)","failed":3,"passed":91,"suite":"directional_expedition","summary":true}

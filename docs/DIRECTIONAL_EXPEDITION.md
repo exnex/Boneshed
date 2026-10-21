@@ -238,6 +238,8 @@ Results, captures and clips: [evidence](evidence/directional-expedition/README.m
   comfort is unassessed.
 - The bot's deflection timing is near-perfect; human difficulty is unmeasured.
 - llvmpipe rendering only; no GPU, physical mouse, audio or human playtest was run.
+- `test_melee_lab.sh` ends with a lab-branch isolation guard that rejects any change
+  under `.github/`; this PR's Pages workflow addition trips it after all lab checks pass.
 
 ## 8. Owner playtest guide
 

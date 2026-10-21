@@ -1,0 +1,677 @@
+[
+	{
+		"check": "adapter_loads_shared_catalog_lab_items_and_builds",
+		"detail": [],
+		"passed": true
+	},
+	{
+		"check": "player_build_is_the_shared_salvage_build",
+		"detail": {
+			"build_id": "courtyard.player",
+			"carried": [],
+			"catalog_version": "0.4.0-melee-lab",
+			"equipped": {
+				"hand_r": "item.notched_sword"
+			},
+			"profile": "profile.duelist",
+			"schema": "boneshed.build.v0"
+		},
+		"passed": true
+	},
+	{
+		"check": "player_weapon_and_profile_stats_from_shared_rules",
+		"detail": {
+			"deflect_window": 0.16,
+			"max_health": 100.0,
+			"max_posture": 100.0,
+			"move_speed": 5.5,
+			"posture_recovery_delay": 1.5,
+			"posture_recovery_rate": 12.0
+		},
+		"passed": true
+	},
+	{
+		"check": "stamina_costs_follow_weapon_inertia_and_armor_mass",
+		"detail": {
+			"attack": 13.348,
+			"dodge": 20.32
+		},
+		"passed": true
+	},
+	{
+		"check": "soul_venom_vigil_resolves_from_shared_enemy_profile",
+		"detail": {
+			"attack": 7.79,
+			"move": 0.97,
+			"profile": "profile.corrupted_swordsman",
+			"roll": 27.95,
+			"signature": true
+		},
+		"passed": true
+	},
+	{
+		"check": "soul_venom_vigil_lunge_only_if_marrow_arm_equipped",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "soul_sword_vigil_resolves_from_shared_enemy_profile",
+		"detail": {
+			"attack": 13.35,
+			"move": 0.892,
+			"profile": "profile.corrupted_swordsman",
+			"roll": 33.02,
+			"signature": true
+		},
+		"passed": true
+	},
+	{
+		"check": "soul_sword_vigil_lunge_only_if_marrow_arm_equipped",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "soul_iron_guardian_resolves_from_shared_enemy_profile",
+		"detail": {
+			"attack": 26.7,
+			"move": 0.76,
+			"profile": "profile.corrupted_swordsman",
+			"roll": 41.6,
+			"signature": false
+		},
+		"passed": true
+	},
+	{
+		"check": "soul_iron_guardian_lunge_only_if_marrow_arm_equipped",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "heavier_weapons_and_armor_cost_more_and_move_slower",
+		"detail": {
+			"iron_guardian": {
+				"attack": 26.7,
+				"move": 0.76,
+				"profile": "profile.corrupted_swordsman",
+				"roll": 41.6,
+				"signature": false
+			},
+			"sword_vigil": {
+				"attack": 13.35,
+				"move": 0.892,
+				"profile": "profile.corrupted_swordsman",
+				"roll": 33.02,
+				"signature": true
+			},
+			"venom_vigil": {
+				"attack": 7.79,
+				"move": 0.97,
+				"profile": "profile.corrupted_swordsman",
+				"roll": 27.95,
+				"signature": true
+			}
+		},
+		"passed": true
+	},
+	{
+		"check": "shared_grip_rules_reject_two_hander_with_marrow_arm",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "armor_slot_rules_reject_two_torso_items",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "invalid_integration_data_fails_closed",
+		"detail": [
+			"missing or invalid directional expedition data: res://data/builds/courtyard.json"
+		],
+		"passed": true
+	},
+	{
+		"check": "lunge_is_legal_with_scaled_cost",
+		"detail": 20.022,
+		"passed": true
+	},
+	{
+		"check": "lunge_charged_once_on_press",
+		"detail": [
+			{
+				"action": "signature",
+				"at": 0.0,
+				"cost": 20.022,
+				"refund": 0.0,
+				"serial": 1
+			}
+		],
+		"passed": true
+	},
+	{
+		"check": "lunge_cannot_be_overlapped_by_a_cut",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "lunge_cannot_be_redirected",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "lunge_respects_shared_windup_floor",
+		"detail": 0.7,
+		"passed": true
+	},
+	{
+		"check": "lunge_tip_reaches_shared_ability_reach",
+		"detail": 3.4,
+		"passed": true
+	},
+	{
+		"check": "lunge_restores_sword_handling_after_recovery",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "lunge_release_and_recovery_never_charge",
+		"detail": 1,
+		"passed": true
+	},
+	{
+		"check": "guard_cancels_lunge_and_restores_handling",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "cancelled_lunge_refunds_like_a_feint",
+		"detail": [
+			{
+				"action": "signature",
+				"at": 1.7833,
+				"cost": 20.022,
+				"refund": 0.0,
+				"serial": 2
+			},
+			{
+				"action": "refund",
+				"at": 1.8,
+				"cost": -10.011,
+				"refund": 10.011,
+				"serial": 2
+			}
+		],
+		"passed": true
+	},
+	{
+		"check": "no_lunge_without_the_ability",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "directional_expedition_starts",
+		"detail": 2,
+		"passed": true
+	},
+	{
+		"check": "no_legacy_fighter_ai_or_courtyard_nodes_in_scene",
+		"detail": [],
+		"passed": true
+	},
+	{
+		"check": "every_fighter_uses_the_directional_rules_state",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "session_uses_directional_progression",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "default_launch_scene_unchanged",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "exploration_starts_without_an_engaged_soul",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "no_other_scene_or_script_references_the_integration",
+		"detail": [],
+		"passed": true
+	},
+	{
+		"check": "approach_engages_vigil_soul",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "cut_right_to_left_vs_guard_left_is_block",
+		"detail": {
+			"guard": "left",
+			"point": "(-43.5, 1.354865, 0.450942)",
+			"result": "block"
+		},
+		"passed": true
+	},
+	{
+		"check": "cut_right_to_left_vs_guard_right_is_hit",
+		"detail": {
+			"guard": "right",
+			"point": "(-43.66078, 1.350391, 0.059296)",
+			"result": "hit"
+		},
+		"passed": true
+	},
+	{
+		"check": "hit_damage_is_momentum_times_armor_right_to_left",
+		"detail": {
+			"damage": 16.7517,
+			"expected": 16.7517
+		},
+		"passed": true
+	},
+	{
+		"check": "cut_left_to_right_vs_guard_right_is_block",
+		"detail": {
+			"guard": "right",
+			"point": "(-44.5, 1.354865, 0.450942)",
+			"result": "block"
+		},
+		"passed": true
+	},
+	{
+		"check": "cut_left_to_right_vs_guard_left_is_hit",
+		"detail": {
+			"guard": "left",
+			"point": "(-44.33922, 1.350391, 0.059296)",
+			"result": "hit"
+		},
+		"passed": true
+	},
+	{
+		"check": "hit_damage_is_momentum_times_armor_left_to_right",
+		"detail": {
+			"damage": 16.7517,
+			"expected": 16.7517
+		},
+		"passed": true
+	},
+	{
+		"check": "cut_overhead_vs_guard_high_is_block",
+		"detail": {
+			"guard": "high",
+			"point": "(-43.99553, 1.850391, 0.450942)",
+			"result": "block"
+		},
+		"passed": true
+	},
+	{
+		"check": "cut_thrust_vs_guard_high_is_hit",
+		"detail": {
+			"guard": "high",
+			"point": "(-43.92, 1.350391, 0.0)",
+			"result": "hit"
+		},
+		"passed": true
+	},
+	{
+		"check": "hit_damage_is_momentum_times_armor_thrust",
+		"detail": {
+			"damage": 6.8,
+			"expected": 6.8
+		},
+		"passed": true
+	},
+	{
+		"check": "thrust_vs_centre_guard_is_threshold_geometry_known_issue",
+		"detail": {
+			"lateral": 0.08,
+			"result": "hit",
+			"threshold": 0.08
+		},
+		"passed": true
+	},
+	{
+		"check": "adjacent_45_degree_guard_also_blocks_as_in_lab_matrix",
+		"detail": "block",
+		"passed": true
+	},
+	{
+		"check": "out_of_reach_swing_never_connects",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "lmb_press_charges_attack_once",
+		"detail": [
+			{
+				"action": "attack",
+				"at": 0.0333,
+				"cost": 13.348,
+				"refund": 0.0,
+				"serial": 1
+			}
+		],
+		"passed": true
+	},
+	{
+		"check": "release_swing_and_recovery_charge_nothing",
+		"detail": 1,
+		"passed": true
+	},
+	{
+		"check": "held_chamber_waits_indefinitely_with_one_charge",
+		"detail": {
+			"held_seconds": 2.5,
+			"phase": "WINDUP"
+		},
+		"passed": true
+	},
+	{
+		"check": "redirect_rechambers_through_forward_neutral",
+		"detail": "thrust",
+		"passed": true
+	},
+	{
+		"check": "feint_by_guard_press_refunds_half",
+		"detail": {
+			"action": "refund",
+			"at": 5.4,
+			"cost": -6.674,
+			"refund": 6.674,
+			"serial": 2
+		},
+		"passed": true
+	},
+	{
+		"check": "dodge_key_charges_once",
+		"detail": [
+			{
+				"action": "dodge",
+				"at": 6.9333,
+				"cost": 20.32,
+				"refund": 0.0,
+				"serial": 3
+			}
+		],
+		"passed": true
+	},
+	{
+		"check": "roll_key_charges_once",
+		"detail": [
+			{
+				"action": "roll",
+				"at": 7.9667,
+				"cost": 33.02,
+				"refund": 0.0,
+				"serial": 4
+			}
+		],
+		"passed": true
+	},
+	{
+		"check": "unaffordable_roll_is_refused_not_overdrawn",
+		"detail": {
+			"min": 3.3353,
+			"refusals": 4
+		},
+		"passed": true
+	},
+	{
+		"check": "ledger_contains_only_real_charges",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "q_without_marrow_arm_does_nothing",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "guarded_poison_attack_applies_no_status",
+		"detail": {
+			"result": "block",
+			"status": {}
+		},
+		"passed": true
+	},
+	{
+		"check": "hit_applies_poison_buildup_after_soul_resistance",
+		"detail": {
+			"applied": {
+				"poison": 35.0
+			},
+			"expected": 35.0,
+			"resistance": 0.0
+		},
+		"passed": true
+	},
+	{
+		"check": "guarded_slow_attack_applies_no_status",
+		"detail": {
+			"result": "guard_break",
+			"status": {}
+		},
+		"passed": true
+	},
+	{
+		"check": "hit_applies_slow_buildup_after_soul_resistance",
+		"detail": {
+			"applied": {
+				"slow": 55.0
+			},
+			"expected": 55.0,
+			"resistance": 0.0
+		},
+		"passed": true
+	},
+	{
+		"check": "venom_hits_poison_soul_and_poison_ticks",
+		"detail": {
+			"activations": 1,
+			"tick_damage": 6.0
+		},
+		"passed": true
+	},
+	{
+		"check": "poison_cannot_release_a_soul_by_itself",
+		"detail": 50.266,
+		"passed": true
+	},
+	{
+		"check": "armor_trades_resistance_for_mobility",
+		"detail": {
+			"mail": {
+				"poison": 0.25,
+				"slow": 0.25
+			},
+			"plate": {
+				"poison": 0.6,
+				"slow": 0.6
+			}
+		},
+		"passed": true
+	},
+	{
+		"check": "soul_sees_windup_only_after_reaction_delay",
+		"detail": {
+			"after": 0.2666,
+			"delay": 0.22
+		},
+		"passed": true
+	},
+	{
+		"check": "soul_pays_its_own_derived_costs",
+		"detail": {
+			"attacks": 10,
+			"min": 92.21,
+			"wrong": 0
+		},
+		"passed": true
+	},
+	{
+		"check": "soul_checks_legality_instead_of_spamming_refusals",
+		"detail": 0,
+		"passed": true
+	},
+	{
+		"check": "soul_damages_through_the_same_contact_solver",
+		"detail": 10,
+		"passed": true
+	},
+	{
+		"check": "soul_controller_reads_no_player_state_or_input",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "fixture_damaged_vigil_soul",
+		"detail": 81.2775,
+		"passed": true
+	},
+	{
+		"check": "dormant_souls_are_never_stepped",
+		"detail": 0.0,
+		"passed": true
+	},
+	{
+		"check": "leaving_the_vigil_disengages_the_soul",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "re_engaging_does_not_heal_the_soul",
+		"detail": 81.2775,
+		"passed": true
+	},
+	{
+		"check": "guardian_vault_sealed_entry_open",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "guardian_engagement_seals_both_doors",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "guardian_uses_heavy_plate_build",
+		"detail": "Iron guardian: Greatsword + plate",
+		"passed": true
+	},
+	{
+		"check": "plate_slows_the_guardian",
+		"detail": 2.052,
+		"passed": true
+	},
+	{
+		"check": "block_cannot_win",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "hit_on_living_soul_cannot_win",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "salvage_and_equip_require_victory",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "state_write_death_grants_nothing",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "lethal_contact_releases_soul",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "victory_offers_marrow_arm_reference",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "f_then_e_equips_arm_and_grants_lunge",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "equipped_build_remains_a_valid_shared_build",
+		"detail": {
+			"arm_l": "item.marrow_arm",
+			"hand_r": "item.notched_sword"
+		},
+		"passed": true
+	},
+	{
+		"check": "q_holds_marrow_lunge_chamber",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "q_lunge_charged_once",
+		"detail": [
+			{
+				"action": "signature",
+				"at": 2.0667,
+				"cost": 20.022,
+				"refund": 0.0,
+				"serial": 1
+			}
+		],
+		"passed": true
+	},
+	{
+		"check": "sword_returns_after_lunge",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "plan_replays_drowned_1001",
+		"detail": "7f003420",
+		"passed": true
+	},
+	{
+		"check": "plan_replays_smoldering_7",
+		"detail": "310b0809",
+		"passed": true
+	},
+	{
+		"check": "plan_replays_frozen_1002",
+		"detail": "b407c34a",
+		"passed": true
+	},
+	{
+		"check": "different_seed_different_plan",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "same_address_seed_and_inputs_replay_identical_duel",
+		"detail": 7,
+		"passed": true
+	},
+	{
+		"check": "original_scene_runs_first_expedition",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "original_scene_runs_expedition_preview",
+		"detail": null,
+		"passed": true
+	},
+	{
+		"check": "original_scene_runs_melee_lab",
+		"detail": null,
+		"passed": true
+	}
+]

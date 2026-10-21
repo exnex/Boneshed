@@ -1,0 +1,2 @@
+{"check":"guarded_poison_attack_applies_no_status","detail":{"result":"block","status":{"poison":35.0}},"passed":false}
+{"engine":"4.7.2-stable (official)","failed":1,"passed":93,"suite":"directional_expedition","summary":true}

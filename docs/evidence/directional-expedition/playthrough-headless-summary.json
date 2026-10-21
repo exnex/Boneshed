@@ -1,0 +1,74 @@
+{
+	"address": "drowned hollow cathedral",
+	"captures": {
+		"01_arrival": 3,
+		"02_vigil_duel": 548,
+		"03_salvage_equipped": 1015,
+		"04_descent": 2083,
+		"05_dungeon_entry": 2123,
+		"05b_dungeon_evasion": 2381,
+		"06_guardian_duel": 3493,
+		"07_guardian_released": 4130,
+		"08_reliquary": 4550,
+		"09_extracted": 9354
+	},
+	"contacts": 16,
+	"duels": [
+		{
+			"kind": "exterior",
+			"player_health": 100.0,
+			"retries": 0,
+			"site": "site.r1",
+			"ticks": 386,
+			"variant": "venom_vigil",
+			"won": true
+		},
+		{
+			"kind": "guardian",
+			"player_health": 100.0,
+			"retries": 0,
+			"site": "site.guardian",
+			"ticks": 598,
+			"variant": "iron_guardian",
+			"won": true
+		}
+	],
+	"engine": "4.7.2-stable (official)",
+	"evasion": {
+		"dodge": {
+			"charges": 1,
+			"cost": 20.32,
+			"moved": 4.635,
+			"stamina_before": 100.0
+		},
+		"roll": {
+			"charges": 1,
+			"cost": 33.02,
+			"moved": 4.975,
+			"stamina_before": 100.0
+		}
+	},
+	"failed": 0,
+	"fingerprint": "7f003420",
+	"input": "keyboard/mouse InputEvents via InputMap and mouse motion; route read from the plan; visible combat cues only; no state writes",
+	"passed": 27,
+	"performance": {
+		"dungeon": {
+			"draw_calls": 0.0,
+			"frame_ms_median": 1.429,
+			"frame_ms_p95": 1.567,
+			"scene_nodes": 942.0
+		},
+		"surface": {
+			"draw_calls": 0.0,
+			"frame_ms_median": 0.794,
+			"frame_ms_p95": 0.868,
+			"scene_nodes": 948.0
+		}
+	},
+	"rendered": false,
+	"seed": 1001,
+	"status_events": 0,
+	"summary": true,
+	"ticks": 9354
+}
