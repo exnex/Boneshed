@@ -1,0 +1,534 @@
+{
+	"arm_reach_within_stretch_limit": {
+		"check": "arm_reach_within_stretch_limit",
+		"detail": {
+			"max": 1.0,
+			"worst": ""
+		},
+		"passed": true
+	},
+	"armor_layers_follow_selection": {
+		"check": "armor_layers_follow_selection",
+		"detail": {
+			"none": [
+				"Body"
+			],
+			"plate": [
+				"Body",
+				"Armor_lab_bog_iron_plate"
+			]
+		},
+		"passed": true
+	},
+	"character_triangle_budget_20000": {
+		"check": "character_triangle_budget_20000",
+		"detail": {
+			"corrupted//false": 6468,
+			"corrupted//true": 6424,
+			"corrupted/armor.lab_bog_iron_plate/false": 10572,
+			"corrupted/armor.lab_bog_iron_plate/true": 9712,
+			"corrupted/armor.lab_cloth_wraps/false": 6972,
+			"corrupted/armor.lab_cloth_wraps/true": 6844,
+			"corrupted/armor.lab_mail_shirt/false": 7864,
+			"corrupted/armor.lab_mail_shirt/true": 7488,
+			"pilgrim//false": 7340,
+			"pilgrim/armor.lab_bog_iron_plate/false": 10434,
+			"pilgrim/armor.lab_cloth_wraps/false": 8132,
+			"pilgrim/armor.lab_mail_shirt/false": 8680
+		},
+		"passed": true
+	},
+	"character_triangles": {
+		"corrupted//false": 6468,
+		"corrupted//true": 6424,
+		"corrupted/armor.lab_bog_iron_plate/false": 10572,
+		"corrupted/armor.lab_bog_iron_plate/true": 9712,
+		"corrupted/armor.lab_cloth_wraps/false": 6972,
+		"corrupted/armor.lab_cloth_wraps/true": 6844,
+		"corrupted/armor.lab_mail_shirt/false": 7864,
+		"corrupted/armor.lab_mail_shirt/true": 7488,
+		"pilgrim//false": 7340,
+		"pilgrim/armor.lab_bog_iron_plate/false": 10434,
+		"pilgrim/armor.lab_cloth_wraps/false": 8132,
+		"pilgrim/armor.lab_mail_shirt/false": 8680
+	},
+	"combat_outcomes_identical_to_melee_lab": {
+		"check": "combat_outcomes_identical_to_melee_lab",
+		"detail": {
+			"contacts": 16
+		},
+		"passed": true
+	},
+	"crypt": {
+		"collision_boxes": 59,
+		"pieces": 108,
+		"surfaces": 8,
+		"triangles": 54808
+	},
+	"crypt_assembly_deterministic": {
+		"check": "crypt_assembly_deterministic",
+		"detail": {
+			"surfaces": 8,
+			"triangles": 54808
+		},
+		"passed": true
+	},
+	"crypt_layout_valid": {
+		"check": "crypt_layout_valid",
+		"detail": {
+			"errors": [],
+			"pieces": 108
+		},
+		"passed": true
+	},
+	"death_body_falls_and_weapon_lands": {
+		"check": "death_body_falls_and_weapon_lands",
+		"detail": {
+			"head_y": 0.136,
+			"weapon_y": 0.03
+		},
+		"passed": true
+	},
+	"default_launch_scene_unchanged": {
+		"check": "default_launch_scene_unchanged",
+		"passed": true
+	},
+	"dodge_shifts_body_toward_dodge_weapon_exact": {
+		"check": "dodge_shifts_body_toward_dodge_weapon_exact",
+		"detail": 0.102,
+		"passed": true
+	},
+	"drawn_rechamber_stays_in_front_fist_on_grip": {
+		"check": "drawn_rechamber_stays_in_front_fist_on_grip",
+		"detail": {
+			"grip_error": 0.0,
+			"max_tip_z": 0.408
+		},
+		"passed": true
+	},
+	"drawn_weapon_equals_rules_segment_every_tick": {
+		"check": "drawn_weapon_equals_rules_segment_every_tick",
+		"detail": {
+			"max_mismatch_m": 0.000000245756240246919,
+			"samples": 11700
+		},
+		"passed": true
+	},
+	"duel_floor_clear_of_collision": {
+		"check": "duel_floor_clear_of_collision",
+		"detail": 0,
+		"passed": true
+	},
+	"engine_grip_socket_on_rules_hand": {
+		"check": "engine_grip_socket_on_rules_hand",
+		"detail": 0.0,
+		"passed": true
+	},
+	"engine_socket": {
+		"grip_error_m": 0.000000533445415840106,
+		"tip_error_m": 0.000000337174782316652
+	},
+	"engine_weapon_tip_on_rules_tip": {
+		"check": "engine_weapon_tip_on_rules_tip",
+		"detail": 0.0,
+		"passed": true
+	},
+	"equipment": {
+		"heavy.cloth": {
+			"attack_cost": 24.95,
+			"layers": [
+				"Body",
+				"Armor_lab_cloth_wraps"
+			],
+			"triangles": 8132,
+			"weapon": "Mesh",
+			"weapon_triangles": 1038
+		},
+		"heavy.mail": {
+			"attack_cost": 25.6,
+			"layers": [
+				"Body",
+				"Armor_lab_mail_shirt"
+			],
+			"triangles": 8680,
+			"weapon": "Mesh",
+			"weapon_triangles": 1038
+		},
+		"heavy.none": {
+			"attack_cost": 24.7,
+			"layers": [
+				"Body"
+			],
+			"triangles": 7340,
+			"weapon": "Mesh",
+			"weapon_triangles": 1038
+		},
+		"heavy.plate": {
+			"attack_cost": 26.7,
+			"layers": [
+				"Body",
+				"Armor_lab_bog_iron_plate"
+			],
+			"triangles": 10434,
+			"weapon": "Mesh",
+			"weapon_triangles": 1038
+		},
+		"light.cloth": {
+			"attack_cost": 7.79,
+			"layers": [
+				"Body",
+				"Armor_lab_cloth_wraps"
+			],
+			"triangles": 8132,
+			"weapon": "Mesh",
+			"weapon_triangles": 950
+		},
+		"light.mail": {
+			"attack_cost": 8.44,
+			"layers": [
+				"Body",
+				"Armor_lab_mail_shirt"
+			],
+			"triangles": 8680,
+			"weapon": "Mesh",
+			"weapon_triangles": 950
+		},
+		"light.none": {
+			"attack_cost": 7.54,
+			"layers": [
+				"Body"
+			],
+			"triangles": 7340,
+			"weapon": "Mesh",
+			"weapon_triangles": 950
+		},
+		"light.plate": {
+			"attack_cost": 9.54,
+			"layers": [
+				"Body",
+				"Armor_lab_bog_iron_plate"
+			],
+			"triangles": 10434,
+			"weapon": "Mesh",
+			"weapon_triangles": 950
+		},
+		"medium.cloth": {
+			"attack_cost": 12.7,
+			"layers": [
+				"Body",
+				"Armor_lab_cloth_wraps"
+			],
+			"triangles": 8132,
+			"weapon": "Mesh",
+			"weapon_triangles": 974
+		},
+		"medium.mail": {
+			"attack_cost": 13.35,
+			"layers": [
+				"Body",
+				"Armor_lab_mail_shirt"
+			],
+			"triangles": 8680,
+			"weapon": "Mesh",
+			"weapon_triangles": 974
+		},
+		"medium.none": {
+			"attack_cost": 12.45,
+			"layers": [
+				"Body"
+			],
+			"triangles": 7340,
+			"weapon": "Mesh",
+			"weapon_triangles": 974
+		},
+		"medium.plate": {
+			"attack_cost": 14.45,
+			"layers": [
+				"Body",
+				"Armor_lab_bog_iron_plate"
+			],
+			"triangles": 10434,
+			"weapon": "Mesh",
+			"weapon_triangles": 974
+		}
+	},
+	"greatsword_with_marrow_arm_rejected_by_build_rules": {
+		"check": "greatsword_with_marrow_arm_rejected_by_build_rules",
+		"detail": "Rejected by build rules: [\"grip_unavailable\"]",
+		"passed": true
+	},
+	"grip_sweep": {
+		"max_grip_error_m": 0.0,
+		"max_left_grip_error_m": 0.00088,
+		"max_stretch": 1.0,
+		"max_weapon_mismatch_m": 0.000000245756240246919,
+		"samples": 11700,
+		"two_hands_on_hilt_fraction": 0.699,
+		"worst": "item.lab_greatsword/corrupted/guard/high_right tick 15"
+	},
+	"guard_edge_faces_guarded_side": {
+		"check": "guard_edge_faces_guarded_side",
+		"detail": {
+			"high": 1.0,
+			"high_left": 1.0,
+			"high_right": 1.0,
+			"left": 1.0,
+			"right": 1.0
+		},
+		"passed": true
+	},
+	"held_guard_lowers_stance": {
+		"check": "held_guard_lowers_stance",
+		"detail": {
+			"guard": 0.905,
+			"idle": 0.945
+		},
+		"passed": true
+	},
+	"hit_kick_recoils_and_settles": {
+		"check": "hit_kick_recoils_and_settles",
+		"detail": {
+			"final": 0.0,
+			"peak": 0.05
+		},
+		"passed": true
+	},
+	"marrow_arm_module_attached_when_equipped": {
+		"check": "marrow_arm_module_attached_when_equipped",
+		"detail": [
+			"socket_grip_r",
+			"socket_grip_l",
+			"socket_head",
+			"socket_chest",
+			"socket_back",
+			"socket_hip_l",
+			"socket_hip_r",
+			"socket_forearm_l",
+			"Body",
+			"Armor_lab_cloth_wraps",
+			"Module_marrow_arm",
+			"PoseModifier"
+		],
+		"passed": true
+	},
+	"modular_layers_match_equipment": {
+		"check": "modular_layers_match_equipment",
+		"detail": {
+			"marrow": [
+				"Body",
+				"Module_marrow_arm"
+			],
+			"plate": [
+				"Body",
+				"Armor_lab_bog_iron_plate"
+			]
+		},
+		"passed": true
+	},
+	"mouse_flick_rechambers_through_neutral": {
+		"check": "mouse_flick_rechambers_through_neutral",
+		"detail": {
+			"first": "right_to_left",
+			"neutral": true,
+			"seen": [
+				"left_to_right"
+			]
+		},
+		"passed": true
+	},
+	"no_game_or_lab_script_references_the_showcase": {
+		"check": "no_game_or_lab_script_references_the_showcase",
+		"detail": [],
+		"passed": true
+	},
+	"plate_surfaces_are_rigid_single_bone": {
+		"check": "plate_surfaces_are_rigid_single_bone",
+		"detail": 3,
+		"passed": true
+	},
+	"posture_damage_lowers_stance": {
+		"check": "posture_damage_lowers_stance",
+		"detail": {
+			"fresh": 0.945,
+			"near_break": 0.9
+		},
+		"passed": true
+	},
+	"project_renderer_still_gl_compatibility": {
+		"check": "project_renderer_still_gl_compatibility",
+		"passed": true
+	},
+	"released_redirected_cut_swings_aimed_side": {
+		"check": "released_redirected_cut_swings_aimed_side",
+		"detail": "left_to_right",
+		"passed": true
+	},
+	"rig_corrupted_22_bones_parents_before_children": {
+		"check": "rig_corrupted_22_bones_parents_before_children",
+		"detail": 22,
+		"passed": true
+	},
+	"rig_corrupted_bones_have_length_and_aim_at_tails": {
+		"check": "rig_corrupted_bones_have_length_and_aim_at_tails",
+		"detail": {
+			"misaimed": [],
+			"short": []
+		},
+		"passed": true
+	},
+	"rig_corrupted_every_socket_bound_to_existing_bone": {
+		"check": "rig_corrupted_every_socket_bound_to_existing_bone",
+		"detail": 8,
+		"passed": true
+	},
+	"rig_corrupted_left_right_mirror_symmetric": {
+		"check": "rig_corrupted_left_right_mirror_symmetric",
+		"detail": [],
+		"passed": true
+	},
+	"rig_corrupted_skeleton_rest_matches_definition": {
+		"check": "rig_corrupted_skeleton_rest_matches_definition",
+		"passed": true
+	},
+	"rig_corrupted_taller_and_longer_armed": {
+		"check": "rig_corrupted_taller_and_longer_armed",
+		"detail": 1.867,
+		"passed": true
+	},
+	"rig_pilgrim_22_bones_parents_before_children": {
+		"check": "rig_pilgrim_22_bones_parents_before_children",
+		"detail": 22,
+		"passed": true
+	},
+	"rig_pilgrim_bones_have_length_and_aim_at_tails": {
+		"check": "rig_pilgrim_bones_have_length_and_aim_at_tails",
+		"detail": {
+			"misaimed": [],
+			"short": []
+		},
+		"passed": true
+	},
+	"rig_pilgrim_every_socket_bound_to_existing_bone": {
+		"check": "rig_pilgrim_every_socket_bound_to_existing_bone",
+		"detail": 8,
+		"passed": true
+	},
+	"rig_pilgrim_human_proportions": {
+		"check": "rig_pilgrim_human_proportions",
+		"detail": {
+			"arm_ratio": 0.309,
+			"leg_ratio": 0.518,
+			"stature": 1.815
+		},
+		"passed": true
+	},
+	"rig_pilgrim_left_right_mirror_symmetric": {
+		"check": "rig_pilgrim_left_right_mirror_symmetric",
+		"detail": [],
+		"passed": true
+	},
+	"rig_pilgrim_skeleton_rest_matches_definition": {
+		"check": "rig_pilgrim_skeleton_rest_matches_definition",
+		"passed": true
+	},
+	"right_fist_on_grip_all_weapons_directions_guards": {
+		"check": "right_fist_on_grip_all_weapons_directions_guards",
+		"detail": {
+			"max_grip_error_m": 0.0,
+			"max_left_grip_error_m": 0.00088,
+			"max_stretch": 1.0,
+			"max_weapon_mismatch_m": 0.000000245756240246919,
+			"samples": 11700,
+			"two_hands_on_hilt_fraction": 0.699,
+			"worst": "item.lab_greatsword/corrupted/guard/high_right tick 15"
+		},
+		"passed": true
+	},
+	"roll_tumbles_body": {
+		"check": "roll_tumbles_body",
+		"detail": true,
+		"passed": true
+	},
+	"showcase_data_valid": {
+		"check": "showcase_data_valid",
+		"detail": [],
+		"passed": true
+	},
+	"skin_bone_indices_valid": {
+		"check": "skin_bone_indices_valid",
+		"detail": [],
+		"passed": true
+	},
+	"skin_weights_normalised_4_influences": {
+		"check": "skin_weights_normalised_4_influences",
+		"detail": [],
+		"passed": true
+	},
+	"swapped_equipment_derives_lab_rules_state": {
+		"check": "swapped_equipment_derives_lab_rules_state",
+		"detail": 12,
+		"passed": true
+	},
+	"swapping_leaks_no_nodes": {
+		"check": "swapping_leaks_no_nodes",
+		"detail": {
+			"first": 129,
+			"last": 130
+		},
+		"passed": true
+	},
+	"trunk_inside_hurt_capsule_radius": {
+		"check": "trunk_inside_hurt_capsule_radius",
+		"detail": {
+			"capsule_radius": 0.32,
+			"max_horizontal_m": 0.274
+		},
+		"passed": true
+	},
+	"trunk_offset_max": 0.273683100938797,
+	"two_handed_second_fist_on_grip_when_reachable": {
+		"check": "two_handed_second_fist_on_grip_when_reachable",
+		"detail": {
+			"error": 0.000876141828484833,
+			"on_hilt": 2727,
+			"samples": 3900
+		},
+		"passed": true
+	},
+	"weapon_free_only_during_roll": {
+		"check": "weapon_free_only_during_roll",
+		"detail": false,
+		"passed": true
+	},
+	"weapon_mesh_tip_equals_rules_length": {
+		"check": "weapon_mesh_tip_equals_rules_length",
+		"detail": {
+			"item.lab_greatsword": {
+				"length": 2.1,
+				"marker": "(0.0, 0.0, -2.1)",
+				"mesh_tip_z": -2.1
+			},
+			"item.lab_long_knife": {
+				"length": 0.9,
+				"marker": "(0.0, 0.0, -0.9)",
+				"mesh_tip_z": -0.9
+			},
+			"item.lab_quarterstaff": {
+				"length": 2.0,
+				"marker": "(0.0, 0.0, -2.0)",
+				"mesh_tip_z": -2.0
+			},
+			"item.lab_venom_knife": {
+				"length": 0.9,
+				"marker": "(0.0, 0.0, -0.9)",
+				"mesh_tip_z": -0.9
+			},
+			"item.notched_sword": {
+				"length": 1.8,
+				"marker": "(0.0, 0.0, -1.8)",
+				"mesh_tip_z": -1.8
+			}
+		},
+		"passed": true
+	}
+}

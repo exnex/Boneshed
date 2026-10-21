@@ -1,0 +1,1114 @@
+{
+	"schema": "boneshed.crypt_layout.v0",
+	"provisional": true,
+	"notes": "Hand-placed layout of modular crypt pieces (scripts/visual_showcase/crypt_kit.gd). Grid unit 4 m; 'at' is the piece pivot [x, z] in metres, 'rot' a yaw in degrees (local -Z faces into the room for walls), 'variant' a piece-specific option and 'seed' the piece's own RNG seed and optional 'y' a base height (pieces standing on the dais). A future dungeon generator would emit this same list.",
+	"cell": 4.0,
+	"bounds": {
+		"min": [
+			-8.0,
+			-12.0
+		],
+		"max": [
+			8.0,
+			8.0
+		]
+	},
+	"moon": {
+		"direction": [
+			0.24,
+			-0.93,
+			0.28
+		],
+		"color": "b8c8ff",
+		"energy": 1.6
+	},
+	"pieces": [
+		{
+			"piece": "floor_tile",
+			"at": [
+				-6,
+				-10
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 1
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				-6,
+				-6
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 2
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				-6,
+				-2
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 3
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				-6,
+				2
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 4
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				-6,
+				6
+			],
+			"rot": 0,
+			"variant": "broken",
+			"seed": 5
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				-2,
+				-10
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 6
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				-2,
+				-6
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 7
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				-2,
+				-2
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 8
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				-2,
+				2
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 9
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				-2,
+				6
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 10
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				2,
+				-10
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 11
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				2,
+				-6
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 12
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				2,
+				-2
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 13
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				2,
+				2
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 14
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				2,
+				6
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 15
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				6,
+				-10
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 16
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				6,
+				-6
+			],
+			"rot": 0,
+			"variant": "broken",
+			"seed": 17
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				6,
+				-2
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 18
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				6,
+				2
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 19
+		},
+		{
+			"piece": "floor_tile",
+			"at": [
+				6,
+				6
+			],
+			"rot": 0,
+			"variant": "flag",
+			"seed": 20
+		},
+		{
+			"piece": "wall",
+			"at": [
+				-8.45,
+				-10
+			],
+			"rot": 270,
+			"variant": "plain",
+			"seed": 21
+		},
+		{
+			"piece": "wall",
+			"at": [
+				8.45,
+				-10
+			],
+			"rot": 90,
+			"variant": "plain",
+			"seed": 22
+		},
+		{
+			"piece": "wall",
+			"at": [
+				-8.45,
+				-6
+			],
+			"rot": 270,
+			"variant": "niche",
+			"seed": 23
+		},
+		{
+			"piece": "wall",
+			"at": [
+				8.45,
+				-6
+			],
+			"rot": 90,
+			"variant": "plain",
+			"seed": 24
+		},
+		{
+			"piece": "wall",
+			"at": [
+				-8.45,
+				-2
+			],
+			"rot": 270,
+			"variant": "plain",
+			"seed": 25
+		},
+		{
+			"piece": "wall",
+			"at": [
+				8.45,
+				-2
+			],
+			"rot": 90,
+			"variant": "niche",
+			"seed": 26
+		},
+		{
+			"piece": "wall",
+			"at": [
+				-8.45,
+				2
+			],
+			"rot": 270,
+			"variant": "niche",
+			"seed": 27
+		},
+		{
+			"piece": "wall",
+			"at": [
+				8.45,
+				2
+			],
+			"rot": 90,
+			"variant": "plain",
+			"seed": 28
+		},
+		{
+			"piece": "wall",
+			"at": [
+				-8.45,
+				6
+			],
+			"rot": 270,
+			"variant": "plain",
+			"seed": 29
+		},
+		{
+			"piece": "wall",
+			"at": [
+				8.45,
+				6
+			],
+			"rot": 90,
+			"variant": "broken",
+			"seed": 30
+		},
+		{
+			"piece": "wall",
+			"at": [
+				-6,
+				-12.45
+			],
+			"rot": 180,
+			"variant": "plain",
+			"seed": 31
+		},
+		{
+			"piece": "wall",
+			"at": [
+				-2,
+				-12.45
+			],
+			"rot": 180,
+			"variant": "niche",
+			"seed": 32
+		},
+		{
+			"piece": "wall",
+			"at": [
+				2,
+				-12.45
+			],
+			"rot": 180,
+			"variant": "niche",
+			"seed": 33
+		},
+		{
+			"piece": "wall",
+			"at": [
+				6,
+				-12.45
+			],
+			"rot": 180,
+			"variant": "plain",
+			"seed": 34
+		},
+		{
+			"piece": "doorway",
+			"at": [
+				0,
+				8.45
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 35
+		},
+		{
+			"piece": "wall",
+			"at": [
+				-6,
+				8.45
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 36
+		},
+		{
+			"piece": "wall",
+			"at": [
+				6,
+				8.45
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 37
+		},
+		{
+			"piece": "pillar",
+			"at": [
+				-4.6,
+				-10
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 38
+		},
+		{
+			"piece": "pillar",
+			"at": [
+				4.6,
+				-10
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 39
+		},
+		{
+			"piece": "pillar",
+			"at": [
+				-4.6,
+				-6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 40
+		},
+		{
+			"piece": "pillar",
+			"at": [
+				4.6,
+				-6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 41
+		},
+		{
+			"piece": "pillar",
+			"at": [
+				-4.6,
+				-2
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 42
+		},
+		{
+			"piece": "pillar",
+			"at": [
+				4.6,
+				-2
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 43
+		},
+		{
+			"piece": "pillar",
+			"at": [
+				-4.6,
+				2
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 44
+		},
+		{
+			"piece": "pillar",
+			"at": [
+				4.6,
+				2
+			],
+			"rot": 0,
+			"variant": "broken",
+			"seed": 45
+		},
+		{
+			"piece": "pillar",
+			"at": [
+				-4.6,
+				6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 46
+		},
+		{
+			"piece": "pillar",
+			"at": [
+				4.6,
+				6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 47
+		},
+		{
+			"piece": "arcade",
+			"at": [
+				-4.6,
+				-8
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 48
+		},
+		{
+			"piece": "arcade",
+			"at": [
+				4.6,
+				-8
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 49
+		},
+		{
+			"piece": "arcade",
+			"at": [
+				-4.6,
+				-4
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 50
+		},
+		{
+			"piece": "arcade",
+			"at": [
+				4.6,
+				-4
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 51
+		},
+		{
+			"piece": "arcade",
+			"at": [
+				-4.6,
+				0
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 52
+		},
+		{
+			"piece": "arcade",
+			"at": [
+				-4.6,
+				4
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 53
+		},
+		{
+			"piece": "rib",
+			"at": [
+				0,
+				-10
+			],
+			"rot": 0,
+			"variant": "9.2",
+			"seed": 54
+		},
+		{
+			"piece": "rib",
+			"at": [
+				0,
+				-6
+			],
+			"rot": 0,
+			"variant": "9.2",
+			"seed": 55
+		},
+		{
+			"piece": "rib",
+			"at": [
+				0,
+				-2
+			],
+			"rot": 0,
+			"variant": "9.2",
+			"seed": 56
+		},
+		{
+			"piece": "rib",
+			"at": [
+				0,
+				6
+			],
+			"rot": 0,
+			"variant": "9.2",
+			"seed": 57
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				-6,
+				-10
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 58
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				-6,
+				-6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 59
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				-6,
+				-2
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 60
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				-6,
+				2
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 61
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				-6,
+				6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 62
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				-2,
+				-10
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 63
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				-2,
+				-6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 64
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				-2,
+				-2
+			],
+			"rot": 0,
+			"variant": "open",
+			"seed": 65
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				-2,
+				2
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 66
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				-2,
+				6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 67
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				2,
+				-10
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 68
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				2,
+				-6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 69
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				2,
+				-2
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 70
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				2,
+				2
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 71
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				2,
+				6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 72
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				6,
+				-10
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 73
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				6,
+				-6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 74
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				6,
+				-2
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 75
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				6,
+				2
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 76
+		},
+		{
+			"piece": "ceiling",
+			"at": [
+				6,
+				6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 77
+		},
+		{
+			"piece": "dais",
+			"at": [
+				0,
+				-10.9
+			],
+			"rot": 180,
+			"variant": "plain",
+			"seed": 78
+		},
+		{
+			"piece": "sarcophagus",
+			"at": [
+				0,
+				-11.65
+			],
+			"rot": 90,
+			"variant": "plain",
+			"seed": 79,
+			"y": 0.54
+		},
+		{
+			"piece": "brazier",
+			"at": [
+				-2.7,
+				-9.6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 80,
+			"y": 0.18
+		},
+		{
+			"piece": "brazier",
+			"at": [
+				2.7,
+				-9.6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 81,
+			"y": 0.18
+		},
+		{
+			"piece": "candles",
+			"at": [
+				-1.3,
+				-9.25
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 82,
+			"y": 0.18
+		},
+		{
+			"piece": "candles",
+			"at": [
+				1.4,
+				-9.3
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 83,
+			"y": 0.18
+		},
+		{
+			"piece": "candles",
+			"at": [
+				-3.6,
+				-11.6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 84,
+			"y": 0.54
+		},
+		{
+			"piece": "candles",
+			"at": [
+				3.5,
+				-11.7
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 85,
+			"y": 0.54
+		},
+		{
+			"piece": "candles",
+			"at": [
+				-7.5,
+				-1.2
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 86
+		},
+		{
+			"piece": "candles",
+			"at": [
+				7.4,
+				3.2
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 87
+		},
+		{
+			"piece": "fallen_column",
+			"at": [
+				-6.3,
+				4.2
+			],
+			"rot": 15,
+			"variant": "plain",
+			"seed": 88
+		},
+		{
+			"piece": "rubble",
+			"at": [
+				6.6,
+				-5.2
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 89
+		},
+		{
+			"piece": "rubble",
+			"at": [
+				6.4,
+				6.2
+			],
+			"rot": 40,
+			"variant": "plain",
+			"seed": 90
+		},
+		{
+			"piece": "rubble",
+			"at": [
+				-6.9,
+				-8.6
+			],
+			"rot": 70,
+			"variant": "plain",
+			"seed": 91
+		},
+		{
+			"piece": "bones",
+			"at": [
+				-7.2,
+				-3.4
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 92
+		},
+		{
+			"piece": "bones",
+			"at": [
+				7.3,
+				-8.3
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 93
+		},
+		{
+			"piece": "bones",
+			"at": [
+				-6.6,
+				0.8
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 94
+		},
+		{
+			"piece": "bones",
+			"at": [
+				5.9,
+				2.6
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 95
+		},
+		{
+			"piece": "bones",
+			"at": [
+				-5.6,
+				-11.0
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 96
+		},
+		{
+			"piece": "bones",
+			"at": [
+				2.0,
+				6.9
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 97
+		},
+		{
+			"piece": "banner",
+			"at": [
+				-4.6,
+				-8
+			],
+			"rot": 90,
+			"variant": "plain",
+			"seed": 98
+		},
+		{
+			"piece": "banner",
+			"at": [
+				-4.6,
+				-4
+			],
+			"rot": 90,
+			"variant": "plain",
+			"seed": 99
+		},
+		{
+			"piece": "banner",
+			"at": [
+				4.6,
+				-8
+			],
+			"rot": 270,
+			"variant": "plain",
+			"seed": 100
+		},
+		{
+			"piece": "banner",
+			"at": [
+				4.6,
+				-4
+			],
+			"rot": 270,
+			"variant": "plain",
+			"seed": 101
+		},
+		{
+			"piece": "chain",
+			"at": [
+				2.2,
+				-6.0
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 102
+		},
+		{
+			"piece": "chain",
+			"at": [
+				-2.6,
+				6.0
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 103
+		},
+		{
+			"piece": "chain",
+			"at": [
+				3.1,
+				-10.0
+			],
+			"rot": 0,
+			"variant": "plain",
+			"seed": 104
+		},
+		{
+			"piece": "sconce",
+			"at": [
+				-4.6,
+				-6
+			],
+			"rot": 90,
+			"variant": "plain",
+			"seed": 105
+		},
+		{
+			"piece": "sconce",
+			"at": [
+				4.6,
+				-6
+			],
+			"rot": 270,
+			"variant": "plain",
+			"seed": 106
+		},
+		{
+			"piece": "sconce",
+			"at": [
+				-4.6,
+				2
+			],
+			"rot": 90,
+			"variant": "plain",
+			"seed": 107
+		},
+		{
+			"piece": "sconce",
+			"at": [
+				4.6,
+				2
+			],
+			"rot": 270,
+			"variant": "plain",
+			"seed": 108
+		}
+	]
+}

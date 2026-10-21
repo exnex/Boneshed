@@ -1,0 +1,244 @@
+[
+	{
+		"image": "compare_before_1_faceoff.png",
+		"note": "Idle face-off, sword + mail vs sword + mail (before)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_before_2_chamber_right.png",
+		"note": "Player holds a right chamber (before)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_before_3_rechamber_left.png",
+		"note": "Redirected to the left chamber through neutral (before)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_before_4_swing.png",
+		"note": "Mid swing, left to right (before)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_before_5_guards.png",
+		"note": "Player guards left, soul guards high (before)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_before_6_roll.png",
+		"note": "Dodge roll, mid tumble (before)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_before_7_hit.png",
+		"note": "Overhead hit lands: hit reaction (before)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_before_8_player_view.png",
+		"note": "Gameplay camera (before)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_after_1_faceoff.png",
+		"note": "Idle face-off, sword + mail vs sword + mail (after)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_after_2_chamber_right.png",
+		"note": "Player holds a right chamber (after)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_after_3_rechamber_left.png",
+		"note": "Redirected to the left chamber through neutral (after)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_after_4_swing.png",
+		"note": "Mid swing, left to right (after)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_after_5_guards.png",
+		"note": "Player guards left, soul guards high (after)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_after_6_roll.png",
+		"note": "Dodge roll, mid tumble (after)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_after_7_hit.png",
+		"note": "Overhead hit lands: hit reaction (after)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "compare_after_8_player_view.png",
+		"note": "Gameplay camera (after)",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "crypt_wide_entrance.png",
+		"note": "Crypt from the entrance arch",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "crypt_wide_dais.png",
+		"note": "Crypt from beside the dais toward the entrance",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "crypt_high.png",
+		"note": "High angle over the duel floor",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "crypt_detail_dais.png",
+		"note": "Detail: dais, sarcophagus, braziers, candles, ossuary niches",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "crypt_detail_niche.png",
+		"note": "Detail: ossuary niche and weathered wall",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_pilgrim_cloth_front.png",
+		"note": "Pilgrim cloth: three-quarter front",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_pilgrim_cloth_side.png",
+		"note": "Pilgrim cloth: side",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_pilgrim_cloth_head.png",
+		"note": "Pilgrim cloth: head close-up",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_pilgrim_mail_front.png",
+		"note": "Pilgrim mail: three-quarter front",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_pilgrim_mail_side.png",
+		"note": "Pilgrim mail: side",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_pilgrim_mail_head.png",
+		"note": "Pilgrim mail: head close-up",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_pilgrim_plate_front.png",
+		"note": "Pilgrim plate: three-quarter front",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_pilgrim_plate_side.png",
+		"note": "Pilgrim plate: side",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_pilgrim_plate_head.png",
+		"note": "Pilgrim plate: head close-up",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_soul_marrow_front.png",
+		"note": "Corrupted soul (soul_marrow): three-quarter front",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_soul_marrow_head.png",
+		"note": "Corrupted soul (soul_marrow): head close-up",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_soul_plate_front.png",
+		"note": "Corrupted soul (soul_plate): three-quarter front",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_soul_plate_head.png",
+		"note": "Corrupted soul (soul_plate): head close-up",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_soul_mail_no_arm_front.png",
+		"note": "Corrupted soul (soul_mail_no_arm): three-quarter front",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "char_soul_mail_no_arm_head.png",
+		"note": "Corrupted soul (soul_mail_no_arm): head close-up",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "weapon_light_chamber_segment.png",
+		"note": "Light weapon held at a right chamber; F3 overlay draws the rules contact segment (hand to tip) over the blade",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "weapon_light_grip_closeup.png",
+		"note": "Light weapon: fist on the grip, segment overlay",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "weapon_medium_chamber_segment.png",
+		"note": "Medium weapon held at a right chamber; F3 overlay draws the rules contact segment (hand to tip) over the blade",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "weapon_medium_grip_closeup.png",
+		"note": "Medium weapon: fist on the grip, segment overlay",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "weapon_heavy_chamber_segment.png",
+		"note": "Heavy weapon held at a right chamber; F3 overlay draws the rules contact segment (hand to tip) over the blade",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"image": "weapon_heavy_grip_closeup.png",
+		"note": "Heavy weapon: fist on the grip, segment overlay",
+		"renderer": "gl_compatibility"
+	},
+	{
+		"clip": "chamber_switch",
+		"frames": 100
+	},
+	{
+		"clip": "guard_deflect",
+		"frames": 85
+	},
+	{
+		"clip": "weapon_mass_light",
+		"frames": 55
+	},
+	{
+		"clip": "weapon_mass_heavy",
+		"frames": 55
+	},
+	{
+		"clip": "dodge_and_roll",
+		"frames": 75
+	},
+	{
+		"clip": "guard_break_and_hit",
+		"frames": 110
+	},
+	{
+		"clip": "death_release",
+		"frames": 100
+	},
+	{
+		"clip": "duel_player_camera",
+		"frames": 180
+	}
+]

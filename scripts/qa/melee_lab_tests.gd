@@ -740,10 +740,11 @@ func fairness_run(arena: Node, report: bool) -> void:
 	check(first_answer - start >= minimum - 0.001, "ai_guard_waits_for_reaction_delay", results.ai_fairness)
 	check(second_answer - redirect_at >= minimum - 0.001, "late_redirect_is_seen_only_after_delay", results.ai_fairness)
 
-## The separately selectable directional expedition is the one owner-authorized
-## consumer of the lab rules (2026-10-21); every other script and scene must not
-## reference the lab, and nothing outside it references the integration.
-const LAB_CONSUMERS := ["res://scripts/directional_expedition", "res://scenes/directional_expedition.tscn", "res://scripts/qa/directional_expedition_"]
+## The separately selectable directional expedition and the isolated visual showcase
+## are the owner-authorized consumers of the lab rules (2026-10-21); every other script
+## and scene must not reference the lab, and nothing outside them references them.
+const LAB_CONSUMERS := ["res://scripts/directional_expedition", "res://scenes/directional_expedition.tscn", "res://scripts/qa/directional_expedition_",
+	"res://scripts/visual_showcase", "res://scenes/visual_showcase.tscn", "res://scripts/qa/visual_showcase_"]
 
 func isolation_checks() -> void:
 	check(ProjectSettings.get_setting("application/run/main_scene") == "res://scenes/first_expedition.tscn", "default_launch_scene_unchanged")
