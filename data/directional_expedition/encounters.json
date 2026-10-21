@@ -1,0 +1,55 @@
+{
+	"schema": "boneshed.directional_expedition.v0",
+	"provisional": true,
+	"notes": "Integration-only data for the isolated directional expedition scene. Fighters are the shared builds (data/builds/salvage_courtyard.json) resolved through the shared catalog with the melee lab weapon items appended in memory; this file only chooses which weapon/body items and lab armor each encounter's soul equips (the shared catalog has no armor category yet) and how the salvaged Marrow Arm's legacy lunge maps onto directional thrust rules. Every value is placeholder tuning awaiting owner playtest. Exterior souls cycle through `exterior` by site order (the route's sentinel is always the first, so the Marrow Arm is salvageable before the dungeon); the guardian is the heavy greatsword + plate soul, which carries nothing salvageable.",
+	"builds_path": "res://data/builds/salvage_courtyard.json",
+	"player": {
+		"label": "Pilgrim: Notched Sword + mail",
+		"armor": [
+			"armor.lab_mail_shirt"
+		]
+	},
+	"encounters": {
+		"exterior": [
+			{
+				"id": "venom_vigil",
+				"label": "Venom-edged soul: Venom Knife + Marrow Arm + cloth",
+				"equipped": {
+					"hand_r": "item.lab_venom_knife",
+					"arm_l": "item.marrow_arm"
+				},
+				"armor": [
+					"armor.lab_cloth_wraps"
+				]
+			},
+			{
+				"id": "sword_vigil",
+				"label": "Corrupted swordsman: Notched Sword + Marrow Arm + mail",
+				"equipped": {
+					"hand_r": "item.notched_sword",
+					"arm_l": "item.marrow_arm"
+				},
+				"armor": [
+					"armor.lab_mail_shirt"
+				]
+			}
+		],
+		"guardian": {
+			"id": "iron_guardian",
+			"label": "Iron guardian: Greatsword + plate",
+			"equipped": {
+				"hand_r": "item.lab_greatsword"
+			},
+			"armor": [
+				"armor.lab_bog_iron_plate"
+			]
+		}
+	},
+	"signature": {
+		"ability": "ability.marrow_lunge",
+		"notes": "The legacy Marrow Lunge becomes a directional thrust of the bone limb. Tip reach, readable windup floor, recovery, damage and posture are read from the shared ability; the bone's mass and balance are integration placeholders. It pays stamina once, like every attack, scaled from the build's own attack cost.",
+		"mass": 1.2,
+		"balance": 0.5,
+		"cost_scale": 1.5
+	}
+}

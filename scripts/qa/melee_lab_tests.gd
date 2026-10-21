@@ -740,6 +740,11 @@ func fairness_run(arena: Node, report: bool) -> void:
 	check(first_answer - start >= minimum - 0.001, "ai_guard_waits_for_reaction_delay", results.ai_fairness)
 	check(second_answer - redirect_at >= minimum - 0.001, "late_redirect_is_seen_only_after_delay", results.ai_fairness)
 
+## The separately selectable directional expedition is the one owner-authorized
+## consumer of the lab rules (2026-10-21); every other script and scene must not
+## reference the lab, and nothing outside it references the integration.
+const LAB_CONSUMERS := ["res://scripts/directional_expedition", "res://scenes/directional_expedition.tscn", "res://scripts/qa/directional_expedition_"]
+
 func isolation_checks() -> void:
 	check(ProjectSettings.get_setting("application/run/main_scene") == "res://scenes/first_expedition.tscn", "default_launch_scene_unchanged")
 	var offenders: Array[String] = []
@@ -751,11 +756,11 @@ func _referencing(path: String) -> Array[String]:
 	var found: Array[String] = []
 	for file: String in DirAccess.get_files_at(path):
 		var full := path.path_join(file)
-		if full.contains("melee_lab") or not (file.ends_with(".gd") or file.ends_with(".tscn")):
+		if full.contains("melee_lab") or LAB_CONSUMERS.any(func(prefix: String) -> bool: return full.begins_with(prefix)) or not (file.ends_with(".gd") or file.ends_with(".tscn")):
 			continue
 		if FileAccess.get_file_as_string(full).contains("melee_lab"):
 			found.append(full)
 	for sub: String in DirAccess.get_directories_at(path):
-		if sub != "melee_lab":
+		if sub != "melee_lab" and not path.path_join(sub) in LAB_CONSUMERS:
 			found.append_array(_referencing(path.path_join(sub)))
 	return found
