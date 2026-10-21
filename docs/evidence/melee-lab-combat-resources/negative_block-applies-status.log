@@ -1,0 +1,2 @@
+{"check":"blocked_attack_applies_no_status","detail":["block",35.0],"passed":false}
+{"engine":"4.7.2-stable (official)","failed":1,"negative":"block-applies-status","passed":72,"suite":"melee_lab_resources","summary":true}

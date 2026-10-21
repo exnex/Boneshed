@@ -1,0 +1,315 @@
+{
+	"affordability": {
+		"attack": {
+			"exact": "started",
+			"full": "started",
+			"just_below": "refused",
+			"low": "refused"
+		},
+		"dodge": {
+			"exact": "started",
+			"full": "started",
+			"just_below": "refused",
+			"low": "refused"
+		},
+		"roll": {
+			"exact": "started",
+			"full": "started",
+			"just_below": "refused",
+			"low": "refused"
+		}
+	},
+	"ai": {
+		"normal": {
+			"attacks": 9,
+			"recovered_events": 3,
+			"refusals": 0
+		},
+		"slowed": {
+			"attacks": 5,
+			"mean_distance": 2.6,
+			"refusals": 0
+		},
+		"starved": {
+			"attack_cost": 26.7,
+			"attacks": 5,
+			"conserve_events": 2,
+			"refusals": 0,
+			"stamina_budget": 148.0
+		},
+		"unslowed": {
+			"attacks": 7,
+			"mean_distance": 2.2,
+			"refusals": 0
+		}
+	},
+	"arena_status_lifecycle": [
+		"buildup",
+		"buildup",
+		"buildup"
+	],
+	"barrage_10s": {
+		"balanced": {
+			"ran_dry_at": 7.3,
+			"refusals": 0,
+			"stamina_left": 0.37,
+			"swings": 12
+		},
+		"evasive": {
+			"ran_dry_at": -1.0,
+			"refusals": 0,
+			"stamina_left": 17.28,
+			"swings": 15
+		},
+		"resistant": {
+			"ran_dry_at": 3.28,
+			"refusals": 0,
+			"stamina_left": 5.84,
+			"swings": 8
+		}
+	},
+	"build_costs": {
+		"balanced": {
+			"armor_kg": 9.0,
+			"attack": 13.35,
+			"dodge": 20.32,
+			"evasion_speed_scale": 0.89,
+			"inertia": 2.13,
+			"mitigation": 0.15,
+			"move_scale": 0.89,
+			"regen": 25.48,
+			"resist_poison": 0.25,
+			"resist_slow": 0.25,
+			"roll": 33.02,
+			"sources": []
+		},
+		"evasive": {
+			"armor_kg": 2.5,
+			"attack": 7.79,
+			"dodge": 17.2,
+			"evasion_speed_scale": 0.97,
+			"inertia": 0.73,
+			"mitigation": 0.05,
+			"move_scale": 0.97,
+			"regen": 27.3,
+			"resist_poison": 0.0,
+			"resist_slow": 0.0,
+			"roll": 27.95,
+			"sources": [
+				"poison"
+			]
+		},
+		"greatsword": {
+			"armor_kg": 0.0,
+			"attack": 24.7,
+			"dodge": 16.0,
+			"evasion_speed_scale": 1.0,
+			"inertia": 5.63,
+			"mitigation": 0.0,
+			"move_scale": 1.0,
+			"regen": 28.0,
+			"resist_poison": 0.0,
+			"resist_slow": 0.0,
+			"roll": 26.0,
+			"sources": [
+				"slow"
+			]
+		},
+		"knife": {
+			"armor_kg": 0.0,
+			"attack": 7.54,
+			"dodge": 16.0,
+			"evasion_speed_scale": 1.0,
+			"inertia": 0.73,
+			"mitigation": 0.0,
+			"move_scale": 1.0,
+			"regen": 28.0,
+			"resist_poison": 0.0,
+			"resist_slow": 0.0,
+			"roll": 26.0,
+			"sources": []
+		},
+		"resistant": {
+			"armor_kg": 20.0,
+			"attack": 26.7,
+			"dodge": 25.6,
+			"evasion_speed_scale": 0.76,
+			"inertia": 5.63,
+			"mitigation": 0.3,
+			"move_scale": 0.76,
+			"regen": 22.4,
+			"resist_poison": 0.6,
+			"resist_slow": 0.6,
+			"roll": 41.6,
+			"sources": [
+				"slow"
+			]
+		},
+		"staff": {
+			"armor_kg": 0.0,
+			"attack": 21.57,
+			"dodge": 16.0,
+			"evasion_speed_scale": 1.0,
+			"inertia": 4.73,
+			"mitigation": 0.0,
+			"move_scale": 1.0,
+			"regen": 28.0,
+			"resist_poison": 0.0,
+			"resist_slow": 0.0,
+			"roll": 26.0,
+			"sources": []
+		},
+		"sword": {
+			"armor_kg": 0.0,
+			"attack": 12.45,
+			"dodge": 16.0,
+			"evasion_speed_scale": 1.0,
+			"inertia": 2.13,
+			"mitigation": 0.0,
+			"move_scale": 1.0,
+			"regen": 28.0,
+			"resist_poison": 0.0,
+			"resist_slow": 0.0,
+			"roll": 26.0,
+			"sources": []
+		}
+	},
+	"charge_sequence_by_rate": {
+		"120.0": [
+			"attack",
+			"attack",
+			"dodge",
+			"attack"
+		],
+		"30.0": [
+			"attack",
+			"attack",
+			"dodge",
+			"attack"
+		],
+		"60.0": [
+			"attack",
+			"attack",
+			"dodge",
+			"attack"
+		]
+	},
+	"feint": {
+		"attack_cost": 13.35,
+		"released_windup_cancel_net": 13.35,
+		"spam_feints_in_400_cycles": 36,
+		"spam_refusals": 364,
+		"swing_cancel_net": 13.35,
+		"unreleased_guard_cancel_net": 6.67
+	},
+	"legality_sequence": "attack:true:true:73.296 dodge:true:true:55.163 roll:false:false:55.163 attack:true:true:28.459 attack:true:true:10.341 attack:false:false:20.421 attack:false:false:21.541 roll:false:false:22.661",
+	"poison_by_rate": {
+		"120.0": {
+			"expired_at": 6.0,
+			"health": 82.0,
+			"ticks": 6
+		},
+		"30.0": {
+			"expired_at": 6.0,
+			"health": 82.0,
+			"ticks": 6
+		},
+		"60.0": {
+			"expired_at": 6.0,
+			"health": 82.0,
+			"ticks": 6
+		}
+	},
+	"routing": {
+		"block": [
+			"block",
+			0.0
+		],
+		"clash": [
+			"clash",
+			0.0,
+			0.0
+		],
+		"deflect": [
+			"deflect",
+			0.0
+		],
+		"dodge": [
+			"evaded",
+			0.0
+		],
+		"guard_break": [
+			"guard_break",
+			0.0
+		],
+		"hit": [
+			"hit",
+			35.0
+		],
+		"misaligned": [
+			"misaligned",
+			17.5
+		],
+		"miss": [
+			"none",
+			0.0
+		],
+		"roll_early": [
+			"evaded",
+			0.0
+		],
+		"roll_tail": [
+			"hit",
+			35.0,
+			"roll elapsed 0.37 s"
+		],
+		"venom_knife_hit": [
+			"hit",
+			35.0
+		]
+	},
+	"single_hit": {
+		"balanced": {
+			"damage": 19.71,
+			"per_stamina": 1.48,
+			"result": "hit"
+		},
+		"evasive": {
+			"damage": 11.51,
+			"per_stamina": 1.48,
+			"result": "hit"
+		},
+		"resistant": {
+			"damage": 32.06,
+			"per_stamina": 1.2,
+			"result": "hit"
+		}
+	},
+	"slow_swing_seconds": {
+		"normal": 0.45,
+		"slowed": 0.47
+	},
+	"sword_hit_vs_armor": {
+		"balanced": 16.75,
+		"evasive": 18.72,
+		"resistant": 13.8
+	},
+	"travel_metres": {
+		"balanced": 4.57,
+		"balanced_dodge": 2.0,
+		"balanced_roll": 3.73,
+		"evasive": 4.93,
+		"evasive_dodge": 2.1,
+		"evasive_roll": 4.02,
+		"resistant": 3.94,
+		"resistant_dodge": 1.79,
+		"resistant_roll": 3.23,
+		"sword": 5.07,
+		"sword_dodge": 2.1,
+		"sword_roll": 4.13
+	},
+	"venom_hits_to_poison": {
+		"resistant": 10,
+		"sword": 4
+	}
+}

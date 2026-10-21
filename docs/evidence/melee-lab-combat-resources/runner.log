@@ -1,0 +1,20 @@
+parse check: all lab scripts parse
+checks: expected exit 0 confirmed
+checks_replay: expected exit 0 confirmed
+cross-process replay: results.json identical
+negative_no-substeps: expected exit 1 confirmed
+negative no-substeps: caught by ['fast_blade_cannot_tunnel_through_guard']
+negative_omniscient: expected exit 1 confirmed
+negative omniscient: caught by ['ai_guard_waits_for_reaction_delay', 'late_redirect_is_seen_only_after_delay']
+resources: expected exit 0 confirmed
+resources_replay: expected exit 0 confirmed
+resources cross-process replay: results.json identical
+negative_free-feints: expected exit 1 confirmed
+negative free-feints: caught by ['feint_spam_is_bounded_by_stamina']
+negative_block-applies-status: expected exit 1 confirmed
+negative block-applies-status: caught by ['blocked_attack_applies_no_status']
+rendered: expected exit 0 confirmed
+Melee lab checks, replay, negative controls and rendered clips passed.
+isolation: no protected production or coordination file changed versus origin/main
+Evidence: <scratch>/full3
+exit 0

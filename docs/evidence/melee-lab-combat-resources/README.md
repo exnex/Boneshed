@@ -16,7 +16,7 @@ played this build. Design and numbers: [MELEE_LAB_COMBAT_RESOURCES.md](../../MEL
 | `negative_free-feints.log`, `negative_block-applies-status.log` | Failing check lines of the new negative controls (each fails exactly its named check) |
 | `clips.json` | Every rendered clip, the contacts it produced, its asserted outcome and verification |
 | `sheet_*.jpg`, `clip_*.mp4` | Contact sheets and 30 fps clips (every 2nd physics tick, so 2× slow motion) of the 9 new clips |
-| `browser_lab_boot.png` | The exported lab (lab as main scene in a scratch copy, exactly as the Pages workflow does) booted in headless Chromium after pressing F2 and cycling builds: HUD stamina bar with cost ticks, status bars, build line, F2 build table |
+| `browser_lab_boot.png` | The exported lab (lab as main scene in a scratch copy, exactly as the Pages workflow does) booted in headless Chromium after pressing F2 and cycling builds: HUD stamina bar with cost ticks, status bars, build line, F2 build table (captured before the build-name column of that table was widened from 19 to 30 characters) |
 
 | New clip | Shows | Asserted |
 | --- | --- | --- |
