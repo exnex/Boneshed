@@ -37,12 +37,14 @@ var build_environment := true
 func _ready() -> void:
 	var started := Time.get_ticks_msec()
 	quality = Quality.preset(Quality.requested_preset(), RenderingServer.get_current_rendering_method())
-	MaterialLibrary.set_texture_size(int(quality.texture_size))
+	MaterialLibrary.set_texture_size(int(quality.texture_size), int(quality.environment_texture_size))
 	super._ready()
 	if not ok:
 		return
 	for actor: Node in [player, opponent]:
 		_swap_visual(actor, "player" if actor == player else "opponent")
+	get_viewport().msaa_3d = int(quality.msaa) as Viewport.MSAA
+	get_viewport().positional_shadow_atlas_size = int(quality.shadow_atlas)
 	hud.show_help = false
 	# Presentation default: the real blade's edge glow and trails carry the telegraph;
 	# the lab's arcs and text labels stay one key away (Y, U).

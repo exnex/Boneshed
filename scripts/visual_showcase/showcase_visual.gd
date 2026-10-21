@@ -81,7 +81,7 @@ func _ready() -> void:
 	rebuild()
 
 func _signature() -> String:
-	var state = actor.state
+	var state: State = actor.state
 	return "%s|%s|%s|%s|%s|%s" % [look.get("kind", "pilgrim"), look.get("marrow_arm", false), state.h.get("item", ""),
 		state.h.length, state.h.two_handed, ",".join(state.resources.get("armor", []))]
 
@@ -144,7 +144,7 @@ func _build_character() -> void:
 
 ## Rules → drawn pose. Called by lab_duelist._process every frame.
 func sync(delta: float) -> void:
-	var state = actor.state
+	var state: State = actor.state
 	if solver == null or state == null:
 		return
 	root.rotation = Vector3(0.0, actor.yaw(), 0.0)
@@ -162,7 +162,7 @@ func sync(delta: float) -> void:
 	_draw_debug(state)
 	_sync_label(state)
 
-func _view(state: RefCounted) -> Dictionary:
+func _view(state: State) -> Dictionary:
 	var basis := Basis(Vector3.UP, actor.yaw())
 	var to_local := basis.inverse()
 	var progress := 0.0
@@ -200,7 +200,7 @@ func on_contact(report: Dictionary, as_defender: bool, other: Node3D) -> void:
 
 func _sync_flash(delta: float) -> void:
 	flash = maxf(0.0, flash - delta * 4.0)
-	var state = actor.state
+	var state: State = actor.state
 	var tint := Color(0, 0, 0, 0)
 	if state.status.is_active("poison"):
 		tint = Color(0.35, 0.9, 0.25, 0.18)
@@ -211,11 +211,12 @@ func _sync_flash(delta: float) -> void:
 	status_overlay.albedo_color = tint
 
 ## Edge glow with the lab's telegraph colours and logic (lab_visual._sync_colors).
-func _sync_colors(state: RefCounted) -> void:
+func _sync_colors(state: State) -> void:
 	if edge_material == null:
 		return
-	var color := Color("c8d0cc")
-	var glow := 0.0
+	# A faint cold sheen keeps the edge readable against the dark crypt when idle.
+	var color := Color("b8c6d6")
+	var glow := 0.35
 	match state.phase:
 		State.Phase.WINDUP:
 			color = DIRECTION_COLORS.get(state.direction, Color.ORANGE)
@@ -233,7 +234,7 @@ func _sync_colors(state: RefCounted) -> void:
 	edge_material.emission_energy_multiplier = glow
 	edge_material.albedo_color = Color("c8d0cc").lerp(color, minf(glow, 1.0) * 0.6)
 
-func _sync_release(state: RefCounted, delta: float) -> void:
+func _sync_release(state: State, delta: float) -> void:
 	var dead: bool = state.phase == State.Phase.DEAD
 	release_particles.emitting = dead and look.get("kind", "") == "corrupted" and released_for < RELEASE_SECONDS
 	if not dead:
@@ -277,6 +278,30 @@ func _make_release_particles() -> CPUParticles3D:
 	quad.material = mat
 	particles.mesh = quad
 	return particles
+
+## The lab trail, recorded from the drawn weapon (identical to the rules pose in every
+## phase that can make contact). Presentation choice: a narrower, fainter ribbon along
+## the outer blade, recorded only while the blade swings or recovers, so a chamber or a
+## guard shift does not paint a sheet across the screen (T still toggles it).
+func _record_trail(state: State, delta: float) -> void:
+	var xf: Transform3D = weapon_root.global_transform
+	for point: Dictionary in trail:
+		point.age += delta
+	while not trail.is_empty() and trail[0].age > TRAIL_SECONDS:
+		trail.pop_front()
+	if delta > 0.0 and state.phase in [State.Phase.SWING, State.Phase.RECOVERY]:
+		trail.append({"age": 0.0, "hand": xf.origin, "tip": xf * Vector3(0.0, 0.0, -float(state.h.length)), "live": state.is_live()})
+	trail_mesh.clear_surfaces()
+	if not flags.trails or trail.size() < 2:
+		return
+	trail_mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLE_STRIP)
+	for point: Dictionary in trail:
+		var c := Color("ff6a3e") if point.live else Color("dfe6f0")
+		c.a = 0.32 * (1.0 - point.age / TRAIL_SECONDS)
+		trail_mesh.surface_set_color(c)
+		trail_mesh.surface_add_vertex(point.tip)
+		trail_mesh.surface_add_vertex(point.hand.lerp(point.tip, 0.78))
+	trail_mesh.surface_end()
 
 ## Model-space socket transform of the last solved pose (tests, captures).
 func socket(name: String) -> Transform3D:

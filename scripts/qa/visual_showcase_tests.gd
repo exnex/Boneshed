@@ -598,7 +598,8 @@ func _count(node: Node) -> int:
 	return total
 
 ## The same scripted exchanges and a seeded AI duel produce byte-identical contact logs
-## in the melee lab and in the showcase (both stepped manually with the same inputs).
+## in the melee lab and in the showcase (both stepped manually with the same inputs,
+## with a rendered/processed frame between ticks so the presentation runs as in play).
 func outcome_equivalence_checks() -> void:
 	var logs: Array[String] = []
 	for scene: String in ["res://scenes/melee_lab.tscn", "res://scenes/visual_showcase.tscn"]:
@@ -628,6 +629,8 @@ func outcome_equivalence_checks() -> void:
 							"roll":
 								arena.player.try_roll(Vector3.BACK)
 				arena.advance(DT)
+				# Presentation runs every frame between ticks, as in play.
+				await process_frame
 			for e: Dictionary in arena.events:
 				lines.append("%s %s>%s %s dmg=%.4f post=%.4f hp=%.4f" % [e.at, e.attacker, e.defender, e.result, e.damage, e.posture, e.defender_health])
 			lines.append("end %s hp %.4f/%.4f stamina %.4f/%.4f" % [pairing, arena.player.state.health, arena.opponent.state.health,

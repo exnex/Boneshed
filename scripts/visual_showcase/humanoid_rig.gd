@@ -43,7 +43,7 @@ const PILGRIM := {"name": "pilgrim", "stature": 1.0, "shoulder": 0.19, "hip": 0.
 	"hand": 0.09, "thigh": 0.43, "calf": 0.42, "hunch": 0.0, "arm_spread": 0.28, "girth": 1.0, "neck": 1.0}
 ## Corrupted soul: taller, gaunt, long-armed, hunched forward.
 const CORRUPTED := {"name": "corrupted", "stature": 1.03, "shoulder": 0.2, "hip": 0.09, "upperarm": 0.325, "lowerarm": 0.3,
-	"hand": 0.10, "thigh": 0.44, "calf": 0.44, "hunch": 0.06, "arm_spread": 0.22, "girth": 0.78, "neck": 1.15}
+	"hand": 0.10, "thigh": 0.44, "calf": 0.44, "hunch": 0.07, "arm_spread": 0.22, "girth": 0.8, "neck": 0.95}
 
 static func bone_index(name: String) -> int:
 	for i in range(BONES.size()):

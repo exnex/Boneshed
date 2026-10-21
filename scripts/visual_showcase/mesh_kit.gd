@@ -137,8 +137,10 @@ static func _ring_weights(ring: Dictionary, angle: float) -> Dictionary:
 ## Superellipsoid (exponent 2 = ellipsoid, higher = boxier) in `xf` space. `deform`
 ## (optional) maps a unit-sphere direction to a radius multiplier; `wfn` (optional)
 ## maps the local point to weights.
+## `cfn` (optional) maps the unit direction to a vertex colour: baked crease shading
+## (eye sockets, cavities) for materials that use vertex colour as albedo.
 func blob(material: String, xf: Transform3D, radii: Vector3, weights: Dictionary, segments := 16, stacks := 10,
-		exponent := 2.0, deform: Callable = Callable(), wfn: Callable = Callable()) -> void:
+		exponent := 2.0, deform: Callable = Callable(), wfn: Callable = Callable(), cfn: Callable = Callable()) -> void:
 	var s := _surface(material)
 	var grid: Array[PackedInt32Array] = []
 	for j in range(stacks + 1):
@@ -154,7 +156,8 @@ func blob(material: String, xf: Transform3D, radii: Vector3, weights: Dictionary
 			var m := float(deform.call(unit)) if deform.is_valid() else 1.0
 			var p := local * radii * m
 			var w: Dictionary = wfn.call(p) if wfn.is_valid() else weights
-			row.append(_vertex(s, xf * p, Vector2(u, v), w))
+			var color: Color = cfn.call(unit) if cfn.is_valid() else Color.WHITE
+			row.append(_vertex(s, xf * p, Vector2(u, v), w, color))
 		grid.append(row)
 	for j in range(stacks):
 		for i in range(segments):

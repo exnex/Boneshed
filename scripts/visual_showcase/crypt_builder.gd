@@ -131,8 +131,8 @@ static func build(parent: Node3D, quality: Dictionary) -> Dictionary:
 	var bounce := OmniLight3D.new()
 	bounce.name = "MoonBounce"
 	bounce.light_color = Color("8ea4d8")
-	bounce.light_energy = 1.5
-	bounce.omni_range = 10.0
+	bounce.light_energy = 2.4
+	bounce.omni_range = 12.0
 	bounce.omni_attenuation = 1.2
 	bounce.position = Vector3(0.4, 2.2, 1.0)
 	bounce.light_specular = 0.3
@@ -193,7 +193,7 @@ static func _environment(room: Node3D, quality: Dictionary, layout: Dictionary) 
 	env.background_color = Color("06080b")
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.ambient_light_color = Color("3a4a5e")
-	env.ambient_light_energy = 0.8
+	env.ambient_light_energy = 1.0
 	env.tonemap_mode = Environment.TONE_MAPPER_AGX
 	env.tonemap_exposure = 1.15
 	env.adjustment_enabled = true

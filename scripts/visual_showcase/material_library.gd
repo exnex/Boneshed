@@ -5,24 +5,27 @@ extends RefCounted
 ## id costs one texture set however many meshes use it.
 ##
 ## Texture size is the quality knob: `set_texture_size` before the first request sets
-## the base size; large environment surfaces (stone_*) use twice the base. Generation is
+## the base size and the size of large environment surfaces (stone_*). Generation is
 ## deterministic (fixed seeds per id) and costs seconds of CPU, so finished images are
 ## cached under user:// keyed by CACHE_VERSION, id and size (delete the folder to
 ## regenerate; bump CACHE_VERSION whenever a generator changes).
 
 const SEED := 4711
-const CACHE_VERSION := 4
+const CACHE_VERSION := 6
 const CACHE_DIR := "user://showcase_textures"
 
 static var _cache: Dictionary = {}
 static var _texture_size: int = 256
+static var _environment_size: int = 512
 static var use_disk_cache: bool = true
 ## Milliseconds spent generating (not loading) textures this process, for benchmarks.
 static var generation_ms: int = 0
 
-static func set_texture_size(size: int) -> void:
-	if size != _texture_size:
+static func set_texture_size(size: int, environment_size := -1) -> void:
+	var env := environment_size if environment_size > 0 else size * 2
+	if size != _texture_size or env != _environment_size:
 		_texture_size = size
+		_environment_size = env
 		_cache.clear()
 
 static func texture_size() -> int:
@@ -45,7 +48,7 @@ static func get_material(id: String) -> StandardMaterial3D:
 	return mat
 
 static func size_for(id: String) -> int:
-	return _texture_size * 2 if id.begins_with("stone_") else _texture_size
+	return _environment_size if id.begins_with("stone_") else _texture_size
 
 static func _build(id: String) -> StandardMaterial3D:
 	var s := size_for(id)
@@ -58,7 +61,9 @@ static func _build(id: String) -> StandardMaterial3D:
 		"stone_trim":
 			return _textured(_weathered.bind(s, Color("6a645a"), Color("3a3631"), 11), 0.85, 0.0, 1.2, Vector3(1, 1, 1))
 		"skin_pilgrim":
-			return _textured(_weathered.bind(s, Color("9a745e"), Color("6e4e3e"), 3, 0.25), 0.62, 0.0, 0.35, Vector3(2, 2, 1))
+			var mat := _textured(_weathered.bind(s, Color("9a745e"), Color("6e4e3e"), 3, 0.25), 0.62, 0.0, 0.35, Vector3(2, 2, 1))
+			mat.vertex_color_use_as_albedo = true
+			return mat
 		"skin_corrupted":
 			var mat := _textured(_weathered.bind(s, Color("6d6a66"), Color("3b3937"), 5, 0.6), 0.75, 0.0, 0.9, Vector3(2, 2, 1))
 			mat.emission_enabled = true
@@ -66,6 +71,7 @@ static func _build(id: String) -> StandardMaterial3D:
 			mat.emission_operator = BaseMaterial3D.EMISSION_OP_MULTIPLY
 			mat.emission = Color("63d7c9")
 			mat.emission_energy_multiplier = 1.6
+			mat.vertex_color_use_as_albedo = true
 			return mat
 		"cloth_dark":
 			return _textured(_weave.bind(s, Color("4d453b"), Color("2a2520")), 0.95, 0.0, 0.7, Vector3(4, 4, 1))
@@ -90,7 +96,7 @@ static func _build(id: String) -> StandardMaterial3D:
 		"plate_rusted":
 			return _textured(_rust.bind(s, Color("6a6258"), Color("7a4426")), 0.6, 0.45, 0.8, Vector3(2, 2, 1))
 		"steel":
-			return _textured(_brushed.bind(s, Color("c4c8c9"), Color("969a9b")), 0.3, 0.6, 0.25, Vector3(1, 6, 1))
+			return _textured(_brushed.bind(s, Color("d2d6d8"), Color("a4a8aa")), 0.3, 0.5, 0.25, Vector3(1, 6, 1))
 		"steel_dark":
 			return _textured(_brushed.bind(s, Color("85878a"), Color("54575a")), 0.4, 0.55, 0.35, Vector3(1, 6, 1))
 		"bronze":

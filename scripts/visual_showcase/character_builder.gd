@@ -264,47 +264,99 @@ func _neck(kit: MeshKit, material: String) -> void:
 		{"c": b, "x": basis.x, "z": basis.z, "rx": r * 0.92, "rz": r * 0.95, "w": mix("neck_01", "head", 0.7)}], 12, false, false)
 
 func _head(kit: MeshKit, material: String) -> void:
+	if corrupted:
+		_skull_head(kit, material)
+		return
 	var centre: Vector3 = j.head + Vector3(0.0, 0.085, -0.012)
 	var xf := Transform3D(Basis.IDENTITY, centre)
-	var gaunt := corrupted
-	kit.blob(material, xf, Vector3(0.078, 0.112, 0.098), w("head"), 20, 14, 2.0, func(u: Vector3) -> float:
+	kit.blob(material, xf, Vector3(0.076, 0.11, 0.096), w("head"), 36, 28, 2.0, func(u: Vector3) -> float:
 		var m := 1.0
-		# Jaw and chin narrow toward the front and bottom.
+		# Jaw tapers to the chin; the back of the skull is fuller.
 		if u.y < -0.1:
-			m *= 1.0 - 0.28 * smoothstep(-0.1, -0.9, u.y) * (0.6 + 0.4 * absf(u.x))
-		# Back of the skull.
+			m *= 1.0 - 0.24 * smoothstep(-0.1, -0.9, u.y) * (0.55 + 0.45 * absf(u.x))
 		if u.z > 0.2 and u.y > -0.2:
 			m *= 1.0 + 0.08 * u.z
-		# Brow ridge and nose.
-		if u.z < -0.6:
-			m *= 1.0 + 0.06 * exp(-pow((u.y - 0.25) / 0.12, 2.0))
-			if not gaunt:
-				m *= 1.0 + 0.16 * exp(-pow(u.x / 0.12, 2.0) - pow((u.y + 0.05) / 0.18, 2.0))
-		# Eye sockets (deep and hollow on the corrupted).
-		for ex: float in [-0.38, 0.38]:
-			var d := pow((u.x - ex) / 0.17, 2.0) + pow((u.y - 0.12) / 0.12, 2.0)
-			if u.z < -0.4:
-				m *= 1.0 - (0.16 if gaunt else 0.05) * exp(-d)
-		# Cheekbones hollow on the corrupted.
-		if gaunt and u.z < -0.2 and u.y < 0.0 and u.y > -0.5:
-			m *= 1.0 - 0.08 * absf(u.x)
-		return m)
+		if u.z < -0.5:
+			var front := smoothstep(-0.5, -0.85, u.z)
+			# Brow ridge, eye sockets, nose, cheekbones, mouth.
+			m *= 1.0 + 0.07 * front * exp(-pow((u.y - 0.24) / 0.09, 2.0)) * (1.0 - 0.5 * absf(u.x))
+			for ex: float in [-0.36, 0.36]:
+				m *= 1.0 - 0.09 * front * exp(-(pow((u.x - ex) / 0.15, 2.0) + pow((u.y - 0.12) / 0.09, 2.0)))
+			m *= 1.0 + 0.2 * front * exp(-(pow(u.x / 0.09, 2.0) + pow((u.y + 0.02) / 0.15, 2.0)))
+			m *= 1.0 - 0.035 * front * exp(-(pow(u.x / 0.25, 2.0) + pow((u.y + 0.33) / 0.04, 2.0)))
+		if u.z < -0.2 and absf(u.x) > 0.45 and u.y < 0.15 and u.y > -0.25:
+			m *= 1.03
+		return m, Callable(), _face_shading.bind(false))
 	# Ears.
 	for x: float in [-1.0, 1.0]:
-		kit.blob(material, Transform3D(Basis.IDENTITY, centre + Vector3(x * 0.077, 0.0, 0.01)), Vector3(0.012, 0.03, 0.02), w("head"), 8, 5)
-	if gaunt:
-		for x: float in [-1.0, 1.0]:
-			kit.blob("eye_glow", Transform3D(Basis.IDENTITY, centre + Vector3(x * 0.03, 0.012, -0.082)), Vector3(0.011, 0.008, 0.008), w("head"), 8, 5)
-		# Exposed jaw bone.
-		kit.blob("bone", Transform3D(Basis.IDENTITY, centre + Vector3(0.0, -0.075, -0.045)), Vector3(0.05, 0.022, 0.045), w("head"), 12, 6, 2.4)
-	else:
-		for x: float in [-1.0, 1.0]:
-			kit.blob("iron_black", Transform3D(Basis.IDENTITY, centre + Vector3(x * 0.03, 0.012, -0.088)), Vector3(0.012, 0.007, 0.006), w("head"), 8, 5)
-		# Close-cropped stubble along the jaw (slightly proud of the skin).
-		kit.blob("leather", Transform3D(Basis.IDENTITY, centre + Vector3(0.0, -0.058, -0.03)), Vector3(0.066, 0.042, 0.066), w("head"), 14, 6, 2.0,
-			func(u: Vector3) -> float: return 1.0 if u.z < 0.2 and u.y < 0.3 else 0.8)
+		kit.blob(material, Transform3D(Basis.IDENTITY, centre + Vector3(x * 0.075, 0.0, 0.012)), Vector3(0.012, 0.03, 0.02), w("head"), 8, 5)
+	# Eyes: small, dark and wet, set back in the sockets.
+	for x: float in [-1.0, 1.0]:
+		kit.blob("iron_black", Transform3D(Basis.IDENTITY, centre + Vector3(x * 0.027, 0.012, -0.086)), Vector3(0.008, 0.0045, 0.004), w("head"), 8, 5)
+	# Short dark hair at the hairline and the back of the head (under hoods and helms).
+	kit.blob("cloth_dark", Transform3D(Basis.IDENTITY, centre + Vector3(0.0, 0.02, 0.006)), Vector3(0.08, 0.108, 0.1), w("head"), 18, 12, 2.0,
+		func(u: Vector3) -> float: return 1.02 if u.y > 0.35 or (u.z > 0.15 and u.y > -0.45) else 0.6)
+
+## Baked crease shading (vertex colour): darker sockets, brow shadow, nostrils and,
+## on the skull, black hollows. Cheap stand-in for authored AO on a face.
+static func _face_shading(u: Vector3, skull: bool) -> Color:
+	var shade := 1.0
+	if u.z < -0.4:
+		var front := smoothstep(-0.4, -0.85, u.z)
+		for ex: float in [-0.36, 0.36]:
+			shade -= (0.85 if skull else 0.6) * front * exp(-(pow((u.x - ex) / (0.18 if skull else 0.17), 2.0) + pow((u.y - 0.12) / (0.13 if skull else 0.11), 2.0)))
+		shade -= (0.8 if skull else 0.25) * front * exp(-(pow(u.x / 0.09, 2.0) + pow((u.y + (0.12 if skull else 0.1)) / 0.07, 2.0)))
+	if u.y < -0.55:
+		shade -= 0.25
+	shade = clampf(shade, 0.05, 1.0)
+	return Color(shade, shade * 0.97, shade * 0.95)
+
+## The corrupted soul's head: a long, skull-like face with hollow sockets lit from
+## inside, a bare mandible and a sunken nasal cavity.
+func _skull_head(kit: MeshKit, material: String) -> void:
+	var centre: Vector3 = j.head + Vector3(0.0, 0.085, -0.02)
+	kit.blob(material, Transform3D(Basis.IDENTITY, centre), Vector3(0.07, 0.112, 0.092), w("head"), 36, 28, 2.0, func(u: Vector3) -> float:
+		var m := 1.0
+		if u.y > 0.1:
+			m *= 1.0 + 0.1 * u.y * (1.0 if u.z > -0.3 else 0.5)
+		if u.y < -0.2:
+			m *= 1.0 - 0.3 * smoothstep(-0.2, -0.95, u.y)
+		if u.z < -0.4:
+			var front := smoothstep(-0.4, -0.85, u.z)
+			for ex: float in [-0.36, 0.36]:
+				m *= 1.0 - 0.3 * front * exp(-(pow((u.x - ex) / 0.17, 2.0) + pow((u.y - 0.12) / 0.13, 2.0)))
+			m *= 1.0 - 0.22 * front * exp(-(pow(u.x / 0.1, 2.0) + pow((u.y + 0.12) / 0.1, 2.0)))
+			m *= 1.0 + 0.06 * front * exp(-pow((u.y - 0.28) / 0.08, 2.0))
+		if u.z < 0.0 and u.y < -0.05 and u.y > -0.45 and absf(u.x) > 0.5:
+			m *= 0.9
+		return m, Callable(), _face_shading.bind(true))
+	for x: float in [-1.0, 1.0]:
+		kit.blob("eye_glow", Transform3D(Basis.IDENTITY, centre + Vector3(x * 0.026, 0.012, -0.07)), Vector3(0.011, 0.008, 0.006), w("head"), 8, 5)
+	# Mandible: a bone U under the face, hinged below the ears.
+	var points: Array[Vector3] = []
+	for k in range(9):
+		var a := lerpf(-PI * 0.95, -PI * 0.05, float(k) / 8.0)
+		points.append(centre + Vector3(cos(a) * 0.058, -0.088 - 0.012 * sin(-a), sin(a) * 0.07 - 0.012))
+	for k in range(points.size() - 1):
+		kit.tube("bone", points[k], points[k + 1], 0.011, 0.011, w("head"), 6, false)
+	for x: float in [-1.0, 1.0]:
+		kit.tube("bone", centre + Vector3(x * 0.058, -0.088, -0.01), centre + Vector3(x * 0.062, -0.03, 0.0), 0.01, 0.008, w("head"), 6)
+	# Teeth: a row of small pegs along the upper jaw.
+	for k in range(7):
+		var x := (k - 3) * 0.009
+		kit.box("bone", Transform3D(Basis.IDENTITY, centre + Vector3(x, -0.072, -0.074 + absf(x) * 0.6)), Vector3(0.006, 0.012, 0.006), w("head"))
+
+## Cloth wrapped over the mouth and nose, under the hood or coif.
+func _face_wrap(kit: MeshKit, material: String) -> void:
+	var centre: Vector3 = j.head + Vector3(0.0, 0.085, -0.012)
+	kit.blob(material, Transform3D(Basis.IDENTITY, centre), Vector3(0.083, 0.117, 0.104), w("head"), 20, 14, 2.0, func(u: Vector3) -> float:
+		# Only the lower face is covered; elsewhere the wrap sinks inside the head.
+		if u.y < -0.02 and u.z < 0.35:
+			return 1.0 + 0.05 * sin(u.x * 18.0) * 0.3 + (0.06 if u.z < -0.6 else 0.0)
+		return 0.7)
 
 func _hood(kit: MeshKit, material: String) -> void:
+	_face_wrap(kit, "cloth_dark")
 	var centre: Vector3 = j.head + Vector3(0.0, 0.09, 0.0)
 	kit.blob(material, Transform3D(Basis.IDENTITY, centre), Vector3(0.1, 0.13, 0.118), w("head"), 20, 14, 2.0, func(u: Vector3) -> float:
 		# The face opening: front vertices are pulled behind the face surface; the brow
@@ -491,6 +543,7 @@ func _mail_shirt(kit: MeshKit, marrow: bool) -> void:
 				return 0.7
 			return 1.0)
 		_neck_guard(kit, mail)
+		_face_wrap(kit, "cloth_dark")
 		# Padded collar (gambeson) under the mail.
 		_mantle(kit, "cloth_dark")
 
@@ -545,8 +598,8 @@ func _plate(kit: MeshKit, marrow: bool) -> void:
 			# Pauldron: layered shell over the shoulder.
 			for k in range(2):
 				kit.blob(plate, Transform3D(MeshKit.basis_from_y(arm_dir), shoulder + Vector3(x * 0.012 * k, 0.03 - k * 0.05, 0.0)),
-					Vector3(0.09 - k * 0.008, 0.075, 0.085 - k * 0.006) * lerpf(g, 1.0, 0.5), w("upperarm_" + side), 14, 8, 2.4,
-					func(u: Vector3) -> float: return 1.0 if u.y > -0.5 else 0.6)
+					Vector3(0.098 - k * 0.008, 0.062, 0.09 - k * 0.006) * lerpf(g, 1.0, 0.5), w("upperarm_" + side), 16, 8, 2.6,
+					func(u: Vector3) -> float: return 1.0 if u.y > -0.4 else 0.55)
 			kit.tube(plate, shoulder.lerp(elbow, 0.35), shoulder.lerp(elbow, 0.85), 0.056 * g + 0.008, 0.05 * g + 0.008, w("upperarm_" + side), 12)
 			# Couter (elbow cop) and vambrace.
 			kit.blob(plate, Transform3D(MeshKit.basis_from_y(arm_dir), elbow + Vector3(0.0, 0.0, 0.02)), Vector3(0.05, 0.045, 0.05), w("lowerarm_" + side), 12, 8, 2.2)
