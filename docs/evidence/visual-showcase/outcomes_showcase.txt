@@ -1,0 +1,19 @@
+0.85 Player>Opponent block dmg=0.0000 post=30.4304 hp=100.0000
+3.8667 Opponent>Player hit dmg=16.7517 post=17.5182 hp=83.2483
+4.9 Opponent>Player hit dmg=16.7517 post=17.5182 hp=66.4965
+8.75 Opponent>Player hit dmg=6.8000 post=8.5333 hp=59.6965
+9.95 Opponent>Player hit dmg=16.7517 post=17.5182 hp=42.9448
+end ["balanced", "balanced"] hp 42.9448/100.0000 stamina 100.0000/87.0767
+0.8833 Player>Opponent guard_break dmg=0.0000 post=92.5331 hp=100.0000
+2.7167 Player>Opponent guard_break dmg=0.0000 post=92.5331 hp=100.0000
+4.7833 Opponent>Player hit dmg=4.4800 post=6.8267 hp=95.5200
+6.7667 Player>Opponent block dmg=0.0000 post=16.8242 hp=100.0000
+8.1833 Opponent>Player hit dmg=4.4800 post=6.8267 hp=91.0400
+9.4167 Opponent>Player hit dmg=8.0563 post=10.2302 hp=82.9837
+end ["resistant", "evasive"] hp 82.9837/100.0000 stamina 100.0000/92.2100
+2.1833 Opponent>Player hit dmg=32.0552 post=28.4935 hp=67.9448
+3.4667 Opponent>Player hit dmg=12.0000 post=12.8000 hp=55.9448
+4.4833 Opponent>Player hit dmg=32.0552 post=28.4935 hp=23.8897
+5.5833 Opponent>Player evaded dmg=0.0000 post=0.0000 hp=23.8897
+8.0 Opponent>Player hit dmg=32.0552 post=28.4935 hp=0.0000
+end ["knife", "greatsword"] hp 0.0000/100.0000 stamina 100.0000/62.2882

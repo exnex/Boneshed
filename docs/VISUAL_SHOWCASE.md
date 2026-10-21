@@ -335,7 +335,14 @@ production, lab, shared-data or coordination file differs from `origin/main`.
 | Fist aimed 5 cm off the grip | `right_fist_on_grip_all_weapons_directions_guards`, `engine_grip_socket_on_rules_hand` |
 | Presentation writes rules state (`omega *= 0.97`) | `combat_outcomes_identical_to_melee_lab` |
 
-Regression suites run on the same branch: REGRESSION_LINE
+Regression suites run on the final code of this branch (same machine, all passed):
+`test.sh` (production courtyard: combat, adapter mutations, encounters, timing,
+graphical 111 checks — run with `BONESHED_GRAPHICAL_TIMEOUT=900` because its default
+180 s graphical limit expired on this software renderer while still passing),
+`test_melee_lab.sh` (90 + 73 checks, replays, negative controls, 23 rendered clips, its
+isolation guard), `test_directional_expedition.sh` (94 fixtures, five playthroughs,
+trace equality, four mutations), `test_expedition_preview.sh`, `test_builds.sh` (205
+checks).
 
 Evidence (curated): [`docs/evidence/visual-showcase/`](evidence/visual-showcase/README.md) —
 before/after pairs, character and equipment close-ups with the contact-segment overlay,

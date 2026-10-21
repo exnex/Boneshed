@@ -1,0 +1,5 @@
+{"check":"right_fist_on_grip_all_weapons_directions_guards","detail":{"max_grip_error_m":0.05,"max_left_grip_error_m":0.00088,"max_stretch":1.0564,"max_weapon_mismatch_m":0.000000245756240246919,"samples":11700,"two_hands_on_hilt_fraction":0.699,"worst":"item.lab_long_knife/pilgrim/attack/right_to_left tick 128"},"passed":false}
+{"check":"arm_reach_within_stretch_limit","detail":{"max":1.0564002104631,"worst":"item.lab_long_knife/pilgrim/guard/right tick 3 phase 0 hand (0.5, 0.909653, -0.357295)"},"passed":false}
+{"check":"engine_grip_socket_on_rules_hand","detail":0.05,"passed":false}
+{"check":"drawn_rechamber_stays_in_front_fist_on_grip","detail":{"grip_error":0.05,"max_tip_z":0.408},"passed":false}
+{"engine":"4.7.2-stable (official)","failed":4,"passed":45,"suite":"visual_showcase","summary":true}

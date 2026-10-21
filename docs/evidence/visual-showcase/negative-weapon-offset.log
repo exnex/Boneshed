@@ -1,0 +1,5 @@
+{"check":"drawn_weapon_equals_rules_segment_every_tick","detail":{"max_mismatch_m":0.050000011920929,"samples":11700},"passed":false}
+{"check":"dodge_shifts_body_toward_dodge_weapon_exact","detail":0.102,"passed":false}
+{"check":"weapon_free_only_during_roll","detail":true,"passed":false}
+{"check":"engine_weapon_tip_on_rules_tip","detail":0.05,"passed":false}
+{"engine":"4.7.2-stable (official)","failed":4,"passed":45,"suite":"visual_showcase","summary":true}

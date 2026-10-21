@@ -1,0 +1,188 @@
+{
+	"machine": {
+		"adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+		"cores": 4,
+		"engine": "4.7.2-stable (official)",
+		"frames_per_case": 240,
+		"processor": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+		"renderer": "forward_plus",
+		"vendor": "Unknown"
+	},
+	"results": [
+		{
+			"case": "pose_solver_cpu",
+			"note": "includes the rules tick; two solves per rendered frame (player + soul)",
+			"samples": 600,
+			"us_per_solve": 111.5
+		},
+		{
+			"buffer_memory_mb": 16.7,
+			"case": "lab",
+			"counts": {
+				"lights": 1,
+				"meshes": 61,
+				"nodes": 91,
+				"particle_systems": 0,
+				"shadowed_lights": 1,
+				"skinned_meshes": 0,
+				"skinned_vertices": 0,
+				"surfaces": 58
+			},
+			"frames": {
+				"draw_calls": 194,
+				"fps_mean": 13.0,
+				"frame_ms_mean": 76.67,
+				"frame_ms_p50": 75.2,
+				"frame_ms_p95": 94.19,
+				"objects": 2087,
+				"primitives": 63041
+			},
+			"frames_without_shadows": {
+				"draw_calls": 134,
+				"fps_mean": 17.1,
+				"frame_ms_mean": 58.32,
+				"frame_ms_p50": 56.69,
+				"frame_ms_p95": 72.53,
+				"objects": 2026,
+				"primitives": 20555
+			},
+			"quality": "lab",
+			"scene": "res://scenes/melee_lab.tscn",
+			"shadow_cost_ms": 18.35,
+			"startup_ms": 420,
+			"static_memory_mb": 60.8,
+			"texture_generation_ms": 0,
+			"texture_memory_mb": 56.9,
+			"video_memory_mb": 144.8
+		},
+		{
+			"buffer_memory_mb": 19.4,
+			"case": "low",
+			"character_triangles": 15524,
+			"counts": {
+				"lights": 4,
+				"meshes": 58,
+				"nodes": 255,
+				"particle_systems": 11,
+				"shadowed_lights": 1,
+				"skinned_meshes": 5,
+				"skinned_vertices": 9660,
+				"surfaces": 77
+			},
+			"environment_triangles": 54808,
+			"frames": {
+				"draw_calls": 195,
+				"fps_mean": 5.4,
+				"frame_ms_mean": 184.21,
+				"frame_ms_p50": 183.16,
+				"frame_ms_p95": 206.5,
+				"objects": 1616,
+				"primitives": 227985
+			},
+			"frames_without_shadows": {
+				"draw_calls": 150,
+				"fps_mean": 6.3,
+				"frame_ms_mean": 159.13,
+				"frame_ms_p50": 158.1,
+				"frame_ms_p95": 176.56,
+				"objects": 1566,
+				"primitives": 87972
+			},
+			"quality": "low",
+			"scene": "res://scenes/visual_showcase.tscn",
+			"shadow_cost_ms": 25.08,
+			"startup_ms": 21054,
+			"static_memory_mb": 65.9,
+			"texture_generation_ms": 0,
+			"texture_memory_mb": 31.0,
+			"video_memory_mb": 121.7,
+			"weapon_triangles": 1948
+		},
+		{
+			"buffer_memory_mb": 19.4,
+			"case": "medium",
+			"character_triangles": 15524,
+			"counts": {
+				"lights": 8,
+				"meshes": 58,
+				"nodes": 263,
+				"particle_systems": 15,
+				"shadowed_lights": 1,
+				"skinned_meshes": 5,
+				"skinned_vertices": 9660,
+				"surfaces": 77
+			},
+			"environment_triangles": 54808,
+			"frames": {
+				"draw_calls": 198,
+				"fps_mean": 2.3,
+				"frame_ms_mean": 440.27,
+				"frame_ms_p50": 440.48,
+				"frame_ms_p95": 483.06,
+				"objects": 1625,
+				"primitives": 228481
+			},
+			"frames_without_shadows": {
+				"draw_calls": 153,
+				"fps_mean": 2.6,
+				"frame_ms_mean": 384.99,
+				"frame_ms_p50": 380.88,
+				"frame_ms_p95": 430.33,
+				"objects": 1575,
+				"primitives": 88163
+			},
+			"quality": "medium",
+			"scene": "res://scenes/visual_showcase.tscn",
+			"shadow_cost_ms": 55.28,
+			"startup_ms": 11202,
+			"static_memory_mb": 66.2,
+			"texture_generation_ms": 0,
+			"texture_memory_mb": 93.1,
+			"video_memory_mb": 183.8,
+			"weapon_triangles": 1948
+		},
+		{
+			"buffer_memory_mb": 20.8,
+			"case": "high",
+			"character_triangles": 15524,
+			"counts": {
+				"lights": 8,
+				"meshes": 58,
+				"nodes": 263,
+				"particle_systems": 15,
+				"shadowed_lights": 3,
+				"skinned_meshes": 5,
+				"skinned_vertices": 9660,
+				"surfaces": 77
+			},
+			"environment_triangles": 54808,
+			"frames": {
+				"draw_calls": 302,
+				"fps_mean": 1.1,
+				"frame_ms_mean": 919.3,
+				"frame_ms_p50": 908.94,
+				"frame_ms_p95": 1054.8,
+				"objects": 1726,
+				"primitives": 906235
+			},
+			"frames_without_shadows": {
+				"draw_calls": 153,
+				"fps_mean": 1.3,
+				"frame_ms_mean": 740.99,
+				"frame_ms_p50": 744.38,
+				"frame_ms_p95": 819.7,
+				"objects": 1571,
+				"primitives": 88333
+			},
+			"quality": "high",
+			"scene": "res://scenes/visual_showcase.tscn",
+			"shadow_cost_ms": 178.31,
+			"startup_ms": 34670,
+			"static_memory_mb": 66.8,
+			"texture_generation_ms": 0,
+			"texture_memory_mb": 234.0,
+			"video_memory_mb": 327.5,
+			"weapon_triangles": 1948
+		}
+	]
+}

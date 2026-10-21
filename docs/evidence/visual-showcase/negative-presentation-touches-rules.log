@@ -1,0 +1,2 @@
+{"check":"combat_outcomes_identical_to_melee_lab","detail":{"contacts":16},"passed":false}
+{"engine":"4.7.2-stable (official)","failed":1,"passed":48,"suite":"visual_showcase","summary":true}
