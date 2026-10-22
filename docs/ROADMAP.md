@@ -315,3 +315,7 @@
 
 - Owner clarified procedural weapons and bodily transformations **must change actual grip, reach, weight, feasible light/heavy action, contact geometry and fighter motion**; don't simply move from directional lab to fixed Sekiro sword combo tables. Record the committed high-level vision in [ADAPTIVE_MORPHOLOGY_COMBAT.md](ADAPTIVE_MORPHOLOGY_COMBAT.md) and DECISIONS. Sekiro is intended **feel/readability**, not a fixed implementation. No unrestricted procgen promises.
 - **Next recommended gate** is bounded architecture/contract and small playable adaptive action lab: infer legal actions from geometry and anatomy for lance, axe, two-ended staff and one body modification, animate with parametrized authored gestures + IK, preserving responsive guard/deflect/posture and heavy/light input. First validate/reject impossible generated configurations; second demonstrate materially distinct attack paths and owner feel. Do not rewrite expedition/default/Pages or mass-generate loot before tests.
+
+## Object-first generation decision — 2026-10-22
+
+Owner expanded the adaptive item vision beyond traditional weapon parts. Procedural finds should include nonweapon objects (notably umbrellas and shovels) and unusual composite objects. Their utility in combat should be determined by structured physical features and character anatomy, never object names. The proposed first proof is an isolated, deterministic object-structure and affordance validator, followed by an adaptive Godot playtest. The existing expedition remains unchanged pending acceptance.
