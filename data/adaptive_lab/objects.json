@@ -1,0 +1,70 @@
+{
+	"schema": "boneshed.adaptive_lab_objects.v0",
+	"generator_version": 1,
+	"status": "Experimental demonstration inputs for the isolated Adaptive Combat Lab. Every number is provisional. Labels are UI text only and are never read by the affordance solver.",
+	"materials": {
+		"ash_wood": {"density": 690, "hardness": 0.35, "visual": "wood_grip"},
+		"hardwood": {"density": 820, "hardness": 0.42, "visual": "wood_grip"},
+		"root_wood": {"density": 760, "hardness": 0.3, "visual": "leather"},
+		"forged_iron": {"density": 7800, "hardness": 0.8, "visual": "iron_black"},
+		"steel": {"density": 7850, "hardness": 0.9, "visual": "steel_dark"},
+		"steel_tube": {"density": 2100, "hardness": 0.7, "visual": "steel_dark"},
+		"bone": {"density": 1900, "hardness": 0.55, "visual": "bone"},
+		"fired_clay": {"density": 1900, "hardness": 0.5, "visual": "stone_trim"},
+		"canvas": {"density": 0.35, "areal": true, "hardness": 0.05, "visual": "cloth_tattered"}
+	},
+	"recipes": [
+		{
+			"id": "demo.broad_terminal_plate",
+			"label": "Grave-digger's shovel",
+			"seeds": [1101, 1102, 1103],
+			"parts": [
+				{"id": "shaft", "kind": "rod", "at": "origin", "dir": [0, 1, 0], "length": [1.0, 1.2], "radius": [0.016, 0.019], "material": "ash_wood"},
+				{"id": "crossbar", "kind": "rod", "at": ["shaft", 0.0], "dir": [1, 0, 0], "centered": true, "length": [0.11, 0.14], "radius": [0.014, 0.016], "material": "ash_wood"},
+				{"id": "collar", "kind": "rod", "at": ["shaft", 1.0], "dir": [0, 1, 0], "length": [0.07, 0.09], "radius": [0.02, 0.022], "material": "forged_iron"},
+				{"id": "blade", "kind": "plate", "at": ["collar", 1.0], "dir": [0, 1, 0], "bend": [6, 14], "bend_axis": [1, 0, 0], "length": [0.26, 0.32], "width": [0.2, 0.25], "thickness": [0.0025, 0.0035], "normal": [0, 0, 1], "bevel_distal": [0.5, 0.7], "bevel_lateral": [0.1, 0.25], "material": "forged_iron"}
+			]
+		},
+		{
+			"id": "demo.ribbed_canopy",
+			"label": "Mourner's umbrella",
+			"seeds": [2201, 2202, 2203],
+			"parts": [
+				{"id": "crook", "kind": "arc", "at": "origin", "dir": [0, 1, 0], "arc_radius": [0.06, 0.075], "arc_degrees": [170, 190], "straight": [0.15, 0.19], "radius": [0.015, 0.017], "material": "hardwood"},
+				{"id": "shaft", "kind": "rod", "at": ["crook_straight", 1.0], "dir": [0, 1, 0], "length": [0.68, 0.8], "radius": [0.009, 0.011], "material": "steel_tube"},
+				{"id": "canopy", "kind": "membrane", "on": "shaft", "span": [0.22, 0.97], "folded_radius": [0.045, 0.06], "open_radius": [0.48, 0.56], "ribs": [8, 8], "rib_material": "steel", "material": "canvas"},
+				{"id": "ferrule", "kind": "spike", "at": ["shaft", 1.0], "dir": [0, 1, 0], "length": [0.07, 0.1], "radius": [0.008, 0.01], "material": "steel"}
+			]
+		},
+		{
+			"id": "demo.double_ended_pole",
+			"label": "Ferryman's quarterstaff",
+			"seeds": [3301, 3302, 3303],
+			"parts": [
+				{"id": "pole", "kind": "rod", "at": "origin", "dir": [0, 1, 0], "length": [1.65, 1.85], "radius": [0.016, 0.018], "material": "hardwood"},
+				{"id": "cap_low", "kind": "lump", "at": ["pole", 0.0], "dir": [0, -1, 0], "offset": [0.01, 0.02], "radii": [[0.022, 0.025], [0.03, 0.036], [0.022, 0.025]], "material": "forged_iron"},
+				{"id": "cap_high", "kind": "lump", "at": ["pole", 1.0], "dir": [0, 1, 0], "offset": [0.01, 0.02], "radii": [[0.022, 0.025], [0.03, 0.036], [0.022, 0.025]], "material": "forged_iron"}
+			]
+		},
+		{
+			"id": "demo.irregular_organic",
+			"label": "Gnarled root",
+			"seeds": [4401, 4402, 4403],
+			"parts": [
+				{"id": "root", "kind": "branch", "at": "origin", "dir": [0, 1, 0], "segments": [5, 6], "length": [0.85, 1.0], "radius_start": [0.017, 0.019], "radius_end": [0.032, 0.04], "bend": [6, 16], "material": "root_wood"},
+				{"id": "knot", "kind": "lump", "at": ["root_end", 1.0], "dir": [0, 1, 0], "offset": [0.02, 0.04], "radii": [[0.06, 0.075], [0.07, 0.09], [0.055, 0.07]], "material": "root_wood"},
+				{"id": "thorn", "kind": "spike", "at": ["root_end", 0.75], "dir": [1, 0.15, 0], "bend": [0, 20], "bend_axis": [0, 1, 0], "length": [0.09, 0.13], "radius": [0.012, 0.016], "material": "bone"}
+			]
+		},
+		{
+			"id": "demo.awkward_offset_mass",
+			"label": "Kiln weight",
+			"seeds": [5501, 5502, 5503],
+			"parts": [
+				{"id": "handle", "kind": "rod", "at": "origin", "dir": [0, 1, 0], "length": [0.3, 0.34], "radius": [0.017, 0.019], "material": "hardwood"},
+				{"id": "arm", "kind": "rod", "at": ["handle", 1.0], "dir": [1, 0, 0], "length": [0.16, 0.2], "radius": [0.028, 0.031], "material": "fired_clay"},
+				{"id": "weight", "kind": "lump", "at": ["arm", 1.0], "dir": [1, -0.25, 0], "offset": [0.08, 0.1], "radii": [[0.1, 0.11], [0.085, 0.095], [0.09, 0.1]], "material": "fired_clay"}
+			]
+		}
+	]
+}

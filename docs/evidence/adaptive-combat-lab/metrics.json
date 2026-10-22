@@ -1,0 +1,6 @@
+{
+	"cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+	"engine": "4.7.2-stable (official)",
+	"rules_tick_us_two_fighters": 665.0,
+	"worst_solve_ms": 354
+}

@@ -1,0 +1,613 @@
+{
+	"a_blunt_stick_named_spear_gets_no_pierce_or_cut": {
+		"check": "a_blunt_stick_named_spear_gets_no_pierce_or_cut",
+		"detail": [
+			"thrust|rod_b|blunt|1"
+		],
+		"passed": true
+	},
+	"adding_a_sharp_point_adds_a_pierce_attack": {
+		"check": "adding_a_sharp_point_adds_a_pierce_attack",
+		"detail": "thrust|spike_tip|pierce|2",
+		"passed": true
+	},
+	"ai_duels_replay_identically_from_the_same_seed": {
+		"check": "ai_duels_replay_identically_from_the_same_seed",
+		"detail": {
+			"log_sha": "9a923d494691"
+		},
+		"passed": true
+	},
+	"awkward_offset_mass_is_limited_to_shoving": {
+		"check": "awkward_offset_mass_is_limited_to_shoving",
+		"detail": [
+			{
+				"code": "mass_exceeds_one_hand",
+				"detail": "8 placements"
+			},
+			{
+				"code": "no_heavy_action",
+				"detail": "thrust: no_forward_facing_distal_feature; sweep: roll_torque_exceeds_wrists (25.2 > 10.0 N·m); overhead: roll_torque_exceeds_wrists (25.2 > 10.0 N·m); alternate: requires_spread_two_hand_hold"
+			},
+			{
+				"code": "thrust_rejected",
+				"detail": "no_forward_facing_distal_feature"
+			},
+			{
+				"code": "sweep_rejected",
+				"detail": "roll_torque_exceeds_wrists (25.2 > 10.0 N·m)"
+			}
+		],
+		"passed": true
+	},
+	"blocked_heavies_break_posture_and_open_a_punish": {
+		"check": "blocked_heavies_break_posture_and_open_a_punish",
+		"detail": [
+			"blocked",
+			"blocked",
+			"blocked",
+			"blocked",
+			"blocked",
+			"blocked",
+			"blocked",
+			"punish",
+			"punish",
+			"deflected"
+		],
+		"passed": true
+	},
+	"broad_plate_jabs_with_its_edge_and_never_pierces": {
+		"check": "broad_plate_jabs_with_its_edge_and_never_pierces",
+		"detail": "thrust|blade_edge_distal|cut|2",
+		"passed": true
+	},
+	"contact_feature_moves_rigidly_with_the_gripped_object": {
+		"check": "contact_feature_moves_rigidly_with_the_gripped_object",
+		"detail": 0.0,
+		"passed": true
+	},
+	"contact_only_inside_rule_active_windows_and_every_attack_connects_in_reach": {
+		"check": "contact_only_inside_rule_active_windows_and_every_attack_connects_in_reach",
+		"detail": {
+			"hits": 9,
+			"outside": 0,
+			"per_attack": {
+				"demo.awkward_offset_mass/light": 1,
+				"demo.broad_terminal_plate/heavy": 1,
+				"demo.broad_terminal_plate/light": 1,
+				"demo.double_ended_pole/heavy": 1,
+				"demo.double_ended_pole/light": 1,
+				"demo.irregular_organic/heavy": 1,
+				"demo.irregular_organic/light": 1,
+				"demo.ribbed_canopy/heavy": 1,
+				"demo.ribbed_canopy/light": 1
+			}
+		},
+		"passed": true
+	},
+	"default_launch_scene_unchanged": {
+		"check": "default_launch_scene_unchanged",
+		"passed": true
+	},
+	"descriptors_carry_structure_not_move_lists": {
+		"check": "descriptors_carry_structure_not_move_lists",
+		"passed": true
+	},
+	"different_structures_load_the_body_differently": {
+		"check": "different_structures_load_the_body_differently",
+		"detail": {
+			"shovel_load": 0.217,
+			"umbrella_load": 0.256
+		},
+		"passed": true
+	},
+	"double_ended_pole_spread_grip_alternates_ends": {
+		"check": "double_ended_pole_spread_grip_alternates_ends",
+		"detail": {
+			"chain": [
+				"alternate|cap_low_mass|blunt|2",
+				"alternate|cap_high_mass|blunt|2",
+				"alternate|cap_low_mass|blunt|2"
+			],
+			"span": 0.32
+		},
+		"passed": true
+	},
+	"drawn_fists_hold_the_rules_grip_points": {
+		"check": "drawn_fists_hold_the_rules_grip_points",
+		"detail": {
+			"max_error_m": 0.0
+		},
+		"passed": true
+	},
+	"drawn_object_feature_equals_rules_contact_feature_at_every_frame": {
+		"check": "drawn_object_feature_equals_rules_contact_feature_at_every_frame",
+		"detail": {
+			"feature_inside_drawn_mesh": true,
+			"hits": 5,
+			"max_error_m": 0.0
+		},
+		"passed": true
+	},
+	"dulling_the_plate_edge_removes_cutting": {
+		"check": "dulling_the_plate_edge_removes_cutting",
+		"detail": "sweep|blade_edge_left|blunt|2",
+		"passed": true
+	},
+	"enemy_requests_for_unsupported_heavy_are_refused_by_the_same_rules": {
+		"check": "enemy_requests_for_unsupported_heavy_are_refused_by_the_same_rules",
+		"detail": {
+			"refused": 16
+		},
+		"passed": true
+	},
+	"every_grip_is_on_a_generated_graspable_rod_held_by_an_existing_hand": {
+		"check": "every_grip_is_on_a_generated_graspable_rod_held_by_an_existing_hand",
+		"detail": {
+			"max_off_axis_m": 0.0
+		},
+		"passed": true
+	},
+	"every_thrust_leads_with_a_forward_facing_feature": {
+		"check": "every_thrust_leads_with_a_forward_facing_feature",
+		"passed": true
+	},
+	"generation_each_seed_gives_a_distinct_structure": {
+		"check": "generation_each_seed_gives_a_distinct_structure",
+		"detail": {
+			"demo.awkward_offset_mass": {
+				"fingerprints": [
+					"5e60d3724433d6f9",
+					"8d1bea9a255004db",
+					"204b6567786c2c55"
+				],
+				"mass_kg": [
+					8.396,
+					8.919,
+					8.07
+				]
+			},
+			"demo.broad_terminal_plate": {
+				"fingerprints": [
+					"8ced80fabac2e401",
+					"6245ad98a4a78e14",
+					"92826d63b3396fde"
+				],
+				"mass_kg": [
+					3.044,
+					3.257,
+					3.237
+				]
+			},
+			"demo.double_ended_pole": {
+				"fingerprints": [
+					"5d7628b9848cde71",
+					"396118cfe295a4ef",
+					"236fbcde723da0b1"
+				],
+				"mass_kg": [
+					2.517,
+					2.506,
+					2.734
+				]
+			},
+			"demo.irregular_organic": {
+				"fingerprints": [
+					"ad34b9530592606c",
+					"a8e4263cb8f32d12",
+					"83064626a38d4bc1"
+				],
+				"mass_kg": [
+					2.809,
+					2.891,
+					2.657
+				]
+			},
+			"demo.ribbed_canopy": {
+				"fingerprints": [
+					"b6cfc085e28cd613",
+					"5907c4b301034053",
+					"9ec0a7a239fac9b3"
+				],
+				"mass_kg": [
+					1.024,
+					1.11,
+					1.049
+				]
+			}
+		},
+		"passed": true
+	},
+	"generation_same_recipe_and_seed_is_identical": {
+		"check": "generation_same_recipe_and_seed_is_identical",
+		"passed": true
+	},
+	"handless_marrow_arm_never_grips": {
+		"check": "handless_marrow_arm_never_grips",
+		"detail": {
+			"demo.awkward_offset_mass": {
+				"marrow_arm": "none",
+				"two_hands": "shove|arm_b|blunt|2"
+			},
+			"demo.broad_terminal_plate": {
+				"marrow_arm": "thrust|blade_edge_distal|cut|1",
+				"two_hands": "thrust|blade_edge_distal|cut|2"
+			},
+			"demo.double_ended_pole": {
+				"marrow_arm": "thrust|cap_low_mass|blunt|1",
+				"two_hands": "alternate|cap_low_mass|blunt|2"
+			},
+			"demo.irregular_organic": {
+				"marrow_arm": "thrust|knot_mass|blunt|1",
+				"two_hands": "sweep|thorn_tip|pierce|2"
+			},
+			"demo.ribbed_canopy": {
+				"marrow_arm": "thrust|ferrule_tip|pierce|1",
+				"two_hands": "thrust|ferrule_tip|pierce|1"
+			}
+		},
+		"passed": true
+	},
+	"hands_stay_on_generated_grips_through_every_motion": {
+		"check": "hands_stay_on_generated_grips_through_every_motion",
+		"detail": {
+			"max_arm_stretch": 1.0339,
+			"max_socket_error_m": 0.0,
+			"samples": 1350
+		},
+		"passed": true
+	},
+	"heavier_ends_slow_windup_and_recovery": {
+		"check": "heavier_ends_slow_windup_and_recovery",
+		"detail": {
+			"mass": [
+				2.517,
+				3.431
+			],
+			"same_actions": {
+				"thrust:cap_low_mass": {
+					"recovery": [
+						0.295,
+						0.31
+					],
+					"windup": [
+						0.236,
+						0.248
+					]
+				},
+				"thrust:heavy:cap_low_mass": {
+					"recovery": [
+						0.384,
+						0.403
+					],
+					"windup": [
+						0.378,
+						0.397
+					]
+				}
+			}
+		},
+		"passed": true
+	},
+	"heavy_input_on_an_object_without_a_heavy_does_nothing_and_says_why": {
+		"check": "heavy_input_on_an_object_without_a_heavy_does_nothing_and_says_why",
+		"detail": [
+			{
+				"detail": "thrust: no_forward_facing_distal_feature; sweep: roll_torque_exceeds_wrists (25.2 > 10.0 N·m); overhead: roll_torque_exceeds_wrists (25.2 > 10.0 N·m); alternate: requires_spread_two_hand_hold",
+				"kind": "heavy_unsupported",
+				"t": 0.083,
+				"who": "player"
+			}
+		],
+		"passed": true
+	},
+	"heavy_input_resolves_to_at_least_four_different_actions": {
+		"check": "heavy_input_resolves_to_at_least_four_different_actions",
+		"detail": [
+			"thrust|blade_edge_distal|cut|2",
+			"thrust|ferrule_tip|pierce|1",
+			"sweep|cap_low_mass|blunt|2",
+			"sweep|thorn_tip|pierce|2",
+			"none"
+		],
+		"passed": true
+	},
+	"hit_block_deflect_and_dodge_resolve_from_timing": {
+		"check": "hit_block_deflect_and_dodge_resolve_from_timing",
+		"detail": {
+			"dodge": "evaded",
+			"early_guard": "blocked",
+			"fresh_deflect": "deflected",
+			"none": "hit"
+		},
+		"passed": true
+	},
+	"lab_reuses_only_the_showcase_rig_and_materials": {
+		"check": "lab_reuses_only_the_showcase_rig_and_materials",
+		"passed": true
+	},
+	"label_swap_never_changes_capabilities_or_fingerprint": {
+		"check": "label_swap_never_changes_capabilities_or_fingerprint",
+		"detail": {
+			"bodies": 2,
+			"labels": 6,
+			"objects": 5
+		},
+		"passed": true
+	},
+	"light_strike_paths_differ_between_structures": {
+		"check": "light_strike_paths_differ_between_structures",
+		"detail": {
+			"min_mean_path_difference_m": 0.143
+		},
+		"passed": true
+	},
+	"live_marrow_arm_toggle_rebuilds_body_and_regrips": {
+		"check": "live_marrow_arm_toggle_rebuilds_body_and_regrips",
+		"detail": {
+			"hands_after": 1,
+			"hands_before": 2
+		},
+		"passed": true
+	},
+	"live_relabel_keeps_capabilities": {
+		"check": "live_relabel_keeps_capabilities",
+		"detail": "Grave-digger's shovel",
+		"passed": true
+	},
+	"longer_arms_allow_wider_grips": {
+		"check": "longer_arms_allow_wider_grips",
+		"detail": {
+			"corrupted": 0.88,
+			"pilgrim": 0.8
+		},
+		"passed": true
+	},
+	"longer_object_reaches_further": {
+		"check": "longer_object_reaches_further",
+		"detail": {
+			"extent": [
+				1.809,
+				2.059
+			],
+			"heavy_reach": [
+				1.844,
+				2.027
+			]
+		},
+		"passed": true
+	},
+	"marrow_arm_cannot_wield_the_offset_mass_at_all": {
+		"check": "marrow_arm_cannot_wield_the_offset_mass_at_all",
+		"detail": [
+			{
+				"code": "two_hand_requires_missing_hand",
+				"detail": "body lacks a second grasping hand (marrow_arm)"
+			},
+			{
+				"code": "mass_exceeds_one_hand",
+				"detail": "8 placements"
+			},
+			{
+				"code": "object_unusable_for_body",
+				"detail": "no legal hold with any action"
+			}
+		],
+		"passed": true
+	},
+	"marrow_arm_turns_the_pole_from_alternating_ends_to_one_hand_thrusts": {
+		"check": "marrow_arm_turns_the_pole_from_alternating_ends_to_one_hand_thrusts",
+		"detail": "thrust|cap_low_mass|blunt|1",
+		"passed": true
+	},
+	"middle_button_heavy_and_right_button_guard_reach_the_rules": {
+		"check": "middle_button_heavy_and_right_button_guard_reach_the_rules",
+		"detail": {
+			"guard": true,
+			"heavy": true
+		},
+		"passed": true
+	},
+	"motion_validation_rejects_unreachable_grips": {
+		"check": "motion_validation_rejects_unreachable_grips",
+		"detail": {
+			"reach_excess": 0.015
+		},
+		"passed": true
+	},
+	"no_graspable_region_is_rejected_even_if_named_sword": {
+		"check": "no_graspable_region_is_rejected_even_if_named_sword",
+		"detail": [
+			{
+				"code": "no_graspable_region",
+				"detail": "no rod of graspable diameter with hand clearance"
+			},
+			{
+				"code": "object_unusable_for_body",
+				"detail": "no legal hold with any action"
+			}
+		],
+		"passed": true
+	},
+	"nothing_outside_the_lab_references_it": {
+		"check": "nothing_outside_the_lab_references_it",
+		"detail": [],
+		"passed": true
+	},
+	"one_handed_grip_on_the_same_shovel_is_slower": {
+		"check": "one_handed_grip_on_the_same_shovel_is_slower",
+		"detail": {
+			"one_hand": 0.341,
+			"two_hands": 0.243
+		},
+		"passed": true
+	},
+	"organic_object_strikes_with_its_grown_features": {
+		"check": "organic_object_strikes_with_its_grown_features",
+		"detail": [
+			"thorn",
+			"knot"
+		],
+		"passed": true
+	},
+	"player_and_enemy_get_identical_capabilities_for_the_same_object_and_body": {
+		"check": "player_and_enemy_get_identical_capabilities_for_the_same_object_and_body",
+		"passed": true
+	},
+	"real_mouse_press_starts_the_object_specific_light_attack_within_two_ticks": {
+		"check": "real_mouse_press_starts_the_object_specific_light_attack_within_two_ticks",
+		"detail": {
+			"demo.awkward_offset_mass": {
+				"expected": "shove:arm_b",
+				"started": "shove:arm_b",
+				"ticks": 2
+			},
+			"demo.broad_terminal_plate": {
+				"expected": "thrust:blade_edge_distal",
+				"started": "thrust:blade_edge_distal",
+				"ticks": 2
+			},
+			"demo.double_ended_pole": {
+				"expected": "alternate:cap_low_mass",
+				"started": "alternate:cap_low_mass",
+				"ticks": 2
+			},
+			"demo.irregular_organic": {
+				"expected": "sweep:thorn_tip",
+				"started": "sweep:thorn_tip",
+				"ticks": 2
+			},
+			"demo.ribbed_canopy": {
+				"expected": "thrust:ferrule_tip",
+				"started": "thrust:ferrule_tip",
+				"ticks": 2
+			}
+		},
+		"passed": true
+	},
+	"recipe_data_declares_no_moves": {
+		"check": "recipe_data_declares_no_moves",
+		"passed": true
+	},
+	"removing_the_ferrule_removes_every_pierce_attack": {
+		"check": "removing_the_ferrule_removes_every_pierce_attack",
+		"detail": [
+			"blunt",
+			"blunt",
+			"blunt",
+			"blunt"
+		],
+		"passed": true
+	},
+	"repeated_light_presses_chain_through_alternating_ends": {
+		"check": "repeated_light_presses_chain_through_alternating_ends",
+		"detail": [
+			"alternate:cap_low_mass:0",
+			"alternate:cap_high_mass:rear:1",
+			"alternate:cap_low_mass:2"
+		],
+		"passed": true
+	},
+	"ribbed_canopy_is_held_by_its_handle_and_deploys_as_a_cover": {
+		"check": "ribbed_canopy_is_held_by_its_handle_and_deploys_as_a_cover",
+		"detail": "deploy_cover",
+		"passed": true
+	},
+	"rules_solver_motion_and_ai_never_read_labels": {
+		"check": "rules_solver_motion_and_ai_never_read_labels",
+		"detail": [],
+		"passed": true
+	},
+	"same_light_input_resolves_differently_for_every_structure": {
+		"check": "same_light_input_resolves_differently_for_every_structure",
+		"detail": {
+			"demo.awkward_offset_mass": {
+				"guard": "cross_guard",
+				"heavy": "none",
+				"light": "shove|arm_b|blunt|2"
+			},
+			"demo.broad_terminal_plate": {
+				"guard": "cross_guard",
+				"heavy": "thrust|blade_edge_distal|cut|2",
+				"light": "thrust|blade_edge_distal|cut|2"
+			},
+			"demo.double_ended_pole": {
+				"guard": "cross_guard",
+				"heavy": "sweep|cap_low_mass|blunt|2",
+				"light": "alternate|cap_low_mass|blunt|2"
+			},
+			"demo.irregular_organic": {
+				"guard": "cross_guard",
+				"heavy": "sweep|thorn_tip|pierce|2",
+				"light": "sweep|thorn_tip|pierce|2"
+			},
+			"demo.ribbed_canopy": {
+				"guard": "deploy_cover",
+				"heavy": "thrust|ferrule_tip|pierce|1",
+				"light": "thrust|ferrule_tip|pierce|1"
+			}
+		},
+		"passed": true
+	},
+	"solver_and_rules_fit_a_lab_budget": {
+		"check": "solver_and_rules_fit_a_lab_budget",
+		"passed": true
+	},
+	"too_much_mass_for_the_anatomy_is_rejected": {
+		"check": "too_much_mass_for_the_anatomy_is_rejected",
+		"detail": {
+			"mass": 261.798,
+			"rejections": [
+				{
+					"code": "mass_exceeds_one_hand",
+					"detail": "22 placements"
+				},
+				{
+					"code": "mass_exceeds_two_hands",
+					"detail": "72 placements"
+				},
+				{
+					"code": "object_unusable_for_body",
+					"detail": "no legal hold with any action"
+				}
+			]
+		},
+		"passed": true
+	},
+	"too_thick_to_grasp_is_rejected": {
+		"check": "too_thick_to_grasp_is_rejected",
+		"detail": [
+			{
+				"code": "no_graspable_region",
+				"detail": "no rod of graspable diameter with hand clearance"
+			},
+			{
+				"code": "object_unusable_for_body",
+				"detail": "no legal hold with any action"
+			}
+		],
+		"passed": true
+	},
+	"two_hand_grip_spans_respect_anatomy": {
+		"check": "two_hand_grip_spans_respect_anatomy",
+		"passed": true
+	},
+	"umbrella_called_spear_still_thrusts_with_its_ferrule_point_only": {
+		"check": "umbrella_called_spear_still_thrusts_with_its_ferrule_point_only",
+		"passed": true
+	},
+	"umbrella_guard_visibly_deploys_its_generated_canopy": {
+		"check": "umbrella_guard_visibly_deploys_its_generated_canopy",
+		"detail": {
+			"drawn_radius": 0.512
+		},
+		"passed": true
+	},
+	"validated_motions_keep_objects_out_of_the_wielder": {
+		"check": "validated_motions_keep_objects_out_of_the_wielder",
+		"detail": {
+			"max_penetration_m": 0.0
+		},
+		"passed": true
+	}
+}
