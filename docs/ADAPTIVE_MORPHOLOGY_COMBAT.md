@@ -45,3 +45,11 @@ The owner asks whether an arbitrary generated shovel would intrinsically contain
 - Initial proof should make **unnamed** randomized held objects behave appropriately, with developers inspecting derived features and counterexample rejections before any 'legendary shovel' name is assigned. Art-authored or handcrafted items may still exist and use exactly the same descriptor/API.
 
 **Important engineering caveat:** automatic recovery of semantics from a completely arbitrary polygon mesh is *much harder* and may require expensive geometry analysis or manual annotations. Start with procedurally generated structured meshes that intrinsically carry the metadata. Later importing arbitrary player-created meshes is a separate research problem.
+
+## Object-first improvised equipment — clarified 2026-10-22
+
+The generation space explicitly includes **general objects**, not just weapons or weapon components. A folded umbrella, shovel, broken furniture, botanical object, ritual implement or unfamiliar assembled artifact may be usable in combat when its generated physical structure and the wearer's body allow it. Some objects should be ineffective or unusable.
+
+Use a broad assembly vocabulary (supports, surfaces, branches, frames, ribs, flexible joints and material types) to create structured objects. Their generated descriptors include graspable regions, surfaces, motion constraints, geometry and physical properties. Appearance and functional metadata derive from the same underlying representation. Names and aesthetic descriptions do not authorize attacks.
+
+The object-and-anatomy affordance solver produces possible holding arrangements and actions. Adaptive animations map intentional player inputs onto appropriate motions and guard poses. Test with seeded anonymous objects representing an umbrella, shovel, pole, unusual household object and deliberately awkward noncombat shape. Verify changing labels does not change combat, while changing structure does. Include validation failures and visibly distinct results. Initial Godot work should be an isolated playable prototype with no changes to existing browser gameplay.
