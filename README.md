@@ -80,3 +80,5 @@ ChatGPT coordinates design and review; Claude and Codex can implement small PR-s
 ## Scope discipline
 
 Creature collection, autobattling, housing, and large survival systems are **not part of this game**. Marketplace, events, and leaderboards are possible supporting systems, not first-milestone requirements.
+
+**Adaptive Combat Lab browser preview (experimental):** https://exnex.github.io/Boneshed/adaptive-combat/ — separate from the existing game and directional expedition. Publication requires a successful `Publish Boneshed desktop web preview` workflow run; the URL is not confirmed live until deployed.
