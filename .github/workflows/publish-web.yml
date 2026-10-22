@@ -70,11 +70,17 @@ jobs:
         run: bash scripts/tooling/export_web_directional.sh "${{ runner.temp }}/boneshed-web-directional-expedition"
       - name: Smoke test experimental directional expedition in real browser
         run: python3 scripts/tooling/smoke_web_directional.py "${{ runner.temp }}/boneshed-web-directional-expedition" "${{ runner.temp }}/directional-smoke"
-      - name: Publish audited main game, lab and directional expedition to both Pages branches
+      - name: Export separate experimental adaptive combat scene
+        env:
+          BONESHED_TOOLS: ${{ runner.temp }}/boneshed-tools
+        run: bash scripts/tooling/export_web_adaptive.sh "${{ runner.temp }}/boneshed-web-adaptive-combat"
+      - name: Smoke test experimental adaptive combat scene in real browser
+        run: python3 scripts/tooling/smoke_web_adaptive.py "${{ runner.temp }}/boneshed-web-adaptive-combat" "${{ runner.temp }}/adaptive-smoke"
+      - name: Publish audited four-scene web preview to both Pages branches
         env:
           BONESHED_TOOLS: ${{ runner.temp }}/boneshed-tools
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          bash scripts/tooling/publish_web_dual.sh "${{ runner.temp }}/boneshed-web-release" "${{ runner.temp }}/boneshed-web-melee-lab" gh-pages "${{ runner.temp }}/boneshed-web-directional-expedition"
-          bash scripts/tooling/publish_web_dual.sh "${{ runner.temp }}/boneshed-web-release" "${{ runner.temp }}/boneshed-web-melee-lab" preview/browser-courtyard "${{ runner.temp }}/boneshed-web-directional-expedition"
+          bash scripts/tooling/publish_web_dual.sh "${{ runner.temp }}/boneshed-web-release" "${{ runner.temp }}/boneshed-web-melee-lab" gh-pages "${{ runner.temp }}/boneshed-web-directional-expedition" "${{ runner.temp }}/boneshed-web-adaptive-combat"
+          bash scripts/tooling/publish_web_dual.sh "${{ runner.temp }}/boneshed-web-release" "${{ runner.temp }}/boneshed-web-melee-lab" preview/browser-courtyard "${{ runner.temp }}/boneshed-web-directional-expedition" "${{ runner.temp }}/boneshed-web-adaptive-combat"

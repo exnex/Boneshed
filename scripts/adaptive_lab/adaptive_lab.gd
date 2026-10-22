@@ -76,6 +76,7 @@ func _ready() -> void:
 	hud = Hud.new()
 	add_child(hud)
 	reset_duel()
+	print("BONESHED_ADAPTIVE_READY")
 
 func descriptor_for(side: String) -> Dictionary:
 	var l: Dictionary = loadout[side]
