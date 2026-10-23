@@ -178,7 +178,7 @@ func sync(delta: float) -> void:
 		object_node.transform = fighter.pose.object
 	else:
 		# Not wieldable by this body: the object lies at the fighter's side.
-		object_node.transform = Transform3D(Basis(Vector3.FORWARD, PI * 0.5), Vector3(0.75, _ground_offset(), 0.35))
+		object_node.transform = Transform3D(Basis(Vector3.FORWARD, -PI * 0.5), Vector3(-0.8, _ground_offset(), 0.35))
 	if canopy != null:
 		Mesher.set_openness(canopy, fighter.openness if fighter.caps.get("guard") != null and fighter.caps.guard.kind == "deploy_cover" else 0.0)
 	_swing_hinges(delta)

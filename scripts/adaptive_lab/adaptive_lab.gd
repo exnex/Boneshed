@@ -184,6 +184,8 @@ func _update_camera(delta: float) -> void:
 		camera.global_position = fixed_camera.position
 		camera.look_at(fixed_camera.target, Vector3.UP)
 		return
+	# The spring arm owns the camera's placement; clear any pinned-view orientation.
+	camera.rotation = Vector3.ZERO
 	orbit.update(delta, player.position, soul.position, soul.state != "dead")
 
 func _update_hud() -> void:

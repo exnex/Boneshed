@@ -26,6 +26,8 @@ var which := "all"
 var written: Array[String] = []
 var script_queue: Array = []
 var manifest := {}
+## Optional: limit the compare set to one object file stem (e.g. --only=awkward).
+var only := ""
 
 func _initialize() -> void:
 	for arg: String in OS.get_cmdline_user_args():
@@ -33,6 +35,8 @@ func _initialize() -> void:
 			output = arg.trim_prefix("--evidence-dir=")
 		elif arg.begins_with("--set="):
 			which = arg.trim_prefix("--set=")
+		elif arg.begins_with("--only="):
+			only = arg.trim_prefix("--only=")
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
 	lab = load("res://scenes/adaptive_combat_lab.tscn").instantiate()
 	root.add_child.call_deferred(lab)
@@ -131,6 +135,8 @@ func _sequence_frames() -> int:
 func compare() -> void:
 	var count: int = lab.lab_paths().size()
 	for i in range(count):
+		if only != "" and object_name(i) != only:
+			continue
 		setup(i, 4)
 		lab.soul.position = lab.player.position + Vector3(0.0, 0.0, -2.2)
 		lab.soul.yaw = 0.0
