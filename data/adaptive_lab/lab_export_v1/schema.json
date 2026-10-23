@@ -1,0 +1,554 @@
+{
+  "$id": "urn:lab:boneshed:object-export:1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "descriptor": {
+      "additionalProperties": false,
+      "properties": {
+        "catalog_sha256": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "grips": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "end_permille": {
+                "maximum": 1000,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "id": {
+                "maxLength": 256,
+                "minLength": 1,
+                "pattern": "^[a-z][a-z0-9_]*(?:[.][a-z0-9_]+)*$",
+                "type": "string"
+              },
+              "part": {
+                "maxLength": 256,
+                "minLength": 1,
+                "pattern": "^[a-z][a-z0-9_]*(?:[.][a-z0-9_]+)*$",
+                "type": "string"
+              },
+              "start_permille": {
+                "maximum": 1000,
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "end_permille",
+              "id",
+              "part",
+              "start_permille"
+            ],
+            "type": "object"
+          },
+          "maxItems": 8,
+          "minItems": 0,
+          "type": "array",
+          "uniqueItems": false
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9_]*(?:[.][a-z0-9_]+)*$",
+          "type": "string"
+        },
+        "materials": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "color_rgb": {
+                "items": {
+                  "maximum": 255,
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array",
+                "uniqueItems": false
+              },
+              "density_kg_m3": {
+                "maximum": 25000,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "id": {
+                "maxLength": 256,
+                "minLength": 1,
+                "pattern": "^[a-z][a-z0-9_]*(?:[.][a-z0-9_]+)*$",
+                "type": "string"
+              },
+              "revision": {
+                "maximum": 1000000,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "stiffness_mpa": {
+                "maximum": 250000,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "toughness_kpa": {
+                "maximum": 1000000,
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "color_rgb",
+              "density_kg_m3",
+              "id",
+              "revision",
+              "stiffness_mpa",
+              "toughness_kpa"
+            ],
+            "type": "object"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": false
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "parts": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "axis": {
+                "maximum": 2,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "center_mm": {
+                "items": {
+                  "maximum": 1000000,
+                  "minimum": -1000000,
+                  "type": "integer"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array",
+                "uniqueItems": false
+              },
+              "edge_radius_um": {
+                "maximum": 100000,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "id": {
+                "maxLength": 256,
+                "minLength": 1,
+                "pattern": "^[a-z][a-z0-9_]*(?:[.][a-z0-9_]+)*$",
+                "type": "string"
+              },
+              "joint": {
+                "enum": [
+                  "fixed",
+                  "flex",
+                  "hinge"
+                ]
+              },
+              "joint_anchor_mm": {
+                "items": {
+                  "maximum": 1000000,
+                  "minimum": -1000000,
+                  "type": "integer"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array",
+                "uniqueItems": false
+              },
+              "joint_axis": {
+                "items": {
+                  "maximum": 1,
+                  "minimum": -1,
+                  "type": "integer"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array",
+                "uniqueItems": false
+              },
+              "limit_mdeg": {
+                "items": {
+                  "maximum": 180000,
+                  "minimum": -180000,
+                  "type": "integer"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array",
+                "uniqueItems": false
+              },
+              "locked": {
+                "type": "boolean"
+              },
+              "material": {
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "maxLength": 256,
+                    "minLength": 1,
+                    "pattern": "^[a-z][a-z0-9_]*(?:[.][a-z0-9_]+)*$",
+                    "type": "string"
+                  },
+                  "revision": {
+                    "maximum": 1000000,
+                    "minimum": 1,
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id",
+                  "revision"
+                ],
+                "type": "object"
+              },
+              "parent": {
+                "maxLength": 256,
+                "minLength": 1,
+                "pattern": "^[a-z][a-z0-9_]*(?:[.][a-z0-9_]+)*$",
+                "type": "string"
+              },
+              "shape": {
+                "enum": [
+                  "box",
+                  "cone",
+                  "ellipsoid",
+                  "rod"
+                ]
+              },
+              "size_mm": {
+                "items": {
+                  "maximum": 10000,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array",
+                "uniqueItems": false
+              }
+            },
+            "required": [
+              "axis",
+              "center_mm",
+              "edge_radius_um",
+              "id",
+              "joint",
+              "joint_anchor_mm",
+              "joint_axis",
+              "limit_mdeg",
+              "locked",
+              "material",
+              "parent",
+              "shape",
+              "size_mm"
+            ],
+            "type": "object"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": false
+        },
+        "recipe": {
+          "additionalProperties": false,
+          "properties": {
+            "assembly": {
+              "maximum": 6,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "generator": {
+              "enum": [
+                "lab.boneshed.object.sha256.v1"
+              ]
+            },
+            "seed": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": "^(0|[1-9][0-9]{0,18})$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "assembly",
+            "generator",
+            "seed"
+          ],
+          "type": "object"
+        },
+        "revision": {
+          "maximum": 1000000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "schema": {
+          "enum": [
+            "lab.boneshed.object.v1"
+          ]
+        },
+        "source_pack": {
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": "^[a-z][a-z0-9_]*(?:[.][a-z0-9_]+)*$",
+              "type": "string"
+            },
+            "revision": {
+              "maximum": 1000000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "revision"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "catalog_sha256",
+        "description",
+        "grips",
+        "id",
+        "materials",
+        "name",
+        "parts",
+        "recipe",
+        "revision",
+        "schema",
+        "source_pack"
+      ],
+      "type": "object"
+    },
+    "descriptor_sha256": {
+      "maxLength": 256,
+      "minLength": 1,
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "physical": {
+      "additionalProperties": false,
+      "properties": {
+        "center_of_mass_mm": {
+          "items": {
+            "maximum": 1000000,
+            "minimum": -1000000,
+            "type": "integer"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array",
+          "uniqueItems": false
+        },
+        "inertia_proxy_g_mm2": {
+          "additionalProperties": false,
+          "properties": {
+            "xx": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": "^(0|-?[1-9][0-9]{0,25})$",
+              "type": "string"
+            },
+            "xy": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": "^(0|-?[1-9][0-9]{0,25})$",
+              "type": "string"
+            },
+            "xz": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": "^(0|-?[1-9][0-9]{0,25})$",
+              "type": "string"
+            },
+            "yy": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": "^(0|-?[1-9][0-9]{0,25})$",
+              "type": "string"
+            },
+            "yz": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": "^(0|-?[1-9][0-9]{0,25})$",
+              "type": "string"
+            },
+            "zz": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": "^(0|-?[1-9][0-9]{0,25})$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "xx",
+            "xy",
+            "xz",
+            "yy",
+            "yz",
+            "zz"
+          ],
+          "type": "object"
+        },
+        "mass_g": {
+          "maximum": 1000000000000000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "parts": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "center_mm": {
+                "items": {
+                  "maximum": 1000000,
+                  "minimum": -1000000,
+                  "type": "integer"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array",
+                "uniqueItems": false
+              },
+              "id": {
+                "maxLength": 256,
+                "minLength": 1,
+                "pattern": "^[a-z][a-z0-9_]*(?:[.][a-z0-9_]+)*$",
+                "type": "string"
+              },
+              "mass_g": {
+                "maximum": 1000000000000000,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "volume_mm3": {
+                "maximum": 1000000000000000,
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "center_mm",
+              "id",
+              "mass_g",
+              "volume_mm3"
+            ],
+            "type": "object"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": false
+        }
+      },
+      "required": [
+        "center_of_mass_mm",
+        "inertia_proxy_g_mm2",
+        "mass_g",
+        "parts"
+      ],
+      "type": "object"
+    },
+    "provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "generator_source_commit": {
+          "enum": [
+            "43f243018dae1b2d377bf026b92cee9eb3fbdec2"
+          ]
+        },
+        "producer": {
+          "enum": [
+            "lab.boneshed.object_export.v1"
+          ]
+        },
+        "repository": {
+          "enum": [
+            "https://github.com/exnex/ai-game-dev-lab"
+          ]
+        },
+        "sources": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "maxLength": 256,
+                "minLength": 1,
+                "type": "string"
+              },
+              "sha256": {
+                "maxLength": 256,
+                "minLength": 1,
+                "pattern": "^[a-f0-9]{64}$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "type": "object"
+          },
+          "maxItems": 6,
+          "minItems": 6,
+          "type": "array",
+          "uniqueItems": false
+        }
+      },
+      "required": [
+        "generator_source_commit",
+        "producer",
+        "repository",
+        "sources"
+      ],
+      "type": "object"
+    },
+    "schema": {
+      "enum": [
+        "lab.boneshed.object_export.v1"
+      ]
+    },
+    "schema_uri": {
+      "enum": [
+        "urn:lab:boneshed:object-export:1"
+      ]
+    },
+    "schema_version": {
+      "enum": [
+        1
+      ]
+    }
+  },
+  "required": [
+    "descriptor",
+    "descriptor_sha256",
+    "physical",
+    "provenance",
+    "schema",
+    "schema_uri",
+    "schema_version"
+  ],
+  "type": "object"
+}

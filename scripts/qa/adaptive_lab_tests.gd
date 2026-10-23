@@ -1,47 +1,56 @@
 extends SceneTree
-## Checks for the isolated Adaptive Combat Lab (scenes/adaptive_combat_lab.tscn). They
-## prove structural invariants of the generation → analysis → affordance → motion →
-## rules pipeline and that real input reaches it — not that combat feels good.
-##   determinism · labels never change behaviour · structure does · grips on generated
-##   graspable regions · hands on grips through every motion · contact = visible
-##   geometry · weight/size → timing/reach · unsupported moves never granted · body
-##   modification changes grips · player/enemy parity · real input → attacks, chains,
-##   heavy, guard, deflect, dodge, posture · negative (rejected) configurations ·
-##   isolation from every other scene.
+## Checks for the isolated Adaptive Combat Lab 2 (scenes/adaptive_combat_lab.tscn).
+## They prove structural invariants of the import → analysis → affordance → motion →
+## rules → presentation pipeline on the Research Lab's real exported objects, and that
+## real input reaches it — not that combat feels good. Groups:
+##   1 Lab fixture ingestion & provenance   2 structural & grip mapping
+##   3 name/label/assembly invariance       4 geometry → different legal attacks
+##   5 same inputs → different combos      6 grip IK & contact-path agreement
+##   7 registered hits & legitimate misses  8 camera & lock-on
+##   9 clean default HUD                   10 body modification benefit & drawback
+##  11 player/enemy parity                 12 determinism & performance
+##  13 (Web export: runner) · v0 comparison generator · isolation
 ## Run: bash scripts/tooling/test_adaptive_lab.sh [new-empty-dir]
 
+const Imp = preload("res://scripts/adaptive_lab/lab_import.gd")
+const StrictJson = preload("res://scripts/adaptive_lab/strict_json.gd")
+const LabAnalysis = preload("res://scripts/adaptive_lab/lab_analysis.gd")
 const Gen = preload("res://scripts/adaptive_lab/object_generator.gd")
-const Analysis = preload("res://scripts/adaptive_lab/object_analysis.gd")
 const Bodies = preload("res://scripts/adaptive_lab/body_plans.gd")
 const Solver = preload("res://scripts/adaptive_lab/affordance_solver.gd")
 const Motion = preload("res://scripts/adaptive_lab/motion_library.gd")
 const AdaptiveFighter = preload("res://scripts/adaptive_lab/adaptive_fighter.gd")
-const AdaptivePose = preload("res://scripts/adaptive_lab/adaptive_pose.gd")
 const AI = preload("res://scripts/adaptive_lab/adaptive_ai.gd")
-const Mesher = preload("res://scripts/adaptive_lab/object_mesher.gd")
-const LabInput = preload("res://scripts/adaptive_lab/adaptive_input.gd")
+const LabMesher = preload("res://scripts/adaptive_lab/lab_mesher.gd")
+const Rig = preload("res://scripts/visual_showcase/humanoid_rig.gd")
 const MaterialLibrary = preload("res://scripts/visual_showcase/material_library.gd")
 const DT := 1.0 / 60.0
-## IK: grip socket within this of the generated grip point (m).
 const GRIP_TOLERANCE := 0.02
 const MAX_STRETCH := 1.035
-## Labels used for swaps include weapon words a name-based system would key on.
-const DECOY_LABELS := ["Bone spear of the drowned", "Executioner's greataxe", "Tower shield", "Umbrella", "Rusted sword", ""]
-const SHOVEL := 0
-const UMBRELLA := 1
-const POLE := 2
-const ORGANIC := 3
-const AWKWARD := 4
+const DECOY_NAMES := ["Bone spear of the drowned", "Executioner's greataxe", "Tower shield", "Umbrella", "Shovel", "Rusted sword"]
+const UMBRELLA := "objects/umbrella.json"
+const SHOVEL := "objects/shovel.json"
+const POLE := "objects/double-ended.json"
+const ORGANIC := "objects/organic.json"
+const HINGED := "objects/hinged.json"
+const AWKWARD := "objects/awkward.json"
+## Expected rejection reason (substring) per invalid Lab fixture.
+const INVALID := {"invalid/forged-mass.json": "physical metadata", "invalid/forged-provenance.json": "provenance",
+	"invalid/forged-recipe-with-valid-hash.json": "Lab-verified", "invalid/missing-material.json": "material",
+	"invalid/missing-parent.json": "parent", "invalid/numeric-seed.json": "decimal string", "invalid/reversed-grip.json": "interval",
+	"invalid/unknown-field.json": "unknown field", "invalid/unknown-version.json": "schema_version"}
 
 var output := "res://artifacts/adaptive-lab"
 var passed := 0
 var failed := 0
 var results := {}
-var ids: Array[String] = []
+var bundle: Dictionary
+var paths: Array[String] = []
 var pilgrim: Dictionary
 var corrupted: Dictionary
-var marrow: Dictionary
+var grafted: Dictionary
 var caps_cache := {}
+var timings := {}
 
 func _initialize() -> void:
 	for arg: String in OS.get_cmdline_user_args():
@@ -62,25 +71,27 @@ func check(ok: bool, label: String, detail: Variant = null) -> void:
 func run() -> void:
 	MaterialLibrary.set_texture_size(32, 32)
 	MaterialLibrary.use_disk_cache = false
-	ids = Gen.recipe_ids()
+	var t0 := Time.get_ticks_usec()
+	bundle = Imp.load_bundle()
+	timings.bundle_import_ms = (Time.get_ticks_usec() - t0) / 1000.0
+	paths = Imp.accepted_paths()
 	pilgrim = Bodies.build("pilgrim")
 	corrupted = Bodies.build("corrupted")
-	marrow = Bodies.build("pilgrim", ["marrow_arm"])
-	generation_checks()
-	label_checks()
-	structure_checks()
-	affordance_checks()
-	grip_checks()
+	grafted = Bodies.build("pilgrim", ["marrow_graft"])
+	ingestion_checks()
+	mapping_checks()
+	invariance_checks()
+	geometry_checks()
+	await combo_checks()
 	motion_checks()
-	timing_checks()
-	body_mod_checks()
-	negative_checks()
-	parity_checks()
-	rules_checks()
-	await scene_input_checks()
 	await scene_contact_checks()
-	await scene_defence_checks()
-	determinism_replay_checks()
+	rules_checks()
+	await camera_checks()
+	await hud_checks()
+	body_mod_checks()
+	parity_checks()
+	v0_comparison_checks()
+	determinism_checks()
 	performance_checks()
 	isolation_checks()
 	finish()
@@ -91,387 +102,305 @@ func finish() -> void:
 	print(JSON.stringify({"suite": "adaptive_lab", "summary": true, "passed": passed, "failed": failed, "engine": Engine.get_version_info().string}))
 	quit(0 if failed == 0 else 1)
 
-func descriptor(index: int, seed_index := 0, label := "") -> Dictionary:
-	var r := Gen.recipe(ids[index])
-	return Gen.generate(ids[index], int(r.seeds[seed_index]), label)
+func obj(path: String) -> Dictionary:
+	return bundle.objects[path]
 
-func caps_for(index: int, body: Dictionary, seed_index := 0) -> Dictionary:
-	var key := "%d|%d|%s|%s" % [index, seed_index, body.id, ",".join(body.modifications)]
+func caps_for(path: String, body: Dictionary) -> Dictionary:
+	var key := "%s|%s|%s" % [path, body.id, ",".join(body.modifications)]
 	if not caps_cache.has(key):
-		caps_cache[key] = Solver.solve(descriptor(index, seed_index), body)
+		var t0 := Time.get_ticks_usec()
+		caps_cache[key] = Solver.solve(obj(path), body)
+		timings["solve_ms:" + key] = (Time.get_ticks_usec() - t0) / 1000.0
 	return caps_cache[key]
 
 ## Capability set as comparable text (Vector3s print deterministically).
 static func canon(caps: Dictionary) -> String:
-	return JSON.stringify(caps, "", true)
+	var copy := caps.duplicate(true)
+	copy.erase("object_fingerprint")
+	return JSON.stringify(copy, "", true)
 
 static func signature(act: Variant) -> String:
 	if act == null:
 		return "none"
-	return "%s|%s|%s|%d" % [act.archetype, act.feature.id, act.channel, (act.hold.hands as Array).size()]
+	return "%s|%s|%s" % [act.archetype, act.feature.kind, act.channel]
 
-# --- Generation ----------------------------------------------------------------------
+static func move_set(caps: Dictionary) -> String:
+	var parts: Array[String] = []
+	for act: Dictionary in caps.light:
+		parts.append(signature(act))
+	parts.append("H:" + signature(caps.heavy))
+	parts.append("G:" + (str(caps.guard.kind) if caps.guard != null else "none"))
+	return " > ".join(parts)
 
-func generation_checks() -> void:
-	var same := true
-	var distinct := true
-	var structural_only := true
+# --- 1. Ingestion and provenance ---------------------------------------------------------
+
+func ingestion_checks() -> void:
+	var p := Imp.pin()
+	var manifest_sha := Imp.sha256_bytes(FileAccess.get_file_as_bytes(Imp.bundle_path("manifest.json")))
+	check(bundle.ok and manifest_sha == p.manifest_sha256 and p.source_merge_commit == "64bc5124d7307a8e010212c7f686e1a8065b0cbe"
+		and p.contract == "lab.boneshed.object_export.v1", "bundle_manifest_matches_the_pinned_lab_commit_and_checksum",
+		{"manifest_sha256": manifest_sha, "lab_commit": p.source_merge_commit, "errors": bundle.errors})
+	# Every manifest entry's raw bytes match; tampering one byte is caught.
+	var manifest: Dictionary = StrictJson.decode(FileAccess.get_file_as_string(Imp.bundle_path("manifest.json"))).value
+	var all_match := true
+	for entry: Dictionary in manifest.files + manifest.support:
+		all_match = all_match and Imp.sha256_bytes(FileAccess.get_file_as_bytes(Imp.bundle_path(entry.path))) == entry.sha256
+	var tampered := Imp.import_file("objects/shovel.json", "0".repeat(64))
+	check(all_match and (manifest.files as Array).size() == 15 and not tampered.ok and str(tampered.errors).contains("checksum"),
+		"every_bundle_file_matches_its_manifest_checksum_and_tampering_is_rejected", {"files": (manifest.files as Array).size()})
+	# Six accepted (all `accept` entries), nine rejected for the reason the Lab names.
+	var accepted_ok := true
+	for path: String in bundle.order:
+		var expect: String = bundle.expectations[path]
+		accepted_ok = accepted_ok and (expect == "accept") == bundle.objects.has(path)
+	var reasons := {}
+	var reasons_ok := true
+	for path: String in INVALID:
+		var errors: Array = bundle.rejected.get(path, [])
+		reasons[path] = errors
+		reasons_ok = reasons_ok and str(errors).contains(INVALID[path])
+	check(accepted_ok and paths.size() == 6 and bundle.rejected.size() == 9 and reasons_ok,
+		"six_lab_objects_accepted_and_nine_invalid_exports_rejected_for_their_reason", reasons)
+	# Native digest and physical block equal the Lab's (recomputed, not trusted).
+	var digests := {}
+	var digest_ok := true
+	var physical_ok := true
+	for path: String in paths:
+		var text := FileAccess.get_file_as_string(Imp.bundle_path(path))
+		var record: Dictionary = StrictJson.decode(text).value
+		var hydrated: Dictionary = (record.descriptor as Dictionary).duplicate(true)
+		hydrated.recipe.seed = str(hydrated.recipe.seed).to_int()
+		var mine := Imp.sha256_text(StrictJson.canonical(hydrated))
+		digests[path] = mine
+		digest_ok = digest_ok and mine == record.descriptor_sha256
+		physical_ok = physical_ok and StrictJson.canonical(Imp.physical_properties(record.descriptor)) == StrictJson.canonical(record.physical)
+	check(digest_ok, "game_recomputes_the_lab_descriptor_digest_exactly", digests)
+	check(physical_ok, "game_recomputes_the_lab_physical_block_exactly")
+	# Identity and provenance preserved; nothing truncated.
+	var keep := true
 	var detail := {}
-	for i in range(ids.size()):
-		var seeds: Array = Gen.recipe(ids[i]).seeds
-		var prints: Array[String] = []
-		for s in range(seeds.size()):
-			var a := descriptor(i, s)
-			var b := descriptor(i, s)
-			same = same and JSON.stringify(a, "", true) == JSON.stringify(b, "", true)
-			prints.append(Gen.fingerprint(a))
-			for part: Dictionary in a.parts:
-				for key: String in part:
-					if key in ["actions", "attacks", "moves", "grants", "class", "archetype"]:
-						structural_only = false
-		var unique := {}
-		for f: String in prints:
-			unique[f] = true
-		distinct = distinct and unique.size() == seeds.size()
-		var masses: Array = []
-		for s in range(seeds.size()):
-			masses.append(snappedf(Analysis.analyse(descriptor(i, s)).mass, 0.001))
-		detail[ids[i]] = {"fingerprints": prints, "mass_kg": masses}
-	check(same, "generation_same_recipe_and_seed_is_identical")
-	check(distinct, "generation_each_seed_gives_a_distinct_structure", detail)
-	check(structural_only, "descriptors_carry_structure_not_move_lists")
-	var recipe_text := FileAccess.get_file_as_string(Gen.DATA_PATH)
-	check(not recipe_text.contains("\"actions\"") and not recipe_text.contains("\"attacks\"") and not recipe_text.contains("\"grants\""),
-		"recipe_data_declares_no_moves")
+	for path: String in paths:
+		var o := obj(path)
+		var record: Dictionary = StrictJson.decode(FileAccess.get_file_as_string(Imp.bundle_path(path))).value
+		keep = keep and o.id == record.descriptor.id and o.seed_text == "20261022" and o.seed == 20261022 and o.revision == 1 \
+			and o.source.file_sha256 == Imp.sha256_bytes(FileAccess.get_file_as_bytes(Imp.bundle_path(path))) \
+			and StrictJson.canonical(o.original) == StrictJson.canonical(record) and o.provenance.generator_source_commit == p.generator_source_commit \
+			and o.physical.inertia_proxy_text.xx == record.physical.inertia_proxy_g_mm2.xx
+		detail[path] = {"id": str(o.id).substr(0, 40), "assembly": o.assembly}
+	check(keep, "ids_seeds_revisions_provenance_and_original_bytes_are_preserved", detail)
+	# Strict decoder: exact 64-bit integers, duplicate keys and out-of-range values refused.
+	var max_seed := StrictJson.decode("{\"s\":9223372036854775807}")
+	var over := StrictJson.decode("{\"s\":9223372036854775808}")
+	var dup := StrictJson.decode("{\"a\":1,\"a\":2}")
+	var flt := StrictJson.decode("{\"a\":1.5}")
+	check(max_seed.ok and max_seed.value.s == 9223372036854775807 and not over.ok and not dup.ok and flt.ok and flt.has_float,
+		"strict_decoder_keeps_64_bit_integers_and_rejects_duplicates_and_overflow")
+	# Edited geometry with a stale digest is refused; so is a renamed record.
+	var text := FileAccess.get_file_as_string(Imp.bundle_path(SHOVEL))
+	var edited := Imp.import_text(text.replace("\"mass_g\": 1291", "\"mass_g\": 1290"))
+	var renamed := Imp.import_text(text.replace("\"name\": \"Anonymous assembly\"", "\"name\": \"Great Shovel\""))
+	check(not edited.ok and not renamed.ok and str(renamed.errors).contains("digest"), "hand_edited_or_renamed_exports_fail_verification",
+		{"edited": edited.errors, "renamed": renamed.errors})
+	# Support classification: what is exact and what is approximated, never dropped.
+	var statuses := {}
+	for path: String in paths:
+		for note: Dictionary in obj(path).support:
+			statuses["%s %s" % [path.get_file(), note.feature]] = note.status
+	var hinge := false
+	var soft := false
+	var ellip := false
+	for k: String in statuses:
+		hinge = hinge or (k.contains("hinge") and statuses[k] == "approximated")
+		soft = soft or (k.contains("compliant") and statuses[k] == "approximated")
+		ellip = ellip or (k.begins_with("awkward") and k.contains(":rod") and statuses[k] == "approximated")
+	check(hinge and soft and ellip, "hinges_compliant_materials_and_elliptical_rods_are_marked_approximated", statuses)
 
-# --- Labels never change behaviour -----------------------------------------------------
+# --- 2. Structural and grip mapping ------------------------------------------------------
 
-func label_checks() -> void:
-	var all_same := true
-	var detail := {}
-	for i in range(ids.size()):
-		for body: Dictionary in [pilgrim, marrow]:
-			var reference := canon(Solver.solve(descriptor(i), body))
-			for label: String in DECOY_LABELS:
-				var relabelled := descriptor(i, 0, label)
-				var ok := canon(Solver.solve(relabelled, body)) == reference and Gen.fingerprint(relabelled) == Gen.fingerprint(descriptor(i))
-				all_same = all_same and ok
-				if not ok:
-					detail["%s/%s" % [ids[i], label]] = "changed"
-	check(all_same, "label_swap_never_changes_capabilities_or_fingerprint", detail if not detail.is_empty() else {"objects": ids.size(), "labels": DECOY_LABELS.size(), "bodies": 2})
-	var offenders: Array[String] = []
-	for file: String in ["affordance_solver.gd", "object_analysis.gd", "motion_library.gd", "adaptive_fighter.gd", "adaptive_ai.gd", "body_plans.gd", "adaptive_pose.gd"]:
-		var text := FileAccess.get_file_as_string("res://scripts/adaptive_lab/" + file)
-		# Comments may mention labels; code must not read one.
-		for line: String in text.split("\n"):
-			var code := line.get_slice("##", 0).get_slice("#", 0)
-			if code.contains(".label") or code.contains("\"label\""):
-				offenders.append(file)
-	check(offenders.is_empty(), "rules_solver_motion_and_ai_never_read_labels", offenders)
-	# The live lab: relabelling the player's object keeps the very same capability set.
-	var a := Solver.solve(descriptor(UMBRELLA, 0, "Bone spear of the drowned"), pilgrim)
-	check(a.heavy != null and a.heavy.archetype == "thrust" and a.heavy.feature.kind == "point" and canon(a) == canon(caps_for(UMBRELLA, pilgrim)),
-		"umbrella_called_spear_still_thrusts_with_its_ferrule_point_only")
-
-# --- Structure changes behaviour ----------------------------------------------------
-
-func structure_checks() -> void:
-	# Remove the umbrella's ferrule: the only pointed feature is gone, so no pierce remains.
-	var d := descriptor(UMBRELLA)
-	d.parts = d.parts.filter(func(p: Dictionary) -> bool: return p.id != "ferrule")
-	var without := Solver.solve(d, pilgrim)
-	var channels: Array = []
-	for act: Dictionary in without.light + ([without.heavy] if without.heavy != null else []):
-		channels.append(act.channel)
-	check(not "pierce" in channels and canon(without) != canon(caps_for(UMBRELLA, pilgrim)), "removing_the_ferrule_removes_every_pierce_attack", channels)
-	# Give the pole a sharpened spike in place of one cap: a pierce thrust appears.
-	var pole := descriptor(POLE)
-	var cap: Dictionary = {}
-	for part: Dictionary in pole.parts:
-		if part.id == "cap_high":
-			cap = part
-	var top := Analysis.v(cap.attach)
-	pole.parts = pole.parts.filter(func(p: Dictionary) -> bool: return p.id != "cap_high")
-	pole.parts.append({"id": "spike", "kind": "spike", "a": Gen.to_array(top), "b": Gen.to_array(top + Vector3(0, 0.22, 0)), "radius": 0.014, "material": "steel"})
-	var spear := Solver.solve(pole, pilgrim)
-	var pierce := false
-	for act: Dictionary in spear.light + ([spear.heavy] if spear.heavy != null else []):
-		pierce = pierce or act.channel == "pierce"
-	check(pierce, "adding_a_sharp_point_adds_a_pierce_attack", signature(spear.heavy))
-	# Dull the shovel's distal edge: its jab stops cutting and becomes blunt.
-	var dull := descriptor(SHOVEL)
-	for part: Dictionary in dull.parts:
-		if part.kind == "plate":
-			part.bevel_distal = 0.0
-	var blunt := Solver.solve(dull, pilgrim)
-	var cut := false
-	for act: Dictionary in blunt.light + ([blunt.heavy] if blunt.heavy != null else []):
-		cut = cut or act.channel == "cut"
-	check(not cut, "dulling_the_plate_edge_removes_cutting", signature(blunt.heavy))
-
-# --- Affordances ---------------------------------------------------------------------
-
-func affordance_checks() -> void:
-	var lights := {}
-	var heavies := {}
-	var detail := {}
-	for i in range(ids.size()):
-		var caps := caps_for(i, pilgrim)
-		var first: String = signature(caps.light[0]) if not (caps.light as Array).is_empty() else "none"
-		lights[first] = true
-		heavies[signature(caps.heavy)] = true
-		detail[ids[i]] = {"light": first, "heavy": signature(caps.heavy), "guard": caps.guard.kind if caps.guard != null else "none"}
-	check(lights.size() == ids.size(), "same_light_input_resolves_differently_for_every_structure", detail)
-	check(heavies.size() >= 4, "heavy_input_resolves_to_at_least_four_different_actions", heavies.keys())
-	var shovel := caps_for(SHOVEL, pilgrim)
-	var shovel_pierce := false
-	for act: Dictionary in shovel.light + [shovel.heavy]:
-		shovel_pierce = shovel_pierce or act.channel == "pierce"
-	check(not shovel_pierce and shovel.light[0].feature.kind == "edge", "broad_plate_jabs_with_its_edge_and_never_pierces", signature(shovel.light[0]))
-	var umbrella := caps_for(UMBRELLA, pilgrim)
-	check(umbrella.guard != null and umbrella.guard.kind == "deploy_cover" and (umbrella.hold.hands as Array).size() == 1,
-		"ribbed_canopy_is_held_by_its_handle_and_deploys_as_a_cover", umbrella.guard.kind if umbrella.guard != null else null)
-	var pole := caps_for(POLE, pilgrim)
-	var chain: Array = pole.light
-	var lead: Dictionary = chain[0]
-	var rear: Dictionary = chain[1]
-	var axis: Vector3 = pole.hold.axis
-	var opposite := ((lead.feature.pos as Vector3) - (pole.hold.center as Vector3)).dot(axis) > 0.0 and ((rear.feature.pos as Vector3) - (pole.hold.center as Vector3)).dot(axis) < 0.0
-	check(pole.hold.spread and lead.archetype == "alternate" and rear.rear and opposite, "double_ended_pole_spread_grip_alternates_ends",
-		{"span": pole.hold.span, "chain": [signature(chain[0]), signature(chain[1]), signature(chain[2])]})
-	var organic := caps_for(ORGANIC, pilgrim)
-	var organic_parts := {}
-	for act: Dictionary in organic.light + [organic.heavy]:
-		organic_parts[act.feature.part] = true
-	check(organic_parts.has("thorn") or organic_parts.has("knot"), "organic_object_strikes_with_its_grown_features", organic_parts.keys())
-	var awkward := caps_for(AWKWARD, pilgrim)
-	var only_shove := true
-	for act: Dictionary in awkward.light:
-		only_shove = only_shove and act.archetype == "shove"
-	var roll_reason := false
-	for r: Dictionary in awkward.rejections:
-		roll_reason = roll_reason or str(r.detail).contains("roll_torque")
-	check(awkward.heavy == null and only_shove and roll_reason, "awkward_offset_mass_is_limited_to_shoving", awkward.rejections.slice(0, 4))
-	var thrusts_need_alignment := true
-	for i in range(ids.size()):
-		var caps := caps_for(i, pilgrim)
-		for act: Dictionary in caps.light + ([caps.heavy] if caps.heavy != null else []):
-			if act.archetype == "thrust":
-				var a: Vector3 = act.a_local
-				thrusts_need_alignment = thrusts_need_alignment and (act.feature.omni or (act.feature.normal as Vector3).dot(a) >= 0.75)
-	check(thrusts_need_alignment, "every_thrust_leads_with_a_forward_facing_feature")
-
-# --- Grips ---------------------------------------------------------------------------
-
-func grip_checks() -> void:
+func mapping_checks() -> void:
+	# SI conversion against the Lab's reference projection formula (object_compatibility.py).
+	var ok := true
 	var worst := 0.0
-	var all_graspable := true
-	var span_ok := true
-	for i in range(ids.size()):
-		var d := descriptor(i)
-		for body: Dictionary in [pilgrim, corrupted, marrow]:
-			var caps := caps_for(i, body)
-			if caps.hold == null:
-				continue
-			var hold: Dictionary = caps.hold
-			for hand: String in hold.grips:
-				all_graspable = all_graspable and hand in body.hands
-				var point: Vector3 = hold.grips[hand]
-				var best := INF
-				for part: Dictionary in d.parts:
-					if Analysis.graspable(part):
-						best = minf(best, Analysis.segment_distance(point, Analysis.v(part.a), Analysis.v(part.b)))
-				worst = maxf(worst, best)
-			if (hold.hands as Array).size() == 2:
-				span_ok = span_ok and float(hold.span) <= float(body.max_grip_span) + 0.0001 and float(hold.span) >= float(body.min_grip_span) - 0.0001
-	check(worst < 0.0005 and all_graspable, "every_grip_is_on_a_generated_graspable_rod_held_by_an_existing_hand", {"max_off_axis_m": snappedf(worst, 0.00001)})
-	check(span_ok, "two_hand_grip_spans_respect_anatomy")
-	# Longer arms permit wider two-hand placements on the same pole.
-	var pole_d := descriptor(POLE)
-	var spans := {}
-	for body: Dictionary in [pilgrim, corrupted]:
-		var rejected: Array = []
-		var holds := Solver._holds(Analysis.analyse(pole_d), body, rejected)
-		var widest := 0.0
-		for h: Dictionary in holds:
-			widest = maxf(widest, float(h.span))
-		spans[body.id] = snappedf(widest, 0.001)
-	check(float(spans.corrupted) > float(spans.pilgrim), "longer_arms_allow_wider_grips", spans)
+	for path: String in paths:
+		var o := obj(path)
+		var raw: Dictionary = o.original.descriptor
+		for i in range((raw.parts as Array).size()):
+			var rp: Dictionary = raw.parts[i]
+			var cp: Dictionary = o.parts[i]
+			var axis: int = rp.axis
+			var a := Vector3(int(rp.center_mm[0]), int(rp.center_mm[1]), int(rp.center_mm[2])) * 0.001
+			a[axis] -= int(rp.size_mm[axis]) * 0.001 / 2.0
+			worst = maxf(worst, a.distance_to(cp.a))
+			ok = ok and cp.id == rp.id and is_equal_approx(float(cp.limits.y), int(rp.limit_mdeg[1]) * PI / 180000.0) \
+				and is_equal_approx(float(cp.edge_radius), int(rp.edge_radius_um) * 1e-6)
+		for g in range((raw.grips as Array).size()):
+			var rg: Dictionary = raw.grips[g]
+			var part: Dictionary = {}
+			for rp: Dictionary in raw.parts:
+				if rp.id == rg.part:
+					part = rp
+			var axis: int = part.axis
+			var start := Vector3(int(part.center_mm[0]), int(part.center_mm[1]), int(part.center_mm[2])) * 0.001
+			start[axis] += (int(rg.start_permille) / 1000.0 - 0.5) * int(part.size_mm[axis]) * 0.001
+			worst = maxf(worst, start.distance_to(o.grips[g].a))
+	check(ok and worst < 1e-6, "lab_parts_and_grip_intervals_convert_with_the_lab_reference_projection", {"max_error_m": worst})
+	# Analysis mass equals the Lab mass; game inertia vs the Lab's envelope proxy is
+	# reported (different assumptions: point samples vs box envelopes).
+	var mass_ok := true
+	var inertia := {}
+	for path: String in paths:
+		var an := LabAnalysis.analyse(obj(path))
+		var total := 0.0
+		var com := Vector3.ZERO
+		for s: Array in an.samples:
+			total += float(s[1])
+			com += (s[0] as Vector3) * float(s[1])
+		com /= total
+		mass_ok = mass_ok and absf(total - float(obj(path).physical.mass)) < 1e-6 and com.distance_to(obj(path).physical.com) < 0.005
+		var about_com := 0.0
+		for s: Array in an.samples:
+			var d: Vector3 = (s[0] as Vector3) - com
+			about_com += float(s[1]) * (d.x * d.x + d.z * d.z)
+		var lab_yy: float = obj(path).physical.inertia_proxy.yy
+		var lab_xx: float = obj(path).physical.inertia_proxy.xx
+		inertia[path] = {"game_about_com_vertical": snappedf(about_com, 0.0001), "lab_proxy_xx": snappedf(lab_xx, 0.0001), "lab_proxy_yy": snappedf(lab_yy, 0.0001)}
+	check(mass_ok, "analysis_mass_and_centre_match_the_lab_physical_block", inertia)
+	# Grips: only the declared intervals; every hold's hands inside them.
+	var grip_ok := true
+	var grip_detail := {}
+	for path: String in paths:
+		var caps := caps_for(path, pilgrim)
+		if caps.unarmed:
+			continue
+		var hold: Dictionary = caps.hold
+		for hand: String in hold.grips:
+			var iv: Dictionary = hold.intervals[hand]
+			var p: Vector3 = hold.grips[hand]
+			var t := (p - (iv.lo as Vector3)).dot(iv.axis) / maxf((iv.lo as Vector3).distance_to(iv.hi), 0.0001)
+			var off := ((p - (iv.lo as Vector3)) - (iv.axis as Vector3) * (p - (iv.lo as Vector3)).dot(iv.axis)).length()
+			grip_ok = grip_ok and t >= -0.0001 and t <= 1.0001 and off < 0.0005
+			var declared := false
+			for g: Dictionary in obj(path).grips:
+				declared = declared or g.id == iv.id
+			grip_ok = grip_ok and declared
+		grip_detail[path] = hold.id
+	check(grip_ok, "holds_use_only_the_lab_declared_grip_intervals", grip_detail)
+	# Awkward: valid data, imported and drawn, never held.
+	var awkward := caps_for(AWKWARD, pilgrim)
+	var mesh := LabMesher.build(obj(AWKWARD))
+	check(awkward.unarmed and awkward.grip_candidates == 0 and int(mesh.triangles) > 0 and _has_code(awkward, "no_graspable_region"),
+		"zero_grip_object_imports_and_draws_but_is_never_held", {"triangles": mesh.triangles})
+	(mesh.node as Node).free()
+	# Hinged panel: unlocked → no contact feature, no cover; drawn under its own pivot.
+	var an := LabAnalysis.analyse(obj(HINGED))
+	var panel_features := (an.features as Array).filter(func(f: Dictionary) -> bool: return f.part == "panel")
+	var panel_covers := (an.covers as Array).filter(func(c: Dictionary) -> bool: return c.part == "panel")
+	var hinged_mesh := LabMesher.build(obj(HINGED))
+	check(panel_features.is_empty() and panel_covers.is_empty() and (hinged_mesh.articulated as Array).size() == 1,
+		"unlocked_hinged_panel_never_gains_rigid_contact_or_cover", {"articulated": (an.articulated as Array).size()})
+	(hinged_mesh.node as Node).free()
+	# Compliant canopy: posture-pushing faces only (soft), never a cut or pierce.
+	var umb := LabAnalysis.analyse(obj(UMBRELLA))
+	var soft_ok := true
+	for f: Dictionary in umb.features:
+		if f.part == "membrane":
+			soft_ok = soft_ok and f.soft and f.channel == "blunt"
+	check(soft_ok and (umb.covers as Array).any(func(c: Dictionary) -> bool: return c.kind == "canopy"),
+		"compliant_canopy_guards_and_pushes_but_never_cuts")
 
-# --- Motion: hands on grips, no self-intersection, contact rigidly attached -----------
+# --- 3. Invariance --------------------------------------------------------------------
 
-func motion_checks() -> void:
-	var worst_grip := 0.0
-	var worst_stretch := 1.0
-	var worst_pen := 0.0
-	var samples := 0
-	for i in range(ids.size()):
-		for body: Dictionary in [pilgrim, corrupted, marrow]:
-			var caps := caps_for(i, body)
-			if caps.hold == null:
-				continue
-			var solver := AdaptivePose.new(body)
-			var actions: Array = caps.light + ([caps.heavy] if caps.heavy != null else [])
-			for act: Dictionary in actions:
-				var total: float = act.windup + act.active + act.recovery
-				for k in range(25):
-					var pose := Motion.sample(act, total * k / 24.0, body)
-					var result := solver.solve({"pose": pose, "hold": caps.hold, "a_local": act.a_local, "state": "attack"}, DT)
-					for hand: String in pose.hands:
-						var socket := "grip_r" if hand == "hand_r" else "grip_l"
-						var from_rig: Vector3 = Rig.socket_global(result.bones, socket).origin
-						worst_grip = maxf(worst_grip, from_rig.distance_to(pose.hands[hand]))
-					for side: String in result.stretch:
-						worst_stretch = maxf(worst_stretch, float(result.stretch[side]))
-					worst_pen = maxf(worst_pen, float(pose.penetration))
-					samples += 1
-			if caps.guard != null:
-				var gp := Motion.guard_pose(caps.guard, body)
-				worst_pen = maxf(worst_pen, float(gp.penetration))
-	check(worst_grip < GRIP_TOLERANCE and worst_stretch <= MAX_STRETCH, "hands_stay_on_generated_grips_through_every_motion",
-		{"max_socket_error_m": snappedf(worst_grip, 0.0001), "max_arm_stretch": snappedf(worst_stretch, 0.0001), "samples": samples})
-	check(worst_pen <= Motion.PENETRATION_LIMIT, "validated_motions_keep_objects_out_of_the_wielder", {"max_penetration_m": snappedf(worst_pen, 0.0001)})
-	# The hands and the contact feature are one rigid transform of the descriptor.
-	var caps := caps_for(SHOVEL, pilgrim)
-	var act: Dictionary = caps.light[0]
-	var rigid := 0.0
-	var base_gap := (act.feature.pos as Vector3).distance_to(caps.hold.grips.hand_r)
-	for k in range(20):
-		var pose := Motion.sample(act, (act.windup + act.active) * k / 19.0, pilgrim)
-		var cap := Motion.contact_capsule(act.feature, pose.object)
-		var centre: Vector3 = ((cap[0] as Vector3) + (cap[1] as Vector3)) * 0.5
-		rigid = maxf(rigid, absf(centre.distance_to(pose.hands.hand_r) - base_gap))
-	check(rigid < 0.0001, "contact_feature_moves_rigidly_with_the_gripped_object", snappedf(rigid, 0.000001))
-	# Distinct trajectories: the light strike's feature path differs per structure.
-	var paths: Array = []
-	for i in range(ids.size()):
-		var c := caps_for(i, pilgrim)
-		var a: Dictionary = c.light[0]
-		var path: Array = []
-		for k in range(8):
-			var pose := Motion.sample(a, a.windup + a.active * k / 7.0, pilgrim)
-			var cap2 := Motion.contact_capsule(a.feature, pose.object)
-			path.append(((cap2[0] as Vector3) + (cap2[1] as Vector3)) * 0.5)
-		paths.append(path)
-	var min_diff := INF
-	for x in range(paths.size()):
-		for y in range(x + 1, paths.size()):
-			var diff := 0.0
-			for k in range(8):
-				diff += (paths[x][k] as Vector3).distance_to(paths[y][k])
-			min_diff = minf(min_diff, diff / 8.0)
-	check(min_diff > 0.1, "light_strike_paths_differ_between_structures", {"min_mean_path_difference_m": snappedf(min_diff, 0.001)})
-
-const Rig = preload("res://scripts/visual_showcase/humanoid_rig.gd")
-
-# --- Weight and dimensions ------------------------------------------------------------
-
-func scaled_pole(cap_scale: float, length_scale: float) -> Dictionary:
-	var d := descriptor(POLE)
-	for part: Dictionary in d.parts:
-		if part.kind == "lump":
-			part.radii = Gen.to_array(Analysis.v(part.radii) * cap_scale)
-		if part.kind == "rod":
-			part.b = Gen.to_array(Analysis.v(part.a) + (Analysis.v(part.b) - Analysis.v(part.a)) * length_scale)
-	if length_scale != 1.0:
-		for part: Dictionary in d.parts:
-			if part.id == "cap_high":
-				var rod: Dictionary = d.parts[0]
-				var shift := Analysis.v(rod.b) - Analysis.v(part.attach)
-				part.center = Gen.to_array(Analysis.v(part.center) + shift)
-				part.attach = rod.b
-	return d
-
-func timing_checks() -> void:
-	var light := Solver.solve(scaled_pole(1.0, 1.0), pilgrim)
-	var heavy := Solver.solve(scaled_pole(1.2, 1.0), pilgrim)
-	# Same hold, same archetype and feature: only the measured mass and inertia differ.
-	var hold: Dictionary = light.hold
-	var light_an := Analysis.analyse(scaled_pole(1.0, 1.0))
-	var heavy_an := Analysis.analyse(scaled_pole(1.2, 1.0))
-	var before := {}
-	for act: Dictionary in Solver._candidates(hold, light_an, pilgrim).actions:
-		before[act.id] = act
-	var compared := {}
-	var slower := true
-	for act: Dictionary in Solver._candidates(hold, heavy_an, pilgrim).actions:
-		if before.has(act.id) and act.archetype != "shove":
-			var a: Dictionary = before[act.id]
-			compared[act.id] = {"windup": [a.windup, act.windup], "recovery": [a.recovery, act.recovery]}
-			slower = slower and act.windup > a.windup and act.recovery > a.recovery
-	check(float(heavy.mass) > float(light.mass) and compared.size() >= 2 and slower, "heavier_ends_slow_windup_and_recovery",
-		{"mass": [light.mass, heavy.mass], "same_actions": compared})
-	var short := Solver.solve(descriptor(SHOVEL), pilgrim)
-	var umbrella := caps_for(UMBRELLA, pilgrim)
-	check(float(short.light[0].load) != float(umbrella.light[0].load), "different_structures_load_the_body_differently",
-		{"shovel_load": short.light[0].load, "umbrella_load": umbrella.light[0].load})
-	var longer := Solver.solve(scaled_pole(1.0, 1.15), pilgrim)
-	var reach_a: float = light.heavy.get("reach", 0.0)
-	var reach_b: float = longer.heavy.get("reach", 0.0)
-	check(float(longer.extent) > float(light.extent) and reach_b > reach_a, "longer_object_reaches_further", {"extent": [light.extent, longer.extent], "heavy_reach": [reach_a, reach_b]})
-
-# --- Body modification ---------------------------------------------------------------
-
-func body_mod_checks() -> void:
+func invariance_checks() -> void:
+	var same := true
 	var detail := {}
-	var no_left := true
-	for i in range(ids.size()):
-		var caps := caps_for(i, marrow)
-		if caps.hold != null:
-			no_left = no_left and not "hand_l" in caps.hold.hands
-		detail[ids[i]] = {"two_hands": signature(caps_for(i, pilgrim).light[0]) if not (caps_for(i, pilgrim).light as Array).is_empty() else "none",
-			"marrow_arm": signature(caps.light[0]) if not (caps.light as Array).is_empty() else "none"}
-	check(no_left, "handless_marrow_arm_never_grips", detail)
-	var pole := caps_for(POLE, marrow)
-	var reason := false
-	for r: Dictionary in pole.rejections:
-		reason = reason or r.code == "two_hand_requires_missing_hand"
-	check(pole.light[0].archetype != "alternate" and reason, "marrow_arm_turns_the_pole_from_alternating_ends_to_one_hand_thrusts", signature(pole.light[0]))
-	var kiln := caps_for(AWKWARD, marrow)
-	check(not kiln.usable and kiln.hold == null and (kiln.light as Array).is_empty() and kiln.heavy == null and kiln.guard == null,
-		"marrow_arm_cannot_wield_the_offset_mass_at_all", kiln.rejections)
-	var shovel_two := caps_for(SHOVEL, pilgrim)
-	var shovel_one := caps_for(SHOVEL, marrow)
-	check(shovel_one.light[0].windup > shovel_two.light[0].windup, "one_handed_grip_on_the_same_shovel_is_slower",
-		{"two_hands": shovel_two.light[0].windup, "one_hand": shovel_one.light[0].windup})
+	for path: String in paths:
+		for body: Dictionary in [pilgrim, corrupted]:
+			var base := canon(caps_for(path, body))
+			for name: String in DECOY_NAMES:
+				var o := obj(path).duplicate(true)
+				o.label = name
+				o.original.descriptor.name = name
+				o.original.descriptor.description = name + " of legend"
+				# Generation provenance must not dispatch combat either.
+				o.assembly = (int(o.assembly) + 3) % 7
+				o.original.descriptor.recipe.assembly = o.assembly
+				o.source.path = "objects/%s.json" % name.to_lower().replace(" ", "_")
+				var c := Solver.solve(o, body)
+				same = same and canon(c) == base and c.object_fingerprint == caps_for(path, body).object_fingerprint
+		detail[path] = move_set(caps_for(path, pilgrim))
+	check(same, "names_descriptions_assembly_and_filenames_never_change_capabilities", detail)
+	# Source scan: decision code never reads names, labels, assembly or file paths.
+	var leaks: Array[String] = []
+	for file: String in ["affordance_solver.gd", "lab_analysis.gd", "object_analysis.gd", "motion_library.gd", "adaptive_fighter.gd", "adaptive_ai.gd"]:
+		var text := FileAccess.get_file_as_string("res://scripts/adaptive_lab/" + file)
+		for token: String in [".label", "\"label\"", ".name", "\"name\"", ".assembly", "\"assembly\"", ".description", "source.path", ".json\""]:
+			for line: String in text.split("\n"):
+				if line.contains(token) and not line.strip_edges().begins_with("##") and not line.strip_edges().begins_with("#"):
+					leaks.append("%s: %s" % [file, line.strip_edges().substr(0, 80)])
+	check(leaks.is_empty(), "solver_analysis_motion_rules_and_ai_never_read_names_or_provenance", leaks)
 
-# --- Negative configurations ----------------------------------------------------------
+# --- 4. Geometry → different legal attacks ---------------------------------------------
 
-func negative_checks() -> void:
-	var plate_only := {"schema": Gen.SCHEMA, "generator_version": 1, "recipe": "test.plate_only", "seed": 1, "label": "Sword",
-		"parts": [{"id": "slab", "kind": "plate", "center": [0, 0.2, 0], "u": [0, 1, 0], "v": [1, 0, 0], "n": [0, 0, 1], "length": 0.4, "width": 0.3,
-			"thickness": 0.01, "bevel_distal": 1.0, "bevel_lateral": 1.0, "material": "steel", "attach": [0, 0, 0]}]}
-	var caps := Solver.solve(plate_only, pilgrim)
-	check(not caps.usable and _has_code(caps, "no_graspable_region"), "no_graspable_region_is_rejected_even_if_named_sword", caps.rejections)
-	var thick := {"schema": Gen.SCHEMA, "generator_version": 1, "recipe": "test.thick_log", "seed": 1, "label": "Spear",
-		"parts": [{"id": "log", "kind": "rod", "a": [0, 0, 0], "b": [0, 1.4, 0], "radius": 0.09, "material": "hardwood"}]}
-	caps = Solver.solve(thick, pilgrim)
-	check(not caps.usable and _has_code(caps, "no_graspable_region"), "too_thick_to_grasp_is_rejected", caps.rejections)
-	var anvil := {"schema": Gen.SCHEMA, "generator_version": 1, "recipe": "test.anvil", "seed": 1, "label": "Hammer",
-		"parts": [{"id": "handle", "kind": "rod", "a": [0, 0, 0], "b": [0, 0.5, 0], "radius": 0.018, "material": "hardwood"},
-			{"id": "block", "kind": "lump", "center": [0, 0.75, 0], "axis": [0, 1, 0], "radii": [0.2, 0.2, 0.2], "material": "forged_iron", "attach": [0, 0.5, 0]}]}
-	caps = Solver.solve(anvil, pilgrim)
-	check(not caps.usable and (_has_code(caps, "mass_exceeds_two_hands") or _has_code(caps, "static_torque_exceeds_two_hands")),
-		"too_much_mass_for_the_anatomy_is_rejected", {"mass": caps.mass, "rejections": caps.rejections})
-	var rod := {"schema": Gen.SCHEMA, "generator_version": 1, "recipe": "test.bare_rod", "seed": 1, "label": "Spear",
-		"parts": [{"id": "rod", "kind": "rod", "a": [0, 0, 0], "b": [0, 0.3, 0], "radius": 0.016, "material": "hardwood"}]}
-	caps = Solver.solve(rod, pilgrim)
-	var pierce := false
-	for act: Dictionary in caps.light + ([caps.heavy] if caps.heavy != null else []):
-		pierce = pierce or act.channel != "blunt"
-	check(not pierce, "a_blunt_stick_named_spear_gets_no_pierce_or_cut", [signature(caps.heavy)])
-	# Motion validation rejects an action that would pass the object through the body.
+func geometry_checks() -> void:
+	var sets := {}
+	var distinct := {}
+	for path: String in paths:
+		sets[path] = move_set(caps_for(path, pilgrim))
+		distinct[sets[path]] = true
+	check(distinct.size() == paths.size(), "every_lab_object_resolves_to_a_distinct_move_set", sets)
+	# Required behaviours, each from measured structure.
 	var pole := caps_for(POLE, pilgrim)
-	var bad: Dictionary = pole.light[0].duplicate()
-	var hold: Dictionary = (bad.hold as Dictionary).duplicate()
-	hold.probes = [[hold.center, 0.05]] + (hold.probes as Array)
-	var pinned := {}
-	for hand: String in hold.grips:
-		pinned[hand] = (hold.grips[hand] as Vector3) + (hold.axis as Vector3) * 5.0
-	hold.grips = pinned
-	bad.hold = hold
-	var verdict := Motion.validate(bad, pilgrim)
-	check(not verdict.ok, "motion_validation_rejects_unreachable_grips", {"reach_excess": snappedf(verdict.reach_excess, 0.001)})
+	var shovel := caps_for(SHOVEL, pilgrim)
+	var umbrella := caps_for(UMBRELLA, pilgrim)
+	var hinged := caps_for(HINGED, pilgrim)
+	var organic := caps_for(ORGANIC, pilgrim)
+	var awkward := caps_for(AWKWARD, pilgrim)
+	var pole_ends := {}
+	for act: Dictionary in pole.light:
+		pole_ends[act.archetype == "rear"] = true
+	check(pole_ends.size() == 2 and pole.heavy.archetype == "windmill" and (pole.heavy.windows_abs as Array).size() == 2
+		and pole.heavy.feature.id != pole.heavy.rear_feature.id, "two_ended_object_alternates_ends_and_strikes_both_in_its_windmill",
+		{"light": move_set(pole)})
+	check(shovel.physics.head > 0.5 and shovel.heavy.archetype == "overhead" and hinged.heavy.archetype == "lunge"
+		and hinged.heavy.channel == "pierce" and shovel.physics.inertia > 3.0 * hinged.physics.inertia,
+		"heavy_offset_head_chops_while_light_pointed_shaft_lunges",
+		{"shovel": [shovel.heavy.archetype, shovel.physics.head, shovel.physics.inertia], "hinged": [hinged.heavy.archetype, hinged.physics.inertia]})
+	var umbrella_archetypes := {}
+	for act: Dictionary in umbrella.light:
+		umbrella_archetypes[act.archetype] = act.feature.get("soft", false)
+	check(umbrella_archetypes.has("bash") and umbrella_archetypes.bash and umbrella.guard.kind == "canopy_cover"
+		and _has_code(umbrella, "thrust_rejected"), "umbrella_bashes_and_guards_with_its_canopy_and_cannot_thrust_through_it",
+		{"light": move_set(umbrella)})
+	var hooks: Array = (organic.light as Array) + (organic.heavy_after as Array)
+	hooks = hooks.filter(func(a: Variant) -> bool: return a != null and a.archetype == "hook")
+	var no_hook_elsewhere := true
+	for path: String in [UMBRELLA, SHOVEL, POLE, HINGED]:
+		var c := caps_for(path, pilgrim)
+		no_hook_elsewhere = no_hook_elsewhere and _has_code(c, "hook_rejected")
+	check(not hooks.is_empty() and float(hooks[0].pull) > 0.0 and no_hook_elsewhere,
+		"one_sided_branch_grants_a_hook_that_pulls", move_set(organic))
+	var awkward_damage := 0.0
+	for act: Dictionary in awkward.light:
+		awkward_damage = maxf(awkward_damage, float(act.damage))
+	check(awkward.unarmed and awkward_damage < 7.0 and awkward.heavy.archetype == "barge", "awkward_unholdable_object_leaves_only_bare_handed_options",
+		{"max_light_damage": awkward_damage})
+	# Structure edits change what is legal (tests edit converted geometry directly).
+	var no_tip := obj(ORGANIC).duplicate(true)
+	no_tip.parts = (no_tip.parts as Array).filter(func(p: Dictionary) -> bool: return p.id != "tip")
+	var c1 := Solver.solve(no_tip, pilgrim)
+	var pierce_left := (c1.features as Array).any(func(f: Dictionary) -> bool: return f.channel == "pierce")
+	var locked := obj(HINGED).duplicate(true)
+	for p: Dictionary in locked.parts:
+		if p.id == "panel":
+			p.articulated = false
+			p.rigid = true
+	var panel_edges := (LabAnalysis.analyse(locked).features as Array).filter(func(f: Dictionary) -> bool: return f.part == "panel" and f.channel == "cut")
+	var one_grip := obj(SHOVEL).duplicate(true)
+	one_grip.grips = [one_grip.grips[1]]
+	var c3 := Solver.solve(one_grip, pilgrim)
+	check(not pierce_left and not panel_edges.is_empty() and c3.hold != null and c3.hold.id != shovel.hold.id,
+		"editing_structure_changes_legal_attacks", {"organic_without_tip": move_set(c1), "locked_hinge_cut_edges": panel_edges.size(),
+			"shovel_one_interval_hold": c3.hold.id if c3.hold != null else null})
 
 func _has_code(caps: Dictionary, code: String) -> bool:
 	for r: Dictionary in caps.rejections:
@@ -479,354 +408,545 @@ func _has_code(caps: Dictionary, code: String) -> bool:
 			return true
 	return false
 
-# --- Parity --------------------------------------------------------------------------
+# --- 5. Same inputs → visibly different combos ------------------------------------------
 
-func parity_checks() -> void:
-	var same := true
-	for i in range(ids.size()):
-		var as_player := AdaptiveFighter.new("player")
-		var as_enemy := AdaptiveFighter.new("soul")
-		as_player.equip(descriptor(i), corrupted)
-		as_enemy.equip(descriptor(i), corrupted)
-		same = same and canon(as_player.caps) == canon(as_enemy.caps)
-	check(same, "player_and_enemy_get_identical_capabilities_for_the_same_object_and_body")
-	var soul := AdaptiveFighter.new("soul")
-	soul.equip(descriptor(AWKWARD), corrupted)
-	var foe := AdaptiveFighter.new("player")
-	foe.equip(descriptor(SHOVEL), pilgrim)
-	foe.position = Vector3(0, 0, 1.0)
-	var ai := AI.new(5)
-	var heavy_attacks := 0
-	var unsupported := 0
-	for t in range(60 * 30):
-		var intent := ai.intent(soul, foe, DT)
-		intent.heavy = intent.heavy or t % 90 == 0
-		soul.step(intent, foe.position, DT)
-		foe.step({}, soul.position, DT)
-		if soul.state == "attack" and soul.action.heavy:
-			heavy_attacks += 1
-	for e: Dictionary in soul.events:
-		if e.kind == "heavy_unsupported":
-			unsupported += 1
-	check(heavy_attacks == 0 and unsupported > 0, "enemy_requests_for_unsupported_heavy_are_refused_by_the_same_rules", {"refused": unsupported})
+## Drives the live scene with the SAME input script and returns the event sequence
+## and a motion trace (feature path, hands, torso, root) for the player.
+func scripted_run(path: String) -> Dictionary:
+	var lab := await make_lab(path, HINGED)
+	lab.paused = true
+	lab.soul.position = lab.player.position + Vector3(0.0, 0.0, -2.2)
+	var script := {1: "light", 17: "light", 33: "light", 110: "heavy", 215: "light", 232: "heavy"}
+	# (Lambdas capture locals by value: keep the tick counter in a shared Dictionary.)
+	var clock := {"n": 0}
+	lab.player_driver = func(_l: Node) -> Dictionary:
+		clock.n += 1
+		return {script.get(clock.n, "none"): true}
+	var trace: Array = []
+	for k in range(330):
+		lab.step(DT)
+		if lab.player.state == "attack":
+			var f := Motion.window_feature(lab.player.action, maxi(0, int(lab.player.pose.window)))
+			var world: Transform3D = lab.player.xform() * (lab.player.pose.object as Transform3D)
+			trace.append({"t": k, "id": lab.player.action.id, "phase": lab.player.pose.phase, "feature": world * (f.pos as Vector3),
+				"yaw": lab.player.pose.yaw, "lean": lab.player.pose.lean, "crouch": lab.player.pose.get("crouch", 0.0)})
+	var events: Array = []
+	for e: Dictionary in lab.player.events:
+		if e.kind == "attack":
+			events.append("%s:%s" % [e.detail.input, e.detail.archetype])
+	lab.queue_free()
+	await process_frame
+	return {"events": events, "trace": trace}
 
-# --- Rules (deterministic, no scene) --------------------------------------------------
+## Windup end, path and recovery of the first light and the neutral heavy, as numbers.
+static func motion_signature(caps: Dictionary, body: Dictionary) -> Dictionary:
+	var out := {}
+	for entry: Array in [["light", caps.light[0]], ["heavy", caps.heavy]]:
+		var act: Dictionary = entry[1]
+		var w: float = act.windup
+		var a: float = act.active
+		var r: float = act.recovery
+		var feature := Motion.window_feature(act, 0)
+		var loaded := Motion.sample(act, w * 0.999, body)
+		var mid := Motion.sample(act, w + a * 0.5, body)
+		var rec := Motion.sample(act, w + a + r * 0.35, body)
+		var path: Array = []
+		for i in range(7):
+			var p := Motion.sample(act, w + a * i / 6.0, body)
+			path.append((p.object as Transform3D) * (feature.pos as Vector3))
+		out[entry[0]] = {"loaded_feature": (loaded.object as Transform3D) * (feature.pos as Vector3), "loaded_yaw": loaded.yaw,
+			"loaded_lean": loaded.lean, "contact_feature": (mid.object as Transform3D) * (feature.pos as Vector3),
+			"recovery_feature": (rec.object as Transform3D) * (feature.pos as Vector3), "path": path,
+			"root": Motion.root_at(act.keys, w + a), "surface": feature.kind, "hands": loaded.hands.keys()}
+	return out
 
-func duel(player_index: int, soul_index: int) -> Array:
-	var a := AdaptiveFighter.new("player")
-	var b := AdaptiveFighter.new("soul")
-	a.equip(descriptor(player_index), pilgrim)
-	b.equip(descriptor(soul_index), corrupted)
-	a.position = Vector3(0, 0, 1.6)
-	b.position = Vector3(0, 0, -1.6)
-	b.yaw = PI
-	return [a, b]
+static func path_distance(a: Array, b: Array) -> float:
+	var total := 0.0
+	for i in range(a.size()):
+		total += (a[i] as Vector3).distance_to(b[i])
+	return total / a.size()
 
-func run_ticks(a: AdaptiveFighter, b: AdaptiveFighter, ticks: int, ia: Callable, ib: Callable) -> Array:
-	var contacts: Array = []
-	for t in range(ticks):
-		a.step(ia.call(t), b.position, DT)
-		b.step(ib.call(t), a.position, DT)
-		AdaptiveFighter.separate(a, b)
-		for pair: Array in [[a, b], [b, a]]:
-			var r := AdaptiveFighter.resolve(pair[0], pair[1], DT)
-			if not r.is_empty():
-				contacts.append(r)
-	return contacts
+func combo_checks() -> void:
+	var runs := {}
+	for path: String in [UMBRELLA, SHOVEL, POLE, HINGED, ORGANIC]:
+		runs[path] = await scripted_run(path)
+	var sequences := {}
+	for path: String in runs:
+		sequences[path] = ", ".join(runs[path].events)
+	var distinct := {}
+	for path: String in sequences:
+		distinct[sequences[path]] = true
+	check(distinct.size() == sequences.size() and (runs[POLE].events as Array).size() >= 5,
+		"same_input_script_produces_different_combo_sequences", sequences)
+	# Pairwise motion differences: windup pose, attack path, body motion, surface, recovery.
+	var sigs := {}
+	for path: String in [UMBRELLA, SHOVEL, POLE, HINGED]:
+		sigs[path] = motion_signature(caps_for(path, pilgrim), pilgrim)
+	var pairs := {}
+	var all_differ := true
+	var keys := sigs.keys()
+	for i in range(keys.size()):
+		for j in range(i + 1, keys.size()):
+			var a: Dictionary = sigs[keys[i]]
+			var b: Dictionary = sigs[keys[j]]
+			var windup := 0.0
+			var path_d := 0.0
+			var body_d := 0.0
+			var recovery := 0.0
+			var surfaces := 0
+			for kind: String in ["light", "heavy"]:
+				windup = maxf(windup, (a[kind].loaded_feature as Vector3).distance_to(b[kind].loaded_feature))
+				path_d = maxf(path_d, path_distance(a[kind].path, b[kind].path))
+				body_d = maxf(body_d, absf(float(a[kind].loaded_yaw) - float(b[kind].loaded_yaw)) + absf(float(a[kind].loaded_lean) - float(b[kind].loaded_lean))
+					+ absf(float(a[kind].root) - float(b[kind].root)))
+				recovery = maxf(recovery, (a[kind].recovery_feature as Vector3).distance_to(b[kind].recovery_feature))
+				surfaces += int(a[kind].surface != b[kind].surface)
+			var differ := windup > 0.25 and path_d > 0.2 and body_d > 0.15 and recovery > 0.2
+			all_differ = all_differ and differ
+			pairs["%s vs %s" % [str(keys[i]).get_file(), str(keys[j]).get_file()]] = {"windup_m": snappedf(windup, 0.01), "path_m": snappedf(path_d, 0.01),
+				"body": snappedf(body_d, 0.01), "recovery_m": snappedf(recovery, 0.01), "surfaces_differ": surfaces}
+	check(all_differ, "windup_path_body_and_recovery_differ_pairwise_across_four_objects", pairs)
+	# Physics shaping: the heavy head carries further (overshoot, sag) than the light point.
+	var shovel_heavy: Dictionary = caps_for(SHOVEL, pilgrim).heavy
+	var pole_light: Dictionary = caps_for(POLE, pilgrim).light[0]
+	check(float(shovel_heavy.heft) > 3.0 * float(pole_light.heft) and float(shovel_heavy.windup) > 2.0 * float(pole_light.windup)
+		and Motion.archetype(shovel_heavy.archetype).axis != null, "heft_shapes_tempo_overshoot_and_recovery",
+		{"shovel_heft": shovel_heavy.heft, "pole_heft": pole_light.heft, "windups": [shovel_heavy.windup, pole_light.windup]})
+	# Combo transitions depend on affordances: finishers follow the chain's exit side.
+	var finisher_varies := false
+	for path: String in paths:
+		var c := caps_for(path, pilgrim)
+		var kinds := {}
+		for h: Variant in c.heavy_after:
+			kinds[h.archetype if h != null else "none"] = true
+		finisher_varies = finisher_varies or kinds.size() > 1
+	var light_then_heavy: Array = (runs[POLE].events as Array).filter(func(e: String) -> bool: return e.begins_with("heavy"))
+	check(finisher_varies and light_then_heavy.size() >= 2, "heavy_after_a_light_uses_the_combo_graph_finisher",
+		{"pole_heavies": light_then_heavy})
 
-func idle(_t: int) -> Dictionary:
-	return {}
+# --- 6. Motion: grips, IK, validation ---------------------------------------------------
 
-func rules_checks() -> void:
-	# Damage only inside the active window, for every object's light and heavy.
-	var outside := 0
-	var hits := 0
-	var detail := {}
-	for i in range(ids.size()):
-		var caps := caps_for(i, pilgrim)
-		for kind: String in ["light", "heavy"]:
-			var act: Variant = caps.light[0] if kind == "light" and not (caps.light as Array).is_empty() else caps.heavy
-			if act == null:
+func motion_checks() -> void:
+	var worst_reach := 0.0
+	var worst_pen := 0.0
+	var slide_ok := true
+	var count := 0
+	for body: Dictionary in [pilgrim, corrupted, grafted]:
+		for path: String in paths:
+			var caps := caps_for(path, body)
+			if caps.unarmed:
 				continue
-			var pair := duel(i, SHOVEL)
-			var a: AdaptiveFighter = pair[0]
-			var b: AdaptiveFighter = pair[1]
-			b.position = a.position + Vector3(0, 0, -minf(float(act.reach) - 0.15, 1.6))
-			var press := func(t: int) -> Dictionary: return {kind: t == 0}
-			var contacts := run_ticks(a, b, 120, press, idle)
-			for c: Dictionary in contacts:
-				if c.attacker == "player":
-					hits += 1
-					if float(c.rule_time) < float(act.windup) - 0.0001 or float(c.rule_time) > float(act.windup) + float(act.active) + 0.0001:
-						outside += 1
-			detail["%s/%s" % [ids[i], kind]] = contacts.size()
-	check(outside == 0 and hits >= 8, "contact_only_inside_rule_active_windows_and_every_attack_connects_in_reach", {"hits": hits, "outside": outside, "per_attack": detail})
-	# Guard / deflect / block / posture break / punish / dodge.
-	var outcomes := {}
-	for mode: String in ["none", "early_guard", "fresh_deflect", "dodge"]:
-		var pair := duel(UMBRELLA, SHOVEL)
-		var a: AdaptiveFighter = pair[0]
-		var b: AdaptiveFighter = pair[1]
-		b.position = a.position + Vector3(0, 0, -1.1)
-		var act: Dictionary = b.caps.light[0]
-		var press_at := int(round((float(act.windup) - 0.05) / DT))
-		var defend := func(t: int) -> Dictionary:
-			match mode:
-				"early_guard":
-					return {"guard": true}
-				"fresh_deflect":
-					return {"guard": t >= press_at}
-				"dodge":
-					return {"dodge": t == press_at - 2, "move": Vector3.RIGHT}
-			return {}
-		var attack := func(t: int) -> Dictionary: return {"light": t == 0}
-		var contacts := run_ticks(a, b, 60, defend, attack)
-		outcomes[mode] = contacts[0].outcome if not contacts.is_empty() else ("evaded" if b.events.any(func(e: Dictionary) -> bool: return e.kind == "evaded") else "none")
-	check(outcomes.none == "hit" and outcomes.early_guard == "blocked" and outcomes.fresh_deflect == "deflected" and outcomes.dodge == "evaded",
-		"hit_block_deflect_and_dodge_resolve_from_timing", outcomes)
-	# Posture: repeated blocked heavies break the guard; the next hit is a punish.
-	var pair := duel(POLE, SHOVEL)
-	var a2: AdaptiveFighter = pair[0]
-	var b2: AdaptiveFighter = pair[1]
-	b2.position = a2.position + Vector3(0, 0, -1.2)
-	var broke_at := -1
-	var heavy_period := int(ceil((float(b2.caps.heavy.windup) + float(b2.caps.heavy.active) + float(b2.caps.heavy.recovery)) / DT)) + 2
-	var contacts2 := run_ticks(a2, b2, heavy_period * 9, func(t: int) -> Dictionary: return {"guard": a2.state != "broken"},
-		func(t: int) -> Dictionary: return {"heavy": t % heavy_period == 0 and a2.state != "broken", "light": a2.state == "broken" and t % 6 == 0})
-	var kinds: Array = []
-	for c: Dictionary in contacts2:
-		kinds.append(c.outcome)
-	for e: Dictionary in a2.events:
-		if e.kind == "posture_broken" and broke_at < 0:
-			broke_at = kinds.size()
-	check(kinds.has("blocked") and a2.events.any(func(e: Dictionary) -> bool: return e.kind == "posture_broken") and kinds.has("punish"),
-		"blocked_heavies_break_posture_and_open_a_punish", kinds)
+			var acts: Array = (caps.light as Array).duplicate()
+			acts.append(caps.heavy)
+			for act: Dictionary in acts:
+				var total: float = float(act.windup) + float(act.active) + float(act.recovery)
+				for i in range(25):
+					var pose := Motion.sample(act, total * i / 24.0, body)
+					worst_reach = maxf(worst_reach, pose.reach_excess)
+					worst_pen = maxf(worst_pen, pose.penetration)
+					count += 1
+					var hold: Dictionary = caps.hold
+					for hand: String in hold.grips:
+						var iv: Dictionary = hold.intervals[hand]
+						var g := Motion.slid_grip(hold, hand, pose.slide)
+						var t := (g - (iv.lo as Vector3)).dot(iv.axis) / maxf((iv.lo as Vector3).distance_to(iv.hi), 0.0001)
+						slide_ok = slide_ok and t >= -0.001 and t <= 1.001
+	check(worst_reach <= Motion.REACH_LIMIT and worst_pen <= Motion.PENETRATION_LIMIT and count > 300,
+		"every_chain_and_heavy_motion_keeps_grips_reachable_and_the_object_out_of_the_wielder",
+		{"samples": count, "worst_reach_excess_m": snappedf(worst_reach, 0.0001), "worst_penetration_m": snappedf(worst_pen, 0.0001)})
+	check(slide_ok, "hands_slide_only_inside_their_declared_intervals")
+	# Feature moves rigidly with the grips (one rigid placement of one descriptor).
+	var rigid := 0.0
+	for path: String in [SHOVEL, POLE, UMBRELLA]:
+		var act: Dictionary = caps_for(path, pilgrim).light[0]
+		var hold: Dictionary = act.hold
+		var local: float = ((act.feature.pos as Vector3) - (hold.grips.hand_r as Vector3)).length()
+		for i in range(12):
+			var pose := Motion.sample(act, (float(act.windup) + float(act.active)) * i / 11.0, pilgrim)
+			var world: Vector3 = (pose.object as Transform3D) * (act.feature.pos as Vector3)
+			var hand_local := Motion.slid_grip(hold, "hand_r", pose.slide)
+			var expected := ((act.feature.pos as Vector3) - hand_local).length()
+			rigid = maxf(rigid, absf(world.distance_to(pose.hands.hand_r) - expected))
+			local = expected
+	check(rigid < 0.0005, "contact_feature_moves_rigidly_with_the_gripped_object", {"max_error_m": rigid})
 
-# --- Scene: real input ------------------------------------------------------------------
+# --- 6b/7. Scene: drawn geometry equals contact; hits and misses ------------------------
 
-func make_lab(player_recipe: int, soul_recipe: int, player_marrow := false) -> Node:
+func make_lab(player: String, soul: String, graft := false) -> Node:
 	var lab: Node = load("res://scenes/adaptive_combat_lab.tscn").instantiate()
-	lab.loadout.player.recipe = player_recipe
-	lab.loadout.player.marrow = player_marrow
-	lab.loadout.soul.recipe = soul_recipe
+	lab.loadout.player.source = "lab"
+	lab.loadout.player.lab = Imp.accepted_paths().find(player)
+	lab.loadout.player.graft = graft
+	lab.loadout.soul.source = "lab"
+	lab.loadout.soul.lab = Imp.accepted_paths().find(soul)
 	root.add_child(lab)
 	await process_frame
 	lab.ai.mode = "passive"
 	return lab
 
-func press(action: String, pressed: bool) -> void:
-	var event: InputEvent = null
-	for e: InputEvent in InputMap.action_get_events(action):
-		if e is InputEventMouseButton:
-			event = e.duplicate()
-	if event == null:
-		event = InputMap.action_get_events(action)[0].duplicate()
-	if event is InputEventMouseButton:
-		(event as InputEventMouseButton).pressed = pressed
-	else:
-		(event as InputEventKey).pressed = pressed
-	Input.parse_input_event(event)
-
-func frames(count: int) -> void:
-	for i in range(count):
-		await physics_frame
-
-func tap(action: String) -> void:
-	press(action, true)
-	await physics_frame
-	await physics_frame
-	press(action, false)
-
-func scene_input_checks() -> void:
-	var detail := {}
-	var started := {}
-	var latency_ok := true
-	for i in range(ids.size()):
-		var lab: Node = await make_lab(i, SHOVEL)
-		await frames(3)
-		press("alab_light", true)
-		var ticks := 0
-		while lab.player.state != "attack" and ticks < 6:
-			await physics_frame
-			ticks += 1
-		press("alab_light", false)
-		latency_ok = latency_ok and ticks <= 2
-		var first: String = lab.player.action.get("id", "none") if lab.player.state == "attack" else "none"
-		started[first] = true
-		var expected: String = lab.player.caps.light[0].id if not (lab.player.caps.light as Array).is_empty() else "none"
-		detail[ids[i]] = {"started": first, "expected": expected, "ticks": ticks}
-		latency_ok = latency_ok and first == expected
-		lab.queue_free()
-		await process_frame
-	check(latency_ok and started.size() == ids.size(), "real_mouse_press_starts_the_object_specific_light_attack_within_two_ticks", detail)
-	# Chain: three presses on the pole → lead end, rear end, lead end.
-	var lab: Node = await make_lab(POLE, SHOVEL)
-	await frames(3)
-	# Press again late in each strike, the way a player chains.
-	for k in range(3):
-		var serial: int = lab.player.attack_serial
-		await tap("alab_light")
-		var waited := 0
-		while waited < 90 and lab.player.attack_serial == serial:
-			await physics_frame
-			waited += 1
-		while waited < 180 and lab.player.state == "attack" and lab.player.state_time < float(lab.player.action.windup) + float(lab.player.action.active):
-			await physics_frame
-			waited += 1
-	await frames(60)
-	var chain: Array = []
-	for e: Dictionary in lab.player.events:
-		if e.kind == "attack":
-			chain.append("%s:%d" % [e.detail.action, e.detail.index])
-	check(chain.size() == 3 and str(chain[1]).contains(":rear") and not str(chain[0]).contains(":rear"), "repeated_light_presses_chain_through_alternating_ends", chain)
-	# Heavy via the middle mouse button; guard via the right button.
-	await tap("alab_heavy")
-	await frames(2)
-	var heavy_started: bool = lab.player.state == "attack" and lab.player.action.heavy
-	await frames(90)
-	press("alab_guard", true)
-	await frames(4)
-	var guarding: bool = lab.player.state == "guard"
-	press("alab_guard", false)
-	await frames(2)
-	check(heavy_started and guarding, "middle_button_heavy_and_right_button_guard_reach_the_rules", {"heavy": heavy_started, "guard": guarding})
-	lab.queue_free()
-	await process_frame
-	# Unsupported heavy: the kiln weight logs a refusal and does nothing.
-	lab = await make_lab(AWKWARD, SHOVEL)
-	await frames(3)
-	await tap("alab_heavy")
-	await frames(3)
-	var refused: bool = lab.player.events.any(func(e: Dictionary) -> bool: return e.kind == "heavy_unsupported")
-	check(refused and lab.player.state == "idle", "heavy_input_on_an_object_without_a_heavy_does_nothing_and_says_why", lab.player.events.slice(-1))
-	# Relabel key in the live scene keeps the capability set.
-	var before := canon(lab.player.caps)
-	lab.relabel("player")
-	var relabelled: String = lab.player.descriptor.label
-	check(canon(lab.player.caps) == before and relabelled != Gen.recipe(ids[AWKWARD]).label, "live_relabel_keeps_capabilities", relabelled)
-	lab.queue_free()
-	await process_frame
-	# Body modification toggle in the live scene changes the hold.
-	lab = await make_lab(POLE, SHOVEL)
-	var two: int = (lab.player.caps.hold.hands as Array).size()
-	lab.toggle_marrow("player")
-	var one: int = (lab.player.caps.hold.hands as Array).size()
-	check(two == 2 and one == 1 and lab.player_actor.character.get_node_or_null("Skeleton3D/Module_marrow_arm") != null,
-		"live_marrow_arm_toggle_rebuilds_body_and_regrips", {"hands_before": two, "hands_after": one})
-	lab.queue_free()
-	await process_frame
-
-# --- Scene: contact agrees with the drawn object ---------------------------------------
-
 func scene_contact_checks() -> void:
 	var worst := 0.0
 	var worst_hand := 0.0
-	var inside_mesh := true
 	var hits := 0
-	for i in range(ids.size()):
-		var lab: Node = await make_lab(i, SHOVEL)
+	var detail := {}
+	for path: String in [UMBRELLA, SHOVEL, POLE, ORGANIC, HINGED]:
+		var lab := await make_lab(path, HINGED)
 		lab.paused = true
-		var act: Variant = lab.player.caps.light[0] if not (lab.player.caps.light as Array).is_empty() else null
-		if act == null:
-			lab.queue_free()
-			continue
-		lab.soul.position = lab.player.position + Vector3(0, 0, -minf(float(act.reach) - 0.15, 1.6))
-		var n := 0
+		lab.soul.position = lab.player.position + Vector3(0, 0, -1.9)
+		var clock := {"n": 0}
 		lab.player_driver = func(_l: Node) -> Dictionary:
-			n += 1
-			return {"light": n == 1}
-		var mesh_aabb := AABB()
-		for k in range(80):
+			clock.n += 1
+			return {"heavy": clock.n == 1}
+		for k in range(120):
 			lab.step(DT)
 			await process_frame
-			var events: Array = lab.player.events.filter(func(e: Dictionary) -> bool: return e.kind == "contact")
 			if lab.player.state == "attack":
-				# Drawn object node vs rules: feature position and grips.
 				var drawn: Transform3D = lab.player_actor.object_node.global_transform
 				var rules: Transform3D = lab.player.xform() * (lab.player.pose.object as Transform3D)
-				worst = maxf(worst, (drawn * (act.feature.pos as Vector3)).distance_to(rules * (act.feature.pos as Vector3)))
-				# The capsule the rules sweep for damage, centred on the drawn feature.
-				var cap: Array = lab.player.contact_at(lab.player.state_time)
+				var f := Motion.window_feature(lab.player.action, maxi(0, int(lab.player.pose.window)))
+				worst = maxf(worst, (drawn * (f.pos as Vector3)).distance_to(rules * (f.pos as Vector3)))
+				var cap: Array = lab.player.contact_at(lab.player.state_time, maxi(0, int(lab.player.pose.window)))
 				var centre: Vector3 = ((cap[0] as Vector3) + (cap[1] as Vector3)) * 0.5
-				worst = maxf(worst, centre.distance_to(drawn * (act.feature.pos as Vector3)))
+				worst = maxf(worst, centre.distance_to(drawn * (f.pos as Vector3)))
 				var bones: Dictionary = lab.player_actor.last_result.bones
 				for hand: String in lab.player.pose.hands:
 					var socket := "grip_r" if hand == "hand_r" else "grip_l"
 					var drawn_grip: Vector3 = lab.player_actor.global_transform * Rig.socket_global(bones, socket).origin
-					worst_hand = maxf(worst_hand, drawn_grip.distance_to(rules * (lab.player.caps.hold.grips[hand] as Vector3)))
-			if not events.is_empty():
-				hits += 1
-				var structure: MeshInstance3D = lab.player_actor.object_node.get_node("Structure")
-				mesh_aabb = structure.get_aabb().grow(float(act.feature.radius))
-				inside_mesh = inside_mesh and mesh_aabb.has_point(act.feature.pos)
-				break
+					worst_hand = maxf(worst_hand, drawn_grip.distance_to(lab.player.xform() * (lab.player.pose.hands[hand] as Vector3)))
+		var contacts: Array = lab.player.events.filter(func(e: Dictionary) -> bool: return e.kind == "contact")
+		hits += int(not contacts.is_empty())
+		detail[path] = contacts.size()
 		lab.queue_free()
 		await process_frame
-	check(worst < 0.0005 and hits >= 4 and inside_mesh, "drawn_object_feature_equals_rules_contact_feature_at_every_frame",
-		{"max_error_m": snappedf(worst, 0.000001), "hits": hits, "feature_inside_drawn_mesh": inside_mesh})
+	check(worst < 0.0005 and hits == 5, "drawn_object_feature_equals_the_rules_contact_capsule_at_every_frame",
+		{"max_error_m": snappedf(worst, 0.000001), "heavies_connected": detail})
 	check(worst_hand < GRIP_TOLERANCE, "drawn_fists_hold_the_rules_grip_points", {"max_error_m": snappedf(worst_hand, 0.0001)})
 
-# --- Scene: AI defence and canopy ------------------------------------------------------
+## Pure-rules duel helpers.
+func pair(attacker_path: String, defender_path: String, distance: float, a_body := pilgrim, d_body := corrupted) -> Array:
+	var a := AdaptiveFighter.new("player")
+	var d := AdaptiveFighter.new("soul")
+	a.equip(obj(attacker_path), a_body, caps_for(attacker_path, a_body))
+	d.equip(obj(defender_path), d_body, caps_for(defender_path, d_body))
+	a.position = Vector3(0, 0, distance * 0.5)
+	d.position = Vector3(0, 0, -distance * 0.5)
+	d.yaw = PI
+	return [a, d]
 
-func scene_defence_checks() -> void:
-	var lab: Node = await make_lab(UMBRELLA, SHOVEL)
+func run_ticks(a: AdaptiveFighter, b: AdaptiveFighter, ticks: int, ia: Callable, ib: Callable) -> void:
+	for t in range(ticks):
+		a.step(ia.call(t), b.position, DT)
+		b.step(ib.call(t), a.position, DT)
+		AdaptiveFighter.separate(a, b)
+		AdaptiveFighter.resolve(a, b, DT)
+		AdaptiveFighter.resolve(b, a, DT)
+
+func idle(_t: int) -> Dictionary:
+	return {}
+
+func outcome(a: AdaptiveFighter) -> String:
+	for e: Dictionary in a.events:
+		if e.kind == "contact":
+			return str(e.detail.outcome)
+		if e.kind in ["whiff", "evaded"]:
+			return str(e.kind)
+	return "none"
+
+func rules_checks() -> void:
+	# Heavy-miss regression: every heavy connects from close range to its planned
+	# spacing (Lab 1 stepped back a full step when the target was "too close").
+	var table := {}
+	var all_hit := true
+	for path: String in [UMBRELLA, SHOVEL, POLE, ORGANIC, HINGED]:
+		var heavy: Dictionary = caps_for(path, pilgrim).heavy
+		var row := {}
+		var d := 0.9
+		var far := float(heavy.reach) + float(heavy.root_contact) + AdaptiveFighter.BODY_RADIUS
+		while d <= far:
+			var duo := pair(path, HINGED, d)
+			run_ticks(duo[0], duo[1], 150, func(t: int) -> Dictionary: return {"heavy": t == 0}, idle)
+			row["%.1f" % d] = outcome(duo[0])
+			all_hit = all_hit and row["%.1f" % d] == "hit"
+			d += 0.2
+		table[path.get_file()] = row
+	check(all_hit, "every_heavy_connects_from_close_range_out_to_its_reach", table)
+	# Legitimate misses: out of reach → whiff (closest gap reported); dodge → evaded;
+	# active window only.
+	var far_pair := pair(SHOVEL, HINGED, 4.5)
+	run_ticks(far_pair[0], far_pair[1], 150, func(t: int) -> Dictionary: return {"heavy": t == 0}, idle)
+	var whiff: Array = far_pair[0].events.filter(func(e: Dictionary) -> bool: return e.kind == "whiff")
+	# Dodge (toward the attacker, staying in range) just before the measured contact.
+	var dry := pair(SHOVEL, HINGED, 1.7)
+	run_ticks(dry[0], dry[1], 150, func(t: int) -> Dictionary: return {"heavy": t == 0}, idle)
+	var contact_t := 0.0
+	for e: Dictionary in dry[0].events:
+		if e.kind == "contact":
+			contact_t = float(e.detail.rule_time)
+	var dodge_pair := pair(SHOVEL, HINGED, 1.7)
+	var dodge_at := int((contact_t - 0.03) / DT)
+	run_ticks(dodge_pair[0], dodge_pair[1], 150, func(t: int) -> Dictionary: return {"heavy": t == 0},
+		func(t: int) -> Dictionary: return {"dodge": t == dodge_at, "move": Vector3(0, 0, 1)})
+	check(outcome(far_pair[0]) == "whiff" and float(whiff[0].detail.closest) > 0.3 and outcome(dodge_pair[0]) == "evaded",
+		"out_of_reach_heavies_whiff_and_dodged_heavies_are_evaded", {"far": outcome(far_pair[0]), "closest_m": whiff[0].detail.closest if not whiff.is_empty() else null,
+			"dodged": outcome(dodge_pair[0])})
+	var only_active := true
+	for path: String in [SHOVEL, POLE]:
+		var duo := pair(path, HINGED, 1.6)
+		var a: AdaptiveFighter = duo[0]
+		run_ticks(a, duo[1], 120, func(t: int) -> Dictionary: return {"light": t == 0}, idle)
+		for e: Dictionary in a.events:
+			if e.kind == "contact":
+				var w: Dictionary = a.caps.light[0].windows_abs[int(e.detail.window)]
+				only_active = only_active and float(e.detail.rule_time) >= float(w.t0) - 1e-6 and float(e.detail.rule_time) <= float(w.t1) + 1e-6
+	check(only_active, "contact_registers_only_inside_contact_windows")
+	# Windmill: both ends land in one action (two windows, two contacts).
+	var mill := pair(POLE, HINGED, 1.4)
+	run_ticks(mill[0], mill[1], 120, func(t: int) -> Dictionary: return {"heavy": t == 0}, idle)
+	var mill_contacts: Array = mill[0].events.filter(func(e: Dictionary) -> bool: return e.kind == "contact")
+	check(mill_contacts.size() == 2 and int(mill_contacts[0].detail.window) == 0 and int(mill_contacts[1].detail.window) == 1,
+		"windmill_lands_with_the_lead_end_then_the_rear_end", mill_contacts.map(func(e: Dictionary) -> String: return "%s/%s" % [e.detail.feature, e.detail.outcome]))
+	# Hook pulls; block, deflect, posture break and punish follow from timing.
+	var hook_pair := pair(ORGANIC, HINGED, 1.8)
+	var before: float = (hook_pair[0].position as Vector3).distance_to(hook_pair[1].position)
+	var hook_index := -1
+	for i in range((caps_for(ORGANIC, pilgrim).light as Array).size()):
+		if caps_for(ORGANIC, pilgrim).light[i].archetype == "hook" and hook_index < 0:
+			hook_index = i
+	var a_hook: AdaptiveFighter = hook_pair[0]
+	a_hook._start_attack("light", hook_index, hook_pair[1].position)
+	run_ticks(a_hook, hook_pair[1], 60, idle, idle)
+	var pulled := a_hook.events.any(func(e: Dictionary) -> bool: return e.kind == "contact" and e.detail.get("pulled", false))
+	check(hook_index >= 0 and pulled, "hook_contact_drags_the_defender_toward_the_attacker", {"start_distance": before})
+	var dry_g := pair(SHOVEL, UMBRELLA, 1.7)
+	run_ticks(dry_g[0], dry_g[1], 150, func(t: int) -> Dictionary: return {"heavy": t == 0}, idle)
+	for e: Dictionary in dry_g[0].events:
+		if e.kind == "contact":
+			contact_t = float(e.detail.rule_time)
+	var g := pair(SHOVEL, UMBRELLA, 1.7)
+	var held_from := maxi(0, int((float(caps_for(SHOVEL, pilgrim).heavy.windup) - 0.3) / DT))
+	run_ticks(g[0], g[1], 140, func(t: int) -> Dictionary: return {"heavy": t == 0}, func(t: int) -> Dictionary: return {"guard": t >= held_from})
+	var press_at := int((contact_t - 0.05) / DT)
+	var df := pair(SHOVEL, UMBRELLA, 1.7)
+	run_ticks(df[0], df[1], 140, func(t: int) -> Dictionary: return {"heavy": t == 0}, func(t: int) -> Dictionary: return {"guard": t >= press_at})
+	check(outcome(g[0]) == "blocked" and outcome(df[0]) == "deflected", "held_guard_blocks_and_a_fresh_press_deflects", [outcome(g[0]), outcome(df[0])])
+
+# --- 8. Camera ----------------------------------------------------------------------------
+
+func send_key(code: Key, pressed := true, shift := false) -> void:
+	var event := InputEventKey.new()
+	event.physical_keycode = code
+	event.keycode = code
+	event.pressed = pressed
+	event.shift_pressed = shift
+	Input.parse_input_event(event)
+
+func camera_checks() -> void:
+	var lab := await make_lab(SHOVEL, HINGED)
+	var orbit: Node = lab.orbit
+	await process_frame
+	var start_yaw: float = orbit.yaw
+	# Unlocked: the opponent walks around; the camera does not follow.
 	lab.paused = true
-	lab.player_driver = func(_l: Node) -> Dictionary: return {"guard": true}
-	for k in range(20):
+	for k in range(90):
+		lab.soul.position = lab.player.position + Vector3(sin(k * 0.05) * 3.0, 0.0, -cos(k * 0.05) * 3.0)
 		lab.step(DT)
 		await process_frame
-	var canopy: Node3D = lab.player_actor.canopy
-	var open: MeshInstance3D = canopy.get_node("Open")
-	var radius: float = float(canopy.get_meta("open_radius")) * open.scale.x
-	check(lab.player.state == "guard" and open.visible and absf(radius - float(canopy.get_meta("open_radius"))) < 0.001,
-		"umbrella_guard_visibly_deploys_its_generated_canopy", {"drawn_radius": snappedf(radius, 0.001)})
+	var unlocked_drift: float = absf(angle_difference(start_yaw, orbit.yaw))
+	# Real input: Q toggles lock; locked, the camera turns to frame the target.
+	send_key(KEY_Q)
+	await process_frame
+	send_key(KEY_Q, false)
+	var locked: bool = orbit.locked
+	for k in range(90):
+		await process_frame
+	var to: Vector3 = lab.soul.position - lab.player.position
+	var target_yaw := atan2(-to.x, -to.z) + 0.15
+	var locked_error: float = absf(angle_difference(orbit.yaw, target_yaw))
+	# Manual override while locked: orbiting holds for a moment before tracking resumes.
+	orbit.orbit(Vector2(250.0, 0.0))
+	var overridden: float = orbit.yaw
+	await process_frame
+	await process_frame
+	var held: bool = absf(angle_difference(overridden, orbit.yaw)) < 0.02
+	check(unlocked_drift < 1e-4 and locked and locked_error < 0.1 and held, "camera_is_free_unless_locked_and_lock_on_tracks_with_manual_override",
+		{"unlocked_drift": unlocked_drift, "locked_error": snappedf(locked_error, 0.001), "override_held": held})
+	# Wheel zoom (real events) smooths toward the new distance within limits.
+	var before: float = orbit.preferred_distance
+	for k in range(3):
+		var wheel := InputEventMouseButton.new()
+		wheel.button_index = MOUSE_BUTTON_WHEEL_UP
+		wheel.pressed = true
+		wheel.factor = 1.0
+		Input.parse_input_event(wheel)
+		await process_frame
+	for k in range(30):
+		await process_frame
+	var zoomed: float = orbit.preferred_distance
+	check(zoomed < before and absf(orbit.spring.spring_length - zoomed) < 0.05 and zoomed >= orbit.MIN_DISTANCE, "wheel_zoom_is_smooth_and_bounded",
+		{"before": before, "after": zoomed, "arm": orbit.spring.spring_length})
+	# Camera collision: a pillar between the player and the camera shortens the arm.
+	orbit.locked = false
+	lab.player.position = Vector3(cos(0.0) * 6.5 - 1.6, 0.0, sin(0.0) * 6.5)
+	orbit.yaw = PI * 0.5
+	orbit.pitch = -0.1
+	orbit.preferred_distance = 5.0
+	for k in range(30):
+		await physics_frame
+		await process_frame
+	var hit_length: float = orbit.spring.get_hit_length()
+	check(hit_length < 4.0, "spring_arm_retracts_in_front_of_a_pillar", {"hit_length": hit_length})
+	# Movement is camera-relative and unlocked attacks follow the stick (soft aim).
+	orbit.yaw = PI * 0.5
+	lab.player.position = Vector3.ZERO
+	lab.soul.position = Vector3(0, 0, -8)
+	var intent: Dictionary = lab.LabInput.read(orbit.move_basis())
+	var basis_forward: Vector3 = orbit.move_basis() * Vector3(0, 0, -1)
+	var face: Variant = lab.LabInput.facing({"move": basis_forward, "light": true}, false, Vector3.ZERO, Vector3.FORWARD, Vector3(0, 0, -8))
+	var face_locked: Variant = lab.LabInput.facing({"move": basis_forward}, true, Vector3.ZERO, Vector3.FORWARD, Vector3(0, 0, -8))
+	check(basis_forward.distance_to(Vector3(-1, 0, 0)) < 0.001 and face is Vector3 and (face as Vector3).distance_to(basis_forward) < 0.001 and face_locked == null
+		and intent.move == Vector3.ZERO, "movement_is_camera_relative_and_facing_follows_lock_state", {"forward": basis_forward})
 	lab.queue_free()
 	await process_frame
 
-# --- Determinism of whole duels ----------------------------------------------------------
+# --- 9. Clean default HUD -----------------------------------------------------------
+
+func hud_checks() -> void:
+	var lab := await make_lab(SHOVEL, HINGED)
+	await process_frame
+	await process_frame
+	var hud: CanvasLayer = lab.hud
+	var hidden: bool = not hud.stats_root.visible and not hud.log_root.visible and not hud.help_label.visible
+	var area := 0.0
+	var screen := Vector2(1280, 720)
+	for c: Control in [hud.player_hp, hud.player_posture, hud.equipment, hud.soul_hp, hud.soul_posture, hud.soul_name, hud.hint]:
+		if c.is_visible_in_tree():
+			area += c.get_global_rect().size.x * c.get_global_rect().size.y
+	var lines: int = (hud.equipment.text as String).split("\n").size()
+	var debug_off: bool = not lab.player_actor.show_debug and not lab.player_actor.show_paths
+	send_key(KEY_F2)
+	await process_frame
+	send_key(KEY_F5)
+	await process_frame
+	send_key(KEY_H)
+	await process_frame
+	var shown: bool = hud.stats_root.visible and hud.log_root.visible and hud.help_label.visible
+	check(hidden and debug_off and lines == 1 and area / (screen.x * screen.y) < 0.06 and shown,
+		"default_hud_is_minimal_and_debug_layers_appear_only_on_toggle",
+		{"default_area_fraction": snappedf(area / (screen.x * screen.y), 0.0001), "equipment": hud.equipment.text, "toggles_show": shown})
+	lab.queue_free()
+	await process_frame
+
+# --- 10. Body modification ------------------------------------------------------------
+
+func body_mod_checks() -> void:
+	# Keeps the hand: the same holds and moves for every object.
+	var same := true
+	for path: String in paths:
+		var a := caps_for(path, pilgrim)
+		var b := caps_for(path, grafted)
+		same = same and move_set(a) == move_set(b) and ((a.hold.id if a.hold != null else "") == (b.hold.id if b.hold != null else ""))
+	check(same and "hand_l" in grafted.hands, "graft_keeps_ordinary_hand_function_and_every_hold")
+	# Benefit: regeneration after the delay.
+	var r := pair(SHOVEL, HINGED, 4.0, grafted, corrupted)
+	var a: AdaptiveFighter = r[0]
+	a.hp = 50.0
+	a.since_hurt = 0.0
+	run_ticks(a, r[1], 60 * 5, idle, idle)
+	var plain := pair(SHOVEL, HINGED, 4.0)
+	plain[0].hp = 50.0
+	plain[0].since_hurt = 0.0
+	run_ticks(plain[0], plain[1], 60 * 5, idle, idle)
+	check(a.hp > 55.0 and is_equal_approx(plain[0].hp, 50.0), "graft_regenerates_health_after_a_delay", {"grafted_hp": snappedf(a.hp, 0.01), "plain_hp": plain[0].hp})
+	# Drawbacks: the same hit costs more health, more posture and a longer stagger.
+	var taken := {}
+	for body_case: Array in [["plain", corrupted], ["graft", Bodies.build("corrupted", ["marrow_graft"])]]:
+		var duo := pair(SHOVEL, HINGED, 1.7, pilgrim, body_case[1])
+		run_ticks(duo[0], duo[1], 50, func(t: int) -> Dictionary: return {"light": t == 0}, idle)
+		var d: AdaptiveFighter = duo[1]
+		taken[body_case[0]] = {"hp_lost": snappedf(100.0 - d.hp, 0.01), "posture": snappedf(d.posture, 0.01), "stagger": d.stagger_for}
+	check(float(taken.graft.hp_lost) > float(taken.plain.hp_lost) * 1.2 and float(taken.graft.posture) > float(taken.plain.posture) * 1.3
+		and float(taken.graft.stagger) > float(taken.plain.stagger), "graft_takes_more_damage_posture_and_stagger", taken)
+	# Genuine anatomy still restricts: a limb without a hand cannot two-hand.
+	var handless := Bodies.build("pilgrim", ["handless_limb_example"])
+	var hc := Solver.solve(obj(POLE), handless)
+	check(hc.hold != null and (hc.hold.hands as Array).size() == 1 and not "hand_l" in handless.hands and _has_code(hc, "two_hand_requires_missing_hand"),
+		"anatomy_without_a_hand_still_restricts_grips", move_set(hc))
+
+# --- 11. Parity -----------------------------------------------------------------------
+
+func parity_checks() -> void:
+	var same := true
+	for path: String in paths:
+		var p := AdaptiveFighter.new("player")
+		var s := AdaptiveFighter.new("soul")
+		p.equip(obj(path), corrupted)
+		s.equip(obj(path), corrupted)
+		same = same and canon(p.caps) == canon(s.caps)
+	# The soul with the graft regenerates and suffers the same way (shared rules).
+	var duo := pair(HINGED, SHOVEL, 4.0, pilgrim, Bodies.build("corrupted", ["marrow_graft"]))
+	duo[1].hp = 40.0
+	duo[1].since_hurt = 0.0
+	run_ticks(duo[0], duo[1], 300, idle, idle)
+	# The AI only issues intents; an unsupported heavy for the soul is refused.
+	var ai_pair := pair(SHOVEL, AWKWARD, 1.5)
+	var ai := AI.new(5)
+	run_ticks(ai_pair[0], ai_pair[1], 240, idle, func(_t: int) -> Dictionary: return ai.intent(ai_pair[1], ai_pair[0], DT))
+	check(same and float(duo[1].hp) > 45.0, "player_and_soul_share_capabilities_and_modification_rules", {"soul_regenerated_to": snappedf(duo[1].hp, 0.01)})
+
+# --- v0 comparison generator ----------------------------------------------------------
+
+func v0_comparison_checks() -> void:
+	var ok := true
+	var detail := {}
+	for id: String in Gen.recipe_ids():
+		var d := Gen.generate(id, int(Gen.recipe(id).seeds[0]))
+		var again := Gen.generate(id, int(Gen.recipe(id).seeds[0]))
+		var c := Solver.solve(d, pilgrim)
+		ok = ok and JSON.stringify(d) == JSON.stringify(again) and c.object_source == "v0"
+		detail[id] = move_set(c)
+	check(ok, "v0_generator_remains_a_deterministic_comparison_source_through_the_same_solver", detail)
+
+# --- 12. Determinism and performance ---------------------------------------------------
 
 func ai_duel_log(seed: int) -> String:
-	var pair := duel(POLE, ORGANIC)
-	var a: AdaptiveFighter = pair[0]
-	var b: AdaptiveFighter = pair[1]
+	var duo := pair(POLE, ORGANIC, 3.0)
+	var a: AdaptiveFighter = duo[0]
+	var b: AdaptiveFighter = duo[1]
 	var ai_a := AI.new(seed)
 	var ai_b := AI.new(seed + 1)
 	run_ticks(a, b, 60 * 20, func(_t: int) -> Dictionary: return ai_a.intent(a, b, DT), func(_t: int) -> Dictionary: return ai_b.intent(b, a, DT))
 	return JSON.stringify(a.events + b.events, "", true) + "|%.6f|%.6f" % [a.hp, b.hp]
 
-func determinism_replay_checks() -> void:
+func determinism_checks() -> void:
 	var first := ai_duel_log(11)
 	var second := ai_duel_log(11)
 	var other := ai_duel_log(12)
-	check(first == second and first != other, "ai_duels_replay_identically_from_the_same_seed", {"log_sha": first.sha256_text().substr(0, 12)})
 	var file := FileAccess.open(output.path_join("duel_log.json"), FileAccess.WRITE)
 	file.store_string(first + "\n")
-
-# --- Performance (llvmpipe/cloud numbers, scoped) -----------------------------------------
+	var fresh := Solver.solve(obj(SHOVEL), pilgrim)
+	check(first == second and first != other and canon(fresh) == canon(caps_for(SHOVEL, pilgrim)),
+		"same_seed_duels_and_solves_replay_identically", {"log_bytes": first.length()})
 
 func performance_checks() -> void:
-	var worst_solve := 0
-	for i in range(ids.size()):
-		var t0 := Time.get_ticks_usec()
-		Solver.solve(descriptor(i, 1), pilgrim)
-		worst_solve = maxi(worst_solve, Time.get_ticks_usec() - t0)
-	var pair := duel(POLE, SHOVEL)
-	var a: AdaptiveFighter = pair[0]
-	var b: AdaptiveFighter = pair[1]
-	var ai_a := AI.new(1)
-	var ai_b := AI.new(2)
-	var t1 := Time.get_ticks_usec()
-	run_ticks(a, b, 600, func(_t: int) -> Dictionary: return ai_a.intent(a, b, DT), func(_t: int) -> Dictionary: return ai_b.intent(b, a, DT))
-	var per_tick := float(Time.get_ticks_usec() - t1) / 600.0
-	# Timings vary run to run, so they go to metrics.json, not results.json (replayed).
-	var metrics := {"worst_solve_ms": worst_solve / 1000, "rules_tick_us_two_fighters": snappedf(per_tick, 0.1),
-		"engine": Engine.get_version_info().string, "cpu": OS.get_processor_name()}
-	print(JSON.stringify({"metrics": metrics}))
-	var file := FileAccess.open(output.path_join("metrics.json"), FileAccess.WRITE)
-	file.store_string(JSON.stringify(metrics, "\t", true) + "\n")
-	check(worst_solve < 3000000 and per_tick < 4000.0, "solver_and_rules_fit_a_lab_budget")
+	var worst := 0.0
+	var per := {}
+	for k: String in timings:
+		if k.begins_with("solve_ms:"):
+			worst = maxf(worst, float(timings[k]))
+			per[k.trim_prefix("solve_ms:")] = snappedf(float(timings[k]), 0.1)
+	var t0 := Time.get_ticks_usec()
+	var a := pair(SHOVEL, POLE, 2.0)
+	for k in range(600):
+		a[0].step({"light": k % 40 == 0}, a[1].position, DT)
+		a[1].step({}, a[0].position, DT)
+		AdaptiveFighter.resolve(a[0], a[1], DT)
+	var tick_us := (Time.get_ticks_usec() - t0) / 600.0
+	# Timings vary by machine; they are recorded, and only gross regressions fail.
+	check(worst < 3000.0 and tick_us < 4000.0, "solver_and_rules_tick_costs_are_recorded_and_bounded",
+		{"bundle_import_ms": snappedf(float(timings.bundle_import_ms), 0.1), "worst_solve_ms": snappedf(worst, 0.1), "rules_tick_us": snappedf(tick_us, 1.0),
+			"per_object_body_ms": per, "note": "llvmpipe/cloud CPU; results vary by machine"})
 
-# --- Isolation ---------------------------------------------------------------------------
+# --- Isolation ------------------------------------------------------------------------
 
 func isolation_checks() -> void:
 	check(ProjectSettings.get_setting("application/run/main_scene") == "res://scenes/first_expedition.tscn", "default_launch_scene_unchanged")

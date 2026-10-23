@@ -1,14 +1,18 @@
 extends Node3D
 ## Adaptive Combat Lab — isolated, separately selectable experiment
 ## (scenes/adaptive_combat_lab.tscn). One player and one corrupted soul fight with
-## procedurally structured objects; the same input produces whatever the shared
-## affordance solver derives from each object's structure and each fighter's body.
+## physically structured objects. The primary objects are the Research Lab's own
+## generated exports (`lab.boneshed.object_export.v1`, vendored and verified by
+## lab_import.gd); the game's earlier GDScript generator stays selectable as a
+## comparison/fallback source. The same input produces whatever the shared affordance
+## solver derives from each object's structure and each fighter's body.
 ## Nothing here is read by the default game, the expedition scenes or the other labs.
 ##
 ## Order each physics tick: intents (input / AI) → both fighters step → separation →
-## contact resolution both ways. Presentation syncs in _process.
+## contact resolution both ways. Presentation, camera and HUD sync in _process.
 
 const Gen = preload("res://scripts/adaptive_lab/object_generator.gd")
+const Imp = preload("res://scripts/adaptive_lab/lab_import.gd")
 const Bodies = preload("res://scripts/adaptive_lab/body_plans.gd")
 const Solver = preload("res://scripts/adaptive_lab/affordance_solver.gd")
 const AdaptiveFighter = preload("res://scripts/adaptive_lab/adaptive_fighter.gd")
@@ -16,45 +20,54 @@ const AI = preload("res://scripts/adaptive_lab/adaptive_ai.gd")
 const Actor = preload("res://scripts/adaptive_lab/adaptive_actor.gd")
 const LabInput = preload("res://scripts/adaptive_lab/adaptive_input.gd")
 const Hud = preload("res://scripts/adaptive_lab/adaptive_hud.gd")
+const OrbitCamera = preload("res://scripts/adaptive_lab/adaptive_camera.gd")
 const MaterialLibrary = preload("res://scripts/visual_showcase/material_library.gd")
 const AI_SEED := 7301
 const START_DISTANCE := 3.2
+const MOD := "marrow_graft"
 
 var player: AdaptiveFighter
 var soul: AdaptiveFighter
 var ai: AI
 var player_actor: Actor
 var soul_actor: Actor
+var orbit: OrbitCamera
 var camera: Camera3D
 var hud: Hud
-## Per side: recipe index, seed (or -1 for the recipe's seed list), seed index, label override, marrow arm.
+## Per side: object source ("lab" import index into the verified bundle, or "v0"
+## generator recipe/seed for comparison), name override, body modification.
 var loadout := {
-	"player": {"recipe": 2, "seed_index": 0, "seed": -1, "label": "", "marrow": false, "body": "pilgrim"},
-	"soul": {"recipe": 0, "seed_index": 0, "seed": -1, "label": "", "marrow": false, "body": "corrupted"},
+	"player": {"source": "lab", "lab": 1, "recipe": 0, "seed_index": 0, "seed": -1, "label": "", "graft": false, "body": "pilgrim"},
+	"soul": {"source": "lab", "lab": 4, "recipe": 0, "seed_index": 0, "seed": -1, "label": "", "graft": false, "body": "corrupted"},
 }
 ## When valid, replaces keyboard/mouse for the player / the AI for the soul:
 ## Callable(lab) -> intent (tests and capture scripts).
 var player_driver: Callable
 var soul_driver: Callable
 var paused := false
-var camera_yaw := 0.0
 ## Capture scripts may pin the camera: {"position": Vector3, "target": Vector3}.
 var fixed_camera: Dictionary = {}
 var _solve_cache := {}
 var _fresh_rng := RandomNumberGenerator.new()
 var _label_cycle := 0
+var _bundle: Dictionary
 
 func _ready() -> void:
 	LabInput.install()
 	_fresh_rng.randomize()
 	MaterialLibrary.set_texture_size(256, 512)
+	_bundle = Imp.load_bundle()
+	if not _bundle.ok or Imp.accepted_paths().is_empty():
+		push_error("Adaptive lab: Lab export bundle failed verification: %s" % str(_bundle.errors))
+		for side: String in ["player", "soul"]:
+			loadout[side].source = "v0"
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--player="):
-			loadout.player.recipe = Gen.recipe_ids().find(arg.trim_prefix("--player="))
+			_select_from_arg("player", arg.trim_prefix("--player="))
 		elif arg.begins_with("--soul="):
-			loadout.soul.recipe = Gen.recipe_ids().find(arg.trim_prefix("--soul="))
-		elif arg == "--player-marrow":
-			loadout.player.marrow = true
+			_select_from_arg("soul", arg.trim_prefix("--soul="))
+		elif arg == "--player-graft":
+			loadout.player.graft = true
 	_build_arena()
 	player = AdaptiveFighter.new("player")
 	soul = AdaptiveFighter.new("soul")
@@ -69,31 +82,51 @@ func _ready() -> void:
 	soul_actor.name = "SoulActor"
 	add_child(soul_actor)
 	soul_actor.setup(soul, "corrupted")
-	camera = Camera3D.new()
-	camera.fov = 62.0
-	camera.current = true
-	add_child(camera)
+	orbit = OrbitCamera.new()
+	orbit.name = "OrbitCamera"
+	add_child(orbit)
+	camera = orbit.camera
 	hud = Hud.new()
 	add_child(hud)
 	reset_duel()
 	print("BONESHED_ADAPTIVE_READY")
 
+## Command-line object choice: a bundle path ("objects/shovel.json") or "v0:<recipe>".
+func _select_from_arg(side: String, value: String) -> void:
+	if value.begins_with("v0:"):
+		loadout[side].source = "v0"
+		loadout[side].recipe = maxi(0, Gen.recipe_ids().find(value.trim_prefix("v0:")))
+	else:
+		var index := Imp.accepted_paths().find(value)
+		if index >= 0:
+			loadout[side].source = "lab"
+			loadout[side].lab = index
+
+func lab_paths() -> Array[String]:
+	return Imp.accepted_paths()
+
 func descriptor_for(side: String) -> Dictionary:
 	var l: Dictionary = loadout[side]
+	if l.source == "lab":
+		var obj: Dictionary = (_bundle.objects[lab_paths()[int(l.lab) % lab_paths().size()]] as Dictionary).duplicate(true)
+		if l.label != "":
+			obj.label = l.label
+			obj.original.descriptor.name = l.label
+		return obj
 	var id: String = Gen.recipe_ids()[l.recipe]
 	var seed: int = l.seed if int(l.seed) >= 0 else int(Gen.recipe(id).seeds[int(l.seed_index) % (Gen.recipe(id).seeds as Array).size()])
 	return Gen.generate(id, seed, l.label)
 
 func body_for(side: String) -> Dictionary:
 	var l: Dictionary = loadout[side]
-	return Bodies.build(l.body, ["marrow_arm"] if l.marrow else [])
+	return Bodies.build(l.body, [MOD] if l.graft else [])
 
-## Solves through a cache keyed by structure + body; relabelled descriptors hit the
-## same entry, which is exactly the claim the label-swap test verifies uncached.
+## Solves through a cache keyed by structure + body; renamed objects hit the same
+## entry, which is exactly the claim the name-swap test verifies uncached.
 func _equip(side: String) -> void:
 	var descriptor := descriptor_for(side)
 	var body := body_for(side)
-	var key := "%s|%s|%s" % [Gen.fingerprint(descriptor), body.id, ",".join(body.modifications)]
+	var key := "%s|%s|%s" % [Solver.structure_hash(descriptor), body.id, ",".join(body.modifications)]
 	if not _solve_cache.has(key):
 		_solve_cache[key] = Solver.solve(descriptor, body)
 	var f: AdaptiveFighter = player if side == "player" else soul
@@ -108,7 +141,8 @@ func reset_duel() -> void:
 	soul.position = Vector3(0.0, 0.0, -START_DISTANCE * 0.5)
 	player.yaw = 0.0
 	soul.yaw = PI
-	camera_yaw = 0.0
+	if orbit != null:
+		orbit.reset(0.0)
 	if player_actor != null:
 		player_actor.rebuild()
 		soul_actor.rebuild()
@@ -122,7 +156,12 @@ func _physics_process(delta: float) -> void:
 
 ## One rules tick (tests call this directly or via the physics loop).
 func step(delta: float) -> void:
-	var player_intent: Dictionary = player_driver.call(self) if player_driver.is_valid() else LabInput.read(camera_yaw)
+	var player_intent: Dictionary
+	if player_driver.is_valid():
+		player_intent = player_driver.call(self)
+	else:
+		player_intent = LabInput.read(orbit.move_basis() if orbit != null else Basis.IDENTITY)
+		player_intent.face = LabInput.facing(player_intent, orbit.locked if orbit != null else true, player.position, player.forward(), soul.position)
 	var soul_intent: Dictionary = soul_driver.call(self) if soul_driver.is_valid() else ai.intent(soul, player, delta)
 	player.step(player_intent, soul.position, delta)
 	soul.step(soul_intent, player.position, delta)
@@ -140,28 +179,25 @@ func _process(delta: float) -> void:
 
 func _update_camera(delta: float) -> void:
 	if not fixed_camera.is_empty():
-		camera.position = fixed_camera.position
+		camera.global_position = fixed_camera.position
 		camera.look_at(fixed_camera.target, Vector3.UP)
 		return
-	var to_soul := soul.position - player.position
-	to_soul.y = 0.0
-	if to_soul.length() > 0.3:
-		var desired := atan2(-to_soul.x, -to_soul.z)
-		camera_yaw = lerp_angle(camera_yaw, desired, 1.0 - exp(-delta * 4.0)) if delta > 0.0 else desired
-	var back := Basis(Vector3.UP, camera_yaw) * Vector3(0.75, 2.1, 4.1)
-	camera.position = player.position + back
-	var focus := player.position.lerp(soul.position, 0.45) + Vector3(0.0, 1.05, 0.0)
-	camera.look_at(focus, Vector3.UP)
+	orbit.update(delta, player.position, soul.position, soul.state != "dead")
 
 func _update_hud() -> void:
-	hud.update_fighter("player", "PILGRIM (you) — state %s" % player.state, player, "")
-	hud.update_fighter("soul", "CORRUPTED SOUL — AI %s — state %s" % [ai.mode, soul.state], soul, "")
+	hud.update_fighters(player, soul, "Corrupted soul · %s%s" % [ai.mode, " · graft" if loadout.soul.graft else ""])
 	var lines: Array[String] = []
 	var merged: Array = player.events + soul.events
 	merged.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a.t < b.t)
-	for e: Dictionary in merged.slice(maxi(0, merged.size() - 6)):
+	for e: Dictionary in merged.slice(maxi(0, merged.size() - 12)):
 		lines.append(_event_text(e))
 	hud.set_log(lines)
+	var reticle: Variant = null
+	if orbit.locked and fixed_camera.is_empty():
+		var p := soul.position + Vector3(0.0, 1.25, 0.0)
+		if not camera.is_position_behind(p):
+			reticle = camera.unproject_position(p)
+	hud.set_reticle(reticle)
 	if player.state == "dead" or soul.state == "dead":
 		hud.set_banner(("The soul is released." if soul.state == "dead" else "You fall.") + "  R to reset")
 
@@ -169,32 +205,40 @@ static func _event_text(e: Dictionary) -> String:
 	var who: String = "you" if e.who == "player" else "soul"
 	match str(e.kind):
 		"attack":
-			return "%.1fs %s: %s → %s (%s via %s)" % [e.t, who, e.detail.input, e.detail.archetype, e.detail.channel, e.detail.feature]
+			return "%.1fs %s: %s → %s (%s via %s, step %+.2f m)" % [e.t, who, e.detail.input, e.detail.archetype, e.detail.channel, e.detail.feature, e.detail.spacing]
 		"contact":
 			return "%.1fs %s: %s with %s" % [e.t, who, e.detail.outcome, e.detail.feature]
+		"whiff":
+			return "%.1fs %s: whiff (%s, closest %.2f m)" % [e.t, who, e.detail.action, e.detail.closest]
 		"light_unsupported", "heavy_unsupported", "guard_unsupported":
 			return "%.1fs %s: %s — %s" % [e.t, who, e.kind, str(e.detail).substr(0, 90)]
 	return "%.1fs %s: %s" % [e.t, who, e.kind]
 
 func _unhandled_input(event: InputEvent) -> void:
+	if orbit != null and orbit.handle_input(event):
+		return
+	if event is InputEventMouseButton and event.pressed and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED and fixed_camera.is_empty() \
+			and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if event.is_action_pressed("alab_lock"):
+		orbit.toggle_lock()
+		return
 	var key := event as InputEventKey
 	if key == null or not key.pressed or key.echo:
 		return
 	var code := key.physical_keycode
-	if code >= KEY_1 and code <= KEY_5:
-		select_recipe("player", code - KEY_1)
-	elif code >= KEY_6 and code <= KEY_9:
-		select_recipe("soul", code - KEY_6)
-	elif code == KEY_0:
-		select_recipe("soul", 4)
+	if code >= KEY_1 and code <= KEY_6:
+		select_lab("soul" if key.shift_pressed else "player", code - KEY_1)
+	elif code == KEY_ESCAPE:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	elif code == KEY_O:
+		toggle_source("player")
 	elif code == KEY_V:
 		next_seed("player", key.shift_pressed)
-	elif code == KEY_C:
-		next_seed("soul", key.shift_pressed)
 	elif code == KEY_B:
-		toggle_marrow("player")
+		toggle_graft("player")
 	elif code == KEY_N:
-		toggle_marrow("soul")
+		toggle_graft("soul")
 	elif code == KEY_G:
 		relabel("player")
 	elif code == KEY_M:
@@ -204,25 +248,44 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif code == KEY_T:
 		for actor: Actor in [player_actor, soul_actor]:
 			actor.show_trail = not actor.show_trail
+	elif code == KEY_F2:
+		hud.toggle("stats")
 	elif code == KEY_F3:
 		for actor: Actor in [player_actor, soul_actor]:
 			actor.show_debug = not actor.show_debug
 	elif code == KEY_F4:
 		Engine.time_scale = 0.3 if Engine.time_scale > 0.5 else 1.0
+	elif code == KEY_F5:
+		hud.toggle("log")
+	elif code == KEY_F6:
+		for actor: Actor in [player_actor, soul_actor]:
+			actor.show_paths = not actor.show_paths
 	elif code == KEY_H:
-		hud.help_label.visible = not hud.help_label.visible
+		hud.toggle("help")
 
-func select_recipe(side: String, index: int) -> void:
-	loadout[side].recipe = index
-	loadout[side].seed = -1
-	loadout[side].seed_index = 0
+## Lab-import object `index` (manifest order); in comparison mode, a v0 recipe.
+func select_lab(side: String, index: int) -> void:
+	if loadout[side].source == "v0":
+		loadout[side].recipe = clampi(index, 0, Gen.recipe_ids().size() - 1)
+		loadout[side].seed = -1
+		loadout[side].seed_index = 0
+	else:
+		loadout[side].lab = clampi(index, 0, lab_paths().size() - 1)
+	loadout[side].label = ""
+	_equip(side)
+	reset_duel()
+
+func toggle_source(side: String) -> void:
+	loadout[side].source = "v0" if loadout[side].source == "lab" else ("lab" if _bundle.ok else "v0")
 	loadout[side].label = ""
 	_equip(side)
 	reset_duel()
 
 func next_seed(side: String, fresh: bool) -> void:
+	if loadout[side].source != "v0":
+		return
 	if fresh:
-		# A brand-new instance: the only unpredictable seed in the lab, shown on the HUD.
+		# A brand-new comparison instance: the only unpredictable seed in the lab.
 		loadout[side].seed = _fresh_rng.randi_range(10000, 99999)
 	else:
 		loadout[side].seed = -1
@@ -230,17 +293,17 @@ func next_seed(side: String, fresh: bool) -> void:
 	_equip(side)
 	reset_duel()
 
-func toggle_marrow(side: String) -> void:
-	loadout[side].marrow = not loadout[side].marrow
+func toggle_graft(side: String) -> void:
+	loadout[side].graft = not loadout[side].graft
 	_equip(side)
 	reset_duel()
 
-## Gives the player's object another recipe's display label. Structure and therefore
-## every capability stay identical (same fingerprint, same solver result).
+## Gives the player's object another display name. Structure and therefore every
+## capability stay identical (same fingerprint, same solver result).
 func relabel(side: String) -> void:
 	_label_cycle += 1
-	var recipes: Array = Gen.data().recipes
-	loadout[side].label = str(recipes[(loadout[side].recipe + _label_cycle) % recipes.size()].label)
+	var names := ["Bone spear of the drowned", "Executioner's greataxe", "Tower shield", "Umbrella", "Shovel", "Rusted sword"]
+	loadout[side].label = names[_label_cycle % names.size()]
 	_equip(side)
 	var f: AdaptiveFighter = player if side == "player" else soul
 	f.log_event("relabelled", loadout[side].label)
@@ -273,6 +336,14 @@ func _build_arena() -> void:
 	floor_mat.uv1_scale = Vector3(5.0, 5.0, 1.0)
 	floor.material_override = floor_mat
 	add_child(floor)
+	var floor_body := StaticBody3D.new()
+	var floor_shape := CollisionShape3D.new()
+	var floor_box := BoxShape3D.new()
+	floor_box.size = Vector3(16.0, 0.2, 16.0)
+	floor_shape.shape = floor_box
+	floor_shape.position = Vector3(0.0, -0.1, 0.0)
+	floor_body.add_child(floor_shape)
+	add_child(floor_body)
 	var wall: StandardMaterial3D = MaterialLibrary.get_material("stone_wall")
 	for i in range(8):
 		var angle := TAU * i / 8.0
@@ -283,6 +354,16 @@ func _build_arena() -> void:
 		pillar.material_override = wall
 		pillar.position = Vector3(cos(angle) * 6.5, 1.6, sin(angle) * 6.5)
 		add_child(pillar)
+		# Camera-only collision (the fighters never collide with the arena).
+		var body := StaticBody3D.new()
+		body.name = "PillarBody%d" % i
+		var shape := CollisionShape3D.new()
+		var collider := BoxShape3D.new()
+		collider.size = box.size
+		shape.shape = collider
+		body.add_child(shape)
+		body.position = pillar.position
+		add_child(body)
 		if i % 2 == 0:
 			var fire := OmniLight3D.new()
 			fire.light_color = Color(1.0, 0.62, 0.3)

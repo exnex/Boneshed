@@ -49,8 +49,33 @@ static func analyse(descriptor: Dictionary) -> Dictionary:
 		"features": _features(parts, mats),
 		"covers": _covers(parts, mats),
 		"probes": probes(parts),
+		"articulated": [],
+		"source": "v0",
 	}
+	result.intervals = intervals(result.grips)
 	return result
+
+## Contiguous grip candidates on one rod → one interval of hand-centre positions, the
+## same shape lab_analysis.gd produces from the Lab's declared grip intervals.
+static func intervals(grips: Array) -> Array:
+	var out: Array = []
+	var current: Dictionary = {}
+	for g: Dictionary in grips:
+		if not current.is_empty() and current.part == g.part and float(g.s) - float(current.last_s) <= GRIP_STEP * 1.05:
+			current.hi = g.point
+			current.last_s = g.s
+			continue
+		if not current.is_empty():
+			out.append(_close_interval(current))
+		current = {"part": g.part, "lo": g.point, "hi": g.point, "last_s": g.s, "axis": g.axis, "radius": g.radius}
+	if not current.is_empty():
+		out.append(_close_interval(current))
+	return out
+
+static func _close_interval(c: Dictionary) -> Dictionary:
+	var axis: Vector3 = c.axis
+	return {"id": "%s@%.2f" % [c.part, float(c.last_s)], "part": c.part, "a": (c.lo as Vector3) - axis * HAND_HALF_WIDTH,
+		"b": (c.hi as Vector3) + axis * HAND_HALF_WIDTH, "axis": axis, "radius": c.radius, "lo": c.lo, "hi": c.hi, "usable": true, "reasons": []}
 
 static func inertia_about(analysis: Dictionary, pivot: Vector3) -> float:
 	var total := 0.0
@@ -222,7 +247,17 @@ static func _feature(id: String, part: Dictionary, kind: String, pos: Vector3, n
 		hardness: float, area: float, half_extent := Vector3.ZERO, omni := false) -> Dictionary:
 	return {"id": id, "part": part.id, "kind": kind, "pos": pos, "normal": normal.normalized(), "radius": radius,
 		"half_extent": half_extent, "sharpness": snappedf(sharpness, 0.0001), "hardness": hardness, "area": area,
-		"omni": omni, "channel": _channel(kind, sharpness)}
+		"omni": omni, "channel": _channel(kind, sharpness), "soft": false, "part_axis": _part_axis(part)}
+
+static func _part_axis(part: Dictionary) -> Vector3:
+	match str(part.kind):
+		"rod", "spike", "membrane":
+			return (v(part.b) - v(part.a)).normalized()
+		"plate":
+			return v(part.u)
+		"lump":
+			return v(part.axis).normalized()
+	return Vector3.UP
 
 static func _features(parts: Array, mats: Dictionary) -> Array:
 	var out: Array = []
