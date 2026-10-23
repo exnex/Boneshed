@@ -1,0 +1,137 @@
+{
+  "catalog_sha256": "fa33ccf7d776ae5855f069097cafc59f5a5670b73829158ebcab9c69c09909a7",
+  "contract": "lab.boneshed.object_export.v1",
+  "files": [
+    {
+      "assembly": 0,
+      "expect": "accept",
+      "id": "object.generated.664e35fb0b354ad0a886bc3c9fac14dff5ff1dba28dd1812a41d0d3a503c5855",
+      "path": "objects/umbrella.json",
+      "seed": "20261022",
+      "sha256": "739798dc4b0bd27ab3ff18ea1f95f4c013dac03a70aa4d172e21c20587ae5549"
+    },
+    {
+      "assembly": 0,
+      "expect": "reject",
+      "id": "object.generated.664e35fb0b354ad0a886bc3c9fac14dff5ff1dba28dd1812a41d0d3a503c5855",
+      "path": "invalid/forged-mass.json",
+      "seed": "20261022",
+      "sha256": "80647ccd2487ff1fffa8b9790ce3dd78477b3a674def0edbe6134b55f843a786"
+    },
+    {
+      "assembly": 0,
+      "expect": "reject",
+      "id": "object.generated.664e35fb0b354ad0a886bc3c9fac14dff5ff1dba28dd1812a41d0d3a503c5855",
+      "path": "invalid/forged-provenance.json",
+      "seed": "20261022",
+      "sha256": "b9254be8d0ff20ea64287deeb40d9a27328f4fd513a9484d488086d45f02d6a9"
+    },
+    {
+      "assembly": 0,
+      "expect": "reject",
+      "id": "object.generated.664e35fb0b354ad0a886bc3c9fac14dff5ff1dba28dd1812a41d0d3a503c5855",
+      "path": "invalid/forged-recipe-with-valid-hash.json",
+      "seed": "20261022",
+      "sha256": "498b65a62e08b90bc432023e9524fc2ae9312e176405cf02471e8ab66e8fd442"
+    },
+    {
+      "assembly": 0,
+      "expect": "reject",
+      "id": "object.generated.664e35fb0b354ad0a886bc3c9fac14dff5ff1dba28dd1812a41d0d3a503c5855",
+      "path": "invalid/missing-material.json",
+      "seed": "20261022",
+      "sha256": "c885297730cd2169d8f64053e635e84ea1c300dd0b25e21909bdeed5b321646f"
+    },
+    {
+      "assembly": 0,
+      "expect": "reject",
+      "id": "object.generated.664e35fb0b354ad0a886bc3c9fac14dff5ff1dba28dd1812a41d0d3a503c5855",
+      "path": "invalid/missing-parent.json",
+      "seed": "20261022",
+      "sha256": "2633edc165e34580709bbf56254a254999b21dda284b9848ea8148ab3d579f50"
+    },
+    {
+      "assembly": 0,
+      "expect": "reject",
+      "id": "object.generated.664e35fb0b354ad0a886bc3c9fac14dff5ff1dba28dd1812a41d0d3a503c5855",
+      "path": "invalid/numeric-seed.json",
+      "seed": "20261022",
+      "sha256": "e94b680434d63dd1171cf1cc9f303c913ce8f9514452d79c905a683ec7d16b3f"
+    },
+    {
+      "assembly": 0,
+      "expect": "reject",
+      "id": "object.generated.664e35fb0b354ad0a886bc3c9fac14dff5ff1dba28dd1812a41d0d3a503c5855",
+      "path": "invalid/reversed-grip.json",
+      "seed": "20261022",
+      "sha256": "eb1dcd2a56c60262c883d2d547a9aaf699a9973609904ab3c0018bdcab62bdc4"
+    },
+    {
+      "assembly": 0,
+      "expect": "reject",
+      "id": "object.generated.664e35fb0b354ad0a886bc3c9fac14dff5ff1dba28dd1812a41d0d3a503c5855",
+      "path": "invalid/unknown-field.json",
+      "seed": "20261022",
+      "sha256": "9016ad849aa3a5b77d0a7388a1864d81ecb40993ba42b7eeb0c021ae0f3d5497"
+    },
+    {
+      "assembly": 0,
+      "expect": "reject",
+      "id": "object.generated.664e35fb0b354ad0a886bc3c9fac14dff5ff1dba28dd1812a41d0d3a503c5855",
+      "path": "invalid/unknown-version.json",
+      "seed": "20261022",
+      "sha256": "4d9db9509ae9bfc6f4885323562f5f9d56916c24b39f13b59eef46e49ef7705e"
+    },
+    {
+      "assembly": 1,
+      "expect": "accept",
+      "id": "object.generated.a985f73bcad6a6b0882facaa5e1b637a556edb58349595af755f10a42962faf6",
+      "path": "objects/shovel.json",
+      "seed": "20261022",
+      "sha256": "e2365325071221b9ce80bfc4c8b65695e01f78c88d2306655d847839ce2dfd1f"
+    },
+    {
+      "assembly": 2,
+      "expect": "accept",
+      "id": "object.generated.fef42e7bfff4d4004046594557be17792acf2afb4057272e585121a4d632c4ec",
+      "path": "objects/double-ended.json",
+      "seed": "20261022",
+      "sha256": "7f01832a550a0b57e325ce326dc57e489486fd677465d5dd871280f6e83786d2"
+    },
+    {
+      "assembly": 4,
+      "expect": "accept",
+      "id": "object.generated.69f6b6752d8f7ff3ffbc09f9c69e0cf426c61aba186ced878b7c7e40794ee47b",
+      "path": "objects/organic.json",
+      "seed": "20261022",
+      "sha256": "c64d8a415af9ae23be4258777e0d30cb874c7f6689bda1d9809a67a733f8c225"
+    },
+    {
+      "assembly": 5,
+      "expect": "accept",
+      "id": "object.generated.867b8babf9ea12c4f9ae85a8610e8e009642e0ff7e1e0e49ba530871ce66bb77",
+      "path": "objects/hinged.json",
+      "seed": "20261022",
+      "sha256": "3b5f305e2489c59b8e8db2036357842202157e8285457e1f8d1a5fa19e6feb57"
+    },
+    {
+      "assembly": 6,
+      "expect": "accept",
+      "id": "object.generated.385a94fb7da8de22f4942b751999a0ce1c29688d8d89029baf4543b052b3afc3",
+      "path": "objects/awkward.json",
+      "seed": "20261022",
+      "sha256": "be9b32ff10e52b53db9f4cb3ce10995e0cba026b620c7a3205fd9bea819a8295"
+    }
+  ],
+  "schema": "lab.boneshed.object_export_manifest.v1",
+  "support": [
+    {
+      "path": "pack.json",
+      "sha256": "fc62862a21f05d562f6cb07978587cf068e3ead8ae4e7727f938cc9e11ea93b9"
+    },
+    {
+      "path": "schema.json",
+      "sha256": "a739695b2686f4874d217ad7ddc182f3a72f11a6028bb3ca76d962b210223db4"
+    }
+  ]
+}

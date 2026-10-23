@@ -1,0 +1,232 @@
+{
+  "descriptor": {
+    "catalog_sha256": "fa33ccf7d776ae5855f069097cafc59f5a5670b73829158ebcab9c69c09909a7",
+    "description": "rod 33x1296x33 mm of fiber (fixed); box 184x300x3 mm of metal (fixed)",
+    "grips": [
+      {
+        "end_permille": 250,
+        "id": "lower",
+        "part": "support",
+        "start_permille": 50
+      },
+      {
+        "end_permille": 550,
+        "id": "upper",
+        "part": "support",
+        "start_permille": 350
+      }
+    ],
+    "id": "object.generated.a985f73bcad6a6b0882facaa5e1b637a556edb58349595af755f10a42962faf6",
+    "materials": [
+      {
+        "color_rgb": [
+          135,
+          145,
+          150
+        ],
+        "density_kg_m3": 7800,
+        "id": "material.metal",
+        "revision": 1,
+        "stiffness_mpa": 200000,
+        "toughness_kpa": 180000
+      },
+      {
+        "color_rgb": [
+          190,
+          170,
+          120
+        ],
+        "density_kg_m3": 1250,
+        "id": "material.organic",
+        "revision": 1,
+        "stiffness_mpa": 6000,
+        "toughness_kpa": 15000
+      },
+      {
+        "color_rgb": [
+          70,
+          90,
+          110
+        ],
+        "density_kg_m3": 300,
+        "id": "material.membrane",
+        "revision": 1,
+        "stiffness_mpa": 2,
+        "toughness_kpa": 200
+      },
+      {
+        "color_rgb": [
+          95,
+          71,
+          40
+        ],
+        "density_kg_m3": 751,
+        "id": "material.fiber",
+        "revision": 1,
+        "stiffness_mpa": 9000,
+        "toughness_kpa": 35000
+      }
+    ],
+    "name": "Anonymous assembly",
+    "parts": [
+      {
+        "axis": 1,
+        "center_mm": [
+          0,
+          1416,
+          0
+        ],
+        "edge_radius_um": 5000,
+        "id": "surface",
+        "joint": "fixed",
+        "joint_anchor_mm": [
+          0,
+          1281,
+          0
+        ],
+        "joint_axis": [
+          1,
+          0,
+          0
+        ],
+        "limit_mdeg": [
+          0,
+          0
+        ],
+        "locked": true,
+        "material": {
+          "id": "material.metal",
+          "revision": 1
+        },
+        "parent": "support",
+        "shape": "box",
+        "size_mm": [
+          184,
+          300,
+          3
+        ]
+      },
+      {
+        "axis": 1,
+        "center_mm": [
+          0,
+          648,
+          0
+        ],
+        "edge_radius_um": 5000,
+        "id": "support",
+        "joint": "fixed",
+        "joint_anchor_mm": [
+          0,
+          648,
+          0
+        ],
+        "joint_axis": [
+          1,
+          0,
+          0
+        ],
+        "limit_mdeg": [
+          0,
+          0
+        ],
+        "locked": true,
+        "material": {
+          "id": "material.fiber",
+          "revision": 1
+        },
+        "parent": "none",
+        "shape": "rod",
+        "size_mm": [
+          33,
+          1296,
+          33
+        ]
+      }
+    ],
+    "recipe": {
+      "assembly": 1,
+      "generator": "lab.boneshed.object.sha256.v1",
+      "seed": "20261022"
+    },
+    "revision": 1,
+    "schema": "lab.boneshed.object.v1",
+    "source_pack": {
+      "id": "pack.demo",
+      "revision": 2
+    }
+  },
+  "descriptor_sha256": "4968cafaca30217e0ad0c885b962aaf70ca9d8205634a6f25a6f76a77401a632",
+  "physical": {
+    "center_of_mass_mm": [
+      0,
+      1115,
+      0
+    ],
+    "inertia_proxy_g_mm2": {
+      "xx": "424628287",
+      "xy": "0",
+      "xz": "0",
+      "yy": "3794317",
+      "yz": "0",
+      "zz": "428269660"
+    },
+    "mass_g": 2123,
+    "parts": [
+      {
+        "center_mm": [
+          0,
+          1416,
+          0
+        ],
+        "id": "surface",
+        "mass_g": 1291,
+        "volume_mm3": 165600
+      },
+      {
+        "center_mm": [
+          0,
+          648,
+          0
+        ],
+        "id": "support",
+        "mass_g": 832,
+        "volume_mm3": 1108467
+      }
+    ]
+  },
+  "provenance": {
+    "generator_source_commit": "43f243018dae1b2d377bf026b92cee9eb3fbdec2",
+    "producer": "lab.boneshed.object_export.v1",
+    "repository": "https://github.com/exnex/ai-game-dev-lab",
+    "sources": [
+      {
+        "path": "contracts.py",
+        "sha256": "7b4493e0325bf8f3bc86bd7a0ab95733e0420d75999b27cccf8adfc932859a5d"
+      },
+      {
+        "path": "object_contracts.py",
+        "sha256": "63d1adf09ba12f711a59ecee558493798de24f8d81a77cbc6c12781ae41af3b4"
+      },
+      {
+        "path": "object_export.py",
+        "sha256": "9d1cc7d59936de0de73c8773600f8c03dc329554d98dc3fc46ac582c41cd11a9"
+      },
+      {
+        "path": "object_lab.py",
+        "sha256": "d46cb5772be591793a1a88ba8b5b0e953ab548a2f3f17fc1e3a60f193c8977e9"
+      },
+      {
+        "path": "objects.py",
+        "sha256": "f765b3be96b198cc6ac9e88e624d435113417bca09326ae45393fbaa5166c271"
+      },
+      {
+        "path": "pipeline.py",
+        "sha256": "64129d8f2b7e748e2a7630967d428030a2baa971fc825e9c6eeab1a03d07f25b"
+      }
+    ]
+  },
+  "schema": "lab.boneshed.object_export.v1",
+  "schema_uri": "urn:lab:boneshed:object-export:1",
+  "schema_version": 1
+}

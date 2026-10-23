@@ -17,19 +17,34 @@ static func data() -> Dictionary:
 		_data = parsed
 	return _data
 
-## body id ("pilgrim" / "corrupted") + modification ids → body descriptor.
+## body id ("pilgrim" / "corrupted") + modification ids → body descriptor. A
+## modification's combat effects are data (`modifiers`), read by the shared rules for
+## either fighter; it removes a hand only when its anatomy has none.
 static func build(body_id: String, modifications: Array = []) -> Dictionary:
 	var base: Dictionary = data().bodies[body_id]
 	var proportions: Dictionary = Rig.CORRUPTED if base.proportions == "corrupted" else Rig.PILGRIM
 	var hands: Array = (base.hands as Array).duplicate()
 	var replaced: Array = []
 	var mods: Array = []
+	var modifiers := {}
+	var visuals: Array = []
 	for mod_id: String in modifications:
 		var mod: Dictionary = data().modifications[mod_id]
 		mods.append(mod_id)
-		replaced.append(mod.replaces)
+		if str(mod.replaces) != "":
+			replaced.append(mod.replaces)
+		visuals.append(mod.visual)
+		# Anatomy decides grips: only a limb that really lacks a hand removes it.
 		for hand: String in mod.removes_hands:
 			hands.erase(hand)
+		for key: String in mod.modifiers:
+			var value := float(mod.modifiers[key])
+			if key.ends_with("_mult"):
+				modifiers[key] = float(modifiers.get(key, 1.0)) * value
+			elif key.ends_with("_delay_s"):
+				modifiers[key] = maxf(float(modifiers.get(key, 0.0)), value)
+			else:
+				modifiers[key] = float(modifiers.get(key, 0.0)) + value
 	var j := Rig.joints(proportions)
 	var arm := Rig.bone_length(proportions, "upperarm_r") + Rig.bone_length(proportions, "lowerarm_r")
 	return {
@@ -37,6 +52,8 @@ static func build(body_id: String, modifications: Array = []) -> Dictionary:
 		"id": body_id,
 		"modifications": mods,
 		"replaced_parts": replaced,
+		"modifiers": modifiers,
+		"visuals": visuals,
 		"proportions": proportions,
 		"hands": hands,
 		"arm_length": arm,

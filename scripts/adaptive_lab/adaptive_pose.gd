@@ -46,11 +46,13 @@ func solve(view: Dictionary, delta: float) -> Dictionary:
 	var state: String = view.get("state", "idle")
 	var yaw: float = pose.get("yaw", 0.0)
 	var lean: float = pose.get("lean", 0.0)
-	var crouch := 0.02
+	var roll: float = pose.get("roll", 0.0)
+	# The motion library fitted the arms to this crouch; keep it exact while attacking.
+	var crouch: float = pose.get("crouch", 0.02)
 	var shift := Vector3.ZERO
 	match state:
 		"attack", "guard":
-			crouch = 0.03
+			pass
 		"dodge":
 			var u := clampf(float(view.get("state_time", 0.0)) / 0.42, 0.0, 1.0)
 			crouch = 0.03 + 0.12 * sin(u * PI)
@@ -67,7 +69,7 @@ func solve(view: Dictionary, delta: float) -> Dictionary:
 			lean -= 1.2 * u
 	var g := {}
 	var hip := pivot + Vector3(0.0, -crouch, 0.0) + shift
-	var torso := Transform3D(Motion.torso_basis(yaw, lean), hip) * Transform3D(Basis.IDENTITY, -pivot)
+	var torso := Transform3D(Motion.torso_basis(yaw, lean, roll), hip) * Transform3D(Basis.IDENTITY, -pivot)
 	var pelvis_turn := Transform3D(Basis(Vector3.UP, -yaw * 0.35), hip) * Transform3D(Basis.IDENTITY, -pivot)
 	g.pelvis = pelvis_turn * (rest.pelvis as Transform3D)
 	for bone: String in UPPER:
@@ -80,7 +82,10 @@ func solve(view: Dictionary, delta: float) -> Dictionary:
 	var hands: Dictionary = pose.get("hands", {})
 	for side: String in ["r", "l"]:
 		var hand := "hand_" + side
-		if hands.has(hand):
+		if hands.has(hand) and pose.get("fists", false):
+			# Unarmed: the fist itself is the target, knuckles leading.
+			stretch[side] = _arm_ik(g, side, hands[hand], Vector3(0.0, 1.0, 0.25).normalized())
+		elif hands.has(hand):
 			var obj: Transform3D = pose.object
 			var tangent: Vector3 = (view.hold.tangents[hand] as Vector3)
 			if tangent.dot(view.get("a_local", tangent)) < 0.0:
@@ -158,10 +163,14 @@ func _legs(g: Dictionary, view: Dictionary, delta: float, hip: Vector3, crouch: 
 	var state: String = view.get("state", "idle")
 	var wide := state in ["attack", "guard", "broken"]
 	var stance := {"l": Vector3(-0.13, 0.0, -0.17 if wide else -0.08), "r": Vector3(0.15, 0.0, 0.15 if wide else 0.07)}
+	var keyed: Dictionary = view.get("feet", {})
 	for side: String in ["l", "r"]:
 		var phase := gait_phase + (PI if side == "r" else 0.0)
 		var foot := (rest["foot_" + side] as Transform3D).origin
 		var target: Vector3 = stance[side] + Vector3(0.0, foot.y, 0.0)
+		if keyed.has(side):
+			# Attack footwork from the motion library: planted, stepping in turn.
+			target = (keyed[side] as Vector3) + Vector3(0.0, foot.y, 0.0)
 		target += dir * 0.2 * sin(phase) * gait_weight
 		target.y += maxf(0.0, cos(phase)) * 0.08 * gait_weight
 		var hip_joint: Vector3 = (g.pelvis as Transform3D) * (rest_local["thigh_" + side] as Transform3D).origin

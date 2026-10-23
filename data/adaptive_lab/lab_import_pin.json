@@ -1,0 +1,40 @@
+{
+	"schema": "boneshed.lab_import_pin.v1",
+	"status": "Game-side pin for the vendored Research Lab export bundle. Experimental; isolated Adaptive Combat Lab only.",
+	"contract": "lab.boneshed.object_export.v1",
+	"schema_uri": "urn:lab:boneshed:object-export:1",
+	"manifest_schema": "lab.boneshed.object_export_manifest.v1",
+	"source_repository": "https://github.com/exnex/ai-game-dev-lab",
+	"source_pull_request": 67,
+	"source_merge_commit": "64bc5124d7307a8e010212c7f686e1a8065b0cbe",
+	"source_pr_head": "45fd1f56711f4be39d6e83c72100bad21b7bde7b",
+	"source_main_checked": "49da8d173839026131355c4e566f2daa7f9b5a70",
+	"source_path": "03-programming/boneshed-content/results/export-v1",
+	"bundle_dir": "res://data/adaptive_lab/lab_export_v1",
+	"manifest_sha256": "fa8d31494acdf8f6bb08ed910eb9081363be603ed9c932332f1566edf61c2667",
+	"catalog_sha256": "fa33ccf7d776ae5855f069097cafc59f5a5670b73829158ebcab9c69c09909a7",
+	"generator": "lab.boneshed.object.sha256.v1",
+	"generator_source_commit": "43f243018dae1b2d377bf026b92cee9eb3fbdec2",
+	"accepted_source_cohort": [
+		{"path": "contracts.py", "sha256": "7b4493e0325bf8f3bc86bd7a0ab95733e0420d75999b27cccf8adfc932859a5d"},
+		{"path": "object_contracts.py", "sha256": "63d1adf09ba12f711a59ecee558493798de24f8d81a77cbc6c12781ae41af3b4"},
+		{"path": "object_export.py", "sha256": "9d1cc7d59936de0de73c8773600f8c03dc329554d98dc3fc46ac582c41cd11a9"},
+		{"path": "object_lab.py", "sha256": "d46cb5772be591793a1a88ba8b5b0e953ab548a2f3f17fc1e3a60f193c8977e9"},
+		{"path": "objects.py", "sha256": "f765b3be96b198cc6ac9e88e624d435113417bca09326ae45393fbaa5166c271"},
+		{"path": "pipeline.py", "sha256": "64129d8f2b7e748e2a7630967d428030a2baa971fc825e9c6eeab1a03d07f25b"}
+	],
+	"lab_check": {
+		"command": "python3 03-programming/boneshed-content/object_export.py check --input 03-programming/boneshed-content/results/export-v1",
+		"python": "3.13.16",
+		"result": {"accepted": 6, "rejected": 9, "contract": "lab.boneshed.object_export.v1"},
+		"note": "Recipe re-derivation needs the Lab generator, which the game does not run. These descriptor digests are the records the Lab check accepted at the pinned commit; the game requires an imported record's natively recomputed digest to be one of them."
+	},
+	"lab_verified_records": [
+		{"path": "objects/awkward.json", "id": "object.generated.385a94fb7da8de22f4942b751999a0ce1c29688d8d89029baf4543b052b3afc3", "descriptor_sha256": "071296b2a8b4186663becf80ded65b4aafc4451ae46630a2b124cd4c35461687"},
+		{"path": "objects/double-ended.json", "id": "object.generated.fef42e7bfff4d4004046594557be17792acf2afb4057272e585121a4d632c4ec", "descriptor_sha256": "4030ab466b1f26eec028325615a8e02b9a6854ae6820bc5cff66b74e4dac8005"},
+		{"path": "objects/hinged.json", "id": "object.generated.867b8babf9ea12c4f9ae85a8610e8e009642e0ff7e1e0e49ba530871ce66bb77", "descriptor_sha256": "084a2bf456c9cb866ab9fa7d5696513a3df008184a6d0fdea931a27d3ef3fb25"},
+		{"path": "objects/organic.json", "id": "object.generated.69f6b6752d8f7ff3ffbc09f9c69e0cf426c61aba186ced878b7c7e40794ee47b", "descriptor_sha256": "9259841ae265e8771cd71f4ae4328fb1ab2123c35b8513b13ec2c33f0fcf0852"},
+		{"path": "objects/shovel.json", "id": "object.generated.a985f73bcad6a6b0882facaa5e1b637a556edb58349595af755f10a42962faf6", "descriptor_sha256": "4968cafaca30217e0ad0c885b962aaf70ca9d8205634a6f25a6f76a77401a632"},
+		{"path": "objects/umbrella.json", "id": "object.generated.664e35fb0b354ad0a886bc3c9fac14dff5ff1dba28dd1812a41d0d3a503c5855", "descriptor_sha256": "d848a5d47092327b077784fc74c5b3614b44c33ad229eceff219050142994a5f"}
+	]
+}

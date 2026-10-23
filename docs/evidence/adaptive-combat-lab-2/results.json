@@ -1,0 +1,622 @@
+{
+	"analysis_mass_and_centre_match_the_lab_physical_block": {
+		"check": "analysis_mass_and_centre_match_the_lab_physical_block",
+		"detail": {
+			"objects/awkward.json": {
+				"game_about_com_vertical": 0.0,
+				"lab_proxy_xx": 3.8659,
+				"lab_proxy_yy": 0.5528
+			},
+			"objects/double-ended.json": {
+				"game_about_com_vertical": 0.0,
+				"lab_proxy_xx": 0.0495,
+				"lab_proxy_yy": 0.0001
+			},
+			"objects/hinged.json": {
+				"game_about_com_vertical": 0.0065,
+				"lab_proxy_xx": 0.0725,
+				"lab_proxy_yy": 0.007
+			},
+			"objects/organic.json": {
+				"game_about_com_vertical": 0.0267,
+				"lab_proxy_xx": 0.5159,
+				"lab_proxy_yy": 0.0287
+			},
+			"objects/shovel.json": {
+				"game_about_com_vertical": 0.0032,
+				"lab_proxy_xx": 0.4246,
+				"lab_proxy_yy": 0.0038
+			},
+			"objects/umbrella.json": {
+				"game_about_com_vertical": 0.0863,
+				"lab_proxy_xx": 0.2176,
+				"lab_proxy_yy": 0.0991
+			}
+		},
+		"passed": true
+	},
+	"anatomy_without_a_hand_still_restricts_grips": {
+		"check": "anatomy_without_a_hand_still_restricts_grips",
+		"detail": "sweep|side|blunt > backhand|side|blunt > sweep|side|blunt > H:sweep|side|blunt > G:upright_guard",
+		"passed": true
+	},
+	"awkward_unholdable_object_leaves_only_bare_handed_options": {
+		"check": "awkward_unholdable_object_leaves_only_bare_handed_options",
+		"detail": {
+			"max_light_damage": 6.0
+		},
+		"passed": true
+	},
+	"bundle_manifest_matches_the_pinned_lab_commit_and_checksum": {
+		"check": "bundle_manifest_matches_the_pinned_lab_commit_and_checksum",
+		"detail": {
+			"errors": [],
+			"lab_commit": "64bc5124d7307a8e010212c7f686e1a8065b0cbe",
+			"manifest_sha256": "fa8d31494acdf8f6bb08ed910eb9081363be603ed9c932332f1566edf61c2667"
+		},
+		"passed": true
+	},
+	"camera_is_free_unless_locked_and_lock_on_tracks_with_manual_override": {
+		"check": "camera_is_free_unless_locked_and_lock_on_tracks_with_manual_override",
+		"detail": {
+			"locked_error": 0.003,
+			"override_held": true,
+			"unlocked_drift": 0.0
+		},
+		"passed": true
+	},
+	"compliant_canopy_guards_and_pushes_but_never_cuts": {
+		"check": "compliant_canopy_guards_and_pushes_but_never_cuts",
+		"passed": true
+	},
+	"contact_feature_moves_rigidly_with_the_gripped_object": {
+		"check": "contact_feature_moves_rigidly_with_the_gripped_object",
+		"detail": {
+			"max_error_m": 0.000000238418579101562
+		},
+		"passed": true
+	},
+	"contact_registers_only_inside_contact_windows": {
+		"check": "contact_registers_only_inside_contact_windows",
+		"passed": true
+	},
+	"default_hud_is_minimal_and_debug_layers_appear_only_on_toggle": {
+		"check": "default_hud_is_minimal_and_debug_layers_appear_only_on_toggle",
+		"detail": {
+			"default_area_fraction": 0.0357,
+			"equipment": "2.1 kg 2H · sweep · backhand · sweep | heavy overhead",
+			"toggles_show": true
+		},
+		"passed": true
+	},
+	"default_launch_scene_unchanged": {
+		"check": "default_launch_scene_unchanged",
+		"passed": true
+	},
+	"drawn_fists_hold_the_rules_grip_points": {
+		"check": "drawn_fists_hold_the_rules_grip_points",
+		"detail": {
+			"max_error_m": 0.0
+		},
+		"passed": true
+	},
+	"drawn_object_feature_equals_the_rules_contact_capsule_at_every_frame": {
+		"check": "drawn_object_feature_equals_the_rules_contact_capsule_at_every_frame",
+		"detail": {
+			"heavies_connected": {
+				"objects/double-ended.json": 2,
+				"objects/hinged.json": 1,
+				"objects/organic.json": 1,
+				"objects/shovel.json": 1,
+				"objects/umbrella.json": 1
+			},
+			"max_error_m": 0.0
+		},
+		"passed": true
+	},
+	"editing_structure_changes_legal_attacks": {
+		"check": "editing_structure_changes_legal_attacks",
+		"detail": {
+			"locked_hinge_cut_edges": 3,
+			"organic_without_tip": "sweep|side|blunt > backhand|side|blunt > sweep|side|blunt > H:overhead|side|blunt > G:cross_guard",
+			"shovel_one_interval_hold": "2h:upper@0.00>upper@0.50"
+		},
+		"passed": true
+	},
+	"every_bundle_file_matches_its_manifest_checksum_and_tampering_is_rejected": {
+		"check": "every_bundle_file_matches_its_manifest_checksum_and_tampering_is_rejected",
+		"detail": {
+			"files": 15
+		},
+		"passed": true
+	},
+	"every_chain_and_heavy_motion_keeps_grips_reachable_and_the_object_out_of_the_wielder": {
+		"check": "every_chain_and_heavy_motion_keeps_grips_reachable_and_the_object_out_of_the_wielder",
+		"detail": {
+			"samples": 1500,
+			"worst_penetration_m": 0.0,
+			"worst_reach_excess_m": 0.0
+		},
+		"passed": true
+	},
+	"every_heavy_connects_from_close_range_out_to_its_reach": {
+		"check": "every_heavy_connects_from_close_range_out_to_its_reach",
+		"detail": {
+			"double-ended.json": {
+				"0.9": "hit",
+				"1.1": "hit",
+				"1.3": "hit",
+				"1.5": "hit",
+				"1.7": "hit",
+				"1.9": "hit"
+			},
+			"hinged.json": {
+				"0.9": "hit",
+				"1.1": "hit",
+				"1.3": "hit",
+				"1.5": "hit",
+				"1.7": "hit",
+				"1.9": "hit",
+				"2.1": "hit",
+				"2.3": "hit",
+				"2.5": "hit",
+				"2.7": "hit"
+			},
+			"organic.json": {
+				"0.9": "hit",
+				"1.1": "hit",
+				"1.3": "hit",
+				"1.5": "hit",
+				"1.7": "hit",
+				"1.9": "hit",
+				"2.1": "hit",
+				"2.3": "hit",
+				"2.5": "hit"
+			},
+			"shovel.json": {
+				"0.9": "hit",
+				"1.1": "hit",
+				"1.3": "hit",
+				"1.5": "hit",
+				"1.7": "hit",
+				"1.9": "hit",
+				"2.1": "hit",
+				"2.3": "hit"
+			},
+			"umbrella.json": {
+				"0.9": "hit",
+				"1.1": "hit",
+				"1.3": "hit",
+				"1.5": "hit",
+				"1.7": "hit",
+				"1.9": "hit",
+				"2.1": "hit"
+			}
+		},
+		"passed": true
+	},
+	"every_lab_object_resolves_to_a_distinct_move_set": {
+		"check": "every_lab_object_resolves_to_a_distinct_move_set",
+		"detail": {
+			"objects/awkward.json": "jab|fist|blunt > cross|fist|blunt > jab|fist|blunt > H:barge|fist|blunt > G:forearm_guard",
+			"objects/double-ended.json": "rear|side|blunt > sweep|side|blunt > rear|side|blunt > H:windmill|side|blunt > G:cross_guard",
+			"objects/hinged.json": "thrust|point|pierce > thrust|point|pierce > rear|side|blunt > H:lunge|point|pierce > G:cross_guard",
+			"objects/organic.json": "thrust|point|pierce > sweep|side|blunt > thrust|point|pierce > H:overhead|side|blunt > G:cross_guard",
+			"objects/shovel.json": "sweep|edge|blunt > backhand|edge|blunt > sweep|edge|blunt > H:overhead|face|blunt > G:cross_guard",
+			"objects/umbrella.json": "bash|face|blunt > sweep|side|blunt > backhand|side|blunt > H:overhead|side|blunt > G:canopy_cover"
+		},
+		"passed": true
+	},
+	"game_recomputes_the_lab_descriptor_digest_exactly": {
+		"check": "game_recomputes_the_lab_descriptor_digest_exactly",
+		"detail": {
+			"objects/awkward.json": "071296b2a8b4186663becf80ded65b4aafc4451ae46630a2b124cd4c35461687",
+			"objects/double-ended.json": "4030ab466b1f26eec028325615a8e02b9a6854ae6820bc5cff66b74e4dac8005",
+			"objects/hinged.json": "084a2bf456c9cb866ab9fa7d5696513a3df008184a6d0fdea931a27d3ef3fb25",
+			"objects/organic.json": "9259841ae265e8771cd71f4ae4328fb1ab2123c35b8513b13ec2c33f0fcf0852",
+			"objects/shovel.json": "4968cafaca30217e0ad0c885b962aaf70ca9d8205634a6f25a6f76a77401a632",
+			"objects/umbrella.json": "d848a5d47092327b077784fc74c5b3614b44c33ad229eceff219050142994a5f"
+		},
+		"passed": true
+	},
+	"game_recomputes_the_lab_physical_block_exactly": {
+		"check": "game_recomputes_the_lab_physical_block_exactly",
+		"passed": true
+	},
+	"graft_keeps_ordinary_hand_function_and_every_hold": {
+		"check": "graft_keeps_ordinary_hand_function_and_every_hold",
+		"passed": true
+	},
+	"graft_regenerates_health_after_a_delay": {
+		"check": "graft_regenerates_health_after_a_delay",
+		"detail": {
+			"grafted_hp": 55.6,
+			"plain_hp": 50.0
+		},
+		"passed": true
+	},
+	"graft_takes_more_damage_posture_and_stagger": {
+		"check": "graft_takes_more_damage_posture_and_stagger",
+		"detail": {
+			"graft": {
+				"hp_lost": 17.67,
+				"posture": 12.41,
+				"stagger": 0.39
+			},
+			"plain": {
+				"hp_lost": 14.14,
+				"posture": 9.19,
+				"stagger": 0.3
+			}
+		},
+		"passed": true
+	},
+	"hand_edited_or_renamed_exports_fail_verification": {
+		"check": "hand_edited_or_renamed_exports_fail_verification",
+		"detail": {
+			"edited": [
+				"derived physical metadata mismatch"
+			],
+			"renamed": [
+				"descriptor digest mismatch"
+			]
+		},
+		"passed": true
+	},
+	"hands_slide_only_inside_their_declared_intervals": {
+		"check": "hands_slide_only_inside_their_declared_intervals",
+		"passed": true
+	},
+	"heavy_after_a_light_uses_the_combo_graph_finisher": {
+		"check": "heavy_after_a_light_uses_the_combo_graph_finisher",
+		"detail": {
+			"pole_heavies": [
+				"heavy:windmill",
+				"heavy:sweep"
+			]
+		},
+		"passed": true
+	},
+	"heavy_offset_head_chops_while_light_pointed_shaft_lunges": {
+		"check": "heavy_offset_head_chops_while_light_pointed_shaft_lunges",
+		"detail": {
+			"hinged": [
+				"lunge",
+				0.2872
+			],
+			"shovel": [
+				"overhead",
+				0.6712,
+				2.224
+			]
+		},
+		"passed": true
+	},
+	"heft_shapes_tempo_overshoot_and_recovery": {
+		"check": "heft_shapes_tempo_overshoot_and_recovery",
+		"detail": {
+			"pole_heft": 0.0375,
+			"shovel_heft": 0.9267,
+			"windups": [
+				0.814,
+				0.176
+			]
+		},
+		"passed": true
+	},
+	"held_guard_blocks_and_a_fresh_press_deflects": {
+		"check": "held_guard_blocks_and_a_fresh_press_deflects",
+		"detail": [
+			"blocked",
+			"deflected"
+		],
+		"passed": true
+	},
+	"hinges_compliant_materials_and_elliptical_rods_are_marked_approximated": {
+		"check": "hinges_compliant_materials_and_elliptical_rods_are_marked_approximated",
+		"detail": {
+			"awkward.json grips": "supported",
+			"awkward.json support:compliant_material": "approximated",
+			"awkward.json support:rod": "approximated",
+			"double-ended.json support:rod": "supported",
+			"hinged.json panel:box": "supported",
+			"hinged.json panel:hinge": "approximated",
+			"hinged.json support:rod": "supported",
+			"hinged.json tip:cone": "supported",
+			"organic.json branch:rod": "supported",
+			"organic.json bulb:ellipsoid": "approximated",
+			"organic.json support:rod": "supported",
+			"organic.json tip:cone": "supported",
+			"shovel.json support:rod": "supported",
+			"shovel.json surface:box": "supported",
+			"umbrella.json membrane:box": "supported",
+			"umbrella.json membrane:compliant_material": "approximated",
+			"umbrella.json rib_x:box": "supported",
+			"umbrella.json rib_z:box": "supported",
+			"umbrella.json support:rod": "supported"
+		},
+		"passed": true
+	},
+	"holds_use_only_the_lab_declared_grip_intervals": {
+		"check": "holds_use_only_the_lab_declared_grip_intervals",
+		"detail": {
+			"objects/double-ended.json": "2h:lower@0.00>upper@0.00",
+			"objects/hinged.json": "2h:lower@1.00>upper@1.00",
+			"objects/organic.json": "2h:lower@0.50>lower@1.00",
+			"objects/shovel.json": "2h:lower@0.00>lower@1.00",
+			"objects/umbrella.json": "2h:lower@0.00>lower@1.00"
+		},
+		"passed": true
+	},
+	"hook_contact_drags_the_defender_toward_the_attacker": {
+		"check": "hook_contact_drags_the_defender_toward_the_attacker",
+		"detail": {
+			"start_distance": 1.79999995231628
+		},
+		"passed": true
+	},
+	"ids_seeds_revisions_provenance_and_original_bytes_are_preserved": {
+		"check": "ids_seeds_revisions_provenance_and_original_bytes_are_preserved",
+		"detail": {
+			"objects/awkward.json": {
+				"assembly": 6,
+				"id": "object.generated.385a94fb7da8de22f4942b7"
+			},
+			"objects/double-ended.json": {
+				"assembly": 2,
+				"id": "object.generated.fef42e7bfff4d4004046594"
+			},
+			"objects/hinged.json": {
+				"assembly": 5,
+				"id": "object.generated.867b8babf9ea12c4f9ae85a"
+			},
+			"objects/organic.json": {
+				"assembly": 4,
+				"id": "object.generated.69f6b6752d8f7ff3ffbc09f"
+			},
+			"objects/shovel.json": {
+				"assembly": 1,
+				"id": "object.generated.a985f73bcad6a6b0882faca"
+			},
+			"objects/umbrella.json": {
+				"assembly": 0,
+				"id": "object.generated.664e35fb0b354ad0a886bc3"
+			}
+		},
+		"passed": true
+	},
+	"lab_parts_and_grip_intervals_convert_with_the_lab_reference_projection": {
+		"check": "lab_parts_and_grip_intervals_convert_with_the_lab_reference_projection",
+		"detail": {
+			"max_error_m": 0.0000000495910654763065
+		},
+		"passed": true
+	},
+	"lab_reuses_only_the_showcase_rig_and_materials": {
+		"check": "lab_reuses_only_the_showcase_rig_and_materials",
+		"passed": true
+	},
+	"movement_is_camera_relative_and_facing_follows_lock_state": {
+		"check": "movement_is_camera_relative_and_facing_follows_lock_state",
+		"detail": {
+			"forward": "(-1.0, 0.0, 0.0)"
+		},
+		"passed": true
+	},
+	"names_descriptions_assembly_and_filenames_never_change_capabilities": {
+		"check": "names_descriptions_assembly_and_filenames_never_change_capabilities",
+		"detail": {
+			"objects/awkward.json": "jab|fist|blunt > cross|fist|blunt > jab|fist|blunt > H:barge|fist|blunt > G:forearm_guard",
+			"objects/double-ended.json": "rear|side|blunt > sweep|side|blunt > rear|side|blunt > H:windmill|side|blunt > G:cross_guard",
+			"objects/hinged.json": "thrust|point|pierce > thrust|point|pierce > rear|side|blunt > H:lunge|point|pierce > G:cross_guard",
+			"objects/organic.json": "thrust|point|pierce > sweep|side|blunt > thrust|point|pierce > H:overhead|side|blunt > G:cross_guard",
+			"objects/shovel.json": "sweep|edge|blunt > backhand|edge|blunt > sweep|edge|blunt > H:overhead|face|blunt > G:cross_guard",
+			"objects/umbrella.json": "bash|face|blunt > sweep|side|blunt > backhand|side|blunt > H:overhead|side|blunt > G:canopy_cover"
+		},
+		"passed": true
+	},
+	"nothing_outside_the_lab_references_it": {
+		"check": "nothing_outside_the_lab_references_it",
+		"detail": [],
+		"passed": true
+	},
+	"one_sided_branch_grants_a_hook_that_pulls": {
+		"check": "one_sided_branch_grants_a_hook_that_pulls",
+		"detail": "thrust|point|pierce > sweep|side|blunt > thrust|point|pierce > H:overhead|side|blunt > G:cross_guard",
+		"passed": true
+	},
+	"out_of_reach_heavies_whiff_and_dodged_heavies_are_evaded": {
+		"check": "out_of_reach_heavies_whiff_and_dodged_heavies_are_evaded",
+		"detail": {
+			"closest_m": 1.324,
+			"dodged": "evaded",
+			"far": "whiff"
+		},
+		"passed": true
+	},
+	"player_and_soul_share_capabilities_and_modification_rules": {
+		"check": "player_and_soul_share_capabilities_and_modification_rules",
+		"detail": {
+			"soul_regenerated_to": 45.6
+		},
+		"passed": true
+	},
+	"same_input_script_produces_different_combo_sequences": {
+		"check": "same_input_script_produces_different_combo_sequences",
+		"detail": {
+			"objects/double-ended.json": "light:rear, light:sweep, light:rear, heavy:windmill, light:rear, heavy:sweep",
+			"objects/hinged.json": "light:thrust, light:thrust, light:rear, heavy:lunge, light:thrust, heavy:lunge",
+			"objects/organic.json": "light:thrust, light:sweep, heavy:overhead, light:thrust, heavy:hook",
+			"objects/shovel.json": "light:sweep, light:backhand, heavy:overhead, light:sweep, heavy:overhead",
+			"objects/umbrella.json": "light:bash, light:sweep, heavy:overhead, light:bash, heavy:bash"
+		},
+		"passed": true
+	},
+	"same_seed_duels_and_solves_replay_identically": {
+		"check": "same_seed_duels_and_solves_replay_identically",
+		"detail": {
+			"log_bytes": 17243
+		},
+		"passed": true
+	},
+	"six_lab_objects_accepted_and_nine_invalid_exports_rejected_for_their_reason": {
+		"check": "six_lab_objects_accepted_and_nine_invalid_exports_rejected_for_their_reason",
+		"detail": {
+			"invalid/forged-mass.json": [
+				"derived physical metadata mismatch"
+			],
+			"invalid/forged-provenance.json": [
+				"unsupported source provenance (source cohort hash)"
+			],
+			"invalid/forged-recipe-with-valid-hash.json": [
+				"record not among Lab-verified generated records (recipe not re-derivable in game)"
+			],
+			"invalid/missing-material.json": [
+				"missing material revision for part rib_x"
+			],
+			"invalid/missing-parent.json": [
+				"missing/self parent (rib_x)"
+			],
+			"invalid/numeric-seed.json": [
+				"seed must be a decimal string"
+			],
+			"invalid/reversed-grip.json": [
+				"empty/reversed grasp interval (lower)"
+			],
+			"invalid/unknown-field.json": [
+				"descriptor: unknown field 'damage'"
+			],
+			"invalid/unknown-version.json": [
+				"unsupported schema_version 2"
+			]
+		},
+		"passed": true
+	},
+	"solver_analysis_motion_rules_and_ai_never_read_names_or_provenance": {
+		"check": "solver_analysis_motion_rules_and_ai_never_read_names_or_provenance",
+		"detail": [],
+		"passed": true
+	},
+	"solver_and_rules_tick_costs_are_recorded_and_bounded": {
+		"check": "solver_and_rules_tick_costs_are_recorded_and_bounded",
+		"detail": {
+			"see": "metrics.json"
+		},
+		"passed": true
+	},
+	"spring_arm_retracts_in_front_of_a_pillar": {
+		"check": "spring_arm_retracts_in_front_of_a_pillar",
+		"detail": {
+			"hit_length": 1.07291579246521
+		},
+		"passed": true
+	},
+	"strict_decoder_keeps_64_bit_integers_and_rejects_duplicates_and_overflow": {
+		"check": "strict_decoder_keeps_64_bit_integers_and_rejects_duplicates_and_overflow",
+		"passed": true
+	},
+	"two_ended_object_alternates_ends_and_strikes_both_in_its_windmill": {
+		"check": "two_ended_object_alternates_ends_and_strikes_both_in_its_windmill",
+		"detail": {
+			"light": "rear|side|blunt > sweep|side|blunt > rear|side|blunt > H:windmill|side|blunt > G:cross_guard"
+		},
+		"passed": true
+	},
+	"umbrella_bashes_and_guards_with_its_canopy_and_cannot_thrust_through_it": {
+		"check": "umbrella_bashes_and_guards_with_its_canopy_and_cannot_thrust_through_it",
+		"detail": {
+			"light": "bash|face|blunt > sweep|side|blunt > backhand|side|blunt > H:overhead|side|blunt > G:canopy_cover"
+		},
+		"passed": true
+	},
+	"unlocked_hinged_panel_never_gains_rigid_contact_or_cover": {
+		"check": "unlocked_hinged_panel_never_gains_rigid_contact_or_cover",
+		"detail": {
+			"articulated": 1
+		},
+		"passed": true
+	},
+	"v0_generator_remains_a_deterministic_comparison_source_through_the_same_solver": {
+		"check": "v0_generator_remains_a_deterministic_comparison_source_through_the_same_solver",
+		"detail": {
+			"demo.awkward_offset_mass": "jab|fist|blunt > cross|fist|blunt > jab|fist|blunt > H:barge|fist|blunt > G:forearm_guard",
+			"demo.broad_terminal_plate": "sweep|edge|blunt > backhand|edge|blunt > sweep|edge|blunt > H:overhead|face|blunt > G:cross_guard",
+			"demo.double_ended_pole": "backhand|mass|blunt > rising|mass|blunt > backhand|mass|blunt > H:overhead|mass|blunt > G:cross_guard",
+			"demo.irregular_organic": "overhead|side|blunt > rising|side|blunt > overhead|side|blunt > H:sweep|side|blunt > G:cross_guard",
+			"demo.ribbed_canopy": "thrust|point|pierce > thrust|point|pierce > sweep|side|blunt > H:lunge|point|pierce > G:deploy_cover"
+		},
+		"passed": true
+	},
+	"wheel_zoom_is_smooth_and_bounded": {
+		"check": "wheel_zoom_is_smooth_and_bounded",
+		"detail": {
+			"after": 2.55,
+			"arm": 2.55339336395264,
+			"before": 4.2
+		},
+		"passed": true
+	},
+	"windmill_lands_with_the_lead_end_then_the_rear_end": {
+		"check": "windmill_lands_with_the_lead_end_then_the_rear_end",
+		"detail": [
+			"support_b_side/hit",
+			"support_a_side/hit"
+		],
+		"passed": true
+	},
+	"windup_path_body_and_recovery_differ_pairwise_across_four_objects": {
+		"check": "windup_path_body_and_recovery_differ_pairwise_across_four_objects",
+		"detail": {
+			"double-ended.json vs hinged.json": {
+				"body": 1.2,
+				"path_m": 1.35,
+				"recovery_m": 1.55,
+				"surfaces_differ": 2,
+				"windup_m": 1.27
+			},
+			"shovel.json vs double-ended.json": {
+				"body": 1.65,
+				"path_m": 1.73,
+				"recovery_m": 2.15,
+				"surfaces_differ": 2,
+				"windup_m": 1.57
+			},
+			"shovel.json vs hinged.json": {
+				"body": 1.12,
+				"path_m": 1.27,
+				"recovery_m": 2.27,
+				"surfaces_differ": 2,
+				"windup_m": 2.04
+			},
+			"umbrella.json vs double-ended.json": {
+				"body": 1.23,
+				"path_m": 1.57,
+				"recovery_m": 2.01,
+				"surfaces_differ": 1,
+				"windup_m": 0.89
+			},
+			"umbrella.json vs hinged.json": {
+				"body": 1.14,
+				"path_m": 1.16,
+				"recovery_m": 1.83,
+				"surfaces_differ": 2,
+				"windup_m": 1.92
+			},
+			"umbrella.json vs shovel.json": {
+				"body": 0.98,
+				"path_m": 1.33,
+				"recovery_m": 2.38,
+				"surfaces_differ": 2,
+				"windup_m": 2.02
+			}
+		},
+		"passed": true
+	},
+	"zero_grip_object_imports_and_draws_but_is_never_held": {
+		"check": "zero_grip_object_imports_and_draws_but_is_never_held",
+		"detail": {
+			"triangles": 56
+		},
+		"passed": true
+	}
+}

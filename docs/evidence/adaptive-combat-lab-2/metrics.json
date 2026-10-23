@@ -1,0 +1,28 @@
+{
+	"bundle_import_ms": 75.5,
+	"note": "llvmpipe/cloud CPU; results vary by machine",
+	"per_object_body_ms": {
+		"objects/awkward.json|corrupted|": 3.5,
+		"objects/awkward.json|pilgrim|": 4.8,
+		"objects/awkward.json|pilgrim|marrow_graft": 5.1,
+		"objects/double-ended.json|corrupted|": 140.8,
+		"objects/double-ended.json|pilgrim|": 167.6,
+		"objects/double-ended.json|pilgrim|marrow_graft": 158.9,
+		"objects/hinged.json|corrupted|": 185.1,
+		"objects/hinged.json|corrupted|marrow_graft": 187.7,
+		"objects/hinged.json|pilgrim|": 203.3,
+		"objects/hinged.json|pilgrim|marrow_graft": 207.5,
+		"objects/organic.json|corrupted|": 253.2,
+		"objects/organic.json|pilgrim|": 278.7,
+		"objects/organic.json|pilgrim|marrow_graft": 252.8,
+		"objects/shovel.json|corrupted|": 240.1,
+		"objects/shovel.json|corrupted|marrow_graft": 256.6,
+		"objects/shovel.json|pilgrim|": 230.6,
+		"objects/shovel.json|pilgrim|marrow_graft": 250.3,
+		"objects/umbrella.json|corrupted|": 252.7,
+		"objects/umbrella.json|pilgrim|": 274.8,
+		"objects/umbrella.json|pilgrim|marrow_graft": 328.5
+	},
+	"rules_tick_us": 298.0,
+	"worst_solve_ms": 328.5
+}

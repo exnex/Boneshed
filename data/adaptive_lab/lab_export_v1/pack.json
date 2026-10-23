@@ -1,0 +1,1794 @@
+{
+  "abilities": [
+    {
+      "id": "ability.demo_crush",
+      "operator": "directional_strike",
+      "requires": [
+        {
+          "id": "cap.crush",
+          "revision": 1
+        }
+      ],
+      "revision": 1
+    },
+    {
+      "id": "ability.demo_deflect",
+      "operator": "deflect",
+      "requires": [
+        {
+          "id": "cap.deflect",
+          "revision": 1
+        }
+      ],
+      "revision": 1
+    },
+    {
+      "id": "ability.demo_guard",
+      "operator": "guard",
+      "requires": [
+        {
+          "id": "cap.guard",
+          "revision": 1
+        }
+      ],
+      "revision": 1
+    },
+    {
+      "id": "ability.demo_lunge",
+      "operator": "legacy_lunge",
+      "requires": [
+        {
+          "id": "cap.legacy_lunge",
+          "revision": 1
+        }
+      ],
+      "revision": 1
+    },
+    {
+      "id": "ability.demo_slash",
+      "operator": "directional_strike",
+      "requires": [
+        {
+          "id": "cap.slash",
+          "revision": 1
+        }
+      ],
+      "revision": 1
+    }
+  ],
+  "bodies": [
+    {
+      "action_constraints": [
+        {
+          "capability": {
+            "id": "cap.light_step",
+            "revision": 1
+          },
+          "max_total_mass_g": 10000,
+          "min_free_grips": 0
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "cap.light_step",
+          "revision": 1
+        }
+      ],
+      "carry_limit_g": 60000,
+      "id": "body.demo_humanoid",
+      "revision": 1,
+      "rig": {
+        "id": "rig.demo_humanoid",
+        "revision": 1
+      },
+      "slots": [
+        {
+          "id": "arm_l",
+          "kind": "body",
+          "part": "arm",
+          "side": "left",
+          "traits": [
+            "grasp.standard",
+            "tissue.organic"
+          ]
+        },
+        {
+          "id": "arm_r",
+          "kind": "body",
+          "part": "arm",
+          "side": "right",
+          "traits": [
+            "grasp.standard",
+            "tissue.organic"
+          ]
+        },
+        {
+          "id": "armor_legs",
+          "kind": "armor",
+          "limb": "legs",
+          "side": "center"
+        },
+        {
+          "id": "armor_torso",
+          "kind": "armor",
+          "limb": "torso",
+          "side": "center"
+        },
+        {
+          "id": "hand_l",
+          "kind": "grip",
+          "limb": "arm_l",
+          "pair": "hand_r",
+          "side": "left"
+        },
+        {
+          "id": "hand_r",
+          "kind": "grip",
+          "limb": "arm_r",
+          "pair": "hand_l",
+          "side": "right"
+        },
+        {
+          "id": "legs",
+          "kind": "body",
+          "part": "legs",
+          "side": "center",
+          "traits": [
+            "tissue.organic"
+          ]
+        },
+        {
+          "id": "torso",
+          "kind": "body",
+          "part": "torso",
+          "side": "center",
+          "traits": [
+            "tissue.organic"
+          ]
+        }
+      ]
+    }
+  ],
+  "body_mods": [
+    {
+      "abilities": [],
+      "bodies": [
+        {
+          "id": "body.demo_humanoid",
+          "revision": 1
+        }
+      ],
+      "capabilities": [],
+      "fits": [
+        "arm_l"
+      ],
+      "id": "body_mod.demo_shell",
+      "keeps_grip": true,
+      "mass_g": 1700,
+      "name": "Shell arm with heavy grasp",
+      "part": "arm",
+      "replaces_traits": [
+        "grasp.heavy",
+        "tissue.shell"
+      ],
+      "requires": [],
+      "requires_traits": [
+        "tissue.organic"
+      ],
+      "revision": 1,
+      "visual": {
+        "id": "visual.demo_shell",
+        "revision": 1
+      }
+    },
+    {
+      "abilities": [
+        {
+          "id": "ability.demo_lunge",
+          "revision": 1
+        }
+      ],
+      "bodies": [
+        {
+          "id": "body.demo_humanoid",
+          "revision": 1
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "cap.legacy_lunge",
+          "revision": 1
+        }
+      ],
+      "fits": [
+        "arm_l"
+      ],
+      "id": "body_mod.demo_marrow",
+      "keeps_grip": false,
+      "mass_g": 1700,
+      "name": "Handless marrow replacement",
+      "part": "arm",
+      "replaces_traits": [
+        "limb.marrow"
+      ],
+      "requires": [],
+      "requires_traits": [
+        "tissue.organic"
+      ],
+      "revision": 1,
+      "visual": {
+        "id": "visual.demo_marrow",
+        "revision": 1
+      }
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "cap.crush",
+      "kind": "offense",
+      "revision": 1
+    },
+    {
+      "id": "cap.deflect",
+      "kind": "defense",
+      "revision": 1
+    },
+    {
+      "id": "cap.guard",
+      "kind": "defense",
+      "revision": 1
+    },
+    {
+      "id": "cap.legacy_lunge",
+      "kind": "offense",
+      "revision": 1
+    },
+    {
+      "id": "cap.light_step",
+      "kind": "mobility",
+      "revision": 1
+    },
+    {
+      "id": "cap.shield",
+      "kind": "defense",
+      "revision": 1
+    },
+    {
+      "id": "cap.slash",
+      "kind": "offense",
+      "revision": 1
+    }
+  ],
+  "channels": [
+    {
+      "id": "channel.fire",
+      "kind": "damage",
+      "revision": 1
+    },
+    {
+      "id": "channel.frost",
+      "kind": "buildup",
+      "revision": 1
+    },
+    {
+      "id": "channel.physical",
+      "kind": "damage",
+      "revision": 1
+    },
+    {
+      "id": "channel.poison",
+      "kind": "buildup",
+      "revision": 1
+    }
+  ],
+  "dependencies": [],
+  "id": "pack.demo",
+  "items": [
+    {
+      "abilities": [],
+      "allowed_modifiers": [
+        {
+          "id": "modifier.demo_firelining",
+          "revision": 1
+        }
+      ],
+      "bodies": [
+        {
+          "id": "body.demo_humanoid",
+          "revision": 1
+        }
+      ],
+      "capabilities": [],
+      "category": "armor",
+      "damage_channels": [],
+      "fits": [
+        "armor_legs"
+      ],
+      "grips": 0,
+      "handedness": "none",
+      "handling": {
+        "balance_permille": 250,
+        "length_mm": 700,
+        "reach_mm": 700,
+        "weight_class": "light"
+      },
+      "id": "item.demo_greaves",
+      "limb_traits": [],
+      "loot_tags": [
+        "leg_armor",
+        "loot.demonstration"
+      ],
+      "mass_g": 1800,
+      "name": "Ash greaves",
+      "rarity": "common",
+      "requires": [
+        {
+          "slot": "legs",
+          "traits": [
+            "tissue.organic"
+          ]
+        }
+      ],
+      "resistances": [
+        {
+          "channel": {
+            "id": "channel.fire",
+            "revision": 1
+          },
+          "rating": 60
+        },
+        {
+          "channel": {
+            "id": "channel.poison",
+            "revision": 1
+          },
+          "rating": 20
+        }
+      ],
+      "revision": 1,
+      "status_sources": [],
+      "subcategory": "leg_armor",
+      "variant_of": null,
+      "visual": {
+        "id": "visual.demo_greaves",
+        "revision": 1
+      }
+    },
+    {
+      "abilities": [],
+      "allowed_modifiers": [
+        {
+          "id": "modifier.demo_firelining",
+          "revision": 1
+        }
+      ],
+      "bodies": [
+        {
+          "id": "body.demo_humanoid",
+          "revision": 1
+        }
+      ],
+      "capabilities": [],
+      "category": "armor",
+      "damage_channels": [],
+      "fits": [
+        "armor_torso"
+      ],
+      "grips": 0,
+      "handedness": "none",
+      "handling": {
+        "balance_permille": 250,
+        "length_mm": 1000,
+        "reach_mm": 1000,
+        "weight_class": "heavy"
+      },
+      "id": "item.demo_plate",
+      "limb_traits": [],
+      "loot_tags": [
+        "loot.demonstration",
+        "plate"
+      ],
+      "mass_g": 20000,
+      "name": "Bog plate",
+      "rarity": "common",
+      "requires": [
+        {
+          "slot": "torso",
+          "traits": [
+            "tissue.organic"
+          ]
+        }
+      ],
+      "resistances": [
+        {
+          "channel": {
+            "id": "channel.fire",
+            "revision": 1
+          },
+          "rating": 60
+        },
+        {
+          "channel": {
+            "id": "channel.poison",
+            "revision": 1
+          },
+          "rating": 20
+        }
+      ],
+      "revision": 1,
+      "status_sources": [],
+      "subcategory": "plate",
+      "variant_of": null,
+      "visual": {
+        "id": "visual.demo_plate",
+        "revision": 1
+      }
+    },
+    {
+      "abilities": [],
+      "allowed_modifiers": [
+        {
+          "id": "modifier.demo_firelining",
+          "revision": 1
+        }
+      ],
+      "bodies": [
+        {
+          "id": "body.demo_humanoid",
+          "revision": 1
+        }
+      ],
+      "capabilities": [],
+      "category": "armor",
+      "damage_channels": [],
+      "fits": [
+        "armor_torso"
+      ],
+      "grips": 0,
+      "handedness": "none",
+      "handling": {
+        "balance_permille": 250,
+        "length_mm": 1000,
+        "reach_mm": 1000,
+        "weight_class": "light"
+      },
+      "id": "item.demo_wraps",
+      "limb_traits": [],
+      "loot_tags": [
+        "cloth",
+        "loot.demonstration"
+      ],
+      "mass_g": 2500,
+      "name": "Cloth wraps",
+      "rarity": "common",
+      "requires": [
+        {
+          "slot": "torso",
+          "traits": [
+            "tissue.organic"
+          ]
+        }
+      ],
+      "resistances": [
+        {
+          "channel": {
+            "id": "channel.fire",
+            "revision": 1
+          },
+          "rating": 60
+        },
+        {
+          "channel": {
+            "id": "channel.poison",
+            "revision": 1
+          },
+          "rating": 20
+        }
+      ],
+      "revision": 1,
+      "status_sources": [],
+      "subcategory": "cloth",
+      "variant_of": null,
+      "visual": {
+        "id": "visual.demo_wraps",
+        "revision": 1
+      }
+    },
+    {
+      "abilities": [
+        {
+          "id": "ability.demo_crush",
+          "revision": 1
+        },
+        {
+          "id": "ability.demo_guard",
+          "revision": 1
+        }
+      ],
+      "allowed_modifiers": [
+        {
+          "id": "modifier.demo_dense",
+          "revision": 1
+        },
+        {
+          "id": "modifier.demo_firelining",
+          "revision": 1
+        },
+        {
+          "id": "modifier.demo_lightweight",
+          "revision": 1
+        }
+      ],
+      "bodies": [
+        {
+          "id": "body.demo_humanoid",
+          "revision": 1
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "cap.crush",
+          "revision": 1
+        },
+        {
+          "id": "cap.guard",
+          "revision": 1
+        }
+      ],
+      "category": "weapon",
+      "damage_channels": [
+        {
+          "id": "channel.physical",
+          "revision": 1
+        }
+      ],
+      "fits": [
+        "hand_l",
+        "hand_r"
+      ],
+      "grips": 2,
+      "handedness": "either",
+      "handling": {
+        "balance_permille": 250,
+        "length_mm": 1900,
+        "reach_mm": 1900,
+        "weight_class": "heavy"
+      },
+      "id": "item.demo_maul",
+      "limb_traits": [
+        "grasp.standard"
+      ],
+      "loot_tags": [
+        "hammer",
+        "loot.demonstration"
+      ],
+      "mass_g": 4200,
+      "name": "Two-hand stone maul",
+      "rarity": "common",
+      "requires": [],
+      "resistances": [],
+      "revision": 1,
+      "status_sources": [],
+      "subcategory": "hammer",
+      "variant_of": null,
+      "visual": {
+        "id": "visual.demo_maul",
+        "revision": 1
+      }
+    },
+    {
+      "abilities": [
+        {
+          "id": "ability.demo_deflect",
+          "revision": 1
+        },
+        {
+          "id": "ability.demo_guard",
+          "revision": 1
+        },
+        {
+          "id": "ability.demo_slash",
+          "revision": 1
+        }
+      ],
+      "allowed_modifiers": [
+        {
+          "id": "modifier.demo_dense",
+          "revision": 1
+        },
+        {
+          "id": "modifier.demo_firelining",
+          "revision": 1
+        },
+        {
+          "id": "modifier.demo_lightweight",
+          "revision": 1
+        }
+      ],
+      "bodies": [
+        {
+          "id": "body.demo_humanoid",
+          "revision": 1
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "cap.deflect",
+          "revision": 1
+        },
+        {
+          "id": "cap.guard",
+          "revision": 1
+        },
+        {
+          "id": "cap.slash",
+          "revision": 1
+        }
+      ],
+      "category": "weapon",
+      "damage_channels": [
+        {
+          "id": "channel.physical",
+          "revision": 1
+        }
+      ],
+      "fits": [
+        "hand_l",
+        "hand_r"
+      ],
+      "grips": 1,
+      "handedness": "either",
+      "handling": {
+        "balance_permille": 250,
+        "length_mm": 1800,
+        "reach_mm": 1800,
+        "weight_class": "standard"
+      },
+      "id": "item.demo_sword",
+      "limb_traits": [
+        "grasp.standard"
+      ],
+      "loot_tags": [
+        "blade",
+        "loot.demonstration"
+      ],
+      "mass_g": 1400,
+      "name": "Notched training sword",
+      "rarity": "common",
+      "requires": [],
+      "resistances": [],
+      "revision": 2,
+      "status_sources": [],
+      "subcategory": "blade",
+      "variant_of": null,
+      "visual": {
+        "id": "visual.demo_sword",
+        "revision": 1
+      }
+    },
+    {
+      "abilities": [
+        {
+          "id": "ability.demo_guard",
+          "revision": 1
+        },
+        {
+          "id": "ability.demo_slash",
+          "revision": 1
+        }
+      ],
+      "allowed_modifiers": [
+        {
+          "id": "modifier.demo_dense",
+          "revision": 1
+        },
+        {
+          "id": "modifier.demo_firelining",
+          "revision": 1
+        },
+        {
+          "id": "modifier.demo_lightweight",
+          "revision": 1
+        }
+      ],
+      "bodies": [
+        {
+          "id": "body.demo_humanoid",
+          "revision": 1
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "cap.guard",
+          "revision": 1
+        },
+        {
+          "id": "cap.slash",
+          "revision": 1
+        }
+      ],
+      "category": "weapon",
+      "damage_channels": [
+        {
+          "id": "channel.fire",
+          "revision": 1
+        },
+        {
+          "id": "channel.physical",
+          "revision": 1
+        }
+      ],
+      "fits": [
+        "hand_l",
+        "hand_r"
+      ],
+      "grips": 1,
+      "handedness": "either",
+      "handling": {
+        "balance_permille": 250,
+        "length_mm": 1800,
+        "reach_mm": 1800,
+        "weight_class": "standard"
+      },
+      "id": "item.demo_fire_sword",
+      "limb_traits": [
+        "grasp.standard"
+      ],
+      "loot_tags": [
+        "blade",
+        "loot.demonstration"
+      ],
+      "mass_g": 1450,
+      "name": "Ember sword demonstrator",
+      "rarity": "uncommon",
+      "requires": [],
+      "resistances": [],
+      "revision": 1,
+      "status_sources": [],
+      "subcategory": "blade",
+      "variant_of": {
+        "id": "item.demo_sword",
+        "revision": 2
+      },
+      "visual": {
+        "id": "visual.demo_fire_sword",
+        "revision": 1
+      }
+    },
+    {
+      "abilities": [
+        {
+          "id": "ability.demo_guard",
+          "revision": 1
+        },
+        {
+          "id": "ability.demo_slash",
+          "revision": 1
+        }
+      ],
+      "allowed_modifiers": [
+        {
+          "id": "modifier.demo_dense",
+          "revision": 1
+        },
+        {
+          "id": "modifier.demo_firelining",
+          "revision": 1
+        },
+        {
+          "id": "modifier.demo_lightweight",
+          "revision": 1
+        }
+      ],
+      "bodies": [
+        {
+          "id": "body.demo_humanoid",
+          "revision": 1
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "cap.guard",
+          "revision": 1
+        },
+        {
+          "id": "cap.slash",
+          "revision": 1
+        }
+      ],
+      "category": "weapon",
+      "damage_channels": [
+        {
+          "id": "channel.physical",
+          "revision": 1
+        }
+      ],
+      "fits": [
+        "hand_l",
+        "hand_r"
+      ],
+      "grips": 1,
+      "handedness": "either",
+      "handling": {
+        "balance_permille": 250,
+        "length_mm": 900,
+        "reach_mm": 900,
+        "weight_class": "light"
+      },
+      "id": "item.demo_knife",
+      "limb_traits": [
+        "grasp.standard"
+      ],
+      "loot_tags": [
+        "blade",
+        "loot.demonstration"
+      ],
+      "mass_g": 700,
+      "name": "Ash long knife",
+      "rarity": "common",
+      "requires": [],
+      "resistances": [],
+      "revision": 1,
+      "status_sources": [
+        {
+          "buildup": 20,
+          "status": {
+            "id": "status.demo_poison",
+            "revision": 1
+          },
+          "trigger": "body_hit"
+        }
+      ],
+      "subcategory": "blade",
+      "variant_of": null,
+      "visual": {
+        "id": "visual.demo_knife",
+        "revision": 1
+      }
+    },
+    {
+      "abilities": [
+        {
+          "id": "ability.demo_guard",
+          "revision": 1
+        }
+      ],
+      "allowed_modifiers": [],
+      "bodies": [
+        {
+          "id": "body.demo_humanoid",
+          "revision": 1
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "cap.guard",
+          "revision": 1
+        },
+        {
+          "id": "cap.shield",
+          "revision": 1
+        }
+      ],
+      "category": "shield",
+      "damage_channels": [],
+      "fits": [
+        "hand_l",
+        "hand_r"
+      ],
+      "grips": 1,
+      "handedness": "either",
+      "handling": {
+        "balance_permille": 250,
+        "length_mm": 450,
+        "reach_mm": 450,
+        "weight_class": "light"
+      },
+      "id": "item.demo_shield",
+      "limb_traits": [
+        "grasp.standard"
+      ],
+      "loot_tags": [
+        "buckler",
+        "loot.demonstration"
+      ],
+      "mass_g": 1600,
+      "name": "Iron buckler",
+      "rarity": "common",
+      "requires": [],
+      "resistances": [],
+      "revision": 1,
+      "status_sources": [],
+      "subcategory": "buckler",
+      "variant_of": null,
+      "visual": {
+        "id": "visual.demo_shield",
+        "revision": 1
+      }
+    }
+  ],
+  "migrations": [
+    {
+      "id": "migration.demo_1_to_2",
+      "references": [
+        {
+          "source": {
+            "id": "item.demo_sword",
+            "revision": 1
+          },
+          "table": "items",
+          "target": {
+            "id": "item.demo_sword",
+            "revision": 2
+          }
+        }
+      ],
+      "revision": 1,
+      "source_pack": {
+        "id": "pack.demo",
+        "revision": 1
+      },
+      "target_pack": {
+        "id": "pack.demo",
+        "revision": 2
+      }
+    }
+  ],
+  "modifiers": [
+    {
+      "categories": [
+        "armor",
+        "weapon"
+      ],
+      "channel": {
+        "id": "channel.fire",
+        "revision": 1
+      },
+      "group": "group.lining",
+      "id": "modifier.demo_firelining",
+      "max_stacks": 2,
+      "maximum": 15,
+      "minimum": 5,
+      "operation": "resistance_delta_rating",
+      "revision": 1,
+      "stacking": "sum"
+    },
+    {
+      "categories": [
+        "weapon"
+      ],
+      "group": "group.forging",
+      "id": "modifier.demo_dense",
+      "max_stacks": 1,
+      "maximum": 120,
+      "minimum": 40,
+      "operation": "mass_delta_g",
+      "revision": 1,
+      "stacking": "unique"
+    },
+    {
+      "categories": [
+        "weapon"
+      ],
+      "group": "group.forging",
+      "id": "modifier.demo_lightweight",
+      "max_stacks": 1,
+      "maximum": -40,
+      "minimum": -120,
+      "operation": "mass_delta_g",
+      "revision": 1,
+      "stacking": "unique"
+    }
+  ],
+  "revision": 2,
+  "rewards": [
+    {
+      "candidates": [
+        {
+          "item": {
+            "id": "item.demo_sword",
+            "revision": 2
+          },
+          "quantity": 1,
+          "tags": [
+            "loot.demonstration"
+          ]
+        },
+        {
+          "item": {
+            "id": "item.demo_wraps",
+            "revision": 1
+          },
+          "quantity": 1,
+          "tags": [
+            "loot.demonstration"
+          ]
+        }
+      ],
+      "id": "reward.demo_cache",
+      "purpose": "demonstration_only",
+      "revision": 1
+    }
+  ],
+  "rigs": [
+    {
+      "bones": [
+        "arm_l",
+        "arm_r",
+        "armor_legs",
+        "armor_torso",
+        "hand_l",
+        "hand_r",
+        "legs",
+        "torso"
+      ],
+      "id": "rig.demo_humanoid",
+      "revision": 1,
+      "sockets": [
+        {
+          "bone": "arm_l",
+          "id": "socket.arm_l",
+          "kind": "body",
+          "slot": "arm_l"
+        },
+        {
+          "bone": "arm_r",
+          "id": "socket.arm_r",
+          "kind": "body",
+          "slot": "arm_r"
+        },
+        {
+          "bone": "armor_legs",
+          "id": "socket.armor_legs",
+          "kind": "armor",
+          "slot": "armor_legs"
+        },
+        {
+          "bone": "armor_torso",
+          "id": "socket.armor_torso",
+          "kind": "armor",
+          "slot": "armor_torso"
+        },
+        {
+          "bone": "hand_l",
+          "id": "socket.hand_l",
+          "kind": "grip",
+          "slot": "hand_l"
+        },
+        {
+          "bone": "hand_r",
+          "id": "socket.hand_r",
+          "kind": "grip",
+          "slot": "hand_r"
+        },
+        {
+          "bone": "legs",
+          "id": "socket.legs",
+          "kind": "body",
+          "slot": "legs"
+        },
+        {
+          "bone": "torso",
+          "id": "socket.torso",
+          "kind": "body",
+          "slot": "torso"
+        }
+      ]
+    }
+  ],
+  "schema": "lab.boneshed.content.v1",
+  "statuses": [
+    {
+      "channel": {
+        "id": "channel.frost",
+        "revision": 1
+      },
+      "id": "status.demo_slow",
+      "operator": "slow",
+      "revision": 1
+    },
+    {
+      "channel": {
+        "id": "channel.poison",
+        "revision": 1
+      },
+      "id": "status.demo_poison",
+      "operator": "dot",
+      "revision": 1
+    }
+  ],
+  "templates": [
+    {
+      "base": {
+        "id": "item.demo_sword",
+        "revision": 2
+      },
+      "id": "template.demo_sword",
+      "materials": [
+        "material.ash",
+        "material.iron"
+      ],
+      "modifiers": [
+        {
+          "id": "modifier.demo_firelining",
+          "revision": 1
+        },
+        {
+          "id": "modifier.demo_lightweight",
+          "revision": 1
+        }
+      ],
+      "rarities": [
+        "common",
+        "uncommon"
+      ],
+      "revision": 1
+    }
+  ],
+  "visuals": [
+    {
+      "attachments": [
+        {
+          "grip_point": "none",
+          "slot": "arm_l",
+          "socket": "socket.arm_l"
+        }
+      ],
+      "fitting": "curated_replacement_v1",
+      "grip_points": [],
+      "hides": [
+        "arm_l"
+      ],
+      "id": "visual.demo_marrow",
+      "lods": [
+        {
+          "level": 0,
+          "mesh": "placeholder://visual.demo_marrow",
+          "screen_permille": 1000
+        },
+        {
+          "level": 1,
+          "mesh": "placeholder://visual.demo_marrow/lod1",
+          "screen_permille": 300
+        }
+      ],
+      "materials": [
+        {
+          "id": "material.ash",
+          "reference": "placeholder://ash"
+        },
+        {
+          "id": "material.iron",
+          "reference": "placeholder://iron"
+        }
+      ],
+      "mesh": "placeholder://visual.demo_marrow",
+      "mode": "replacement",
+      "provenance": {
+        "digest": "none",
+        "generator": "none",
+        "kind": "placeholder",
+        "license": "No art supplied",
+        "rights": "unreviewed",
+        "source": "Original lab metadata; no mesh exists"
+      },
+      "revision": 1,
+      "rig": {
+        "id": "rig.demo_humanoid",
+        "revision": 1
+      }
+    },
+    {
+      "attachments": [
+        {
+          "grip_point": "none",
+          "slot": "arm_l",
+          "socket": "socket.arm_l"
+        }
+      ],
+      "fitting": "curated_replacement_v1",
+      "grip_points": [],
+      "hides": [
+        "arm_l"
+      ],
+      "id": "visual.demo_shell",
+      "lods": [
+        {
+          "level": 0,
+          "mesh": "placeholder://visual.demo_shell",
+          "screen_permille": 1000
+        },
+        {
+          "level": 1,
+          "mesh": "placeholder://visual.demo_shell/lod1",
+          "screen_permille": 300
+        }
+      ],
+      "materials": [
+        {
+          "id": "material.ash",
+          "reference": "placeholder://ash"
+        },
+        {
+          "id": "material.iron",
+          "reference": "placeholder://iron"
+        }
+      ],
+      "mesh": "placeholder://visual.demo_shell",
+      "mode": "replacement",
+      "provenance": {
+        "digest": "none",
+        "generator": "none",
+        "kind": "placeholder",
+        "license": "No art supplied",
+        "rights": "unreviewed",
+        "source": "Original lab metadata; no mesh exists"
+      },
+      "revision": 1,
+      "rig": {
+        "id": "rig.demo_humanoid",
+        "revision": 1
+      }
+    },
+    {
+      "attachments": [
+        {
+          "grip_point": "none",
+          "slot": "armor_legs",
+          "socket": "socket.armor_legs"
+        }
+      ],
+      "fitting": "bind_pose_v1",
+      "grip_points": [],
+      "hides": [],
+      "id": "visual.demo_greaves",
+      "lods": [
+        {
+          "level": 0,
+          "mesh": "placeholder://visual.demo_greaves",
+          "screen_permille": 1000
+        },
+        {
+          "level": 1,
+          "mesh": "placeholder://visual.demo_greaves/lod1",
+          "screen_permille": 300
+        }
+      ],
+      "materials": [
+        {
+          "id": "material.ash",
+          "reference": "placeholder://ash"
+        },
+        {
+          "id": "material.iron",
+          "reference": "placeholder://iron"
+        }
+      ],
+      "mesh": "placeholder://visual.demo_greaves",
+      "mode": "skinned",
+      "provenance": {
+        "digest": "none",
+        "generator": "none",
+        "kind": "placeholder",
+        "license": "No art supplied",
+        "rights": "unreviewed",
+        "source": "Original lab metadata; no mesh exists"
+      },
+      "revision": 1,
+      "rig": {
+        "id": "rig.demo_humanoid",
+        "revision": 1
+      }
+    },
+    {
+      "attachments": [
+        {
+          "grip_point": "none",
+          "slot": "armor_torso",
+          "socket": "socket.armor_torso"
+        }
+      ],
+      "fitting": "bind_pose_v1",
+      "grip_points": [],
+      "hides": [],
+      "id": "visual.demo_plate",
+      "lods": [
+        {
+          "level": 0,
+          "mesh": "placeholder://visual.demo_plate",
+          "screen_permille": 1000
+        },
+        {
+          "level": 1,
+          "mesh": "placeholder://visual.demo_plate/lod1",
+          "screen_permille": 300
+        }
+      ],
+      "materials": [
+        {
+          "id": "material.ash",
+          "reference": "placeholder://ash"
+        },
+        {
+          "id": "material.iron",
+          "reference": "placeholder://iron"
+        }
+      ],
+      "mesh": "placeholder://visual.demo_plate",
+      "mode": "skinned",
+      "provenance": {
+        "digest": "none",
+        "generator": "none",
+        "kind": "placeholder",
+        "license": "No art supplied",
+        "rights": "unreviewed",
+        "source": "Original lab metadata; no mesh exists"
+      },
+      "revision": 1,
+      "rig": {
+        "id": "rig.demo_humanoid",
+        "revision": 1
+      }
+    },
+    {
+      "attachments": [
+        {
+          "grip_point": "none",
+          "slot": "armor_torso",
+          "socket": "socket.armor_torso"
+        }
+      ],
+      "fitting": "bind_pose_v1",
+      "grip_points": [],
+      "hides": [],
+      "id": "visual.demo_wraps",
+      "lods": [
+        {
+          "level": 0,
+          "mesh": "placeholder://visual.demo_wraps",
+          "screen_permille": 1000
+        },
+        {
+          "level": 1,
+          "mesh": "placeholder://visual.demo_wraps/lod1",
+          "screen_permille": 300
+        }
+      ],
+      "materials": [
+        {
+          "id": "material.ash",
+          "reference": "placeholder://ash"
+        },
+        {
+          "id": "material.iron",
+          "reference": "placeholder://iron"
+        }
+      ],
+      "mesh": "placeholder://visual.demo_wraps",
+      "mode": "skinned",
+      "provenance": {
+        "digest": "none",
+        "generator": "none",
+        "kind": "placeholder",
+        "license": "No art supplied",
+        "rights": "unreviewed",
+        "source": "Original lab metadata; no mesh exists"
+      },
+      "revision": 1,
+      "rig": {
+        "id": "rig.demo_humanoid",
+        "revision": 1
+      }
+    },
+    {
+      "attachments": [
+        {
+          "grip_point": "point.hand_l",
+          "slot": "hand_l",
+          "socket": "socket.hand_l"
+        },
+        {
+          "grip_point": "point.hand_r",
+          "slot": "hand_r",
+          "socket": "socket.hand_r"
+        }
+      ],
+      "fitting": "rigid_socket",
+      "grip_points": [
+        {
+          "id": "point.hand_l",
+          "position_mm": [
+            0,
+            0,
+            0
+          ],
+          "rotation_mdeg": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "point.hand_r",
+          "position_mm": [
+            0,
+            0,
+            0
+          ],
+          "rotation_mdeg": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "hides": [],
+      "id": "visual.demo_fire_sword",
+      "lods": [
+        {
+          "level": 0,
+          "mesh": "placeholder://visual.demo_fire_sword",
+          "screen_permille": 1000
+        },
+        {
+          "level": 1,
+          "mesh": "placeholder://visual.demo_fire_sword/lod1",
+          "screen_permille": 300
+        }
+      ],
+      "materials": [
+        {
+          "id": "material.ash",
+          "reference": "placeholder://ash"
+        },
+        {
+          "id": "material.iron",
+          "reference": "placeholder://iron"
+        }
+      ],
+      "mesh": "placeholder://visual.demo_fire_sword",
+      "mode": "rigid",
+      "provenance": {
+        "digest": "none",
+        "generator": "none",
+        "kind": "placeholder",
+        "license": "No art supplied",
+        "rights": "unreviewed",
+        "source": "Original lab metadata; no mesh exists"
+      },
+      "revision": 1,
+      "rig": {
+        "id": "rig.demo_humanoid",
+        "revision": 1
+      }
+    },
+    {
+      "attachments": [
+        {
+          "grip_point": "point.hand_l",
+          "slot": "hand_l",
+          "socket": "socket.hand_l"
+        },
+        {
+          "grip_point": "point.hand_r",
+          "slot": "hand_r",
+          "socket": "socket.hand_r"
+        }
+      ],
+      "fitting": "rigid_socket",
+      "grip_points": [
+        {
+          "id": "point.hand_l",
+          "position_mm": [
+            0,
+            0,
+            0
+          ],
+          "rotation_mdeg": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "point.hand_r",
+          "position_mm": [
+            0,
+            0,
+            0
+          ],
+          "rotation_mdeg": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "hides": [],
+      "id": "visual.demo_knife",
+      "lods": [
+        {
+          "level": 0,
+          "mesh": "placeholder://visual.demo_knife",
+          "screen_permille": 1000
+        },
+        {
+          "level": 1,
+          "mesh": "placeholder://visual.demo_knife/lod1",
+          "screen_permille": 300
+        }
+      ],
+      "materials": [
+        {
+          "id": "material.ash",
+          "reference": "placeholder://ash"
+        },
+        {
+          "id": "material.iron",
+          "reference": "placeholder://iron"
+        }
+      ],
+      "mesh": "placeholder://visual.demo_knife",
+      "mode": "rigid",
+      "provenance": {
+        "digest": "none",
+        "generator": "none",
+        "kind": "placeholder",
+        "license": "No art supplied",
+        "rights": "unreviewed",
+        "source": "Original lab metadata; no mesh exists"
+      },
+      "revision": 1,
+      "rig": {
+        "id": "rig.demo_humanoid",
+        "revision": 1
+      }
+    },
+    {
+      "attachments": [
+        {
+          "grip_point": "point.hand_l",
+          "slot": "hand_l",
+          "socket": "socket.hand_l"
+        },
+        {
+          "grip_point": "point.hand_r",
+          "slot": "hand_r",
+          "socket": "socket.hand_r"
+        }
+      ],
+      "fitting": "rigid_socket",
+      "grip_points": [
+        {
+          "id": "point.hand_l",
+          "position_mm": [
+            0,
+            0,
+            0
+          ],
+          "rotation_mdeg": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "point.hand_r",
+          "position_mm": [
+            0,
+            0,
+            0
+          ],
+          "rotation_mdeg": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "hides": [],
+      "id": "visual.demo_maul",
+      "lods": [
+        {
+          "level": 0,
+          "mesh": "placeholder://visual.demo_maul",
+          "screen_permille": 1000
+        },
+        {
+          "level": 1,
+          "mesh": "placeholder://visual.demo_maul/lod1",
+          "screen_permille": 300
+        }
+      ],
+      "materials": [
+        {
+          "id": "material.ash",
+          "reference": "placeholder://ash"
+        },
+        {
+          "id": "material.iron",
+          "reference": "placeholder://iron"
+        }
+      ],
+      "mesh": "placeholder://visual.demo_maul",
+      "mode": "rigid",
+      "provenance": {
+        "digest": "none",
+        "generator": "none",
+        "kind": "placeholder",
+        "license": "No art supplied",
+        "rights": "unreviewed",
+        "source": "Original lab metadata; no mesh exists"
+      },
+      "revision": 1,
+      "rig": {
+        "id": "rig.demo_humanoid",
+        "revision": 1
+      }
+    },
+    {
+      "attachments": [
+        {
+          "grip_point": "point.hand_l",
+          "slot": "hand_l",
+          "socket": "socket.hand_l"
+        },
+        {
+          "grip_point": "point.hand_r",
+          "slot": "hand_r",
+          "socket": "socket.hand_r"
+        }
+      ],
+      "fitting": "rigid_socket",
+      "grip_points": [
+        {
+          "id": "point.hand_l",
+          "position_mm": [
+            0,
+            0,
+            0
+          ],
+          "rotation_mdeg": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "point.hand_r",
+          "position_mm": [
+            0,
+            0,
+            0
+          ],
+          "rotation_mdeg": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "hides": [],
+      "id": "visual.demo_shield",
+      "lods": [
+        {
+          "level": 0,
+          "mesh": "placeholder://visual.demo_shield",
+          "screen_permille": 1000
+        },
+        {
+          "level": 1,
+          "mesh": "placeholder://visual.demo_shield/lod1",
+          "screen_permille": 300
+        }
+      ],
+      "materials": [
+        {
+          "id": "material.ash",
+          "reference": "placeholder://ash"
+        },
+        {
+          "id": "material.iron",
+          "reference": "placeholder://iron"
+        }
+      ],
+      "mesh": "placeholder://visual.demo_shield",
+      "mode": "rigid",
+      "provenance": {
+        "digest": "none",
+        "generator": "none",
+        "kind": "placeholder",
+        "license": "No art supplied",
+        "rights": "unreviewed",
+        "source": "Original lab metadata; no mesh exists"
+      },
+      "revision": 1,
+      "rig": {
+        "id": "rig.demo_humanoid",
+        "revision": 1
+      }
+    },
+    {
+      "attachments": [
+        {
+          "grip_point": "point.hand_l",
+          "slot": "hand_l",
+          "socket": "socket.hand_l"
+        },
+        {
+          "grip_point": "point.hand_r",
+          "slot": "hand_r",
+          "socket": "socket.hand_r"
+        }
+      ],
+      "fitting": "rigid_socket",
+      "grip_points": [
+        {
+          "id": "point.hand_l",
+          "position_mm": [
+            0,
+            0,
+            0
+          ],
+          "rotation_mdeg": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "point.hand_r",
+          "position_mm": [
+            0,
+            0,
+            0
+          ],
+          "rotation_mdeg": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "hides": [],
+      "id": "visual.demo_sword",
+      "lods": [
+        {
+          "level": 0,
+          "mesh": "placeholder://visual.demo_sword",
+          "screen_permille": 1000
+        },
+        {
+          "level": 1,
+          "mesh": "placeholder://visual.demo_sword/lod1",
+          "screen_permille": 300
+        }
+      ],
+      "materials": [
+        {
+          "id": "material.ash",
+          "reference": "placeholder://ash"
+        },
+        {
+          "id": "material.iron",
+          "reference": "placeholder://iron"
+        }
+      ],
+      "mesh": "placeholder://visual.demo_sword",
+      "mode": "rigid",
+      "provenance": {
+        "digest": "none",
+        "generator": "none",
+        "kind": "placeholder",
+        "license": "No art supplied",
+        "rights": "unreviewed",
+        "source": "Original lab metadata; no mesh exists"
+      },
+      "revision": 1,
+      "rig": {
+        "id": "rig.demo_humanoid",
+        "revision": 1
+      }
+    }
+  ]
+}

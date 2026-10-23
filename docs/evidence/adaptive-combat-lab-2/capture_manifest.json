@@ -1,0 +1,105 @@
+{
+	"compare_awkward": {
+		"frames": 327,
+		"object": "objects/awkward.json",
+		"sequence": [
+			"light:jab",
+			"whiff",
+			"light:cross",
+			"contact:hit",
+			"light:jab",
+			"contact:hit",
+			"heavy:barge",
+			"whiff",
+			"light:jab",
+			"contact:hit",
+			"heavy:barge",
+			"whiff"
+		]
+	},
+	"compare_double-ended": {
+		"frames": 327,
+		"object": "objects/double-ended.json",
+		"sequence": [
+			"light:rear",
+			"whiff",
+			"light:sweep",
+			"contact:hit",
+			"light:rear",
+			"contact:hit",
+			"heavy:windmill",
+			"contact:hit",
+			"contact:hit",
+			"light:rear",
+			"contact:hit",
+			"heavy:sweep",
+			"contact:hit"
+		]
+	},
+	"compare_hinged": {
+		"frames": 327,
+		"object": "objects/hinged.json",
+		"sequence": [
+			"light:thrust",
+			"contact:hit",
+			"light:thrust",
+			"contact:hit",
+			"light:rear",
+			"contact:hit",
+			"heavy:lunge",
+			"contact:hit",
+			"light:thrust",
+			"contact:hit",
+			"heavy:lunge",
+			"contact:hit"
+		]
+	},
+	"compare_organic": {
+		"frames": 327,
+		"object": "objects/organic.json",
+		"sequence": [
+			"light:thrust",
+			"contact:hit",
+			"light:sweep",
+			"contact:hit",
+			"heavy:overhead",
+			"contact:hit",
+			"light:thrust",
+			"contact:hit",
+			"heavy:hook",
+			"contact:hit"
+		]
+	},
+	"compare_shovel": {
+		"frames": 327,
+		"object": "objects/shovel.json",
+		"sequence": [
+			"light:sweep",
+			"contact:hit",
+			"light:backhand",
+			"contact:hit",
+			"heavy:sweep",
+			"contact:hit",
+			"light:sweep",
+			"contact:hit",
+			"heavy:overhead",
+			"contact:hit"
+		]
+	},
+	"compare_umbrella": {
+		"frames": 327,
+		"object": "objects/umbrella.json",
+		"sequence": [
+			"light:bash",
+			"contact:hit",
+			"light:sweep",
+			"contact:hit",
+			"heavy:overhead",
+			"contact:hit",
+			"light:bash",
+			"contact:hit",
+			"heavy:bash",
+			"contact:hit"
+		]
+	}
+}

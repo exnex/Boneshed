@@ -22,7 +22,9 @@ presets = root/'export_presets.cfg'
 source = presets.read_text()
 old = 'include_filter="data/builds/*.json,data/worldgen/*.json,data/melee_lab/*.json"'
 assert source.count(old) == 1, "Unexpected Web include filter"
-presets.write_text(source.replace(old, old[:-1] + ',data/adaptive_lab/*.json"'))
+# The vendored Research Lab bundle lives in subdirectories; list them explicitly.
+presets.write_text(source.replace(old, old[:-1] + ',data/adaptive_lab/*.json,data/adaptive_lab/lab_export_v1/*.json'
+    + ',data/adaptive_lab/lab_export_v1/objects/*.json,data/adaptive_lab/lab_export_v1/invalid/*.json"'))
 PY
 timeout 120 "$GODOT_BIN" --headless --path "$staging" --editor --import
 timeout 180 "$GODOT_BIN" --headless --path "$staging" --export-release Web "$output/index.html"

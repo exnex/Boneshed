@@ -1,0 +1,27 @@
+parse check: all adaptive lab scripts parse
+checks: expected exit 0 confirmed
+checks: 55/55 passed
+checks_replay: expected exit 0 confirmed
+cross-process replay: results.json and duel_log.json identical
+mutation-import: expected exit 0 confirmed
+negative-name-changes-strength: expected exit 1 confirmed
+negative name-changes-strength: caught by ['names_descriptions_assembly_and_filenames_never_change_capabilities', 'solver_analysis_motion_rules_and_ai_never_read_names_or_provenance']
+negative-contact-off-object: expected exit 1 confirmed
+negative contact-off-object: caught by ['drawn_object_feature_equals_the_rules_contact_capsule_at_every_frame']
+negative-fist-off-grip: expected exit 1 confirmed
+negative fist-off-grip: caught by ['drawn_fists_hold_the_rules_grip_points']
+negative-heft-ignored: expected exit 1 confirmed
+negative heft-ignored: caught by ['heft_shapes_tempo_overshoot_and_recovery']
+negative-grips-resampled-from-rod: expected exit 1 confirmed
+negative grips-resampled-from-rod: caught by ['holds_use_only_the_lab_declared_grip_intervals']
+negative-bang-bang-footwork: expected exit 1 confirmed
+negative bang-bang-footwork: caught by ['every_heavy_connects_from_close_range_out_to_its_reach']
+lab1-import: expected exit 0 confirmed
+lab1-heavy-diagnostic: expected exit 0 confirmed
+lab1 heavy diagnostic (origin/main): 6/32 heavies whiffed
+research lab check: vendored bundle accepted (6) / rejected (9) and byte-identical to the Lab
+rendered: expected exit 0 confirmed
+rendered (GL Compatibility, llvmpipe): comparison grid, MP4s, contact sheets and pose sheets written
+isolation: no protected production, lab or coordination file changed versus origin/main
+Evidence: /home/user/Boneshed/artifacts/lab2-final
+EXIT 0
