@@ -147,6 +147,8 @@ const WRIST_TO_GRIP := 0.075
 const LEAD_FOOT_AHEAD := 0.12
 const REAR_FOOT_BEHIND := 0.2
 const MAX_STRIDE := 0.3
+## Half-width of the target body used for effective reach (rules body capsule radius).
+const BODY_HALF_WIDTH := 0.28
 const STANCE := {"l": Vector3(-0.13, 0.0, -0.17), "r": Vector3(0.15, 0.0, 0.15)}
 
 static func smooth(u: float) -> float:
@@ -306,11 +308,12 @@ static func root_at(keys: Array, t: float) -> float:
 	return prev_v
 
 ## Fighter travel at time t: keyed root plus the rules' spacing adjustment `extra`,
-## which ramps in over the late windup and early active phase and then holds.
+## which ramps in over the late windup and then holds.
 static func travel(action: Dictionary, t: float, extra: float) -> float:
 	var w: float = action.windup
-	var a: float = action.active
-	var ramp := smooth((t - 0.3 * w) / maxf(0.7 * w + 0.5 * a, 0.001))
+	# The adjustment is complete when the first contact window opens.
+	var ready_at: float = float((windows(action)[0] as Dictionary).t0)
+	var ramp := smooth((t - 0.3 * w) / maxf(ready_at - 0.3 * w, 0.001))
 	return root_at(action.keys, t) + extra * ramp
 
 ## Foot targets (fighter frame, relative to the travelling root) for an action at t.
@@ -598,6 +601,12 @@ static func build_unarmed(action: Dictionary) -> Array:
 
 # --- Contact, validation ------------------------------------------------------------
 
+static func _capsule_points(cap: Array) -> Array:
+	var out: Array = []
+	for i in range(5):
+		out.append((cap[0] as Vector3).lerp(cap[1], i / 4.0))
+	return out
+
 ## Contact primitive of a feature for an object transform: [segment a, segment b, radius].
 static func contact_capsule(feature: Dictionary, xf: Transform3D) -> Array:
 	var p: Vector3 = feature.pos
@@ -639,10 +648,17 @@ static func validate(action: Dictionary, body: Dictionary, start: Dictionary = {
 		worst_pen = maxf(worst_pen, pose.penetration)
 		if int(pose.window) >= 0:
 			var cap := contact_capsule(window_feature(action, pose.window), pose.object)
-			for p: Vector3 in [cap[0], cap[1]]:
+			for p: Vector3 in _capsule_points(cap):
+				# Effective reach: only contact points that can meet a body standing
+				# straight ahead (within its width and between hip and shoulder).
+				if absf(p.x) > BODY_HALF_WIDTH + float(cap[2]) or p.y < 0.2 or p.y > float(body.shoulder_height) + 0.2:
+					continue
 				reach = maxf(reach, -p.z + float(cap[2]))
-				per_window[pose.window] = maxf(float(per_window[pose.window]), snappedf(-p.z + float(cap[2]), 0.001))
-				reach_root = maxf(reach_root, -p.z + float(pose.root) + float(cap[2]))
+				# Farthest body-centre distance at which this point still touches a body
+				# straight ahead (round body: off-centre points touch shallower).
+				var touch := -p.z + float(pose.root) + sqrt(maxf(0.0, pow(BODY_HALF_WIDTH + float(cap[2]), 2.0) - p.x * p.x))
+				reach_root = maxf(reach_root, touch)
+				per_window[pose.window] = maxf(float(per_window[pose.window]), snappedf(touch, 0.001))
 				low = minf(low, p.y)
 				high = maxf(high, p.y)
 	return {"reach_excess": worst_reach, "penetration": worst_pen, "reach": reach, "reach_root": reach_root, "reach_windows": per_window,

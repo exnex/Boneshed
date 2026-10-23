@@ -44,6 +44,9 @@ const BODY_RADIUS := 0.28
 const PERSONAL_SPACE := 0.75
 ## Footwork aims the contact this far into the target (m) when it can.
 const SPACING_BITE := 0.12
+## A shaft strike (the feature missed at point-blank) lands as a glancing blow.
+const HAFT_DAMAGE := 0.4
+const HAFT_POSTURE := 0.6
 
 var id: String
 var body: Dictionary
@@ -293,12 +296,14 @@ func _start_attack(kind: String, index: int, target: Vector3) -> bool:
 ## close heavies whiff — see docs/ADAPTIVE_COMBAT_LAB.md §6.)
 func _spacing(target: Vector3) -> float:
 	var dist := _distance_to(target)
-	# Every contact window must land: space for the shortest-reaching one.
-	var reach: float = action.get("reach", 1.0)
+	# Every contact window must land: space for the shortest-reaching one. Reach is
+	# measured with the authored travel at the same instant (motion_library.validate).
+	var reach: float = action.get("reach_root", 1.0)
 	for r: Variant in action.get("reach_windows", []):
 		reach = minf(reach, float(r))
 	var root_contact: float = action.get("root_contact", 0.0)
-	var wanted := dist - BODY_RADIUS + SPACING_BITE - reach - root_contact
+	# `reach` is the farthest body-centre distance that still touches; land inside it.
+	var wanted := dist + SPACING_BITE - reach
 	var max_in := 0.35 + maxf(0.0, root_contact) * 0.8
 	var max_out := 0.35 + maxf(0.0, root_contact) * 0.5
 	return clampf(wanted, -max_out, max_in)
@@ -378,9 +383,9 @@ func in_deflect_window() -> bool:
 
 ## World-space contact capsule of contact window `w` of the current action at rule
 ## time t (the window's feature; the travel at t is applied like the drawn pose).
-func contact_at(t: float, w := 0) -> Array:
+func contact_at(t: float, w := 0, haft := false) -> Array:
 	var p := Motion.sample(action, t, body, action_start)
-	var cap := Motion.contact_capsule(Motion.window_feature(action, w), p.object)
+	var cap := Motion.contact_capsule(action.haft if haft else Motion.window_feature(action, w), p.object)
 	var xf := Transform3D(Basis(Vector3.UP, yaw), position + forward() * (Motion.travel(action, t, spacing_extra) - prev_travel))
 	return [xf * (cap[0] as Vector3), xf * (cap[1] as Vector3), cap[2]]
 
@@ -418,18 +423,27 @@ static func resolve(attacker: RefCounted, defender: RefCounted, dt: float, subst
 					return {}
 				attacker.window_done[w] = true
 				return _apply_hit(attacker, defender, ((cap[0] as Vector3) + (cap[1] as Vector3)) * 0.5, t, w)
+			if attacker.action.has("haft") and windows.size() == 1:
+				var hcap: Array = attacker.contact_at(t, w, true)
+				if segment_segment(hcap[0], hcap[1], bodycap[0], bodycap[1]) <= float(hcap[2]) + float(bodycap[2]):
+					if defender.invulnerable():
+						attacker.window_done[w] = true
+						attacker.log_event("evaded", attacker.attack_serial)
+						return {}
+					attacker.window_done[w] = true
+					return _apply_hit(attacker, defender, ((hcap[0] as Vector3) + (hcap[1] as Vector3)) * 0.5, t, w, true)
 	return {}
 
-static func _apply_hit(attacker: RefCounted, defender: RefCounted, point: Vector3, t: float, w: int) -> Dictionary:
+static func _apply_hit(attacker: RefCounted, defender: RefCounted, point: Vector3, t: float, w: int, haft := false) -> Dictionary:
 	var act: Dictionary = attacker.action
-	var damage: float = act.damage
-	var posture: float = act.posture
+	var damage: float = act.damage * (HAFT_DAMAGE if haft else 1.0)
+	var posture: float = act.posture * (HAFT_POSTURE if haft else 1.0)
 	var to_attacker: Vector3 = attacker.position - defender.position
 	to_attacker.y = 0.0
 	var angle: float = defender.forward().angle_to(to_attacker.normalized()) if to_attacker.length() > 0.01 else 0.0
-	var feature: Dictionary = Motion.window_feature(act, w)
+	var feature: Dictionary = act.haft if haft else Motion.window_feature(act, w)
 	var result := {"attacker": attacker.id, "defender": defender.id, "action": act.id, "feature": feature.id, "window": w, "point": point,
-		"rule_time": snappedf(t, 0.0001), "outcome": ""}
+		"rule_time": snappedf(t, 0.0001), "outcome": "", "haft": haft}
 	var damage_taken_mult: float = defender.modifier("damage_taken_mult", 1.0)
 	var posture_taken_mult: float = defender.modifier("posture_taken_mult", 1.0)
 	var guard: Variant = defender.caps.get("guard")
@@ -448,7 +462,7 @@ static func _apply_hit(attacker: RefCounted, defender: RefCounted, point: Vector
 			defender.hp -= damage * (1.0 - absorb) * damage_taken_mult
 			defender.posture = minf(MAX_POSTURE, defender.posture + posture * (1.25 - absorb * 0.6) * posture_taken_mult)
 			defender.since_hurt = 0.0
-			if float(act.get("pull", 0.0)) > 0.0:
+			if float(act.get("pull", 0.0)) > 0.0 and not haft:
 				_pull(attacker, defender, float(act.pull) * 0.6)
 				result.pulled = true
 			if defender.posture >= MAX_POSTURE:
@@ -461,7 +475,7 @@ static func _apply_hit(attacker: RefCounted, defender: RefCounted, point: Vector
 		defender.hp -= damage * damage_taken_mult
 		defender.posture = minf(MAX_POSTURE, defender.posture + posture * 0.5 * posture_taken_mult)
 		defender.since_hurt = 0.0
-		if float(act.get("pull", 0.0)) > 0.0:
+		if float(act.get("pull", 0.0)) > 0.0 and not haft:
 			_pull(attacker, defender, float(act.pull))
 			result.pulled = true
 		if defender.posture >= MAX_POSTURE and defender.state != "broken":

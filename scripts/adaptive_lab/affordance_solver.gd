@@ -551,6 +551,18 @@ static func _action(arche: String, f: Dictionary, a: Vector3, hold: Dictionary, 
 		"score": light_score if not heavy else heavy_score}
 	if spec.get("heavy_only", false) and not heavy:
 		act.score = -1.0
+	# Haft: in a rotational strike the visible shaft between the striking hand and the
+	# feature also sweeps through space. It is tested only when the feature itself
+	# misses (point-blank), as a weaker glancing blow — the drawn geometry, not a
+	# larger hitbox.
+	if (arche in SWINGS or arche == "rear") and hold.hands.size() > 0:
+		var hand: String = "hand_l" if arche == "rear" and hold.hands.size() == 2 else str(hold.hands[0])
+		var from: Vector3 = hold.grips[hand]
+		var to: Vector3 = (f.pos as Vector3) - ((f.pos as Vector3) - from).normalized() * (float(f.radius) + 0.02)
+		if from.distance_to(to) > 0.15:
+			var from_end := from + (to - from).normalized() * 0.08
+			act.haft = {"id": "haft", "part": "haft", "kind": "haft", "pos": (from_end + to) * 0.5, "half_extent": (to - from_end) * 0.5,
+				"radius": maxf(float((hold.intervals[hand] as Dictionary).radius), 0.015) + 0.01, "channel": "blunt", "normal": Vector3.ZERO}
 	return act
 
 static func _finish_action(act: Dictionary, body: Dictionary) -> void:

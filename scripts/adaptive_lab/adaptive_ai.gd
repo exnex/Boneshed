@@ -80,7 +80,11 @@ func intent(me: RefCounted, foe: RefCounted, dt: float) -> Dictionary:
 		out.move = dir.cross(Vector3.UP) * strafe * 0.4
 	if dist <= reach * 0.95 and cooldown <= 0.0:
 		var heavy_p := 0.15 if mode == "defensive" else 0.3
-		if me.caps.get("heavy") != null and rng.randf() < heavy_p:
+		var heavy: Variant = me.caps.get("heavy")
+		# A heavy is chosen only when its own reach (plus footwork) covers the gap —
+		# Lab 1 chose heavies at light reach, and short heavies whiffed.
+		var heavy_reach: float = float(heavy.get("reach", 0.0)) + maxf(0.0, float(heavy.get("root_contact", 0.0))) + 0.3 if heavy != null else 0.0
+		if heavy != null and dist <= heavy_reach and rng.randf() < heavy_p:
 			out.heavy = true
 			chain_left = 0
 		else:

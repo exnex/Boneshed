@@ -276,13 +276,21 @@ func mapping_checks() -> void:
 		for hand: String in hold.grips:
 			var iv: Dictionary = hold.intervals[hand]
 			var p: Vector3 = hold.grips[hand]
-			var t := (p - (iv.lo as Vector3)).dot(iv.axis) / maxf((iv.lo as Vector3).distance_to(iv.hi), 0.0001)
-			var off := ((p - (iv.lo as Vector3)) - (iv.axis as Vector3) * (p - (iv.lo as Vector3)).dot(iv.axis)).length()
-			grip_ok = grip_ok and t >= -0.0001 and t <= 1.0001 and off < 0.0005
-			var declared := false
+			# Against the Lab's own declared interval (raw permille → metres), not the
+			# analysis' copy: the hand centre sits a palm half-width inside it.
+			var declared: Dictionary = {}
 			for g: Dictionary in obj(path).grips:
-				declared = declared or g.id == iv.id
-			grip_ok = grip_ok and declared
+				if g.id == iv.id:
+					declared = g
+			grip_ok = grip_ok and not declared.is_empty()
+			if declared.is_empty():
+				continue
+			var a: Vector3 = declared.a
+			var b: Vector3 = declared.b
+			var axis := (b - a).normalized()
+			var along := (p - a).dot(axis)
+			var off := ((p - a) - axis * along).length()
+			grip_ok = grip_ok and along >= LabAnalysis.HAND_HALF_WIDTH - 0.0005 and along <= a.distance_to(b) - LabAnalysis.HAND_HALF_WIDTH + 0.0005 and off < 0.0005
 		grip_detail[path] = hold.id
 	check(grip_ok, "holds_use_only_the_lab_declared_grip_intervals", grip_detail)
 	# Awkward: valid data, imported and drawn, never held.
@@ -676,16 +684,24 @@ func rules_checks() -> void:
 	run_ticks(far_pair[0], far_pair[1], 150, func(t: int) -> Dictionary: return {"heavy": t == 0}, idle)
 	var whiff: Array = far_pair[0].events.filter(func(e: Dictionary) -> bool: return e.kind == "whiff")
 	# Dodge (toward the attacker, staying in range) just before the measured contact.
-	var dry := pair(SHOVEL, HINGED, 1.7)
+	# A lunge travels onto a target that backsteps just before contact: the blade
+	# reaches it during its invulnerability frames.
+	var dry := pair(HINGED, SHOVEL, 2.0)
 	run_ticks(dry[0], dry[1], 150, func(t: int) -> Dictionary: return {"heavy": t == 0}, idle)
 	var contact_t := 0.0
 	for e: Dictionary in dry[0].events:
 		if e.kind == "contact":
 			contact_t = float(e.detail.rule_time)
-	var dodge_pair := pair(SHOVEL, HINGED, 1.7)
-	var dodge_at := int((contact_t - 0.03) / DT)
-	run_ticks(dodge_pair[0], dodge_pair[1], 150, func(t: int) -> Dictionary: return {"heavy": t == 0},
-		func(t: int) -> Dictionary: return {"dodge": t == dodge_at, "move": Vector3(0, 0, 1)})
+	# The dodging defender is pinned in place (as against a wall) so that only the
+	# invulnerability frames, not distance, decide the outcome.
+	var dodge_pair := pair(HINGED, SHOVEL, 2.0)
+	var dodge_at := int((contact_t - 0.06) / DT)
+	var pin: Vector3 = dodge_pair[1].position
+	for t in range(150):
+		dodge_pair[0].step({"heavy": t == 0}, dodge_pair[1].position, DT)
+		dodge_pair[1].step({"dodge": t == dodge_at}, dodge_pair[0].position, DT)
+		dodge_pair[1].position = pin
+		AdaptiveFighter.resolve(dodge_pair[0], dodge_pair[1], DT)
 	check(outcome(far_pair[0]) == "whiff" and float(whiff[0].detail.closest) > 0.3 and outcome(dodge_pair[0]) == "evaded",
 		"out_of_reach_heavies_whiff_and_dodged_heavies_are_evaded", {"far": outcome(far_pair[0]), "closest_m": whiff[0].detail.closest if not whiff.is_empty() else null,
 			"dodged": outcome(dodge_pair[0])})
@@ -709,11 +725,12 @@ func rules_checks() -> void:
 	var hook_pair := pair(ORGANIC, HINGED, 1.8)
 	var before: float = (hook_pair[0].position as Vector3).distance_to(hook_pair[1].position)
 	var hook_index := -1
-	for i in range((caps_for(ORGANIC, pilgrim).light as Array).size()):
-		if caps_for(ORGANIC, pilgrim).light[i].archetype == "hook" and hook_index < 0:
+	var after: Array = caps_for(ORGANIC, pilgrim).heavy_after
+	for i in range(after.size()):
+		if after[i] != null and after[i].archetype == "hook" and hook_index < 0:
 			hook_index = i
 	var a_hook: AdaptiveFighter = hook_pair[0]
-	a_hook._start_attack("light", hook_index, hook_pair[1].position)
+	a_hook._start_attack("heavy", hook_index, hook_pair[1].position)
 	run_ticks(a_hook, hook_pair[1], 60, idle, idle)
 	var pulled := a_hook.events.any(func(e: Dictionary) -> bool: return e.kind == "contact" and e.detail.get("pulled", false))
 	check(hook_index >= 0 and pulled, "hook_contact_drags_the_defender_toward_the_attacker", {"start_distance": before})
