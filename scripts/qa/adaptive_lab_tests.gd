@@ -959,9 +959,13 @@ func performance_checks() -> void:
 		AdaptiveFighter.resolve(a[0], a[1], DT)
 	var tick_us := (Time.get_ticks_usec() - t0) / 600.0
 	# Timings vary by machine; they are recorded, and only gross regressions fail.
-	check(worst < 3000.0 and tick_us < 4000.0, "solver_and_rules_tick_costs_are_recorded_and_bounded",
-		{"bundle_import_ms": snappedf(float(timings.bundle_import_ms), 0.1), "worst_solve_ms": snappedf(worst, 0.1), "rules_tick_us": snappedf(tick_us, 1.0),
-			"per_object_body_ms": per, "note": "llvmpipe/cloud CPU; results vary by machine"})
+	# Wall-clock numbers go to metrics.json, outside the byte-compared results.json.
+	var metrics := {"bundle_import_ms": snappedf(float(timings.bundle_import_ms), 0.1), "worst_solve_ms": snappedf(worst, 0.1),
+		"rules_tick_us": snappedf(tick_us, 1.0), "per_object_body_ms": per, "note": "llvmpipe/cloud CPU; results vary by machine"}
+	var file := FileAccess.open(output.path_join("metrics.json"), FileAccess.WRITE)
+	file.store_string(JSON.stringify(metrics, "\t", true) + "\n")
+	print(JSON.stringify({"metrics": metrics}))
+	check(worst < 3000.0 and tick_us < 4000.0, "solver_and_rules_tick_costs_are_recorded_and_bounded", {"see": "metrics.json"})
 
 # --- Isolation ------------------------------------------------------------------------
 
