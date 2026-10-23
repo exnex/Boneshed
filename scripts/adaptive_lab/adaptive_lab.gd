@@ -89,6 +89,8 @@ func _ready() -> void:
 	hud = Hud.new()
 	add_child(hud)
 	reset_duel()
+	print("BONESHED_ADAPTIVE_LAB_IMPORT accepted=%d rejected=%d manifest=%s" % [Imp.accepted_paths().size(), _bundle.rejected.size(),
+		str(_bundle.manifest_sha256).substr(0, 12)])
 	print("BONESHED_ADAPTIVE_READY")
 
 ## Command-line object choice: a bundle path ("objects/shovel.json") or "v0:<recipe>".

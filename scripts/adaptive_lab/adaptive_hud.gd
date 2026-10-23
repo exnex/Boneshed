@@ -68,7 +68,7 @@ func _ready() -> void:
 	soul_box.add_child(soul_hp)
 	soul_box.add_child(soul_posture)
 	reticle = _label(26, Color(1.0, 0.85, 0.5))
-	reticle.text = "◆"
+	reticle.text = "( )"
 	reticle.visible = false
 	root.add_child(reticle)
 	hint = _label(13, Color(0.8, 0.8, 0.8, 0.55))
@@ -164,12 +164,12 @@ static func equipment_line(fighter: RefCounted) -> String:
 	for act: Dictionary in caps.light:
 		chain.append(act.archetype)
 	var heavy: String = caps.heavy.archetype if caps.heavy != null else "—"
-	return "%.1f kg %s · %s → %s%s" % [caps.mass, "2H" if hold.hands.size() == 2 else "1H", " · ".join(chain), heavy, graft]
+	return "%.1f kg %s · %s | heavy %s%s" % [caps.mass, "2H" if hold.hands.size() == 2 else "1H", " · ".join(chain), heavy, graft]
 
 func set_reticle(screen: Variant) -> void:
 	reticle.visible = screen != null
 	if screen != null:
-		reticle.position = (screen as Vector2) - Vector2(9, 18)
+		reticle.position = (screen as Vector2) - Vector2(14, 18)
 
 static func describe(fighter: RefCounted) -> String:
 	var caps: Dictionary = fighter.caps
@@ -196,10 +196,10 @@ static func describe(fighter: RefCounted) -> String:
 			hold.slide_room.x, hold.slide_room.y, hold.id])
 	var chain: Array[String] = []
 	for act: Dictionary in caps.light:
-		chain.append("%s→%s (%s) %.2fs" % [act.archetype, act.feature.id, act.channel, act.windup])
+		chain.append("%s -> %s (%s) %.2fs" % [act.archetype, act.feature.id, act.channel, act.windup])
 	lines.append("LIGHT: " + (" | ".join(chain) if not chain.is_empty() else "none"))
 	var heavy: Variant = caps.heavy
-	lines.append("HEAVY: " + ("%s→%s (%s) %.2fs, %.0f dmg" % [heavy.archetype, heavy.feature.id, heavy.channel, heavy.windup, heavy.damage] if heavy != null else "none"))
+	lines.append("HEAVY: " + ("%s -> %s (%s) %.2fs, %.0f dmg" % [heavy.archetype, heavy.feature.id, heavy.channel, heavy.windup, heavy.damage] if heavy != null else "none"))
 	var after: Array[String] = []
 	for h: Variant in caps.get("heavy_after", []):
 		after.append(h.archetype if h != null else "—")
@@ -211,7 +211,7 @@ static func describe(fighter: RefCounted) -> String:
 		if str(r.code).ends_with("_rejected") or str(r.code).begins_with("no_") or r.code in ["object_not_wieldable", "two_hand_requires_missing_hand"]:
 			reasons.append("%s: %s" % [r.code, r.detail])
 	if not reasons.is_empty():
-		lines.append("not granted → " + "; ".join(reasons.slice(0, 5)))
+		lines.append("not granted  ->  " + "; ".join(reasons.slice(0, 5)))
 	return "\n".join(lines)
 
 func set_log(lines: Array[String]) -> void:

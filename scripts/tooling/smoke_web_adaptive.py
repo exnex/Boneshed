@@ -37,16 +37,22 @@ try:
         page.keyboard.press("f")
         page.mouse.click(620,350,button="right")
         page.keyboard.press("Space")
+        page.keyboard.press("q")
+        page.mouse.move(700,360)
+        page.mouse.wheel(0, -240)
         page.keyboard.press("b")
         page.keyboard.press("g")
-        page.keyboard.press("2")
+        page.keyboard.press("3")
+        page.keyboard.press("6")
+        page.keyboard.press("o")
         page.wait_for_timeout(2000)
         page.screenshot(path=str(shots/"adaptive_web_smoke.png"))
         assert any("BONESHED_ADAPTIVE_READY" in line for line in logs), f"Adaptive scene never reached ready: {logs[-12:]}"
+        assert any("BONESHED_ADAPTIVE_LAB_IMPORT accepted=6 rejected=9" in line for line in logs), f"Lab bundle not verified in the browser: {logs[-12:]}"
         assert page.locator("#canvas").count() == 1
         unexpected = [line for line in logs if "SCRIPT ERROR" in line or line.startswith("ERROR")]
         assert not errors and not unexpected, errors + unexpected
-        print("Adaptive Combat Lab browser smoke passed: boot, scene-ready, object controls and input.")
+        print("Adaptive Combat Lab browser smoke passed: boot, Lab bundle verified (6/9), scene-ready, object/camera controls and input.")
         browser.close()
 finally:
     server.shutdown()
